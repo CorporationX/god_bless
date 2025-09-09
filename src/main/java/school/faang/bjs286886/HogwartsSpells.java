@@ -6,24 +6,19 @@ import java.util.List;
 import java.util.Map;
 
 public class HogwartsSpells {
-    private HashMap<Integer, SpellEvent> spellById;
-    private HashMap<String, List<SpellEvent>> spellsByType;
-    static int id = 1;
-
-    public HogwartsSpells() {
-        this.spellById = new HashMap<>();
-        this.spellsByType = new HashMap<>();
-    }
+    private HashMap<Integer, SpellEvent> spellById = new HashMap<>();
+    private HashMap<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(String eventType, String actionDescription) {
-        SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
+        if (eventType == null || actionDescription == null) {
+            throw new IllegalArgumentException("eventType and actionDescription must not be null");
+        }
+        SpellEvent spellEvent = new SpellEvent(eventType, actionDescription);
 
-        spellById.put(id, spellEvent);
+        spellById.put(spellEvent.getId(), spellEvent);
 
         spellsByType.putIfAbsent(eventType, new ArrayList<>());
         spellsByType.get(eventType).add(spellEvent);
-
-        id++;
     }
 
     public SpellEvent getSpellEventById(int id) {
