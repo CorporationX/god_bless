@@ -2,12 +2,13 @@ package school.faang.bjs2_86070;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @EqualsAndHashCode
 @Getter
+@Setter
 @ToString
-
 public class Product {
     private static int id;
     private String name;
