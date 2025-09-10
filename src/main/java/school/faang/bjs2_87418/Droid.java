@@ -20,8 +20,9 @@ public record Droid(String name) {
                 if (Character.isLetter(letter)) {
                     char defaultPosition = Character.isUpperCase(letter) ? 'Z' : 'z';
                     int shift = key % 26;
-                    encryptedSymbols[i] = letter + shift > defaultPosition ?
-                            (char) (letter - (26 - shift)) : (char) (letter + shift);
+                    encryptedSymbols[i] = letter + shift > defaultPosition
+                            ? (char) (letter - (26 - shift))
+                            : (char) (letter + shift);
                 } else {
                     encryptedSymbols[i] = letter;
                 }
@@ -39,8 +40,9 @@ public record Droid(String name) {
                 if (Character.isLetter(letter)) {
                     char defaultPosition = Character.isUpperCase(letter) ? 'A' : 'a';
                     int shift = key % 26;
-                    encryptedSymbols[i] = letter - shift < defaultPosition ?
-                            (char) (letter + (26 - shift)) : (char) (letter - shift);
+                    encryptedSymbols[i] = letter - shift < defaultPosition
+                            ? (char) (letter + (26 - shift))
+                            : (char) (letter - shift);
                 } else {
                     encryptedSymbols[i] = letter;
                 }
