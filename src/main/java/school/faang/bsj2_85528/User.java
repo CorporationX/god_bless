@@ -1,4 +1,4 @@
-package school.faang.BJS2_85528;
+package school.faang.bsj2_85528;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +28,7 @@ public class User {
 
         for (User user : users) {
             for (String activity : activities) {
-                if (!user.getActivities().isEmpty() && user.getActivities().contains(activity)) {
+                if (user.getActivities().contains(activity)) {
                     mapToReturn.put(user, activity);
                     break;
                 }
