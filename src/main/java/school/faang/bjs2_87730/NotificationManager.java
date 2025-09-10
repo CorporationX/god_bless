@@ -6,14 +6,18 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class NotificationManager {
-    private Map<NotificationType, Consumer<Notification>> notifications = new HashMap<>();
+    private Map<NotificationType, Consumer<Notification>> notificationHandlers = new HashMap<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        notifications.put(type, handler);
+        notificationHandlers.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
-        notifications.get(notification.getType()).accept(notification);
+        if (notificationHandlers.get(notification.getType()) != null) {
+            notificationHandlers.get(notification.getType()).accept(notification);
+        } else {
+            System.out.println("Обработчик для полученного типа оповещения не зарегистрирован");
+        }
     }
 
     public Notification addDateToNotificationMessage(Notification notification,
