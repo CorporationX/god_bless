@@ -1,4 +1,4 @@
-package school.faang.BJS2_87262;
+package school.faang.functional_interfaces_lambdas.gmail_rich_filters_bjs2_87262;
 
 import java.util.Arrays;
 import java.util.List;
