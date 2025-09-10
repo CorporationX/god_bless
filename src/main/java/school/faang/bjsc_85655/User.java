@@ -24,7 +24,7 @@ public class User {
         if (users == null) {
             throw new IllegalArgumentException("Список пользователей не может быть null");
         }
-
+        //for PR
         Map<Integer, List<User>> result = new HashMap<>();
 
         for (User user : users) {

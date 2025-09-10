@@ -27,7 +27,7 @@ public class Main {
         Map<Integer, List<User>> emptyResult = User.groupUsers(Collections.emptyList());
         System.out.println("Результат: " + emptyResult.size() + " групп");
 
-        // Тест 3: null список
+        // Тест 3: null список for PR
         System.out.println("\nТест 3 - null список:");
         try {
             User.groupUsers(null);
