@@ -31,7 +31,15 @@ public abstract class Character {
     public abstract void attack(Character opponent);
 
     protected boolean isDead(Character opponent) {
-        return opponent.getHealth() > DefaultParameters.DEAD_HP;
+        return opponent.getHealth() <= DefaultParameters.DEAD_HP;
+    }
+
+    protected void setHp(int newHp) {
+        if (newHp < 0) {
+            this.health = 0;
+        }   else {
+            this.health = newHp;
+        }
     }
 
     protected void printStatusHp(Character opponent) {

@@ -11,12 +11,9 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
-        if (isDead(opponent)) {
-            printStatusHp(opponent);
-            opponent.setHealth(opponent.getHealth() - this.getAgility());
-        } else {
-            opponent.setHealth(0);
-            printStatusHp(opponent);
+        if (!isDead(opponent)) {
+            opponent.setHp(opponent.getHealth() - this.getAgility());
         }
+        printStatusHp(opponent);
     }
 }

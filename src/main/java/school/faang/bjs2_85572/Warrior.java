@@ -11,12 +11,9 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character opponent) {
-        if (isDead(opponent)) {
-            printStatusHp(opponent);
-            opponent.setHealth(opponent.getHealth() - this.getStrength());
-        } else {
-            opponent.setHealth(0);
-            printStatusHp(opponent);
+        if (!isDead(opponent)) {
+            opponent.setHp(opponent.getHealth() - this.getStrength());
         }
+        printStatusHp(opponent);
     }
 }
