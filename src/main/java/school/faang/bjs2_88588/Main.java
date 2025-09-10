@@ -15,17 +15,18 @@ public class Main {
                 new Email("Spam", "You won 1 million", false)
         ));
 
-        Predicate<Email> predicate = email -> email.isImportant();
+        Predicate<Email> predicate = Email::isImportant;
 
         Function<Email, Email> function = email -> {
-            email.setSubject(email.getSubject().toUpperCase());
+            email.getSubject().toUpperCase();
             email.setBody("%s | MAIL".formatted(email.getBody()));
             return email;
         };
 
-        Consumer<Email> consumer = email -> System.out.println(email);
+        Consumer<Email> consumer = System.out::println;
 
         emailProcessor.processEmails(emailList, predicate, function, consumer);
 
+        System.out.println(emailList);
     }
 }
