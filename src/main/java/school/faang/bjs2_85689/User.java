@@ -1,11 +1,14 @@
 package school.faang.bjs2_85689;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Set;
 
 @Getter
+@ToString
 public class User {
+    public static final int MIN_AGE = 18;
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
 
@@ -15,11 +18,11 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty.");
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be null or blank.");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Age cannot be less than 18. Received: " + age);
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Age cannot be less than " + MIN_AGE + ".");
         }
         if (job == null || !VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Must work in " + VALID_JOBS + ". Received: " + job);
@@ -33,10 +36,5 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return name + " (" + age + " y.o., " + job + ", " + address + ")";
     }
 }
