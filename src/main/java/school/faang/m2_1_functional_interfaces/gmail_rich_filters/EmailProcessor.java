@@ -15,15 +15,14 @@ public class EmailProcessor {
     public void processEmails(
             List<Email> emailList,
             Predicate<Email> filter,
-            Consumer<Email> process,
+            Consumer<Email> processor,
             Function<Email, String> function) {
         Iterator<Email> iterator = emailList.iterator();
         while (iterator.hasNext()) {
             Email email = iterator.next();
             if (filter.test(email)) {
                 function.apply(email);
-                process.accept(email);
-                iterator.remove();
+                processor.accept(email);
             } else {
                 iterator.remove();
             }
@@ -43,7 +42,10 @@ public class EmailProcessor {
 
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
 
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Function<Email, String> toUpperCase = email -> {
+            email.setBody(email.getBody().toUpperCase());
+            return email.getBody();
+        };
 
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
