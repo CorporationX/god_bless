@@ -1,7 +1,7 @@
-package school.faang.BJS2_87171;
+package school.faang.bjs2_87171;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         LibrarySystem.addBook(
                 "Как охотиться на медведя?", "Охотник Кирюша", 1990, "полка 50");
         LibrarySystem.addBook(
@@ -30,7 +30,5 @@ public class Main {
                 "Как охотиться на колобка?", "Охотник Кирюша", 1994);
         System.out.println();
         System.out.println("Про колобка по указателю: " + huntingKolobok);
-
-
     }
 }
