@@ -27,22 +27,16 @@ public class Main {
                 new Email("Спам", "Текст спама", false)
         );
 
-        // Фильтр, который пропускает только важные письма
         Predicate<Email> importantFilter = email -> email.getIsImportant();
-
-        // Обработчик, который выводит тему письма в консоль
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
 
-        // Преобразователь, который переводит текст письма в верхний регистр и сохраняет изменения
         Function<Email, String> toUpperCase = email -> {
             email.setBody(email.getBody().toUpperCase());
-            return email.getBody();  // Возвращает преобразованный текст
+            return email.getBody();
         };
 
-        // Обработка писем
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
-        // Выводим обновленные письма, чтобы убедиться, что изменения сохранились
         emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: "
                 + email.getBody()));
     }
