@@ -1,4 +1,4 @@
-package school.faang.BJS2_85708;
+package school.faang.bjs2_85708;
 
 public class App {
 
