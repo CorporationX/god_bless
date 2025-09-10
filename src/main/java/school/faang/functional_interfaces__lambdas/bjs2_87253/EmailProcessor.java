@@ -10,7 +10,6 @@ public class EmailProcessor {
                               Function<Email, String> converter, Consumer<Email> action) {
         for (Email email : emails) {
             if (filter.test(email)) {
-                // Об этом не подумал, увидел в подсказке, то есть преобразовал, но не зафиксировал в списке..
                 String convertedBody = converter.apply(email);
                 email.setBody(convertedBody);
                 action.accept(email);

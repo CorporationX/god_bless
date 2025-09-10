@@ -21,8 +21,8 @@ public class Main {
 
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: "
-                + email.getSubject() + " - " + email.getBody());
+        Consumer<Email> printEmail = email ->
+                System.out.printf("Обработано письмо: %s - %s", email.getSubject(), email.getBody());
 
         emailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
     }
