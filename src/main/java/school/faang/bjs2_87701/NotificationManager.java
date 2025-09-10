@@ -11,11 +11,11 @@ import java.util.function.Predicate;
 
 @Slf4j
 public class NotificationManager {
-    private Map<NotificationType, Consumer<Notification>> notifications = new HashMap<>();
+    private Map<NotificationType, Consumer<Notification>> notificationHandlers = new HashMap<>();
     private static final Set<String> STOP_WORDS = Set.of("мат", "береза");
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        notifications.put(type, handler);
+        notificationHandlers.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
@@ -28,7 +28,7 @@ public class NotificationManager {
             return;
         }
 
-        Optional.ofNullable(notifications.get(notification.getType()))
+        Optional.ofNullable(notificationHandlers.get(notification.getType()))
             .ifPresentOrElse(
                     handler -> handler.accept(notification),
                     () -> log.warn("Незарегистрированный тип уведомления: {}", notification.getType())
