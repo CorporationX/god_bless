@@ -11,6 +11,7 @@ public class Main {
         LibrarySystem.addBook("Diamond Chariot", "Akunin", 2002, "Shelf 4, row 5");
 
         LibrarySystem.removeBook("Python for Dummies", "Sanek", 2016);
+        LibrarySystem.removeBook("Python for Dummies", "Sanek", 2016);
 
         LibrarySystem.findBook("Crime and Punishment", "Dostoevski", 1866);
 
