@@ -6,7 +6,7 @@ public class Main {
         Image familyImage = new Image("Семейное фото", "Фото без фильтра");
         System.out.println(familyImage);
         System.out.println(
-                filterProcessor.applyFilter(familyImage,image -> {
+                filterProcessor.applyFilter(familyImage, image -> {
                     image.setDescription("На фото применен фильтр \"Черно-белый\"");
                     return image;
                 })
