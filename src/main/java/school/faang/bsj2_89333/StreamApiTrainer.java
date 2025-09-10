@@ -15,37 +15,39 @@ public class StreamApiTrainer {
     public static int getMaxValue(List<Integer> values) {
         return values
                 .stream()
-                .max(Comparator.comparingInt(value -> value)).orElse(0);
+                .max(Comparator.comparingInt(value -> value))
+                .orElseThrow(IllegalStateException::new);
 
     }
 
-    public static double getAverageValue(List<Integer> integers) {
+    public static double calculateAverageValue(List<Integer> integers) {
         return (double) integers
                 .stream()
                 .reduce(0, Integer::sum) / integers.size();
     }
 
-    public static long getStringCount(List<String> strings, char symbol) {
+    public static long countStringsStartsWith(List<String> strings, char symbol) {
         return strings
                 .stream()
                 .filter(string -> string.charAt(0) == symbol)
                 .count();
     }
 
-    public static List<String> getStrings(List<String> strings, String valueForCheck) {
+    public static List<String> getStringsContains(List<String> strings, String valueForCheck) {
         return strings
                 .stream()
-                .filter(string -> string.contains(valueForCheck)).toList();
+                .filter(string -> string.contains(valueForCheck))
+                .toList();
     }
 
-    public static List<String> sortStrings(List<String> strings) {
+    public static List<String> sortStringsByLength(List<String> strings) {
         return strings
                 .stream()
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
-    public static boolean isAllElementsTrue(List<Integer> numbers, Predicate<Integer> predicate) {
+    public static boolean areAllElementsTrue(List<Integer> numbers, Predicate<Integer> predicate) {
         return numbers
                 .stream()
                 .allMatch(predicate);
@@ -55,10 +57,11 @@ public class StreamApiTrainer {
         return integers
                 .stream()
                 .filter(integer -> integer > checkValue)
-                .min(Comparator.comparingInt(integer -> integer)).orElse(0);
+                .min(Comparator.comparingInt(integer -> integer))
+                .orElseThrow(IllegalStateException::new);
     }
 
-    public static List<Integer> getTransformedList(List<String> strings) {
+    public static List<Integer> getStringLengths(List<String> strings) {
         return strings
                 .stream()
                 .map(String::length)
