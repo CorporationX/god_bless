@@ -11,19 +11,21 @@ import java.util.function.Predicate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NotificationManager {
-    private Map<NotificationType, Consumer<Notification>> notificationActions = new HashMap<>();
+    private Map<NotificationType, Consumer<Notification>> notificationHandlers = new HashMap<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> notificationConsumer) {
-        notificationActions.putIfAbsent(type, notificationConsumer);
+        notificationHandlers.putIfAbsent(type, notificationConsumer);
     }
 
     public void sendNotification(Predicate<Notification> notificationPredicate, Notification notification) {
-        if (notificationPredicate.test(notification)) {
-            notificationActions.get(notification.getType()).accept(notification);
-        } else {
+        if (notificationPredicate.test(notification) && notificationHandlers.get(notification.getType()) != null) {
+            notificationHandlers.get(notification.getType()).accept(notification);
+        } else if (!notificationPredicate.test(notification)) {
             System.out.println("Слишком много символов: " +
                     notification.getMessage().length() + " > " +
                     Notification.MAX_NOTIFICATION_LENGTH);
+        } else {
+            System.out.println("Не знаем как доставить уведомление");
         }
     }
 }

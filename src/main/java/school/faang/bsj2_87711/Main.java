@@ -8,6 +8,8 @@ public class Main {
                 "Погасите кредит!");
         Notification notificationSms = new Notification(NotificationType.SMS,
                 "Завтра будет дождь, не забудьте взять зонтик");
+        Notification notificationUnknown = new Notification(NotificationType.UNKNOWN,
+                "Do anything");
 
         NotificationManager notificationManager = new NotificationManager();
         notificationManager.registerHandler(NotificationType.PUSH,
@@ -29,5 +31,8 @@ public class Main {
         notificationManager.sendNotification(notification ->
                         notification.getMessage().length() <= Notification.MAX_NOTIFICATION_LENGTH,
                         notificationSms);
+        notificationManager.sendNotification(notification ->
+                        notification.getMessage().length() <= Notification.MAX_NOTIFICATION_LENGTH,
+                        notificationUnknown);
     }
 }
