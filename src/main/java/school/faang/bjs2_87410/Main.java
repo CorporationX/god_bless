@@ -1,4 +1,4 @@
-package school.faang.Bjs2_87410;
+package school.faang.bjs2_87410;
 
 public class Main {
 
@@ -9,7 +9,7 @@ public class Main {
         String lumos = "Lumos";
         String expelliarmus = "Expelliarmus";
 
-        spellCaster.cast(alohomora, (spell) -> "The door is unlocked by " + spell);
+        spellCaster.cast(alohomora, spell -> "The door is unlocked by " + spell);
         spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
         spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
     }
