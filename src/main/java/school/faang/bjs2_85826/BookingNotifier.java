@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class BookingNotifier implements BookingObserver {
+public class BookingNotifier {
     private List<BookingObserver> listBookingObserver = new ArrayList<>();
 
     public void addObserver(BookingObserver observer, String status) {
@@ -20,14 +20,7 @@ public class BookingNotifier implements BookingObserver {
     }
 
     public void notifyObservers(Booking booking, String status) {
-        for (int i = 0; i < listBookingObserver.size(); i++) {
-            update(booking, status);
-        }
+        listBookingObserver.forEach(obs -> obs.update(booking, status));
     }
 
-    @Override
-    public void update(Booking booking, String status) {
-        System.out.printf("There have been changes in room number %x \n" +
-                          "status changed to %s", booking.getRoom().getRoomNumber(), status);
-    }
 }

@@ -15,7 +15,7 @@ import java.util.Set;
 @ToString
 @AllArgsConstructor
 public class Room {
-    private int roomNumber;
-    private String type;
-    private Set<String> amenities;
+    private final int roomNumber;
+    private final String type;
+    private final Set<String> amenities;
 }

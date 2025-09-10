@@ -3,24 +3,24 @@ package school.faang.bjs2_85826;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.awt.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
+
 
 @Setter
 @Getter
 public class BookingSystem {
-    private ArrayList<Room> mapInfoRoom = new ArrayList<>();
+    private List<Room> listInfoRoom = new ArrayList<>();
     private BookingNotifier notifier = new BookingNotifier();
-    private ArrayList<Booking> bookingList = new ArrayList<>();
+    private List<Booking> bookingList = new ArrayList<>();
 
     public void add(Room room) {
-        if (mapInfoRoom.contains(room)) {
-            mapInfoRoom.add(room);
+        if (listInfoRoom.contains(room)) {
+            listInfoRoom.add(room);
             System.out.printf("The room with number %x was added \n", room.getRoomNumber());
         } else {
             System.out.printf("The room with number %x already exists \n", room.getRoomNumber());
@@ -28,48 +28,50 @@ public class BookingSystem {
     }
 
     public void remove(int roomNumber) {
-        Room room = mapInfoRoom.stream()
+        Room room = listInfoRoom.stream()
                 .filter(i -> i.getRoomNumber() == roomNumber)
                 .findFirst()
-                .orElse(null);
-        mapInfoRoom.remove(room);
+                .orElseThrow();
+        listInfoRoom.remove(room);
     }
 
     public void bookRoom(int roomNumber, String date, String timeSlot) {
-        Room room = mapInfoRoom.stream()
+        Optional<Room> room = listInfoRoom.stream()
                 .filter(r -> r.getRoomNumber() == roomNumber)
-                .findFirst()
-                .orElse(null);
-        if (room == null) {
+                .findFirst();
+        if (room.isEmpty()) {
             System.out.printf("Sorry!!! Room with number %x is busy((!!! Sorry!!!", roomNumber);
         } else {
-            Booking booking = new Booking(new Random().nextInt(Integer.MAX_VALUE), room, date, timeSlot);
+            Booking booking = new Booking(AtomicCounter.incrementId(), room.get(), date, timeSlot);
             notifier.notifyObservers(booking, "booked");
             System.out.println("Room with number %x was booked");
-            mapInfoRoom.add(room);
+            listInfoRoom.add(room.get());
+            bookingList.add(booking);
         }
     }
 
-    public ArrayList<Room> findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {
-        ArrayList<Room> resultList = new ArrayList<>();
-        ArrayList<Room> listOfEligible = (ArrayList<Room>) mapInfoRoom.stream()
-                .filter(r -> requiredAmenities.contains(r.getAmenities()))
+    public List<Room> findAvailableRooms(String date, String timeSlot, Set<String> requiredAmenities) {
+        List<Room> resultList = new ArrayList<>(listInfoRoom);
+
+        List<Room> bookingRoomList = bookingList.stream()
+                .filter(booking -> !Objects.equals(date, booking.getDate())
+                        && !Objects.equals(timeSlot, booking.getTimeSlot()))
+                .map(Booking::getRoom)
                 .toList();
-        Room room = null;
-        for (int i = 0; i< listOfEligible.size(); i++) {
-            for (int j = 0; j < bookingList.size(); j++) {
-                if (bookingList.get(j).getRoom().equals(listOfEligible.get(i))) {
-                    if (!bookingList.get(j).getDate().equals(date) && !bookingList.get(j).getTimeSlot().equals(timeSlot)) {
-                        room = listOfEligible.get(i);
-                    } else {
-                        room = null;
-                    }
-                }
-                if (room != null) {
-                    resultList.add(room);
-                }
-            }
-        }
-        return resultList;
+
+        resultList.removeAll(bookingRoomList);
+
+        return resultList.stream().filter(room -> room.getAmenities().containsAll(requiredAmenities)).toList();
+    }
+
+    public void cancelBooking(int bookingId) {
+        Booking booking = bookingList.stream()
+                .filter(book -> Objects.equals(bookingId, book.getBookingId()))
+                .findFirst()
+                .orElseThrow();
+        bookingList.remove(booking);
+        notifier.notifyObservers(booking, "Cancel");
+
+
     }
 }
