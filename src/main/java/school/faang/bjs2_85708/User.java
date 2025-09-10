@@ -6,8 +6,8 @@ import java.util.List;
 
 @Data
 public class User {
-    public static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
-    public static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+    private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
+    private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
 
     private String name;
     private int age;
@@ -36,5 +36,13 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
+    }
+
+    public static List<String> getValidJobs() {
+        return VALID_JOBS;
+    }
+
+    public static List<String> getValidAddresses() {
+        return VALID_ADDRESSES;
     }
 }
