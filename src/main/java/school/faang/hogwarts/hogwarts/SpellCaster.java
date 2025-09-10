@@ -1,0 +1,21 @@
+package school.faang.hogwarts.hogwarts;
+
+public class SpellCaster {
+
+    void cast(String spellName, SpellAction action) {
+        String result = action.castSpell(spellName);
+        System.out.println("Результат заклинания: " + result);
+    }
+
+    public static void main(String[] args) {
+        SpellCaster spellCaster = new SpellCaster();
+
+        String alohomora = "Alohomora";
+        String lumos = "Lumos";
+        String expelliarmus = "Expelliarmus";
+
+        spellCaster.cast(alohomora, (spellName -> "The door is unlocked by " + spellName));
+        spellCaster.cast(lumos, (spellName) -> "A beam of light is created by " + spellName);
+        spellCaster.cast(expelliarmus, (spellName) -> "The opponent is disarmed by " + spellName);
+    }
+}
