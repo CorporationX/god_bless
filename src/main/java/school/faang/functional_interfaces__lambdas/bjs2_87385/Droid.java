@@ -25,32 +25,14 @@ public class Droid {
         return encryptor.encript(message, key);
     }
 
-    public String decryptMessage(String message, int key) {
-        DroidMessageEncryptor decryptor = (newMessage, encriptionKey) -> {
-            StringBuilder encryptedMessage = new StringBuilder(message);
-            for (int i = 0; i < message.length(); i++) {
-                if ((encryptedMessage.charAt(i) == ' ')
-                        || (encryptedMessage.charAt(i) == '.')
-                        || (encryptedMessage.charAt(i) == ',')
-                        || (encryptedMessage.charAt(i) == '?')
-                        || (encryptedMessage.charAt(i) == '!')) {
-                    continue;
-                }
-                encryptedMessage.setCharAt(i, (char) (newMessage.charAt(i) - key));
-            }
-            return newMessage.toString();
-        };
-        return decryptor.encript(message, key);
-    }
-
     public void sendMessage(Droid droidRecipient, String message, int key) {
         String droidMessage = droidRecipient.encryptMessage(message, key);
         System.out.println("\n" + this.name + " направил шифрованное послание для "
                 + droidRecipient.name + ": " + droidMessage);
-        droidRecipient.receiveMessage(message, key);
+        droidRecipient.receiveMessage(droidMessage, key);
     }
 
     public void receiveMessage(String message, int key) {
-        System.out.println(this.name + " расшифровал сообщение: " + decryptMessage(message, key));
+        System.out.println(this.name + " расшифровал сообщение: " + encryptMessage(message, (-1) * key));
     }
 }
