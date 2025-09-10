@@ -3,5 +3,5 @@ package school.faang.functional_interfaces_lambdas.khogvarts_khogvarts_bjs2_8743
 
 @FunctionalInterface
 public interface SpellAction {
-    public String castSpell(String spell);
+    String castSpell(String spell);
 }
