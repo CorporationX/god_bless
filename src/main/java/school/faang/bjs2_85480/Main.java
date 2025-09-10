@@ -1,9 +1,9 @@
-package school.faang.bjs_85480;
+package school.faang.bjs2_85480;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import static school.faang.bjs_85480.User.findHobbyLovers;
+import static school.faang.bjs2_85480.User.findHobbyLovers;
 
 public class Main {
 
