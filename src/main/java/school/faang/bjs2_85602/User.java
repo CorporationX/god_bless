@@ -21,6 +21,6 @@ public class User {
     }
 
     public String toString() {
-        return "User{" + name + '}';
+        return "User{%s}".formatted(name);
     }
 }
