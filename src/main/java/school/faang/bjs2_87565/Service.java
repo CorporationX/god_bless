@@ -7,7 +7,6 @@ public class Service {
         if (Objects.isNull(mes)) {
             throw new RuntimeException("Sorry!!! Was noticed NULL");
         }
-        System.out.println("mes");
         return mes;
     }
 }
