@@ -13,14 +13,14 @@ public class User {
 
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-    private static final int ageMin = 18;
+    private static final int AGE_MIN = 18;
 
     public User(String name, int age, String job, String address) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("имя не должно быть пустым");
         }
-        if (age < ageMin) {
-            throw new IllegalArgumentException("возраст не может быть меньше 18");
+        if (age < AGE_MIN) {
+            throw new IllegalArgumentException("возраст не может быть меньше " + AGE_MIN);
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("недопустимое место работы");
