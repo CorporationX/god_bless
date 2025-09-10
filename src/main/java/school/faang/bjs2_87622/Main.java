@@ -1,6 +1,8 @@
 package school.faang.bjs2_87622;
 
-import static school.faang.bjs2_87622.Notification.NotificationType.*;
+import static school.faang.bjs2_87622.Notification.NotificationType.EMAIL;
+import static school.faang.bjs2_87622.Notification.NotificationType.SMS;
+import static school.faang.bjs2_87622.Notification.NotificationType.PUSH;
 
 public class Main {
     public static void main(String[] args) {
