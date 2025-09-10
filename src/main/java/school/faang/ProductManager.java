@@ -10,37 +10,41 @@ import java.util.Set;
 public class ProductManager {
     static Set<Product> products = new HashSet<>();
 
-    public static void addProduct(Product.Category category, String name) {
+    public static void addProduct(Category.Categories category, String name) throws Exception {
+        if (category == null || name == null) {
+            throw new Exception("Категория или имя равны null.");
+        }
         Product newProduct = new Product(name, category);
         products.add(newProduct);
     }
 
-    public static void removeProduct(Product.Category category, String name) {
+    public static void removeProduct(Category.Categories category, String name) {
         products.removeIf(product -> product.getCategory() == category && product.getName().equals(name));
     }
 
-    public static List<Product> findProductsByCategory(Product.Category category) {
-        List<Product> thisCategoryProducts = new ArrayList<>();
+    public static List<Product> findProductsByCategory(Category.Categories category) {
+        List<Product> result = new ArrayList<>();
         for (Product product : products) {
             if (product.getCategory() == category) {
-                thisCategoryProducts.add(product);
+                result.add(product);
             }
         }
-        return thisCategoryProducts;
+        return result;
     }
 
-    public static Map<Product.Category, List<Product>> groupProductsByCategories() {
-        Map<Product.Category, List<Product>> productsByCategories = new HashMap<>();
+    public static Map<Category.Categories, List<Product>> groupProductsByCategories() {
+        Map<Category.Categories, List<Product>> productsByCategories = new HashMap<>();
         for (Product product : products) {
             List<Product> thisCategoryProducts = new ArrayList<>();
             productsByCategories.putIfAbsent(product.getCategory(), thisCategoryProducts);
-            productsByCategories.get(product.getCategory()).add(product);
+            productsByCategories.get(product.getCategory())
+                    .add(product);
         }
         return productsByCategories;
     }
 
-    public static void printAllProducts(Map<Product.Category, List<Product>> productsByCategories) {
-        for (Map.Entry<Product.Category, List<Product>> entry : productsByCategories.entrySet()) {
+    public static void printAllProducts(Map<Category.Categories, List<Product>> productsByCategories) {
+        for (Map.Entry<Category.Categories, List<Product>> entry : productsByCategories.entrySet()) {
             System.out.println("Категория: " + entry.getKey());
             System.out.println("Продукты:");
             for (Product product : entry.getValue()) {
