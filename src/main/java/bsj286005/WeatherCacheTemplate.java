@@ -10,13 +10,13 @@ public abstract class WeatherCacheTemplate {
     private Map<String, WeatherData> weatherCash = new HashMap<>();
     private WeatherProvider weatherProvider;
 
-    long maxCacheAgeMillis;
+    private long maxCacheAgeMillis;
 
     public WeatherCacheTemplate(WeatherProvider weatherProvider) {
         this.weatherProvider = weatherProvider;
     }
 
-    abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
+    protected abstract boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis);
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         if (weatherCash.get(city) == null || isCacheExpired(weatherCash.get(city), maxCacheAgeMillis)) {

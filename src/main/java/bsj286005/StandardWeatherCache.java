@@ -6,7 +6,7 @@ public class StandardWeatherCache extends WeatherCacheTemplate {
     }
 
     @Override
-    boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis) {
+    protected boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis) {
         long currentTime = System.currentTimeMillis();
         return currentTime - data.getTimestamp() > maxCacheAgeMillis;
     }
