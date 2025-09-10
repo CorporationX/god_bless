@@ -24,7 +24,9 @@ public class NotificationManager {
             n.setMessage("%s | Your Meta".formatted(n.getMessage()));
             return n;
         });
-        notificationSystem.get(notification.getType()).accept(signedNotification);
+        notificationSystem.getOrDefault(notification.getType(),
+                n -> System.out.printf("Default Notification: %s%n", notification.getMessage()))
+                        .accept(signedNotification);
     }
 
     private boolean filterNotification(Notification notification, Predicate<Notification> filter) {
