@@ -31,7 +31,7 @@ public class MethodsWithStreams {
                 .toList();
     }
 
-    public List<String> getBinaryStrings(List<Integer> numbers){
+    public List<String> getBinaryStrings(List<Integer> numbers) {
         return numbers.stream()
                 .map(Integer::toBinaryString)
                 .toList();
