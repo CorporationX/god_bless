@@ -1,4 +1,4 @@
-package school.faang.BJS2_87438;
+package school.faang.functional_interfaces_lambdas.khogvarts_khogvarts_bjs2_87438;
 
 import lombok.NonNull;
 
