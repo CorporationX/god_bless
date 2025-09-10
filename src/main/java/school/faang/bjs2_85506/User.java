@@ -22,6 +22,7 @@ public class User {
     static Map<Integer, List<User>> groupUsers(List<User> users) {
 
         Map<Integer, List<User>> map = new HashMap<>();
+
         for (User user : users) {
 
             int age = user.getAge();
