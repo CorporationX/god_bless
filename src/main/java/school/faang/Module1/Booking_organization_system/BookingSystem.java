@@ -75,8 +75,11 @@ public class BookingSystem {
         availableRooms.removeIf(room -> !room.getRoomAmenities().containsAll(requiredAmenities));
 
         for (Room room : availableRooms) {
-            System.out.printf("Room: %d, Amenities: %s, Date: %s - %s ✅\n", room.getRoomNumber(), room.getRoomAmenities(),
-                    newCheckInDate, newCheckOutDate);
+            System.out.printf("Room: %d, Amenities: %s, Date: %s - %s ✅\n",
+                    room.getRoomNumber(),
+                    room.getRoomAmenities(),
+                    newCheckInDate,
+                    newCheckOutDate);
         }
     }
 
