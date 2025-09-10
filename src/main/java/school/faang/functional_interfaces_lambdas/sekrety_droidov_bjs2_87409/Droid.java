@@ -1,4 +1,4 @@
-package school.faang.functional_interfaces_lambdas.sekrety_droidov_BJS2_87409;
+package school.faang.functional_interfaces_lambdas.sekrety_droidov_bjs2_87409;
 
 import lombok.Getter;
 
