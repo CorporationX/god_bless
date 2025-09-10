@@ -1,4 +1,4 @@
-package school.faang.BJS2_85685;
+package school.faang.bjs2_85685;
 
 import java.util.ArrayList;
 import java.util.List;
