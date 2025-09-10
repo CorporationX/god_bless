@@ -3,7 +3,7 @@ package school.faang.BJS2_86880;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //Test:
         HogwartsSpells.addSpellEvent("Атака по-деревенски", "Дать по репе");
         HogwartsSpells.addSpellEvent("Атака по-деревенски", "Зарядить в бубен");

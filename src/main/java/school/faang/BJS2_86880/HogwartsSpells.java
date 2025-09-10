@@ -9,7 +9,10 @@ public class HogwartsSpells {
     private static final Map<Integer, SpellEvent> spellById = new HashMap<>();
     private static final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
-    public static void addSpellEvent(String eventType, String actionDescription) {
+    public static void addSpellEvent(String eventType, String actionDescription) throws Exception {
+        if (eventType == null || actionDescription == null) {
+            throw new Exception("eventType или/и actionDescription равно null.");
+        }
         SpellEvent newSpellEvent = new SpellEvent(eventType, actionDescription);
         spellById.put(newSpellEvent.getId(), newSpellEvent);
         List<SpellEvent> thisTypeSpells = new ArrayList<>();
@@ -21,7 +24,10 @@ public class HogwartsSpells {
         return spellById.get(id);
     }
 
-    public static List<SpellEvent> getSpellEventsByType(String eventType) {
+    public static List<SpellEvent> getSpellEventsByType(String eventType) throws Exception {
+        if (eventType == null) {
+            throw new Exception("eventType равен null");
+        }
         return spellsByType.get(eventType);
     }
 
@@ -29,7 +35,6 @@ public class HogwartsSpells {
         String thisSpellEventType = spellById.get(id).getEventType();
         spellById.remove(id);
         spellsByType.get(thisSpellEventType).removeIf(spellEvent -> spellEvent.getId() == id);
-
     }
 
     public static void printAllSpellEvents() {
