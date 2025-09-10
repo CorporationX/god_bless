@@ -6,7 +6,6 @@ import lombok.ToString;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -15,17 +14,17 @@ import java.util.function.Predicate;
 @ToString
 public class NotificationManager {
     private static final Set<String> BAN_WORD = Set.of("fuck", "shit", "bitch");
-    private final Map<NotificationType, Consumer<Notification>> notificationHandler = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> notificationHandlers = new HashMap<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        notificationHandler.put(type, handler);
+        notificationHandlers.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> appeal = notificationHandler.get(notification.getType());
+        Consumer<Notification> appeal = notificationHandlers.get(notification.getType());
 
         if (Objects.nonNull(appeal)) {
-            examinationFilterWord(notification, n -> BAN_WORD.stream()
+            filterWords(notification, n -> BAN_WORD.stream()
                     .anyMatch(n.getMessage()
                             .toLowerCase()::contains));
         } else {
@@ -33,7 +32,7 @@ public class NotificationManager {
         }
     }
 
-    private void examinationFilterWord(Notification notification, Predicate<Notification> ban) {
+    private void filterWords(Notification notification, Predicate<Notification> ban) {
         if (ban.test(notification)) {
             System.out.println("A forbidden word was used!!! BAAAAAN!!!!");
         } else {
