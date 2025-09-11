@@ -6,9 +6,11 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
-        List<String> strings = Arrays.asList("apple", "banana", "cherry", "date");
+        List<String> strings = Arrays.asList("apple", "banana", "cherry", "date", "banana");
 
         System.out.println("Sum even numbers: " + ListOperations.sumEvenNumbers(numbers));
         System.out.println("Max number: " + ListOperations.maxElement(numbers));
+        System.out.println("Average value numbers: " + ListOperations.averageValueNumbers(numbers));
+        System.out.println("Number Special Lines: " + ListOperations.numberSpecialLines(strings, 'b'));
     }
 }

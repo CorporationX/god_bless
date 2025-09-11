@@ -21,4 +21,17 @@ public class ListOperations {
                 .max(Integer::compareTo)
                 .orElseThrow(() -> new NoSuchElementException("List is empty"));
     }
+
+    public static double averageValueNumbers(List<Integer> numbers) {
+        return numbers.stream()
+                .mapToDouble(Integer::doubleValue)
+                .average()
+                .orElseThrow(() -> new NoSuchElementException("List is empty"));
+    }
+
+    public static long numberSpecialLines(List<String> fruit, char sign) {
+        return fruit.stream()
+                .filter(word -> word.charAt(0) == sign)
+                .count();
+    }
 }
