@@ -1,43 +1,22 @@
 package school.faang.usercollector;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@AllArgsConstructor
+@Getter
+@ToString
 public class User {
     private int id;
     private String name;
     private int age;
     private Set<String> activity;
-
-    public User(int id, String name, int age, Set<String> activity) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.activity = activity;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public Set<String> getActivity() {
-        return activity;
-    }
-
-    @Override
-    public String toString() {
-        return "User {id = " + id + ", name = " + name + ", age = " + age + ", activity = " + activity + "}";
-    }
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> map = new HashMap<>();

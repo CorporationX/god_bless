@@ -1,7 +1,6 @@
 package school.faang.usercollector;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -9,9 +8,9 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
 
-        HashSet<String> activity1 = new HashSet<>(Arrays.asList("Борьба", "Футбол", "Плавание"));
-        HashSet<String> activity2 = new HashSet<>(Arrays.asList("Чтение", "Йога", "Медитация", "Пилатес"));
-        HashSet<String> activity3 = new HashSet<>(Arrays.asList("Ходьба", "Бег", "Прыжки в длину"));
+        Set<String> activity1 = Set.of("Борьба", "Футбол", "Плавание");
+        Set<String> activity2 = Set.of("Чтение", "Йога", "Медитация", "Пилатес");
+        Set<String> activity3 = Set.of("Ходьба", "Бег", "Прыжки в длину");
 
         User user1 = new User(1, "Иван", 18, activity3);
         User user2 = new User(2, "Сергей", 21, activity1);
@@ -19,12 +18,12 @@ public class Main {
 
         List<User> users = Arrays.asList(user1, user2, user3);
 
-        Set<String> activity = new HashSet<>(Arrays.asList("Борьба", "Бег", "Медитация"));
+        Set<String> activity = Set.of("Борьба", "Бег", "Медитация");
 
         Map<User, String> activLovers = User.findHobbyLovers(users, activity);
 
         for (Map.Entry<User, String> entry : activLovers.entrySet()) {
-            System.out.println(entry.getKey().getName() + " увлекается " + entry.getValue());
+            System.out.printf("\n%s увлекается %s", entry.getKey().getName(), entry.getValue());
         }
     }
 }
