@@ -30,6 +30,9 @@ public class ListOperations {
     }
 
     public static long numberSpecialLines(List<String> fruit, char sign) {
+        if (fruit.isEmpty()) {
+            throw new IllegalArgumentException("List is empty");
+        }
         return fruit.stream()
                 .filter(word -> word.charAt(0) == sign)
                 .count();
