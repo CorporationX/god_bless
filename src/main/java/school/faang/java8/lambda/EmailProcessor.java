@@ -1,4 +1,4 @@
-package school.faang.BJS2_87282;
+package school.faang.java8.lambda;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -7,11 +7,6 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
     public void processEmails(List<Email> emails, Predicate<Email> importantFilter, Consumer<Email> printEmail, Function<Email, String> toUpperCase) {
-        for (Email email : emails) {
-            if (importantFilter.test(email)) {
-                toUpperCase.apply(email);
-                printEmail.accept(email);
-            }
-        }
+        emails.stream().filter(importantFilter).peek(email -> email.setBody(toUpperCase.apply(email))).forEach(printEmail);
     }
 }

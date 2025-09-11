@@ -1,4 +1,4 @@
-package school.faang.BJS2_87282;
+package school.faang.java8.lambda;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package school.faang.BJS2_87282;
+package school.faang.java8.lambda;
 
 import org.junit.jupiter.api.Test;
 
@@ -34,10 +34,14 @@ class EmailProcessorTest {
             email.setBody(email.getBody().toUpperCase());
             return email.getBody();  // Возвращает преобразованный текст
         };
-
+        assertEquals("Текст письма 1", emails.get(0).getBody());
+        assertEquals("Текст письма 2", emails.get(1).getBody());
+        assertEquals("Текст спама", emails.get(2).getBody());
 // Обработка писем
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
-
+        assertEquals("Текст письма 1", emails.get(0).getBody());
+        assertEquals("ТЕКСТ ПИСЬМА 2", emails.get(1).getBody());
+        assertEquals("Текст спама", emails.get(2).getBody());
 // Выводим обновленные письма, чтобы убедиться, что изменения сохранились
         emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
     }
