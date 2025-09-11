@@ -10,7 +10,7 @@ public class Warrior extends Character {
     }
 
     @Override
-    public int getDamage() {
+    protected int getDamage() {
         return this.getStrength();
     }
 }

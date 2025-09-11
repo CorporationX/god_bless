@@ -10,7 +10,7 @@ public class Archer extends Character {
     }
 
     @Override
-    public int getDamage() {
+    protected int getDamage() {
         return this.getDexterity();
     }
 
