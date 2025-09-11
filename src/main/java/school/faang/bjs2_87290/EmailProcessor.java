@@ -8,17 +8,12 @@ import java.util.function.Predicate;
 public class EmailProcessor {
     public void processEmails(List<Email> emails, Predicate<Email> importantFilter,
                               Consumer<Email> printEmail, Function<Email, String> toUpperCase) {
-        Predicate<Email> emailPredicate = email -> email.isImportant;
-
-        Function<Email, String> emailFunction = email -> email.getBody().toUpperCase();
-
-        Consumer<Email> emailConsumer = email -> System.out.println(email.getSubject());
 
         emails.stream()
-                .filter(emailPredicate)
-                .peek(emailConsumer)
+                .filter(importantFilter)
+                .peek(printEmail)
                 .forEach(email -> {
-                    String newBody = emailFunction.apply(email);
+                    String newBody = toUpperCase.apply(email);
                     email.setBody(newBody);
                 });
     }

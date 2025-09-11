@@ -1,8 +1,12 @@
 package school.faang.bjs2_87290;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@AllArgsConstructor
+@ToString
 public class Email {
     @Getter
     private String subject;
@@ -10,20 +14,5 @@ public class Email {
     @Setter
     private String body;
     @Getter
-    boolean isImportant;
-
-    public Email(String subject, String body, boolean isImportant) {
-        this.subject = subject;
-        this.body = body;
-        this.isImportant = isImportant;
-    }
-
-    @Override
-    public String toString() {
-        return "Email{" +
-                "subject='" + subject + '\'' +
-                ", body='" + body + '\'' +
-                ", isImportant=" + isImportant +
-                '}';
-    }
+    private boolean isImportant;
 }
