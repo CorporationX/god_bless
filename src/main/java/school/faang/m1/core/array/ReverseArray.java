@@ -1,8 +1,8 @@
-package school.faang.BJS2_85524;
+package school.faang.m1.core.array;
 
 import java.util.Arrays;
 
-public class Example {
+public class ReverseArray {
     static int[] revers(int[] arr) {
         if (arr == null) {
             return new int[]{};
@@ -17,13 +17,13 @@ public class Example {
 
     public static void main(String[] args) {
         int[] example = {1, 2, 3, 4, 5, 5, -1};
-        System.out.println(Arrays.toString(Example.revers(example)));
+        System.out.println(Arrays.toString(ReverseArray.revers(example)));
         assert Arrays.equals(example, new int[]{-1, 5, 5, 4, 3, 2, 1});
         example = new int[]{};
-        System.out.println(Arrays.toString(Example.revers(example)));
+        System.out.println(Arrays.toString(ReverseArray.revers(example)));
         assert Arrays.equals(example, new int[]{});
         example = new int[]{1};
-        System.out.println(Arrays.toString(Example.revers(example)));
+        System.out.println(Arrays.toString(ReverseArray.revers(example)));
         assert Arrays.equals(example, new int[]{1});
     }
 }
