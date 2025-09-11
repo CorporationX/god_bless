@@ -15,12 +15,14 @@ public class Main {
 
         System.out.println("\n3. ТЕСТ УДАЛЕНИЯ:");
         testBookRemoval(library);
+
+        System.out.println("\n4. ТЕСТ ПРОВЕРКИ СУЩЕСТВОВАНИЯ:");
+        testContainsBook(library);
     }
 
     private static LibrarySystem createTestLibrary() {
         LibrarySystem library = new LibrarySystem();
 
-        // Добавляем книги русских классиков
         library.addBook("Война и мир", "Лев Толстой", 1869, "Рус-1");
         library.addBook("Преступление и наказание", "Федор Достоевский", 1866, "Рус-2");
         library.addBook("Отцы и дети", "Иван Тургенев", 1862, "Рус-3");
@@ -40,19 +42,27 @@ public class Main {
 
     private static void testBookRemoval(LibrarySystem library) {
         System.out.println("• Удаляем несуществующую книгу:");
-        library.removeBook("Облако в штанах", "Владимир Маяковский", 1915);
+        boolean removed1 = library.removeBook("Облако в штанах", "Владимир Маяковский", 1915);
+        System.out.println("Результат: " + (removed1 ? "Удалена" : "Не найдена"));
 
         System.out.println("• Удаляем существующую книгу:");
-        library.removeBook("Евгений Онегин", "Александр Пушкин", 1833);
+        boolean removed2 = library.removeBook("Евгений Онегин", "Александр Пушкин", 1833);
+        System.out.println("Результат: " + (removed2 ? "Удалена" : "Не найдена"));
 
         System.out.println("\nОБНОВЛЕННЫЙ СПИСОК ПОСЛЕ УДАЛЕНИЯ:");
         library.printAllBooks();
     }
 
+    private static void testContainsBook(LibrarySystem library) {
+        System.out.println("• Проверка существования книги:");
+        boolean exists1 = library.containsBook("Война и мир", "Лев Толстой", 1869);
+        boolean exists2 = library.containsBook("Анна Каренина", "Лев Толстой", 1877);
+        System.out.println("'Война и мир' существует: " + exists1);
+        System.out.println("'Анна Каренина' существует: " + exists2);
+    }
+
     private static void searchAndPrint(LibrarySystem library, String title, String author, int year) {
-        String location = library.findBook(title, author, year);
-        Book book = new Book(title, author, year);
-        String result = location != null ? location : "Не найдена";
-        System.out.printf("• %s → Локация: %s%n", book, result);
+        String result = library.findBook(title, author, year);
+        System.out.printf("• %s (%d) → %s%n", title, year, result);
     }
 }
