@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.bjs2_87008;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,9 +8,9 @@ import lombok.Setter;
 public class Product {
     private Long id;
     private String name;
-    private final Category.Categories category;
+    private final Category category;
 
-    public Product(String name, Category.Categories category) {
+    public Product(String name, Category category) {
         this.name = name;
         this.category = category;
     }
