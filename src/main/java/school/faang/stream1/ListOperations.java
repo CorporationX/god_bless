@@ -1,8 +1,10 @@
 package school.faang.stream1;
 
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
 import java.util.Comparator;
+import java.util.Optional;
 
 public class ListOperations {
 
@@ -12,20 +14,27 @@ public class ListOperations {
                 .sum();
     }
 
-    public static int findMax(List<Integer> list) {
-        return list.stream().max(Integer::compareTo).orElse(0);
+    public static Optional<Integer> findMax(List<Integer> list) {
+        return list.stream()
+                .max(Integer::compareTo);
     }
 
-    public static double findAverage(List<Integer> list) {
-        return list.stream().mapToInt(i -> i).average().orElse(0);
+    public static OptionalDouble findAverage(List<Integer> list) {
+        return list.stream()
+                .mapToInt(i -> i)
+                .average();
     }
 
     public static long countStringsStartingWith(List<String> list, char el) {
-        return (long) list.stream().filter(s -> s.charAt(0) == el).count();
+        return list.stream()
+                .filter(s -> s.charAt(0) == el)
+                .count();
     }
 
     public static List<String> filterStringsContainingSubstring(List<String> list, String subString) {
-        return list.stream().filter(s -> s.contains(subString)).toList();
+        return list.stream()
+                .filter(s -> s.contains(subString))
+                .toList();
     }
 
     public static List<String> sortByLength(List<String> list) {
@@ -35,14 +44,19 @@ public class ListOperations {
     }
 
     public static boolean allMatchCondition(List<Integer> list, Predicate<Integer> predicate) {
-        return list.stream().allMatch(predicate);
+        return list.stream()
+                .allMatch(predicate);
     }
 
-    public static int findMinGreaterThan(List<Integer> list, int sub) {
-        return list.stream().filter(i -> i > sub).min(Integer::compareTo).orElse(0);
+    public static Optional<Integer> findMinGreaterThan(List<Integer> list, int sub) {
+        return list.stream()
+                .filter(i -> i > sub)
+                .min(Integer::compareTo);
     }
 
     public static List<Integer> convertToLengths(List<String> list) {
-        return list.stream().map(s -> s.length()).toList();
+        return list.stream()
+                .map(String::length)
+                .toList();
     }
 }
