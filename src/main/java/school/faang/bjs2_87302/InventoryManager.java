@@ -2,6 +2,7 @@ package school.faang.bjs2_87302;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -24,7 +25,7 @@ public class InventoryManager {
                 item.getName(), character.getName(), item.getValue());
     }
 
-    public boolean removeItem(Character character, Predicate<Item> filter) {
+    public void removeItem(Character character, Predicate<Item> filter) {
 
         if (character == null) {
             throw new IllegalArgumentException("Персонаж не может быть null");
@@ -32,7 +33,7 @@ public class InventoryManager {
 
         if (character.getInventory().isEmpty()) {
             log.info("Инвентарь персонажа {} пуст", character.getName());
-            return false;
+            return;
         }
 
 
@@ -40,29 +41,18 @@ public class InventoryManager {
         if (removedAny) {
             log.info("Предметы удалены по фильтру");
         }
-        return removedAny;
     }
 
-    public boolean updateItem(Character character, Predicate<Item> filter, Function<Item, Item> transformer) {
+    public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> transformer) {
+        List<Item> inventory = character.getInventory();
 
-        Item foundItem = null;
-        for (Item item : character.getInventory()) {
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
             if (filter.test(item)) {
-                foundItem = item;
-                break;
+                Item updatedItem = transformer.apply(item);
+                inventory.set(i, updatedItem);
+                log.info("Предмет {} обновлён", item.getName());
             }
         }
-
-        if (foundItem != null) {
-            Item transformerItem = transformer.apply(foundItem);
-
-            character.getInventory().remove(foundItem);
-            character.getInventory().add(transformerItem);
-
-            log.info("Предмет {} обновлён", foundItem.getName());
-            return true;
-        }
-        log.info("Предмет не найден по фильтру");
-        return false;
     }
 }
