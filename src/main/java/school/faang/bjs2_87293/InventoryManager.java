@@ -25,10 +25,10 @@ public class InventoryManager {
         }
     }
 
-    public static void updateItem(Character character, Predicate<Item> comparator, Function<Item, Item> updater) {
+    public static void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> updater) {
         for (Item item : character.getInventory()) {
-            if (comparator.test(item)) {
-                updater.apply(item);
+            if (filter.test(item)) {
+                item = updater.apply(item);
                 System.out.printf("Обновлён предмет %s", item.getName());
                 System.out.println();
             }

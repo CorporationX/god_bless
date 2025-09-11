@@ -1,5 +1,7 @@
 package school.faang.bjs2_87293;
 
+import java.util.Objects;
+
 public class Main {
     public static void main(String[] args) {
         Character jotaro = new Character("Jotaro");
@@ -10,7 +12,8 @@ public class Main {
 
         InventoryManager.addItem(cap, jotaro, (item) -> System.out.println(item.getName() + " был опять добавлен"));
         InventoryManager.updateItem(jotaro,
-                (item) -> item.getName().equals("Cap"), (item) -> new Item(item.getName(), item.getValue() * 2));
+                (item) -> Objects.equals(item.getName(), "Cap"),
+                (item) -> new Item(item.getName(), item.getValue() * 2));
         jotaro.getInventory().forEach((item) -> System.out.println(item.getName() + ": " + item.getValue()));
     }
 }
