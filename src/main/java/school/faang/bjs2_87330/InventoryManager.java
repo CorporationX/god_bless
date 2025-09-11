@@ -1,10 +1,8 @@
 package school.faang.bjs2_87330;
 
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
