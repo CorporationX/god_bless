@@ -6,20 +6,19 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        StudentDatabase studentDatabase = new StudentDatabase();
         // add new student's subject grade
-        Student student1 = new Student("student1");
-        Subject subject1 = new Subject("subject1");
-        Subject subject2 = new Subject("subject2");
-        Subject subject3 = new Subject("subject3");
-        int grade1 = 90;
-        int grade2 = 80;
-        int grade3 = 88;
+        final Student student1 = new Student("student1");
+        final Subject subject1 = new Subject("subject1");
+        final Subject subject2 = new Subject("subject2");
+        final Subject subject3 = new Subject("subject3");
+        final int grade1 = 90;
+        final int grade2 = 80;
+        final int grade3 = 88;
         Map<Subject, Integer> subjectGrades = new HashMap<>();
         subjectGrades.put(subject1, grade1);
         subjectGrades.put(subject2, grade2);
         subjectGrades.put(subject3, grade3);
-
+        StudentDatabase studentDatabase = new StudentDatabase();
         studentDatabase.addStudentAndSubjectGrades(student1.getName(), subjectGrades);
         System.out.println("//1");
         System.out.println("Student Grades\n");

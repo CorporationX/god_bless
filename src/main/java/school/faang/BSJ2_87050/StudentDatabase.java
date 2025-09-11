@@ -36,7 +36,10 @@ public class StudentDatabase {
     public void printAllStudentsAndSubjectGrades() {
         for (Map.Entry<Student, Map<Subject, Integer>> studentGrade : studentSubjects.entrySet()) {
             for (Map.Entry<Subject, Integer> subjectGrade : studentGrade.getValue().entrySet()) {
-                System.out.printf("%s, %s, %d\n", studentGrade.getKey().getName(), subjectGrade.getKey().getName(), subjectGrade.getValue());
+                System.out.printf("%s, %s, %d\n",
+                        studentGrade.getKey().getName(),
+                        subjectGrade.getKey().getName(),
+                        subjectGrade.getValue());
             }
         }
     }
