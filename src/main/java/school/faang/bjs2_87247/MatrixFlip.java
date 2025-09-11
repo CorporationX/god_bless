@@ -1,7 +1,7 @@
 package school.faang.bjs2_87247;
 
 public class MatrixFlip {
-   private static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
+    private static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
         if (matrix == null || matrix.length == 0) {
             throw new IllegalArgumentException("Matrix cannot be empty");
         }
