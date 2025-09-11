@@ -8,7 +8,6 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor // Генерирует конструктор со всеми полями
 @ToString // Генерирует метод toString()
-
 public class Room {
     private int roomNumber;
     private String roomType;

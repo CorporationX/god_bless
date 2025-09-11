@@ -20,9 +20,9 @@ public class BookingSystem {
     }
 
     public void removeRoom(Room room) {
+        Room removed = rooms.remove(room.getRoomNumber());
 
-        if (rooms.containsKey(room.getRoomNumber())) {
-            rooms.remove(room.getRoomNumber());
+        if (removed != null) {
             System.out.printf("Room number %d has been removed ✅\n", room.getRoomNumber());
         } else {
             System.out.printf("Room number %d not found ❌\n", room.getRoomNumber());
@@ -55,11 +55,11 @@ public class BookingSystem {
     }
 
     public void cancelBooking(int bookingId) {
+        Booking cancelBooking = bookings.get(bookingId);
 
-        if (bookings.containsKey(bookingId)) {
-            Booking booking = bookings.remove(bookingId);
-            bookingNotifier.notifyObservers(booking, " - Booking cancelled ✅\n");
-            System.out.printf("Room number %d has been canceled ✅\n", booking.getRoom().getRoomNumber());
+        if (cancelBooking != null) {
+            bookingNotifier.notifyObservers(cancelBooking, " - Booking cancelled ✅\n");
+            System.out.printf("Room number %d has been canceled ✅\n", cancelBooking.getRoom().getRoomNumber());
         } else {
             System.out.printf("Room number with ID %d does not exist ❌\n", bookingId);
         }
@@ -89,7 +89,7 @@ public class BookingSystem {
 
         for (Booking booking : bookings.values()) {
 
-            if (booking.getCheckInDate().equals(newCheckInDate)) {
+            if (Objects.equals(booking.getCheckInDate(), newCheckInDate)) {
                 bookingsForDate.add(booking);
                 System.out.println(booking + "✅");
                 found = true;
