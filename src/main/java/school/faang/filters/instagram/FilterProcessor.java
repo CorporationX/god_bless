@@ -12,7 +12,7 @@ public class FilterProcessor {
     }
 
     Function<Image, Image> combineFilters(Function<Image, Image> filterOne, Function<Image, Image> filterTwo) {
-        return image -> filterTwo.apply(filterOne.apply(image));
+        return filterOne.andThen(filterTwo);
     }
 
     public static void main(String[] args) {
