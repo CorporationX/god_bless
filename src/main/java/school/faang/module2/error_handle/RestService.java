@@ -9,7 +9,10 @@ public class RestService {
     public static <T> T callWithErrorHandling(AccessToken accessToken, String jsonRequest, Class<T> mappedClass) {
         return handle(
                 () -> RestClient.call(accessToken, jsonRequest, mappedClass),
-                r -> RestClient.call(getNewAccessToken(), jsonRequest, mappedClass)
+                e -> {
+                    System.out.printf("Exception was thrown: %s%n", e);
+                    return RestClient.call(getNewAccessToken(), jsonRequest, mappedClass);
+                }
         );
     }
 
@@ -17,15 +20,11 @@ public class RestService {
         return new AccessToken(LocalDate.now().plusDays(1));
     }
 
-    private static <T> T handle(Supplier<T> requestSupplier, Function<T, T> responseMapper) {
-        T reponse;
+    private static <T> T handle(Supplier<T> requestSupplier, Function<AuthorizationException, T> responseMapper) {
         try {
-            reponse = requestSupplier.get();
-            return reponse;
+            return requestSupplier.get();
         } catch (AuthorizationException e) {
-            reponse = responseMapper.apply(null);
+            return responseMapper.apply(e);
         }
-
-        return reponse;
     }
 }

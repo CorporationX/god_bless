@@ -17,20 +17,21 @@ class RestServiceTest {
                     "user": "Mike"
                 }
                 """;
+
+        UserDto userDto = RestService.callWithErrorHandling(validToken, userAsString, UserDto.class);
+        Assertions.assertEquals("Mike", userDto.user());
+        userDto = RestService.callWithErrorHandling(expiredToken, userAsString, UserDto.class);
+        Assertions.assertEquals("Mike", userDto.user());
+
         String messageAsString = """
                 {
                     "message": "Success"
                 }
                 """;
 
-        UserDto userDto = RestService.callWithErrorHandling(validToken, userAsString, UserDto.class);
-        userDto = RestService.callWithErrorHandling(expiredToken, userAsString, UserDto.class);
-
-        Assertions.assertEquals("Mike", userDto.user());
-
         MessageDto messageDto = RestService.callWithErrorHandling(validToken, messageAsString, MessageDto.class);
+        Assertions.assertEquals("Success", messageDto.message());
         messageDto = RestService.callWithErrorHandling(validToken, messageAsString, MessageDto.class);
-
         Assertions.assertEquals("Success", messageDto.message());
     }
 
