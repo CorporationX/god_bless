@@ -13,10 +13,7 @@ public abstract class Character {
     private int health = 100;
 
     public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.dexterity = 5;
-        this.iq = 5;
+        this(name, 5, 5, 5);
     }
 
     public Character(String name, int dexterity, int strength, int iq) {
@@ -26,14 +23,11 @@ public abstract class Character {
         this.iq = iq;
     }
 
+    public abstract void attack(Character opponent);
 
-    public void HealthIsZero() {
-        if(this.getHealth() == 0) {
+    public void healthIsZero() {
+        if (this.getHealth() < 0) {
             throw new IllegalArgumentException("Здоровье не может быть меньше 0");
         }
     }
-
-    public abstract void attack(Character opponent);
-
-
 }
