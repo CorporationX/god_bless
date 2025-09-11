@@ -1,20 +1,22 @@
 package school.faang.bjs2_85639;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Character {
-    protected String name;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
+    private String name;
+    private int strength = 5;
+    private int agility = 5;
+    private int intelligence = 5;
     private byte health = 100;
 
-    Character(String name) {
+    protected Character(String name) {
         this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
     }
 
-    Character(String name, int strength, int agility, int intelligence) {
+    protected Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
         this.strength = strength;
         this.agility = agility;
@@ -28,9 +30,5 @@ public abstract class Character {
         if (health <= 0) {
             health = 0;
         }
-    }
-
-    byte getHealth() {
-        return health;
     }
 }
