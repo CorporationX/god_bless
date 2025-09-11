@@ -9,10 +9,8 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
-@Setter
-@RequiredArgsConstructor
 @ToString
 public class Item {
     private final String name;
-    private double value;
+    private final double value;
 }

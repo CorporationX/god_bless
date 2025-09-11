@@ -30,10 +30,7 @@ public class Main {
 
         manager.removeItem(frodo, predicateForRemove);
 
-        Function<Item, Item> function = item -> {
-            item.setValue(item.getValue() * 2.5);
-            return item;
-        };
+        Function<Item, Item> function = item -> new Item(item.getName(), item.getValue() * 2.50);
 
         Predicate<Item> predicateUpdate = item -> Objects.equals(item.getName(), "Helmet")
                 || Objects.equals(item.getName(), "Shield");
