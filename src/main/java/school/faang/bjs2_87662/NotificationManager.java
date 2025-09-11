@@ -8,16 +8,16 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class NotificationManager {
-    private final Map<NotificationType, Consumer<Notification>> notificationMap = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> notificationHandler = new HashMap<>();
     private final List<Function<String, String>> proofReaders = new ArrayList<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        notificationMap.put(type, handler);
+        notificationHandler.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
         proofReaders.forEach(f -> notification.setMessage(f.apply(notification.getMessage())));
-        notificationMap.get(notification.getType()).accept(notification);
+        notificationHandler.getOrDefault(notification.getType(), n -> {}).accept(notification);
     }
 
     public void addProofreader(Function<String, String> fun) {

@@ -1,10 +1,14 @@
 package school.faang.bjs2_87662;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
 @Getter
 @AllArgsConstructor
-@ToString(includeFieldNames = true)
+@ToString
 @EqualsAndHashCode
 public class Notification {
     private final NotificationType type;

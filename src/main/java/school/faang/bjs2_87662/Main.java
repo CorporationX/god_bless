@@ -2,7 +2,9 @@ package school.faang.bjs2_87662;
 
 import java.util.function.Consumer;
 
-import static school.faang.bjs2_87662.NotificationType.*;
+import static school.faang.bjs2_87662.NotificationType.EMAIL;
+import static school.faang.bjs2_87662.NotificationType.SMS;
+import static school.faang.bjs2_87662.NotificationType.PUSH;
 
 public class Main {
     public static void main(String[] args) {
