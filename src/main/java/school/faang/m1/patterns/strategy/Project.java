@@ -1,4 +1,4 @@
-package school.faang.m1.oop.pattern.strategy;
+package school.faang.m1.patterns.strategy;
 
 import lombok.Getter;
 
@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Getter
-public class Project {
+public final class Project {
     int projectId; //уникальный идентификатор проекта;
     String name; //название проекта;
     Set<String> requiredSkills; // набор навыков, необходимых для проекта;

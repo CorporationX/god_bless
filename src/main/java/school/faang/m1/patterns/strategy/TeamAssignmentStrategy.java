@@ -1,4 +1,4 @@
-package school.faang.m1.oop.pattern.strategy;
+package school.faang.m1.patterns.strategy;
 
 import java.util.List;
 

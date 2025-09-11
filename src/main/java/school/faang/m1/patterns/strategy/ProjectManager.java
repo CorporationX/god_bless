@@ -1,7 +1,6 @@
-package school.faang.m1.oop.pattern.strategy;
+package school.faang.m1.patterns.strategy;
 
-import school.faang.m1.oop.pattern.strategy.strategies.BalancedTeamAssignmentStrategy;
-import school.faang.m1.oop.pattern.strategy.strategies.StandardTeamAssignmentStrategy;
+import school.faang.m1.patterns.strategy.strategies.StandardTeamAssignmentStrategy;
 
 import java.util.*;
 import java.util.function.ToIntFunction;
@@ -22,10 +21,12 @@ public class ProjectManager {
         this.strategy = Objects.requireNonNull(strategy);
     }
 
-    // — добавляет сотрудника в систему.
+    /*
+     * Добавляет сотрудника в систему.
+     */
     public void addEmployee(Employee employee) {
-        employees.put(employee.getId(), employee);
-        assignmentCounts.putIfAbsent(employee.getId(), 0);
+        employees.put(employee.id(), employee);
+        assignmentCounts.putIfAbsent(employee.id(), 0);
     }
 
     public void addProject(Project project) {
@@ -39,68 +40,70 @@ public class ProjectManager {
 
     /**
      * Назначить команду проекту по выбранной стратегии.
+     * Кандидаты — все сотрудники (можно фильтровать по пересечению навыков для ускорения)
+     * Обновляем команду проекта (очистим прежнюю, скорректируем нагрузки)
+     * Сначала снимаем кредиты с уже назначенных,
+     * Повышаем кредиты новым
      */
     public void assignTeamToProject(int projectId) {
         Project project = getProjectOrThrow(projectId);
-        // Кандидаты — все сотрудники (можно фильтровать по пересечению навыков для ускорения)
         List<Employee> all = new ArrayList<>(employees.values());
 
-        // Если выбрана Balanced, передадим функцию нагрузки
-        if (strategy instanceof BalancedTeamAssignmentStrategy) {
-            // уже создана с loadFn в конструкторе — ничего делать не надо
-        }
 
         List<Employee> team = strategy.assignTeam(project, all);
 
-        // Обновляем команду проекта (очистим прежнюю, скорректируем нагрузки)
-        // Сначала снимаем кредиты с уже назначенных
         for (Employee e : project.getTeamMembers()) {
-            decrementLoad(e.getId());
+            decrementLoad(e.id());
         }
         project.getTeamMembers().clear();
         project.getTeamMembers().addAll(team);
-        // Повышаем кредиты новым
+
         for (Employee e : team) {
-            incrementLoad(e.getId());
+            incrementLoad(e.id());
         }
     }
 
-    /** --- Доп. задание --- */
-
     /**
-     * Найти проекты, где сотрудник пригоден (имеет хотя бы один требуемый навык).
+     * --- Доп. Задание ---
+     * Поиск проектов, где сотрудник пригоден (имеет хотя бы один требуемый навык).
      */
     public List<Project> findProjectsForEmployee(Employee employee) {
         return projects.values().stream()
-                .filter(p -> intersects(employee.getSkills(), p.getRequiredSkills()))
+                .filter(p -> intersects(employee.skills(), p.getRequiredSkills()))
                 .sorted(Comparator.comparing(Project::getProjectId))
                 .collect(Collectors.toList());
     } // — возвращает список проектов, для которых сотрудник обладает необходимыми навыками.
 
     /**
-     * Добавить сотрудника в проект, если у него есть все требуемые навыки проекта.
+     * Добавляет сотрудника в команду проекта, если у него есть все требуемые навыки.
      */
     public boolean assignEmployeeToProject(int projectId, Employee employee) {
         Project p = getProjectOrThrow(projectId);
-        if (employee.getSkills().containsAll(p.getRequiredSkills())) {
+        if (employee.skills().containsAll(p.getRequiredSkills())) {
             if (!p.getTeamMembers().contains(employee)) {
                 p.getTeamMembers().add(employee);
-                incrementLoad(employee.getId());
+                incrementLoad(employee.id());
             }
             return true;
         }
         return false;
-    } // — добавляет сотрудника в команду проекта, если у него есть все требуемые навыки.
+    }
 
+    /*
+        удаляет сотрудника из команды проекта.
+     */
     public boolean removeEmployeeFromProject(int projectId, int employeeId) {
         Project p = getProjectOrThrow(projectId);
-        boolean removed = p.getTeamMembers().removeIf(e -> e.getId() == employeeId);
+        boolean removed = p.getTeamMembers().removeIf(e -> e.id() == employeeId);
         if (removed) {
             decrementLoad(employeeId);
         }
         return removed;
-    } // — удаляет сотрудника из команды проекта.
+    }
 
+    /**
+     * Возвращает список сотрудников, назначенных на проект.
+     */
     public List<Employee> getTeamMembers(int projectId) {
         return getTeamForProject(projectId);
     } // — возвращает список сотрудников, назначенных на проект.
@@ -114,9 +117,9 @@ public class ProjectManager {
         Iterator<Employee> it = project.getTeamMembers().iterator();
         while (it.hasNext()) {
             Employee e = it.next();
-            if (!intersects(e.getSkills(), project.getRequiredSkills())) {
+            if (!intersects(e.skills(), project.getRequiredSkills())) {
                 it.remove();
-                decrementLoad(e.getId());
+                decrementLoad(e.id());
             }
         }
     }
@@ -130,7 +133,7 @@ public class ProjectManager {
         Project p = getProjectOrThrow(projectId);
         Set<String> uncovered = new HashSet<>(p.getRequiredSkills());
         for (Employee e : p.getTeamMembers()) {
-            uncovered.removeAll(e.getSkills());
+            uncovered.removeAll(e.skills());
         }
         return uncovered;
     }
@@ -140,7 +143,7 @@ public class ProjectManager {
     }
 
     public ToIntFunction<Employee> loadFn() {
-        return e -> getLoad(e.getId());
+        return e -> getLoad(e.id());
     }
 
     private Project getProjectOrThrow(int projectId) {
@@ -169,5 +172,9 @@ public class ProjectManager {
         if (assignmentCounts.get(employeeId) < 0) {
             assignmentCounts.put(employeeId, 0);
         }
+    }
+
+    public Map<Integer, Project> getProjects() {
+        return projects;
     }
 }

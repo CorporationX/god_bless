@@ -1,9 +1,9 @@
-package school.faang.m1.oop.pattern.strategy;
+package school.faang.m1.patterns.strategy;
 
-import school.faang.m1.oop.pattern.strategy.strategies.BalancedTeamAssignmentStrategy;
-import school.faang.m1.oop.pattern.strategy.strategies.StandardTeamAssignmentStrategy;
+import school.faang.m1.patterns.strategy.strategies.BalancedTeamAssignmentStrategy;
+import school.faang.m1.patterns.strategy.strategies.StandardTeamAssignmentStrategy;
 
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -39,14 +39,14 @@ public class Main {
         System.out.println();
 
         // --- Сбалансированная стратегия ---
-        // Создадим стратегию, учитывающую текущую нагрузку из менеджера
+        // Учитывает текущую нагрузку из менеджера
         pm.setAssignmentStrategy(new BalancedTeamAssignmentStrategy(pm.loadFn()));
         pm.assignTeamToProject(101); // переназначим проект 101 по balanced
         printTeam(pm, 101, "Balanced (reassign)");
         System.out.println("Uncovered(101): " + pm.uncoveredSkills(101));
         System.out.println();
 
-        // --- Доп. методы ---
+        // --- Доп. Методы ---
         System.out.println("Projects suitable for Bob (id=2): " +
                 pm.findProjectsForEmployee(new Employee(2, "Bob", Set.of("react", "js", "css")))
                         .stream().map(Project::getName).toList());
@@ -57,17 +57,12 @@ public class Main {
         printTeam(pm, 202, "After individual attempt (Alice)");
         System.out.println();
 
-        // Модификация требований и удаление несоответствующих
-        Project p101 = new Project(101, "Trading UI", Set.of("react")); // упростим требования
-        // Заменим объект проекта 101 внутри менеджера аккуратно (для демонстрации — обычно через setter)
-        // Для простоты получим старый и поменяем ему требования:
-        // (в реальном коде мы бы держали ссылку и просто setRequiredSkills)
-        // Здесь получим текущий из менеджера:
+        // упростили требования к проекту -> Модификация требований и удаление несоответствующих
+        // удалим несоответствующих по обновлённым требованиям:
         try {
-            var current101 = pm.getTeamMembers(101); // просто вызов, чтобы убедиться, что проект есть
-            // Дополнительно удалим несоответствующих по обновлённым требованиям:
-            var proj = getProjectByReflection(pm, 101); // трюк для демо; в реальном коде добавьте getProject(...)
-            proj.setRequiredSkills(Set.of("react"));
+            List<Employee> current101 = pm.getTeamMembers(101); // просто вызов, чтобы убедиться, что проект есть
+            Project proj = pm.getProjects().get(101);
+            proj.setRequiredSkills(Set.of("react")); // упростили требования к проекту
             pm.removeIneligibleEmployees(proj);
             printTeam(pm, 101, "After requirement change + cleanup");
         } catch (Exception ignored) {
@@ -78,21 +73,9 @@ public class Main {
     private static void printTeam(ProjectManager pm, int projectId, String label) {
         System.out.println("[" + label + "] Project " + projectId + " team:");
         for (Employee e : pm.getTeamForProject(projectId)) {
-            System.out.println(" - " + e.getName() + " (id=" + e.getId() + "), load=" + pm.getLoad(e.getId())
-                    + ", skills=" + e.getSkills());
+            System.out.println(" - " + e.name() + " (id=" + e.id() + "), load=" + pm.getLoad(e.id())
+                    + ", skills=" + e.skills());
         }
     }
 
-    // Небольшой хак для демо, чтобы достать проект и поменять требования (иначе — добавьте публичный getter в PM).
-    private static Project getProjectByReflection(ProjectManager pm, int projectId) {
-        try {
-            var f = ProjectManager.class.getDeclaredField("projects");
-            f.setAccessible(true);
-            @SuppressWarnings("unchecked")
-            Map<Integer, Project> map = (Map<Integer, Project>) f.get(pm);
-            return map.get(projectId);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
