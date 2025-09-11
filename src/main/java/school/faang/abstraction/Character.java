@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 
 public abstract class Character {
-    private String name = "null";
+    private String name;
     private int strength = 1;
     private int agility = 1;
     private int intelligence = 1;
@@ -15,9 +15,6 @@ public abstract class Character {
 
     public Character(String name) {
         this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
