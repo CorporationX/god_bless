@@ -47,9 +47,9 @@ public class ListOperation {
         String regex = sb.append("[")
                 .append(alphabet)
                 .append("]+").toString();
-          return strings.stream()
-                  .filter(s->s.matches(regex))
-                  .sorted(Comparator.comparing(String::length))
-                  .toList();
+        return strings.stream()
+                .filter(s -> s.matches(regex))
+                .sorted(Comparator.comparing(String::length))
+                .toList();
     }
 }
