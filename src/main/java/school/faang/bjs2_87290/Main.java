@@ -30,11 +30,11 @@ public class Main {
             return email.getBody();  // Возвращает преобразованный текст
         };
 
-// Обработка писем
+        // Обработка писем
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
 
-// Выводим обновленные письма, чтобы убедиться, что изменения сохранились
+        // Выводим обновленные письма, чтобы убедиться, что изменения сохранились
         emails.forEach(email -> System.out.println("Subject: " + email.getSubject() +
                 ", Body of the letter: " + email.getBody()));
     }
