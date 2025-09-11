@@ -12,7 +12,7 @@ public class ValidatorRegistrator {
             throw new IllegalArgumentException("%s имя не может быть пустым".formatted(user.getName()));
         }
         if (user.getAge() < MIN_AGE) {
-            throw new IllegalArgumentException("%s Возраст не может быть меньше 18".formatted(user.getName()));
+            throw new IllegalArgumentException("%s Возраст не может быть меньше %d".formatted(user.getName(), MIN_AGE));
         }
         if (!VALID_ADDRESSES.contains(user.getAddress())) {
             throw new IllegalArgumentException(("%s Адрес может быть только: %s".formatted(user.getName(),
