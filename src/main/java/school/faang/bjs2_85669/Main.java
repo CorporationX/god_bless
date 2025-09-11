@@ -24,7 +24,7 @@ public class Main {
                 );
                 users.add(user);
             } catch (IllegalArgumentException e) {
-                System.out.println(data[0] + ": " + e.getMessage());
+                System.out.printf("%s: %s%n", data[0], e.getMessage());
             }
         }
 

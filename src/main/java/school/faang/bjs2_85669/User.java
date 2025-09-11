@@ -1,13 +1,16 @@
 package school.faang.bjs2_85669;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Getter
+@ToString
 public class User {
-    public static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
-    public static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
+    private static final int AGE_LIMIT = 18;
+    private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+    private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
 
     private String name;
     private int age;
@@ -15,11 +18,11 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        if (name == null || name.isEmpty()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty.");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Age cannot be less than 18.");
+        if (age < AGE_LIMIT) {
+            throw new IllegalArgumentException("Age cannot be less than " + AGE_LIMIT);
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Must work in " + VALID_JOBS);
@@ -33,10 +36,5 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return name + " (" + age + " y.o., " + job + ", " + address + ")";
     }
 }
