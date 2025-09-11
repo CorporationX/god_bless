@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 class InventoryManagerTest {
 
@@ -26,8 +27,10 @@ class InventoryManagerTest {
         manager.addItem(frodo, ring, (item) -> System.out.printf("%s снова добавлен.%n", item.name()));
         Assertions.assertEquals(frodo.inventory(), List.of(robe, ring));
 
-        manager.updateItem(frodo, (item) -> item.name().equals("The One Ring"),
-                (item) -> new Item(item.name(), item.value() * 2));
+        manager.updateItem(frodo,
+                (item) -> Objects.equals(item.name(), "The One Ring"),
+                (item) -> new Item(item.name(), item.value() * 2)
+        );
         Assertions.assertEquals(frodo.inventory(), List.of(robe, new Item(ring.name(), ring.value() * 2)));
     }
 

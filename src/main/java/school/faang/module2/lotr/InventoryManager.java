@@ -2,6 +2,7 @@ package school.faang.module2.lotr;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -53,7 +54,9 @@ public class InventoryManager {
 
     private Optional<Character> findCharacter(Character character) {
         return characters.stream()
-                .filter(c -> c.equals(character))
-                .findFirst();
+                .filter(c -> Objects.equals(c, character))
+                .reduce((first, second) -> {
+                    throw new CharacterException("Found duplicate character: %s".formatted(character));
+                });
     }
 }
