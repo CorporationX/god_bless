@@ -6,11 +6,7 @@ import java.util.Map;
 
 @Getter
 public class LibrarySystem {
-    private final HashMap<Book, String> bookLocation;
-
-    public LibrarySystem(HashMap<Book, String> bookLocation) {
-        this.bookLocation = bookLocation;
-    }
+    private final HashMap<Book, String> bookLocation = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         bookLocation.put(new Book(title, author, year), location);
@@ -19,8 +15,11 @@ public class LibrarySystem {
     }
 
     public void removeBook(String title, String author, int year) {
-        bookLocation.remove(new Book(title, author, year));
-        System.out.println("Вы убрали книгу с полки");
+        if (bookLocation.remove(new Book(title, author, year)) != null) {
+            System.out.println("Вы убрали книгу с полки");
+        } else {
+            System.out.println("Такой книги не существует!");
+        }
     }
 
     public void findBook(String title, String author, int year) {
@@ -33,7 +32,7 @@ public class LibrarySystem {
 
     public void printAllBooks() {
         for (Map.Entry<Book, String> entry : bookLocation.entrySet()) {
-            System.out.println("Book: " + entry.getKey() + ", местонахождение, " + entry.getValue());
+            System.out.printf("%s, location = %s%n",  entry.getKey(), entry.getValue());
         }
     }
 }

@@ -1,11 +1,8 @@
 package school.faang.bjs2_86153;
 
-import java.util.HashMap;
-
 public class Main {
     public static void main(String[] args) {
-        HashMap<Book, String> bookLocation = new HashMap<>();
-        LibrarySystem librarySystem = new LibrarySystem(bookLocation);
+        LibrarySystem librarySystem = new LibrarySystem();
 
         librarySystem.addBook("History of world", "Marsel", 3, "shelf 1");
         librarySystem.addBook("Math of world", "Alan", 2, "shelf 2");
@@ -17,6 +14,5 @@ public class Main {
         librarySystem.findBook("Math of world", "Alan", 2);
 
         librarySystem.printAllBooks();
-
     }
 }
