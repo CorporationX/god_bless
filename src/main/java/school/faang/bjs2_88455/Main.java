@@ -3,6 +3,7 @@ package school.faang.bjs2_88455;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class Main {
@@ -15,28 +16,28 @@ public class Main {
         Character frodo = new Character("frodo");
 
         Consumer<Item> consumerAdd = item -> {
-            frodo.getInventory().add(item);
             System.out.printf("%s - Item has been added \n", item);
         };
 
-        manager.addItem(itemRing, consumerAdd);
-        manager.addItem(itemHelmet, consumerAdd);
-        manager.addItem(itemRingFake, consumerAdd);
-        manager.addItem(itemShield, consumerAdd);
+        manager.addItem(frodo, itemRing, consumerAdd);
+        manager.addItem(frodo, itemHelmet, consumerAdd);
+        manager.addItem(frodo, itemRingFake, consumerAdd);
+        manager.addItem(frodo, itemShield, consumerAdd);
 
-        Predicate<Item> predicateForRemove = item -> {
-            if (Objects.equals(item.getName(), "ring")) {
-                return item.getValue() >= 1000000;
-            }
-            return true;
+        Predicate<Item> predicateForRemove = item -> (Objects.equals(item.getName(), "ring")
+                && item.getValue() < 1000000);
 
-        };
 
         manager.removeItem(frodo, predicateForRemove);
 
-        Consumer<Item> consumerGeneralDepreciation = item -> item.setValue((item.getValue() * 2.5));
+        Function<Item, Item> function = item -> {
+            item.setValue(item.getValue() * 2.5);
+            return item;
+        };
 
-        manager.updateItem(frodo, consumerGeneralDepreciation);
+        Predicate<Item> predicateUpdate = item -> Objects.equals(item.getName(), "Helmet")
+                || Objects.equals(item.getName(), "Shield");
+        manager.updateItem(frodo, predicateUpdate, function);
 
         Consumer<ArrayList<Item>> consumerPrintItemsChar = items -> items.forEach(System.out::println);
 
