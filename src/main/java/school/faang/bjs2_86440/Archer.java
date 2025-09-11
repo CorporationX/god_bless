@@ -9,7 +9,7 @@ public class Archer extends Character {
     public void attack(Character opponent) {
         int damage = this.getAgility();
         opponent.reduceHealth(damage);
-        System.out.println(getName() + " shoots " + opponent.getName() +
-                " and it does " + damage + " damage!");
+        System.out.printf("%s shoots %s and it does %d damage!%n",
+                getName(), opponent.getName(), damage);
     }
 }

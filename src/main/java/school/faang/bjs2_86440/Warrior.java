@@ -9,7 +9,7 @@ public class Warrior extends Character {
     public void attack(Character opponent) {
         int damage = this.getStrength();
         opponent.reduceHealth(damage);
-        System.out.println(getName() + " attacks " + opponent.getName() +
-                " and it does " + damage + " damage!");
+        System.out.printf("%s attacks %s and it does %d damage!%n",
+                getName(), opponent.getName(), damage);
     }
 }
