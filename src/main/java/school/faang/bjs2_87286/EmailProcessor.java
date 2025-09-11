@@ -13,12 +13,11 @@ public class EmailProcessor {
                                      Function<Email, String> transform) {
         List<Email> result = new ArrayList<>();
         for (Email email : emails) {
-            if (!filter.test(email)) {
-                continue;
+            if (filter.test(email)) {
+                email.setBody(transform.apply(email));
+                process.accept(email);
+                result.add(email);
             }
-            email.setBody(transform.apply(email));
-            process.accept(email);
-            result.add(email);
         }
         return result;
     }

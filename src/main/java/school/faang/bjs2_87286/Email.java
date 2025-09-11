@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString(includeFieldNames = true)
+@ToString
 @AllArgsConstructor
 public class Email {
     private String subject;
