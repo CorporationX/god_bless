@@ -25,12 +25,12 @@ public class WeatherCacheTest {
         WeatherData data = weatherProvider.fetchWeatherData("Moscow");
 
         assertNotNull(data, "Данные о погоде не должны быть null");
-        assertEquals("Moscow", data.getCity(), "Город должен соответствовать запрошенному");
-        assertTrue(data.getTemperature() >= -10.0 && data.getTemperature() <= 35.0,
+        assertEquals("Moscow", data.city(), "Город должен соответствовать запрошенному");
+        assertTrue(data.temperature() >= -10.0 && data.temperature() <= 35.0,
                 "Температура должна быть в диапазоне от -10 до 35");
-        assertTrue(data.getHumidity() >= 10 && data.getHumidity() <= 100,
+        assertTrue(data.humidity() >= 10 && data.humidity() <= 100,
                 "Влажность должна быть в диапазоне от 10 до 100");
-        assertTrue(data.getTimestamp() > 0, "Временная метка должна быть положительной");
+        assertTrue(data.timestamp() > 0, "Временная метка должна быть положительной");
     }
 
     @Test
@@ -41,9 +41,9 @@ public class WeatherCacheTest {
         WeatherData secondCall = standardCache.getWeatherData(city, 5000);
 
         assertSame(firstCall, secondCall, "При повторном запросе должен возвращаться кэшированный объект");
-        assertEquals(firstCall.getTemperature(), secondCall.getTemperature(), 0.01,
+        assertEquals(firstCall.temperature(), secondCall.temperature(), 0.01,
                 "Температура должна быть одинаковой");
-        assertEquals(firstCall.getHumidity(), secondCall.getHumidity(), 0.01,
+        assertEquals(firstCall.humidity(), secondCall.humidity(), 0.01,
                 "Влажность должна быть одинаковой");
     }
 

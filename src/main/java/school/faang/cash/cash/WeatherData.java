@@ -1,15 +1,9 @@
 package school.faang.cash.cash;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+public record WeatherData(
+    String city,
+    double temperature,
+    double humidity,
+    long timestamp
+) {}
 
-@Getter
-@ToString
-@AllArgsConstructor
-public class WeatherData {
-    private final String city;
-    private final double temperature;
-    private final double humidity;
-    private final long timestamp;
-}

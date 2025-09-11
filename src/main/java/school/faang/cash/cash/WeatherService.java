@@ -5,16 +5,16 @@ import java.util.Random;
 public class WeatherService implements WeatherProvider {
     private final Random random = new Random();
 
-    public WeatherData fetchWeatherData(String city) {
-        double minTemp = -10.0;
-        double maxTemp = 35.0;
-        double temperature = Math
-                .round((minTemp + (maxTemp - minTemp) * random.nextDouble()) * 10.0) / 10.0;
+    private static final double MIN_TEMP = -10.0;
+    private static final double MAX_TEMP = 35.0;
+    private static final double MIN_HUMIDITY = 10;
+    private static final double MAX_HUMIDITY = 100;
 
-        double minHumidity = 10;
-        double maxHumidity = 100;
+    public WeatherData fetchWeatherData(String city) {
+        double temperature = Math
+                .round((MIN_TEMP + (MAX_TEMP - MIN_TEMP) * random.nextDouble()) * 10.0) / 10.0;
         double humidity = Math
-                .round(minHumidity + (maxHumidity - minHumidity) * random.nextDouble());
+                .round(MIN_HUMIDITY + (MAX_HUMIDITY - MIN_HUMIDITY) * random.nextDouble());
 
         return new WeatherData(city, temperature, humidity, System.currentTimeMillis());
     }
