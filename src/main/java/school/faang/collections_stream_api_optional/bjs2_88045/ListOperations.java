@@ -1,4 +1,4 @@
-package school.faang.collections_stream_api_optional.bjs2;
+package school.faang.collections_stream_api_optional.bjs2_88045;
 
 import java.util.Collection;
 import java.util.Comparator;
