@@ -25,6 +25,10 @@ public abstract class Character {
 
     public abstract void attack(Character opponent);
 
+    public void receiveDamage(int damage) {
+        // не совсем понял какая будет логика у этого метода
+    }
+
     public void healthIsZero() {
         if (this.getHealth() < 0) {
             throw new IllegalArgumentException("Здоровье не может быть меньше 0");
