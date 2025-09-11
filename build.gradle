@@ -1,6 +1,7 @@
 plugins {
     id 'checkstyle'
     id 'java'
+    id 'io.freefair.lombok' version '8.4'
 }
 
 group = "faang.school"
