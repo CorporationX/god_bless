@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class InventoryManager {
 
@@ -19,20 +22,16 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        List<Item> inventory = new ArrayList<>();
-        character.getInventory().stream().forEach(item -> {
-            if (predicate.test(item)) {
-                inventory.add(function.apply(item));
-            } else {
-                inventory.add(item);
-            }
+        List<Item> inventory = Stream.concat(
+                character.getInventory().stream()
+                        .filter(predicate)
+                        .map(function),
+                 character.getInventory().stream()
+                         .filter(predicate.negate())
+                         .map(item -> new Item(item.getName(), item.getValue()))
+        ).toList();
 
-        });
-        final int[] i = {0};
-        inventory.forEach(item -> {
-            character.getInventory().set(i[0], item);
-            i[0]++;
-        });
+       // System.out.println(inventory);
     }
 
     public void printAllItems(Character character, Consumer<ArrayList<Item>> consumer) {
