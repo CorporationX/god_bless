@@ -59,7 +59,7 @@ public class ListOperations {
                 .toList();
     }
 
-    public static boolean satisfyCertainElementsCondition(List<Integer> numbers, Predicate<Integer> condition) {
+    public static boolean isSatisfyCertainElementsCondition(List<Integer> numbers, Predicate<Integer> condition) {
         printingListIsEmpty(numbers);
 
         return numbers.stream()
