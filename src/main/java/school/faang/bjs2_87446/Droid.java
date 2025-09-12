@@ -7,7 +7,7 @@ public class Droid {
         this.name = name;
     }
 
-    void sendMessage(Droid droid, String message, int key) {
+    public void sendMessage(Droid droid, String message, int key) {
         if (droid == null || message == null) {
             return;
         }
@@ -19,22 +19,26 @@ public class Droid {
     private String encryptMessage(String message, int key) {
         DroidMessageEncryptor encryptor = (msg, k) -> {
             StringBuilder encrypted = new StringBuilder();
-            for (char c : msg.toCharArray()) {
-                if (Character.isLetter(c)) {
-                    char base = Character.isLowerCase(c) ? 'a' : 'A';
-                    int shifted = (c - base + k) % 26;
-                    if (shifted < 0) shifted += 26;
-                    encrypted.append((char) (base + shifted));
-                } else {
-                    encrypted.append(c);
-                }
-            }
+            msg.chars()
+                    .mapToObj(c -> (char) c)
+                    .forEach(c -> {
+                        if (Character.isLetter(c)) {
+                            char base = Character.isLowerCase(c) ? 'a' : 'A';
+                            int shifted = (c - base + k) % 26;
+                            if (shifted < 0) {
+                                shifted += 26;
+                            }
+                            encrypted.append((char) (base + shifted));
+                        } else {
+                            encrypted.append(c);
+                        }
+                    });
             return encrypted.toString();
         };
         return encryptor.process(message, key);
     }
 
-    void receiveMessage(String message, int key) {
+    private void receiveMessage(String message, int key) {
         String decryptMessage = decryptMessage(message, key);
         System.out.println(name + " получил расшифрованное сообщение: " + decryptMessage);
     }
