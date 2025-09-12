@@ -4,7 +4,6 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         WeatherProvider provider = new WeatherService();
         WeatherCacheTemplate standardCache = new StandardWeatherCache(provider);
-        WeatherCacheTemplate frequentCache = new FrequentUpdateWeatherCache(provider);
 
         System.out.println("== Testing StandardWeatherCache ==");
         WeatherData data1 = standardCache.getWeatherData("Paris", 3000);
@@ -16,6 +15,8 @@ public class Main {
         WeatherData data3 = standardCache.getWeatherData("Paris", 3000);
         System.out.println("After timeout: " + data3);
         System.out.println("Data equal after timeout: " + data1.equals(data3));
+
+        WeatherCacheTemplate frequentCache = new FrequentUpdateWeatherCache(provider);
 
         System.out.println("\n== Testing FrequentUpdateWeatherCache ==");
         WeatherData data4 = frequentCache.getWeatherData("London", 1000);
