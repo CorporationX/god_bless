@@ -23,7 +23,9 @@ public class Droid {
                 if (Character.isLetter(c)) {
                     char base = Character.isLowerCase(c) ? 'a' : 'A';
                     int shifted = (c - base + k) % 26;
-                    if (shifted < 0) shifted += 26;
+                    if (shifted < 0) {
+                        shifted += 26;
+                    }
                     encrypted.append((char) (base + shifted));
                 } else {
                     encrypted.append(c);
