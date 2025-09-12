@@ -8,7 +8,7 @@ import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
-        EmailProcessor emailProcessor = new EmailProcessor();
+        final EmailProcessor emailProcessor = new EmailProcessor();
         List<Email> emails = new ArrayList<>();
         emails.add(new Email(Subjects.FRIENDS, "Сходим погулять в 18?", false,
                 LocalTime.of(17, 13, 49)));
