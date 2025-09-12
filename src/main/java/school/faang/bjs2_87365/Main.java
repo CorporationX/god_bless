@@ -37,7 +37,8 @@ public class Main {
         System.out.println();
 
         Function<Item, Item> itemUpdater = item -> new Item("Кольцо Всевластья", Integer.MAX_VALUE);
-        InventoryManager.updateItem(frodo, frodoMail, itemUpdater);
+        InventoryManager.updateItem(frodo,
+                item -> item.name().equalsIgnoreCase("мифриловая кольчуга фродо"), itemUpdater);
 
         System.out.println("Инвентарь " + frodo.name() + " после обновления предметов:");
         frodo.inventory().forEach(System.out::println);

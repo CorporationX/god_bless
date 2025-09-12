@@ -21,8 +21,13 @@ public class InventoryManager {
         }
     }
 
-    public static void updateItem(Character character, Item item, Function<Item, Item> updater) {
+    public static void updateItem(Character character, Predicate<Item> condition, Function<Item, Item> updater) {
         List<Item> inventory = character.inventory();
-        inventory.set(inventory.indexOf(item), updater.apply(item));
+        for (Item item : inventory) {
+            if (condition.test(item)) {
+                int itemIndex = inventory.indexOf(item);
+                inventory.set(itemIndex, updater.apply(item));
+            }
+        }
     }
 }
