@@ -2,12 +2,9 @@ package school.faang.bjs2_88455;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class InventoryManager {
@@ -28,8 +25,10 @@ public class InventoryManager {
                         .map(function),
                  character.getInventory().stream()
                          .filter(predicate.negate())
-                         .map(item -> new Item(item.getName(), item.getValue()))
         ).toList();
+        //я все что пришло мне в голову( как сделать красивее я не знаю
+        character.getInventory().clear();
+        character.getInventory().addAll(inventory);
     }
 
     public void printAllItems(Character character, Consumer<ArrayList<Item>> consumer) {
