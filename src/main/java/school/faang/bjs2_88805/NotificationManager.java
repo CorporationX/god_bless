@@ -1,9 +1,9 @@
 package school.faang.bjs2_88805;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -11,8 +11,8 @@ import java.util.function.Predicate;
 public class NotificationManager {
 
     private final Map<NotificationType, Consumer<Notification>> handlerMap = new HashMap<>();
-    private Map<NotificationType, Predicate<Notification>> banWordsPredicate = new HashMap<>();
-    private List<String> banWords = new ArrayList<>();
+    private final Map<NotificationType, Predicate<Notification>> banWordsPredicate = new HashMap<>();
+    protected final Set<String> banWords = new HashSet<>();
 
     protected void registerHandler(NotificationType type, Consumer<Notification> handler) {
         handlerMap.put(type, handler);
@@ -30,17 +30,9 @@ public class NotificationManager {
         }
     }
 
-    protected void registerPredicateFilter(NotificationType type, String word) {
-        Predicate<Notification> testBanWord = (notification -> {
-            for (String banWord : banWords) {
-                if (notification.getMessage().equals(banWord)) {
-                    return true;
-                }
-            }
-            return false;
-        });
+    protected void registerPredicateFilter(NotificationType type, String word, Predicate<Notification> filter) {
         banWords.add(word);
-        banWordsPredicate.put(type, testBanWord);
+        banWordsPredicate.put(type, filter);
     }
 
 }

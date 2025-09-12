@@ -1,6 +1,7 @@
 package school.faang.bjs2_88805;
 
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,19 +30,21 @@ public class Main {
         notificationManager.sendNotification(smsNotification, correct);
         notificationManager.sendNotification(pushNotification, correct);
 
-        //Реализация фильтра
         Notification testBanWord = new Notification(NotificationType.EMAIL, "Плохое Слово");
         Notification testBanWordTwo = new Notification(NotificationType.EMAIL, "Плохое Слово 2");
         Notification testBanWordThree = new Notification(NotificationType.EMAIL, "Банан");
         Notification testBanNotificationThree = new Notification(NotificationType.EMAIL, "Норм сообщение");
 
-        notificationManager.registerPredicateFilter(testBanWord.getType(), "Плохое Слово");
-        notificationManager.registerPredicateFilter(testBanWordTwo.getType(), "Плохое Слово 2");
-        notificationManager.registerPredicateFilter(testBanWordThree.getType(), "Банан");
+        Predicate<Notification> filter = (notification ->
+                notificationManager.banWords.contains(notification.getMessage()));
+        notificationManager.registerPredicateFilter(testBanWord.getType(), "Плохое Слово", filter);
+        notificationManager.registerPredicateFilter(testBanWordTwo.getType(), "Плохое Слово 2", filter);
+        notificationManager.registerPredicateFilter(testBanWordThree.getType(), "Банан", filter);
         notificationManager.sendNotification(testBanWord, correct);
         notificationManager.sendNotification(testBanWordTwo, correct);
         notificationManager.sendNotification(testBanWordThree, correct);
         notificationManager.sendNotification(testBanNotificationThree, correct);
+
 
 
     }
