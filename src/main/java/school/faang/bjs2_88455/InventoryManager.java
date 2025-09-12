@@ -30,8 +30,6 @@ public class InventoryManager {
                          .filter(predicate.negate())
                          .map(item -> new Item(item.getName(), item.getValue()))
         ).toList();
-
-       // System.out.println(inventory);
     }
 
     public void printAllItems(Character character, Consumer<ArrayList<Item>> consumer) {
