@@ -1,6 +1,7 @@
 package school.faang.bjs2_86056;
 
 import java.util.ArrayList;
+import java.util.Collections
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,8 +90,8 @@ public class StudentDatabase {
 
     public List<Student> getStudentsForSubject(Subject subject) {
         if (subject == null) {
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
-        return new ArrayList<>(subjectStudents.getOrDefault(subject, new ArrayList<>()));
+        return subjectStudents.getOrDefault(subject, Collections.emptyList());
     }
 }
