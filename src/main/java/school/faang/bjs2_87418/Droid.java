@@ -29,7 +29,7 @@ public record Droid(String name) {
             }
             return String.valueOf(encryptedSymbols);
         };
-        return encryptor.encrypt(message, encryptionKey);
+        return encryptor.transform(message, encryptionKey);
     }
 
     private static String decryptMessage(String message, int encryptionKey) {
@@ -49,6 +49,6 @@ public record Droid(String name) {
             }
             return String.valueOf(encryptedSymbols);
         };
-        return decryptor.encrypt(message, encryptionKey);
+        return decryptor.transform(message, encryptionKey);
     }
 }
