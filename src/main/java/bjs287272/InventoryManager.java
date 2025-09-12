@@ -13,16 +13,17 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> filter) {
-        character.getInventory().removeIf(filter);
+        character.getInventory()
+                .removeIf(filter);
     }
 
     public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> editor) {
         List<Item> inventories = character.getInventory();
-        for (int i = 0; i < inventories.size(); i++) {
-            Item item = inventories.get(i);
-            if (filter.test(item)) {
-                inventories.set(i, editor.apply(item));
-            }
-        }
+
+        List<Item> updatedInventories = inventories.stream()
+                .map(item -> filter.test(item) ? editor.apply(item) : item)
+                .toList();
+
+        character.setInventory(updatedInventories);
     }
 }
