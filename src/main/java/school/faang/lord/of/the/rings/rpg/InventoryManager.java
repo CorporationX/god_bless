@@ -9,12 +9,12 @@ import java.util.function.Predicate;
 
 public class InventoryManager {
 
-    void addItem(Character character, Item item, Consumer<Item> consumer) {
+    public void addItem(Character character, Item item, Consumer<Item> consumer) {
         character.getInventory().add(item);
         consumer.accept(item);
     }
 
-    void removeItem(Character character, Predicate<Item> filter) {
+    public void removeItem(Character character, Predicate<Item> filter) {
         List<Item> inventory = character.getInventory();
         if (inventory == null || filter == null) {
             throw new IllegalArgumentException("Character and filter cannot be null");
@@ -28,7 +28,7 @@ public class InventoryManager {
         });
     }
 
-    void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> updater) {
+    public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> updater) {
         List<Item> inventory = character.getInventory();
         if (inventory == null || filter == null || updater == null) {
             throw new IllegalArgumentException("Character and filter cannot be null");
