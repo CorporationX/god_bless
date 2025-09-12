@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.List;
 import java.util.HashSet;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +24,7 @@ public class ProductManager {
     public void removeProduct(Category category, String name) {
         products.removeIf(product ->
                 product.getCategory() == category
-                        && product.getName().equals(name));
+                        && Objects.equals(product.getName(), name));
     }
 
     public List<String> findByCategory(Category category) {
