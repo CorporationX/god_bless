@@ -13,7 +13,7 @@ public record Droid(String name) {
     }
 
     private static String encryptMessage(String message, int encryptionKey) {
-        DroidMessageEncryptor encryptor = (msg, key) -> {
+        DroidMessageCryptor encryptor = (msg, key) -> {
             char[] encryptedSymbols = new char[msg.length()];
             for (int i = 0; i < msg.length(); i++) {
                 char letter = msg.charAt(i);
@@ -29,11 +29,11 @@ public record Droid(String name) {
             }
             return String.valueOf(encryptedSymbols);
         };
-        return encryptor.encryption(message, encryptionKey);
+        return encryptor.encrypt(message, encryptionKey);
     }
 
     private static String decryptMessage(String message, int encryptionKey) {
-        DroidMessageEncryptor decryptor = (decryptingMessage, key) -> {
+        DroidMessageCryptor decryptor = (decryptingMessage, key) -> {
             char[] encryptedSymbols = new char[decryptingMessage.length()];
             for (int i = 0; i < decryptingMessage.length(); i++) {
                 char letter = decryptingMessage.charAt(i);
@@ -49,6 +49,6 @@ public record Droid(String name) {
             }
             return String.valueOf(encryptedSymbols);
         };
-        return decryptor.encryption(message, encryptionKey);
+        return decryptor.encrypt(message, encryptionKey);
     }
 }
