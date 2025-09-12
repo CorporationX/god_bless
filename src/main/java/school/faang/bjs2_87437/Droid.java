@@ -7,7 +7,7 @@ public class Droid {
     private final String name;
 
     public String encryptMessage(String message, int key) {
-        DroidMessageEncryptor encrypt = (text, k) -> {
+        DroidMessageEnigma encrypt = (text, k) -> {
             StringBuilder sb = new StringBuilder(text.length());
             k = k % 26;
             for (char ch : text.toCharArray()) {
@@ -21,11 +21,11 @@ public class Droid {
             }
             return sb.toString();
         };
-        return encrypt.cipher(message, key);
+        return encrypt.encryptOrDecrypt(message, key);
     }
 
     public String decryptMessage(String message, int key) {
-        DroidMessageEncryptor decrypt = (text, k) -> {
+        DroidMessageEnigma decrypt = (text, k) -> {
             StringBuilder sb = new StringBuilder(text.length());
             k = k % 26;
             for (char ch : text.toCharArray()) {
@@ -39,7 +39,7 @@ public class Droid {
             }
             return sb.toString();
         };
-        return decrypt.cipher(message, key);
+        return decrypt.encryptOrDecrypt(message, key);
     }
 
     public void receiveMessage(String encryptedMessage, int key) {
