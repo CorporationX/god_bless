@@ -20,25 +20,25 @@ public class StudentDatabase {
         }
     }
 
-    public void addStudentTiSubject(Student student, Subject subject) {
-        subjectStudents.get(subject).add(student);
-        studentSubjects.get(student).put(subject, -1);
+    public void addStudentSubject(Student student, Subject subject) {
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, 0);
     }
 
     public void addSubject(Student student, Subject subject, int score) {
-        studentSubjects.get(student).put(subject, score);
-        subjectStudents.get(subject).add(student);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).put(subject, score);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
-        subjectStudents.get(subject).remove(student);
-        studentSubjects.get(student).remove(subject);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).remove(student);
+        studentSubjects.computeIfAbsent(student, k -> new HashMap<>()).remove(subject);
     }
 
     public void removeStudent(Student student) {
         Set<Subject> subjects = studentSubjects.remove(student).keySet();
         for (Subject subject : subjects) {
-            subjectStudents.get(subject).remove(student);
+            subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).remove(student);
         }
     }
 
