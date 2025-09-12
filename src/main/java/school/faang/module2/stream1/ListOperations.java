@@ -2,27 +2,29 @@ package school.faang.module2.stream1;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
 
-    public static int sumOfIntElements(List<Integer> list) {
+    public static int findSumOfEvenIntElements(List<Integer> list) {
         return list.stream()
                 .mapToInt(Integer::intValue)
+                .filter(i -> i % 2 == 0)
                 .sum();
     }
 
-    public static int maxOfIntElements(List<Integer> list) {
+    public static int findMaxOfIntElements(List<Integer> list) {
         return list.stream()
                 .max(Integer::compareTo)
-                .orElseThrow();
+                .orElseThrow(NoSuchElementException::new);
     }
 
-    public static double averageOfIntElements(List<Integer> list) {
+    public static double findAverageOfIntElements(List<Integer> list) {
         return list.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElseThrow();
+                .orElseThrow(NoSuchElementException::new);
     }
 
     public static long countStringsStartingWith(List<String> strings, char c) {
@@ -43,7 +45,7 @@ public class ListOperations {
                 .toList();
     }
 
-    public static boolean allMatchCondition(List<Integer> ints, Predicate<Integer> predicate) {
+    public static boolean getAllMatchCondition(List<Integer> ints, Predicate<Integer> predicate) {
         return ints.stream()
                 .filter(predicate)
                 .count() == ints.size();
@@ -54,7 +56,7 @@ public class ListOperations {
                 .mapToInt(Integer::intValue)
                 .filter(i -> i > greater)
                 .min()
-                .orElseThrow();
+                .orElseThrow(NoSuchElementException::new);
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {

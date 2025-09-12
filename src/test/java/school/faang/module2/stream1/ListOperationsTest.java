@@ -11,18 +11,18 @@ class ListOperationsTest {
     private final List<String> strList = List.of("java", "swift", "jmeter", "metaverse");
 
     @Test
-    void sumOfIntElementsTest() {
-        Assertions.assertEquals(15, ListOperations.sumOfIntElements(intList));
+    void findSumOfEvenIntElementsTest() {
+        Assertions.assertEquals(6, ListOperations.findSumOfEvenIntElements(intList));
     }
 
     @Test
-    void maxOfIntElementsTest() {
-        Assertions.assertEquals(5, ListOperations.maxOfIntElements(intList));
+    void findMaxOfIntElementsTest() {
+        Assertions.assertEquals(5, ListOperations.findMaxOfIntElements(intList));
     }
 
     @Test
-    void averageOfIntElementsTest() {
-        Assertions.assertEquals(3.0, ListOperations.averageOfIntElements(intList));
+    void findAverageOfIntElementsTest() {
+        Assertions.assertEquals(3.0, ListOperations.findAverageOfIntElements(intList));
     }
 
     @Test
@@ -47,10 +47,10 @@ class ListOperationsTest {
     }
 
     @Test
-    void allMatchConditionTest() {
-        Assertions.assertTrue(ListOperations.allMatchCondition(intList, i -> i < 6));
-        Assertions.assertTrue(ListOperations.allMatchCondition(intList, i -> i > 0));
-        Assertions.assertFalse(ListOperations.allMatchCondition(intList, i -> i > 2));
+    void getAllMatchConditionTest() {
+        Assertions.assertTrue(ListOperations.getAllMatchCondition(intList, i -> i < 6));
+        Assertions.assertTrue(ListOperations.getAllMatchCondition(intList, i -> i > 0));
+        Assertions.assertFalse(ListOperations.getAllMatchCondition(intList, i -> i > 2));
     }
 
     @Test
