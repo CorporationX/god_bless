@@ -12,7 +12,7 @@ public class Main {
         String[] addresses = {"Wonderland", "London", "Paris", "St.Petersburg", "Room"};
         List<User> users = new ArrayList<User>();
 
-        for (int i = 0; i < names.length; i++){
+        for (int i = 0; i < names.length; i++) {
             users.add(new User(names[i], ages[i], workspaces[i], addresses[i]));
         }
 

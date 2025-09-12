@@ -21,7 +21,7 @@ public class User {
 
         HashMap<Integer, List<User>> groupedUsers = new HashMap<Integer, List<User>>();
 
-        for (User user: userList) {
+        for (User user : userList) {
             if (!groupedUsers.containsKey(user.age)) {
                 List<User> newList = new ArrayList<>();
                 newList.add(user);
@@ -35,7 +35,7 @@ public class User {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.name;
     }
 
