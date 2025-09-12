@@ -56,12 +56,7 @@ out/
 .vscode/
 README
 README.md
-src/main/java/school/faang/Archer.java
-src/main/java/school/faang/Character.java
-src/main/java/school/faang/Warrior.java
-src/main/java/school/faang/User.java
+/src/main/java/school/faang/groupusers/
 src/main/java/school/faang/Example.java
-src/main/java/school/faang/groupusers/User.java
-src/main/java/school/faang/groupusers/Main.java
 src/main/java/school/faang/Main.java
-
+src/main/java/school/faang/User.java
