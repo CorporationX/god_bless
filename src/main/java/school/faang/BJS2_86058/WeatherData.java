@@ -3,7 +3,6 @@ package school.faang.BJS2_86058;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-
 @AllArgsConstructor
 public class WeatherData {
     private final String city;
