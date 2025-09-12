@@ -6,7 +6,6 @@ public class Main {
 
         NotificationManager notificationManager = new NotificationManager();
 
-        // Регистрация обработчиков оповещений
         notificationManager.registerHandler(NotificationType.EMAIL,
                 notification -> System.out.println("Email: " + notification.getMessage())
         );
@@ -19,7 +18,6 @@ public class Main {
                 notification -> System.out.println("Push Notification: " + notification.getMessage())
         );
 
-        // Отправка оповещений
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Your account has been activate");
         Notification smsNotification = new Notification(NotificationType.SMS, "Your password has been changed");
         Notification pushNotification = new Notification(NotificationType.PUSH, "You have a new message!");
@@ -28,5 +26,4 @@ public class Main {
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
     }
-
 }
