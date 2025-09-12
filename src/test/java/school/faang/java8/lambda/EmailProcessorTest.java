@@ -10,14 +10,6 @@ import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/*
-  Список входящих писем
-  Фильтр, который пропускает только важные письма
-  Обработчик, который выводит тему письма в консоль
-  Преобразователь, который переводит текст письма в верхний регистр и сохраняет изменения
-  Обработка писем
-  Выводим обновленные письма, чтобы убедиться, что изменения сохранились
- */
 class EmailProcessorTest {
     @Test
     void emailProcessorTest() {
