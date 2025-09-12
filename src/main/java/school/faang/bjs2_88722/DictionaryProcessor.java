@@ -1,4 +1,4 @@
-package school.faang.BJS2_88722;
+package school.faang.bjs2_88722;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +15,6 @@ public class DictionaryProcessor {
     }
 
     public static void printDictionary() {
-        dictionary.forEach((word, translation) -> System.out.println(word + " - " + translation));
+        dictionary.forEach((word, translation) -> System.out.printf("%s - %s%n", word, translation));
     }
 }
