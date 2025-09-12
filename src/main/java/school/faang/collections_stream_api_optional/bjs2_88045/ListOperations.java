@@ -1,85 +1,85 @@
 package school.faang.collections_stream_api_optional.bjs2_88045;
 
-import java.util.Collection;
+import lombok.NonNull;
+
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public final class ListOperations {
-    private ListOperations() {
-    }
+    private static final Predicate<String> isNotNullOrEmpty = string -> string != null && !string.isBlank();
+    private static final Predicate<Integer> isNotNullOrGreaterZero = number -> number != null && number >= 0;
+    private static final Supplier<NoSuchElementException> noSuchElementException =
+            () -> new NoSuchElementException("Список не должен быть пустым");
 
-    private static <T> void checkingArguments(Collection<? extends T> collection) {
-        Objects.requireNonNull(collection, "Передаваемый параметр не должен быть null");
-        if (collection.isEmpty()) {
-            throw new IllegalArgumentException("Список не должен быть пустым");
-        }
-    }
+    private ListOperations() {}
 
-    public static int sumOfEvenNumbers(List<Integer> numbers) {
-        checkingArguments(numbers);
+    public static int sumOfEvenNumbers(@NonNull List<Integer> numbers) {
         return numbers.stream()
+                .filter(isNotNullOrGreaterZero)
+                .mapToInt(number -> number)
                 .filter(number -> number % 2 == 0)
-                .reduce(0, Integer::sum);
+                .sum();
     }
 
-    public static int findMax(List<Integer> numbers) {
-        checkingArguments(numbers);
+    public static int findMax(@NonNull List<Integer> numbers) {
         return numbers.stream()
+                .filter(Objects::nonNull)
                 .max(Integer::compare)
-                .orElse(0);
+                .orElseThrow(noSuchElementException);
     }
 
-    public static double findAverage(List<Integer> numbers) {
-        checkingArguments(numbers);
+    public static double findAverage(@NonNull List<Integer> numbers) {
         return numbers.stream()
-                .reduce(0, Integer::sum) / (double) numbers.size();
+                .filter(isNotNullOrGreaterZero)
+                .mapToInt(number -> number)
+                .average()
+                .orElseThrow(noSuchElementException);
     }
 
-    public static long countStringsStartingWith(List<String> strings, char firstLetter) {
-        checkingArguments(strings);
+    public static long countStringsStartingWith(@NonNull List<String> strings, char firstLetter) {
         return strings.stream()
-                .filter(string -> !string.isBlank())
+                .filter(isNotNullOrEmpty)
                 .filter(string -> string.charAt(0) == firstLetter)
                 .count();
     }
 
-    public static List<String> filterStringsContainingSubstring(List<String> strings, String substring) {
-        checkingArguments(strings);
+    public static List<String> filterStringsContainingSubstring(@NonNull List<String> strings, String substring) {
         if (substring.isEmpty()) {
             throw new IllegalArgumentException("Параметр содержащий подстроку не должен быть пустым");
         }
         return strings.stream()
-                .filter(string -> !string.isBlank())
+                .filter(isNotNullOrEmpty)
                 .filter(string -> string.contains(substring))
                 .toList();
     }
 
-    public static List<String> sortByLength(List<String> strings) {
-        checkingArguments(strings);
+    public static List<String> sortByLength(@NonNull List<String> strings) {
         return strings.stream()
-                .filter(s -> !s.isBlank())
+                .filter(isNotNullOrEmpty)
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
-    public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> predicate) {
-        checkingArguments(numbers);
-        return numbers.stream().allMatch(predicate);
-    }
-
-    public static int findMinGreaterThan(List<Integer> numbers, int thresholdValue) {
-        checkingArguments(numbers);
+    public static boolean allMatchCondition(@NonNull List<Integer> numbers, @NonNull Predicate<Integer> predicate) {
         return numbers.stream()
-                .filter(number -> number > thresholdValue)
-                .min(Integer::compare).orElse(0);
+                .allMatch(predicate);
     }
 
-    public static List<Integer> convertToLengths(List<String> strings) {
-        checkingArguments(strings);
+    public static int findMinGreaterThan(@NonNull List<Integer> numbers, int thresholdValue) {
+        return numbers.stream()
+                .filter(isNotNullOrGreaterZero)
+                .filter(number -> number > thresholdValue)
+                .min(Integer::compare)
+                .orElseThrow(noSuchElementException);
+    }
+
+    public static List<Integer> convertToLengths(@NonNull List<String> strings) {
         return strings.stream()
-                .filter(string -> !string.isEmpty())
+                .filter(isNotNullOrEmpty)
                 .map(String::length)
                 .toList();
     }

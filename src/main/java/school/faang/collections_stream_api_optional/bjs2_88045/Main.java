@@ -5,9 +5,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 0, null);
         List<String> strings = Arrays.asList("apple", "banana", "cherry", "date", "data", "am");
 
+        System.out.println("Максимум: " + ListOperations.findMax(numbers));
         System.out.println("Сумма четных чисел: " + ListOperations.sumOfEvenNumbers(numbers));
         System.out.println("Максимум: " + ListOperations.findMax(numbers));
         System.out.println("Среднее: " + ListOperations.findAverage(numbers));
