@@ -16,9 +16,7 @@ public class NotificationManager {
     }
 
     public boolean filterMessage(Notification notification, Predicate<Notification> filter) {
-
         return filter.test(notification);
-
     }
 
     public void correctionNotification(Notification notification,
@@ -39,14 +37,11 @@ public class NotificationManager {
                         return n;
                     });
 
-
             Consumer<Notification> handler = handlers.get(type);
+            if (handler == null) {
+                throw new IllegalArgumentException("No handler registered for type: " + type);
+            }
             handler.accept(notification);
         }
-
     }
-
-
 }
-
-
