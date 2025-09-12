@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.user.reg;
 
 import java.util.Set;
 
@@ -8,17 +8,17 @@ public class User {
     private String job;
     private String address;
 
-    static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    static final int MIN_AGE = 18;
 
-    Exception minAge = new Exception();
 
     public User(String name, int age, String job, String address) {
-        if (name == null || name.isEmpty()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Поле не заполнено");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Возраст должен быть не меньше 18");
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Возраст должен быть не меньше: " + MIN_AGE);
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Не подходящее место работы");
@@ -32,6 +32,3 @@ public class User {
         this.address = address;
     }
 }
-
-
-
