@@ -69,8 +69,7 @@ public class Main {
                 .stream()
                 .filter(item -> isNotNullOrEmpty.test(item.getKey())
                         || isNotNullOrEmpty.test(item.getValue()))
-                .sorted((firstEntrySet, secondEntrySet) ->
-                        firstEntrySet.getKey().length() - secondEntrySet.getKey().length())
+                .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .toList();
     }
