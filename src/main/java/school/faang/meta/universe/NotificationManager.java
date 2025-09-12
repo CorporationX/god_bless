@@ -5,15 +5,15 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    Map<NotificationType, Consumer<Notification>> notificationManager = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
 
-    void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        notificationManager.put(type, handler);
+    public void registerHandler(NotificationType type, Consumer<Notification> handler) {
+        handlers.put(type, handler);
         System.out.println("[+] Зарегистрирован новый обработчик - " + type);
     }
 
-    void sendNotification(Notification notification) {
-        Consumer<Notification> handler = notificationManager.get(notification.type());
+    public void sendNotification(Notification notification) {
+        Consumer<Notification> handler = handlers.get(notification.type());
         if (handler != null) {
             handler.accept(notification);
         } else {
