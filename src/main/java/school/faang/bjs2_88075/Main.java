@@ -11,6 +11,8 @@ public class Main {
         System.out.println("Sum even numbers: " + ListOperations.sumEvenNumbers(numbers));
         System.out.println("Max number: " + ListOperations.maxElement(numbers));
         System.out.println("Average value numbers: " + ListOperations.averageValueNumbers(numbers));
-        System.out.println("Number Special Lines: " + ListOperations.numberSpecialLines(strings, 'b'));
+        System.out.println("Number special lines: " + ListOperations.numberSpecialLines(strings, 'b'));
+        System.out.println("String filter: " + ListOperations.stringFilter(strings, "ba"));
+        System.out.println("Sorting by length: " + ListOperations.sortingByLength(strings));
     }
 }
