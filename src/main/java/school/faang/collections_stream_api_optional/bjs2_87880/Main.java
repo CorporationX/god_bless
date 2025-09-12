@@ -13,8 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Main {
-    private static final Comparator<String> stringLengthComparator = (firstString, secondString) ->
-            firstString.length() - secondString.length();
+    private static final Comparator<String> stringLengthComparator = Comparator.comparingInt(String::length);
 
     private static final Predicate<String> isNotNullOrEmpty = string -> string != null && !string.isBlank();
     private static final Predicate<Integer> isNotNullOrGreaterZero = number -> number != null && number >= 0;
