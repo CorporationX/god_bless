@@ -9,7 +9,9 @@ public class ListOperations {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
         return numbers.stream()
                 .filter(n -> n % 2 == 0)
-                .reduce(0, (a, b) -> a + b);
+                // .reduce(0, (a, b) -> a + b); //старый вариант
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public static int findMax(List<Integer> numbers) {
@@ -22,12 +24,12 @@ public class ListOperations {
         return numbers.stream()
                 .mapToDouble(x -> x)
                 .average()
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static long countStringsStartingWith(List<String> strings, char startingChar) {
         return strings.stream()
-                .filter(s -> !s.isEmpty() && s.charAt(0) == startingChar)
+                .filter(s -> s.startsWith(String.valueOf(startingChar)))
                 .count();
     }
 
@@ -45,7 +47,7 @@ public class ListOperations {
 
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> predicate) {
         return numbers.stream()
-                .allMatch(n -> predicate.test(n));
+                .allMatch(predicate);
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int value) {
@@ -57,8 +59,7 @@ public class ListOperations {
 
     public static List<Integer> convertToLengths(List<String> strings) {
         return strings.stream()
-                .mapToInt(s -> s.length())
-                .boxed()
+                .map(String::length)
                 .toList();
     }
 }
