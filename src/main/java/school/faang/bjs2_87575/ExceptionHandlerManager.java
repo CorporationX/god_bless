@@ -2,8 +2,8 @@ package school.faang.bjs2_87575;
 
 import java.util.function.Supplier;
 
-public class ErrorHandler {
-    private ErrorHandler() {
+public class ExceptionHandlerManager {
+    private ExceptionHandlerManager() {
     }
 
     public static <T> T withErrorHandling(Supplier<T> caller, ExceptionHandler<T> handler) {
