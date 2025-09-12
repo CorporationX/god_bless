@@ -7,17 +7,18 @@ import lombok.ToString;
 @ToString
 public abstract class Character {
 
+    private static final int DEFAULT_POWER = 5;
+    private static final int DEFAULT_DEXTERITY = 5;
+    private static final int DEFAULT_INTELLIGENCE = 5;
+
     private final String name;
-    private int power;
-    private int dexterity;
-    private int intelligence;
+    private final int power;
+    private final int dexterity;
+    private final int intelligence;
     private int health = 100;
 
     public Character(String name) {
-        this.name = name;
-        this.power = 5;
-        this.dexterity = 5;
-        this.intelligence = 5;
+        this(name, DEFAULT_POWER, DEFAULT_DEXTERITY, DEFAULT_INTELLIGENCE);
     }
 
     public Character(String name, int power, int dexterity, int intelligence) {
