@@ -2,9 +2,19 @@ package school.faang.bjs2_89511;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
 
-import static school.faang.bjs2_89511.Practice.*;
+import static school.faang.bjs2_89511.Practice.allNumsMatchFilter;
+import static school.faang.bjs2_89511.Practice.averageValue;
+import static school.faang.bjs2_89511.Practice.countStringsStartsWith;
+import static school.faang.bjs2_89511.Practice.findMax;
+import static school.faang.bjs2_89511.Practice.findMin;
+import static school.faang.bjs2_89511.Practice.getStringsLengths;
+import static school.faang.bjs2_89511.Practice.sortStringsByLength;
+import static school.faang.bjs2_89511.Practice.stringsContainsSubstring;
+import static school.faang.bjs2_89511.Practice.sumEvenNumbers;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,15 +23,15 @@ public class Main {
         List<String> strings = Arrays.asList("Pipipupu", "check", "Hello!", "Java", "Stream", "Strike");
         Predicate<Integer> isEven = n -> n % 2 > 0;
 
-        int maxValue = findMax(values);
-        int sumValue = sumValid(values);
-        double averageValue = averageValue(values);
-        long countString = countString(strings, 'p');
-        List<String> filter = filter(strings, "Str");
-        List<String> sortedLength = sort(strings);
-        boolean test = test(values, isEven);
+        Optional<Integer> maxValue = findMax(values);
+        int sumValue = sumEvenNumbers(values);
+        OptionalDouble averageValue = averageValue(values);
+        long countString = countStringsStartsWith(strings, 'p');
+        List<String> filter = stringsContainsSubstring(strings, "Str");
+        List<String> sortedLength = sortStringsByLength(strings);
+        boolean test = allNumsMatchFilter(values, isEven);
         int findMin = findMin(values, 10);
-        List<Integer> stringInLength = list(strings);
+        List<Integer> stringInLength = getStringsLengths(strings);
 
         System.out.println("Максимальное значение: " + maxValue);
         System.out.println("Сумма значений: " + sumValue);
