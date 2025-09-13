@@ -7,7 +7,7 @@ public class Droid {
         this.name = name;
     }
 
-    void sendMessage(Droid droid, String message, int key) {
+    public void sendMessage(Droid droid, String message, int key) {
         if (droid == null || message == null) {
             return;
         }
