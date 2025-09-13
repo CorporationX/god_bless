@@ -16,6 +16,8 @@ public class ProductManager {
 
     //Добавляем продукт
     public void addProduct(Category category, String name) {
+        validateInput(category, name);
+
         Product product = new Product(name, category);
         products.add(product);
     }
@@ -57,6 +59,12 @@ public class ProductManager {
                 System.out.printf("- %s%n", product.getName());
             }
             System.out.println();
+        }
+    }
+
+    private void validateInput(Category category, String name) {
+        if (category == null || name == null) {
+            System.out.println("Ошибка: название или категория не могут быть null");
         }
     }
 }

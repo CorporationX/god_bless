@@ -1,6 +1,6 @@
 package school.faang.amazon;
 
-enum Category {
+public enum Category {
     FOOD,
     ELECTRONICS,
     CLOTHING,
