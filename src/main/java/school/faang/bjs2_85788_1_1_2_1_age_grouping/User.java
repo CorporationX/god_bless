@@ -1,8 +1,9 @@
-package school.faang.BJS2_85788_1_1_2_1_age_grouping;
+package school.faang.bjs2_85788_1_1_2_1_age_grouping;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class User {
     private String name;
@@ -17,21 +18,25 @@ public class User {
         this.address = address;
     }
 
-    public static HashMap<Integer, List<User>> groupUsers(List<User> userList) {
+    public static Map<Integer, List<User>> groupUsers(List<User> userList) {
 
-        HashMap<Integer, List<User>> groupedUsers = new HashMap<Integer, List<User>>();
+        Map<Integer, List<User>> groupedUsers = new HashMap<Integer, List<User>>();
 
         for (User user : userList) {
-            if (!groupedUsers.containsKey(user.age)) {
+            if (!groupedUsers.containsKey(user.getAge())) {
                 List<User> newList = new ArrayList<>();
                 newList.add(user);
-                groupedUsers.put(user.age, newList);
+                groupedUsers.put(user.getAge(), newList);
             } else {
-                groupedUsers.get(user.age).add(user);
+                groupedUsers.get(user.getAge()).add(user);
             }
         }
 
         return groupedUsers;
+    }
+
+    public Integer getAge() {
+        return this.age;
     }
 
     @Override

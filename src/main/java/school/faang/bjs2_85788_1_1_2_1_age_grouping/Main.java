@@ -1,4 +1,4 @@
-package school.faang.BJS2_85788_1_1_2_1_age_grouping;
+package school.faang.bjs2_85788_1_1_2_1_age_grouping;
 
 import java.util.ArrayList;
 import java.util.List;
