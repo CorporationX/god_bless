@@ -27,7 +27,7 @@ public class ProductManager {
         System.out.println("Добавлен товар: " + product);
     }
 
-    public boolean removeProduct(Category category, String name) {
+    public boolean isProductRemoved(Category category, String name) {
         Product productToRemove = null;
         for (Product product : products) {
             if (product.getName().equals(name) && product.getCategory().equals(category)) {

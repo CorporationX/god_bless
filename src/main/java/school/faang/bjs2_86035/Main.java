@@ -57,11 +57,11 @@ public class Main {
 
     private static void testProductRemoval(ProductManager manager) {
         System.out.println("Удаляем существующий товар (Orange из FOOD):");
-        boolean removed1 = manager.removeProduct(Category.FOOD, "Orange");
+        boolean removed1 = manager.isProductRemoved(Category.FOOD, "Orange");
         System.out.println("Результат удаления: " + (removed1 ? "Успешно" : "Не удалось"));
 
         System.out.println("\nПытаемся удалить несуществующий товар (Bread из FOOD):");
-        boolean removed2 = manager.removeProduct(Category.FOOD, "Bread");
+        boolean removed2 = manager.isProductRemoved(Category.FOOD, "Bread");
         System.out.println("Результат удаления: " + (removed2 ? "Успешно" : "Не удалось"));
     }
 }
