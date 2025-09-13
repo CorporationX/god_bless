@@ -22,7 +22,9 @@ public class SpellEvent {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SpellEvent that = (SpellEvent) o;
         return Objects.equals(getId(), that.getId());
     }
