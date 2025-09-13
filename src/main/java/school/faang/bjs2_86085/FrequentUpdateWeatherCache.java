@@ -9,6 +9,6 @@ public class FrequentUpdateWeatherCache extends WeatherCacheTemplate {
     @Override
     public boolean isCacheExpired(WeatherData data, long maxCacheAgeMillis) {
         long currentTime = System.currentTimeMillis();
-        return (currentTime - data.getTimestamp()) > 100;
+        return true;
     }
 }
