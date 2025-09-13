@@ -11,8 +11,8 @@ import java.time.LocalTime;
 @Getter
 @ToString
 public class Email {
-    private Subjects subject;
+    private Subject subject;
     @Setter private String body;
     private boolean isImportant;
-    private LocalTime emailTime;
+    private LocalTime receivingTime;
 }
