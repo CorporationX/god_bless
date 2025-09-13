@@ -2,7 +2,6 @@ package school.faang.сollection__stream_api__optional.bjs2_87908;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,8 +12,7 @@ public class OperationsWithStream {
         return setNumbers.stream()
                 .filter(x -> setNumbers.contains(sum - x) && x < sum - x)
                 .map(x -> Arrays.asList(x, sum - x))
-                .sorted(Comparator.comparing(list -> list.get(0)))
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+                .collect(Collectors.toSet());
     }
 
     public static List<String> getSortedCapitals(Map<String, String> countries) {
