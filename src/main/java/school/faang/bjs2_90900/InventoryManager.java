@@ -5,17 +5,16 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
-
-    protected void addItem(Character name, Item item, Consumer<Item> consumer) {
+    public void addItem(Character name, Item item, Consumer<Item> consumer) {
         name.getInventory().add(item);
         consumer.accept(item);
     }
 
-    protected void removeItem(Character name, Predicate<Item> removeItemPredicate) {
+    public void removeItem(Character name, Predicate<Item> removeItemPredicate) {
         name.getInventory().removeIf(removeItemPredicate);
     }
 
-    protected void updateItem(Character name, Predicate<Item> predicate, Function<Item, Item> function) {
+    public void updateItem(Character name, Predicate<Item> predicate, Function<Item, Item> function) {
         name.setInventory(name.getInventory().stream()
                 .map(x -> predicate.test(x) ? function.apply(x) : x)
                 .toList());
