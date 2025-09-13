@@ -18,9 +18,9 @@ public class InventoryManager {
                         .filter(checker)
                         .collect(Collectors.toCollection(ArrayList::new))
         );
-        if (character.getInventory().size() == size)
+        if (character.getInventory().size() == size) {
             System.out.println("Нет предметов для удаления");
-        else {
+        } else {
             System.out.println("Предметы удалены из инвентаря");
         }
     }
