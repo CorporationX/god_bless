@@ -14,18 +14,21 @@ public class LibrarySystem {
     }
 
     public static void removeBook(String title, String author, int year) {
-        BOOKS.remove(new Book(title, author, year));
+        final Book book = new Book(title, author, year);
+
+        if (BOOKS.get(book) != null) {
+            BOOKS.remove(book);
+            System.out.printf("Book %s was removed\n", title);
+        } else {
+            System.out.printf("Book %s not found in library\n", title);
+        }
     }
 
     public static void findBook(String title, String author, int year) {
         final Book book = new Book(title, author, year);
-        final String bookLocation = BOOKS.get(book);
+        final String bookLocation = BOOKS.getOrDefault(book, "not found");
 
-        if (bookLocation == null) {
-            System.out.printf("Location for %s not found.\n", book);
-        } else {
-            System.out.printf("Location for book: %s is %s.\n", book, bookLocation);
-        }
+        System.out.printf("Location for book: %s is %s.\n", book, bookLocation);
     }
 
     public static void printAllBooks() {
