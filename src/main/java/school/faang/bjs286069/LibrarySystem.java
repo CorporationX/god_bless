@@ -1,11 +1,11 @@
-package school.faang.BJS286069;
+package school.faang.bjs286069;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class LibrarySystem {
 
-    private HashMap<Book, String> books = new HashMap<>();
+    private Map<Book, String> books = new HashMap<>();
 
     public void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
@@ -14,7 +14,12 @@ public class LibrarySystem {
 
     public void removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        books.remove(book);
+        if (books.containsKey(book)) {
+            books.remove(book);
+            System.out.println("Книга  успешно удалена");
+            return;
+        }
+        System.out.println("Книга не найдена!");
     }
 
     public String findBook(String title, String author, int year) {
