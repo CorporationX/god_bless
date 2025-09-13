@@ -23,26 +23,38 @@ public class ListOperations {
     }
 
     public static long countStringsStartingWith(List<String> strings, char c) {
-        return strings.stream().filter(string -> string.charAt(0) == c).count();
+        return strings.stream()
+                .filter(string -> string.charAt(0) == c)
+                .count();
     }
 
     public static List<String> filterStringsContainingSubstring(List<String> strings, String word) {
-        return strings.stream().filter(string -> string.contains(word)).toList();
+        return strings.stream()
+                .filter(string -> string.contains(word))
+                .toList();
     }
 
     public static List<String> sortByLength(List<String> strings) {
-        return strings.stream().sorted((s1, s2) -> s1.length() - s2.length()).toList();
+        return strings.stream()
+                .sorted((s1, s2) -> s1.length() - s2.length())
+                .toList();
     }
 
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> predicate) {
-        return numbers.stream().allMatch(number -> predicate.equals(number));
+        return numbers.stream()
+                .allMatch(number -> predicate.equals(number));
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int x) {
-        return numbers.stream().filter(number -> number > x).min(Integer::compare).orElse(0);
+        return numbers.stream()
+                .filter(number -> number > x)
+                .min(Integer::compare)
+                .orElse(0);
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
-        return strings.stream().map(string -> string.length()).toList();
+        return strings.stream()
+                .map(string -> string.length())
+                .toList();
     }
 }
