@@ -1,10 +1,12 @@
-package school.faang;
+package school.faang.BJS2_85592;
 
 public class Example {
-    public void reverse(int[] arr) {
+    public static void reverse(int[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return;
+        }
         int left = 0;
         int right = arr.length - 1;
-
         while (left < right) {
             int temp = arr[left];
             arr[left] = arr[right];

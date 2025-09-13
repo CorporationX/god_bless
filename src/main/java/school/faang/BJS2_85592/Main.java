@@ -1,4 +1,6 @@
-package school.faang;
+package school.faang.BJS2_85592;
+
+import school.faang.BJS2_85592.Example;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -17,8 +19,7 @@ public class Main {
         }
         System.out.println("Исходный массив: " + Arrays.toString(nums));
 
-        Example example = new Example();
-        example.reverse(nums);
+        Example.reverse(nums);
         System.out.println("Перевернутый массив: " + Arrays.toString(nums));
     }
 }
