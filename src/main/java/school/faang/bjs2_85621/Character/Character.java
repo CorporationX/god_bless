@@ -1,26 +1,34 @@
 package school.faang.bjs2_85621.Character;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public abstract class Character {
-    protected String name;
-    protected int strength;
-    protected int agility;
-    protected int intelligence;
-    protected int health = 100;
+    private String name;
+    private int strength;
+    private int agility;
+    private int intelligence;
+    private int health = 100;
 
-    public void checkHealth(int healthOpponent) {
+    public void checkPutHealth(int healthOpponent) {
         if (healthOpponent <= 0) {
             health = 0;
+            System.out.print(name + " погиб. ");
         }
     }
 
+    public void receiveDamage(int damage) {
+        if (damage >= 0 && health > 0) {
+            health -= damage;
+        }
+        checkPutHealth(health);
+        System.out.println("Heals: " + health);
+    }
+
     public Character(String name) {
-        this.name = name;
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this(name, 5, 5, 5);
     }
 
     public Character(String name, int strength, int agility, int intelligence) {

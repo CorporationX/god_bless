@@ -8,12 +8,10 @@ public class Main {
         Warrior war1 = new Warrior("Leha");
         Arching opponent1 = new Arching("Vanya");
         war1.attack(opponent1);
-        System.out.println(opponent1.getHealth());
 
         Arching arc1 = new Arching("Petya");
         Warrior opponent2 = new Warrior("Vika");
         arc1.attack(opponent2);
-        System.out.println(opponent2.getHealth());
     }
 
 }
