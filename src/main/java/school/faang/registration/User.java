@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.registration;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,14 +17,14 @@ public class User {
 
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York");
-    public static final int MinAge = 18;
+    public static final int MIN_AGE = 18;
 
     public User(String name, int age, String job, String address) {
         if (name == null) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
-        if (age < MinAge) {
-            throw new IllegalArgumentException("Возраст не может быть меньше " + MinAge);
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше " + MIN_AGE);
         }
 
         if (!VALID_JOBS.contains(job)) {
