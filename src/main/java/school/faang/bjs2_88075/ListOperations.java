@@ -70,7 +70,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(n -> n > number)
                 .min(Integer::compareTo)
-                .orElseThrow(() -> new NoSuchElementException("List is empty"));
+                .orElseThrow(() -> new NoSuchElementException("List is  empty"));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
