@@ -8,6 +8,7 @@ import java.util.List;
 public class User {
     private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
     private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+    private static final int MIN_AGE = 18;
 
     private String name;
     private int age;
@@ -15,13 +16,12 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        final int ageForCondition = 18;
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым.");
         }
 
-        if (age < ageForCondition) {
-            throw new IllegalArgumentException("Возраст не может быть меньше %d.".formatted(ageForCondition));
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше %d.".formatted(MIN_AGE));
         }
 
         if (!VALID_JOBS.contains(job)) {
