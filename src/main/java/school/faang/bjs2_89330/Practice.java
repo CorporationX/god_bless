@@ -18,8 +18,8 @@ public class Practice {
     }
 
     public static List<String> sortCountries(Map<String, String> countryCapital) {
-        return countryCapital.entrySet().stream().sorted(Map.Entry.comparingByKey()).
-                map(Map.Entry::getValue).collect(Collectors.toList());
+        return countryCapital.entrySet().stream().sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue).collect(Collectors.toList());
     }
 
     public static List<String> filter(List<String> strings, char symbol) {
