@@ -1,6 +1,7 @@
 package school.faang.bjs2_86004_1_1_3_2_catch_events;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,13 +9,18 @@ public class HogwartsSpells {
     private Map<Integer, SpellEvent> spellById;
     private Map<String, List<SpellEvent>> spellsByType;
 
+    public HogwartsSpells() {
+        this.spellById = new HashMap<Integer, SpellEvent>();
+        this.spellsByType = new HashMap<String, List<SpellEvent>>();
+    }
+
     public void addSpellEvent(String eventType, String actionDescription) {
         SpellEvent spellEvent = new SpellEvent(SpellEvent.ids, eventType, actionDescription);
         SpellEvent.ids++;
 
         spellById.put(spellEvent.getId(), spellEvent);
         spellsByType.putIfAbsent(eventType, new ArrayList<SpellEvent>());
-
+        spellsByType.get(eventType).add(spellEvent);
     }
 
     public SpellEvent getSpellEventById(Integer id) {

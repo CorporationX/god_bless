@@ -8,11 +8,11 @@ public class SpellEvent {
     public static Integer ids = 0;
 
     @Getter
-    private Integer id;
+    private final Integer id;
     @Getter
-    private String eventType;
+    private final String eventType;
     @Getter
-    private String action;
+    private final String action;
 
     public SpellEvent(Integer id, String eventType, String action) {
         this.id = id;
@@ -32,5 +32,10 @@ public class SpellEvent {
     @Override
     public int hashCode() {
         return Objects.hashCode(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Id: " + this.getId() + "\tТип: " + this.getEventType() + "\tДействие: " + this.getAction();
     }
 }
