@@ -13,10 +13,10 @@ public class Main {
         System.out.println(Streams.maxValue(numList));
         System.out.println(Streams.avgValue(numList));
         System.out.println(Streams.strFilter(strList, 'Н'));
-        System.out.println(Streams.filterList(strList, "ж"));
+        System.out.println(Streams.findStringsContainsSubstring(strList, "ж"));
         System.out.println(Streams.sortStringListByLength(strList));
         System.out.println(Streams.allMatch(numList, (num) -> num > 0));
-        System.out.println(Streams.minBiggerNum(numList, 4));
-        System.out.println(Streams.lengthList(strList));
+        System.out.println(Streams.findMinBiggerThan(numList, 4));
+        System.out.println(Streams.convertToLengthList(strList));
     }
 }
