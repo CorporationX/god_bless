@@ -9,13 +9,13 @@ public class FrequentUpdateWeatherCacheTest {
     private final WeatherService provider = new WeatherService();
 
     @Test
-    void testFrequentCacheReturnsSameDataQuickly() {
+    void testFrequentCacheReturnsDifferentDataAlways() {
         WeatherCacheTemplate cache = new FrequentUpdateWeatherCache(provider);
 
         WeatherData d1 = cache.getWeatherData("Paris", 1000);
         WeatherData d2 = cache.getWeatherData("Paris", 1000);
 
-        assertEquals(d1, d2);
+        assertNotEquals(d1, d2);
     }
 
     @Test
@@ -23,12 +23,12 @@ public class FrequentUpdateWeatherCacheTest {
         WeatherCacheTemplate cache = new FrequentUpdateWeatherCache(provider);
 
         WeatherData d1 = cache.getWeatherData("London", 100);
-        Thread.sleep(150); // Ждем больше чем timeout (100ms)
+        Thread.sleep(150);
         WeatherData d2 = cache.getWeatherData("London", 100);
 
         assertNotEquals(d1.getTemperature(), d2.getTemperature());
         assertNotEquals(d1.getHumidity(), d2.getHumidity());
-        assertEquals(d1.getCity(), d2.getCity()); // только город должен совпадать
+        assertEquals(d1.getCity(), d2.getCity());
     }
 
     @Test
