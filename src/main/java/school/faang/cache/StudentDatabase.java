@@ -12,16 +12,18 @@ public class StudentDatabase {
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    // локальная база для поиска по имени
     private final Map<String, Student> studentLocalDatabase = new HashMap<>();
     private final Map<String, Subject> subjectLocalDatabase = new HashMap<>();
 
 
     public void addStudentWithGrade(String studentName, List<GradedItem> gradedItems) {
-        Student currentStudent = studentLocalDatabase.computeIfAbsent(studentName, name -> new Student(studentName));
-        Map<Subject, Integer> currentStudentGrade = studentSubjects.get(currentStudent) == null ? new HashMap<>() : studentSubjects.get(currentStudent);
+        Student currentStudent = studentLocalDatabase.computeIfAbsent(studentName,
+                name -> new Student(studentName));
+        Map<Subject, Integer> currentStudentGrade = studentSubjects.get(currentStudent) == null
+                ? new HashMap<>() : studentSubjects.get(currentStudent);
         for (GradedItem gradedItem : gradedItems) {
-            Subject currentSubject = subjectLocalDatabase.computeIfAbsent(gradedItem.subjectName(), name -> new Subject(gradedItem.subjectName()));
+            Subject currentSubject = subjectLocalDatabase.computeIfAbsent(gradedItem.subjectName(),
+                    name -> new Subject(gradedItem.subjectName()));
             currentStudentGrade.put(currentSubject, gradedItem.mark());
             List<Student> students = subjectStudents.computeIfAbsent(currentSubject, sub -> new ArrayList<>());
             if (!students.contains(currentStudent)) {
@@ -32,14 +34,19 @@ public class StudentDatabase {
     }
 
     public void addSubjectWithStudents(String subjectName, List<String> studentNames) {
-        Subject currentSubject = subjectLocalDatabase.computeIfAbsent(subjectName, name -> new Subject(subjectName));
-        List<Student> studentBySubject = subjectStudents.get(currentSubject) == null ? new ArrayList<>() : subjectStudents.get(currentSubject);
+        Subject currentSubject = subjectLocalDatabase.computeIfAbsent(subjectName,
+                name -> new Subject(subjectName));
+        List<Student> studentBySubject = subjectStudents.get(currentSubject) == null
+                ? new ArrayList<>() : subjectStudents.get(currentSubject);
         for (String studentName : studentNames) {
-            Student currentStudent = studentLocalDatabase.computeIfAbsent(studentName, name -> new Student(studentName));
+            Student currentStudent = studentLocalDatabase.computeIfAbsent(studentName,
+                    name -> new Student(studentName));
             if (!studentBySubject.contains(currentStudent)) {
-                subjectStudents.computeIfAbsent(currentSubject, sub -> new ArrayList<>()).add(currentStudent);
+                subjectStudents.computeIfAbsent(currentSubject,
+                        sub -> new ArrayList<>()).add(currentStudent);
             }
-            studentSubjects.computeIfAbsent(currentStudent, student -> new HashMap<>()).putIfAbsent(currentSubject, null);
+            studentSubjects.computeIfAbsent(currentStudent,
+                    student -> new HashMap<>()).putIfAbsent(currentSubject, null);
         }
     }
 
@@ -57,7 +64,8 @@ public class StudentDatabase {
     public void deleteStudentFromSubject(String studentName, String subjectName) {
         Student studentForDeleting = studentLocalDatabase.get(studentName);
         if (studentForDeleting != null) {
-            Subject currentSubject = subjectLocalDatabase.computeIfAbsent(subjectName, name -> new Subject(subjectName));
+            Subject currentSubject = subjectLocalDatabase.computeIfAbsent(subjectName,
+                    name -> new Subject(subjectName));
             studentSubjects.get(studentForDeleting).remove(currentSubject);
             subjectStudents.get(currentSubject).remove(studentForDeleting);
         }
