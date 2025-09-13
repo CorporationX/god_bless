@@ -26,10 +26,14 @@ public abstract class Character {
     public abstract void attack(Character opponent);
 
     public void receiveDamage(int damage) {
+        this.health -= damage;
+        if (this.health == 0) {
+            System.out.println(this.name + " погиб!");
+        }
         // не совсем понял какая будет логика у этого метода
     }
 
-    public void healthIsZero() {
+    public  void  healthIsZero() {
         if (this.getHealth() < 0) {
             throw new IllegalArgumentException("Здоровье не может быть меньше 0");
         }
