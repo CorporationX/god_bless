@@ -16,7 +16,8 @@ public abstract class Character {
         this.dexterity = DEFAULT_CHARACTERISTIC;
         this.intelligence = DEFAULT_CHARACTERISTIC;
     }
-    public Character(String name, Integer strength,Integer dexterity, Integer intelligence) {
+
+    public Character(String name, Integer strength, Integer dexterity, Integer intelligence) {
         this.name = name;
         this.strength = strength;
         this.dexterity = dexterity;
