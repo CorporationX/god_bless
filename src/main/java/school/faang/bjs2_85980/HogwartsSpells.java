@@ -21,26 +21,30 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
+
         return spellById.get(id);
     }
 
     public List<SpellEvent> getSpellEventsByType(String eventType) {
-        return spellsByType.getOrDefault(eventType, new ArrayList<>());
+        return new ArrayList<>(spellsByType.getOrDefault(eventType, new ArrayList<>()));
     }
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
         if (spellEvent != null) {
-            List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
+            List<SpellEvent> events = spellsByType.get(spellEvent.eventType());
             if (events != null) {
                 events.remove(spellEvent);
+                if (events.isEmpty()) {
+                    spellsByType.remove(spellEvent.eventType());
+                }
             }
         }
     }
 
     public void printAllSpellEvents() {
-        for (Map.Entry<Integer, SpellEvent> entry : spellById.entrySet()) {
-            System.out.println(entry.getValue());
+        for (SpellEvent spellEvent : spellById.values()) {
+            System.out.println(spellEvent);
         }
     }
 }
