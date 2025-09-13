@@ -7,8 +7,8 @@ import java.util.function.Predicate;
 
 public class ListOperations {
 
-    private static void printingListIsEmpty(List<?> numbers) {
-        if (numbers.isEmpty()) {
+    private static void printingListIsEmpty(List<?> empty) {
+        if (empty.isEmpty()) {
             throw new IllegalArgumentException("List is empty");
         }
     }
@@ -67,12 +67,10 @@ public class ListOperations {
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int number) {
-        printingListIsEmpty(numbers);
-
         return numbers.stream()
                 .filter(n -> n > number)
                 .min(Integer::compareTo)
-                .orElseThrow(() -> new NoSuchElementException("List is empty"));
+                .orElseThrow(() -> new NoSuchElementException("List is  empty"));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
