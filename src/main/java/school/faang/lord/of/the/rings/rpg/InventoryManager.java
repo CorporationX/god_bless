@@ -2,7 +2,6 @@ package school.faang.lord.of.the.rings.rpg;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -33,14 +32,10 @@ public class InventoryManager {
         if (inventory == null || filter == null || updater == null) {
             throw new IllegalArgumentException("Character and filter cannot be null");
         }
-        ListIterator<Item> iterator = inventory.listIterator();
-        while (iterator.hasNext()) {
-            Item item = iterator.next();
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
             if (filter.test(item)) {
-                Item updatedItem = updater.apply(item);
-                iterator.set(updatedItem);
-                System.out.println("[*] Предмет " + item.getName() + " обновлен: "
-                        + item.getValue() + " -> " + updatedItem.getValue());
+                inventory.set(i, updater.apply(item));
             }
         }
 
@@ -48,7 +43,7 @@ public class InventoryManager {
     }
 
     public static void main(String[] args) {
-        Character cail = new Character("Cail", new ArrayList<>());
+        Character cail = Character.builder().name("Cail").inventory(new ArrayList<>()).build();
         Item staffOfMagic = new Item("Staff of magic", 1500);
 
         InventoryManager manager = new InventoryManager();
