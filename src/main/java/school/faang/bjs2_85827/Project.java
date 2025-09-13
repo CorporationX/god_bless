@@ -3,18 +3,25 @@ package school.faang.bjs2_85827;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Getter
-@AllArgsConstructor
 public class Project {
     private final int projectId;
     private final String name;
     private Set<String> requiredSkills;
     private final List<Employee> teamMembers;
+
+    public Project(int projectId, String name, Set<String> requiredSkills) {
+        this.projectId = projectId;
+        this.name = name;
+        this.requiredSkills = new HashSet<>(requiredSkills);
+        this.teamMembers = new ArrayList<>();
+    }
 
     public Set<String> getRequiredSkills() {
         return Collections.unmodifiableSet(requiredSkills);

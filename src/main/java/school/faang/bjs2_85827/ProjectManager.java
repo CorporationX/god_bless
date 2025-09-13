@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Setter
 public class ProjectManager {
@@ -15,11 +16,11 @@ public class ProjectManager {
     private TeamAssignmentStrategy assignmentStrategy;
 
     public void addEmployee(Employee employee) {
-        employee.put(employee.getId(), employee);
+        employees.put(employee.getId(), employee);
     }
 
     public void addProject(Project project) {
-        project.put(project.getProjectId(), project);
+        projects.put(project.getProjectId(), project);
     }
 
     public void assignTeamToProject(int projectId) {
@@ -77,5 +78,39 @@ public class ProjectManager {
             return true;
         }
         return false;
+    }
+
+    public boolean removeEmployeeFromProject(int projectId, int employeeId) {
+        Project project = projects.get(projectId);
+        if (project == null) {
+            return false;
+        }
+        List<Employee> team = project.getTeamMembers();
+        for (Employee e : team) {
+            if (e.getId() == employeeId) {
+                project.removeTeamMemberById(employeeId);
+                e.decrementProjectCount();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<Employee> getTeamMembers(int projectId) {
+        return getTeamForProject(projectId);
+    }
+
+    public void removeIneligibleEmployees(Project project) {
+        Set<String> requiredSkills = project.getRequiredSkills();
+        List<Employee> toRemove = new ArrayList<>();
+        for (Employee e : project.getTeamMembers()) {
+            if (!e.getSkills().containsAll(requiredSkills)) {
+                toRemove.add(e);
+            }
+        }
+        for (Employee e : toRemove) {
+            project.removeTeamMemberById(e.getId());
+            e.decrementProjectCount();
+        }
     }
 }
