@@ -1,5 +1,7 @@
 package school.faang.bjs2_88805;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -12,7 +14,8 @@ public class NotificationManager {
 
     private final Map<NotificationType, Consumer<Notification>> handlerMap = new HashMap<>();
     private final Map<NotificationType, Predicate<Notification>> banWordsPredicate = new HashMap<>();
-    protected final Set<String> banWords = new HashSet<>();
+    @Getter
+    private final Set<String> banWords = new HashSet<>();
 
     protected void registerHandler(NotificationType type, Consumer<Notification> handler) {
         handlerMap.put(type, handler);

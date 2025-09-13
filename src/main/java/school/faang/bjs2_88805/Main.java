@@ -36,7 +36,7 @@ public class Main {
         Notification testBanNotificationThree = new Notification(NotificationType.EMAIL, "Норм сообщение");
 
         Predicate<Notification> filter = (notification ->
-                notificationManager.banWords.contains(notification.getMessage()));
+                notificationManager.getBanWords().contains(notification.getMessage()));
         notificationManager.registerPredicateFilter(testBanWord.getType(), "Плохое Слово", filter);
         notificationManager.registerPredicateFilter(testBanWordTwo.getType(), "Плохое Слово 2", filter);
         notificationManager.registerPredicateFilter(testBanWordThree.getType(), "Банан", filter);
@@ -44,8 +44,6 @@ public class Main {
         notificationManager.sendNotification(testBanWordTwo, correct);
         notificationManager.sendNotification(testBanWordThree, correct);
         notificationManager.sendNotification(testBanNotificationThree, correct);
-
-
 
     }
 }
