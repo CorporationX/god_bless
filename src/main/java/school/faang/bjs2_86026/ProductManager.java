@@ -10,9 +10,10 @@ import java.util.Set;
 public class ProductManager {
 
     private Set<Product> products = new HashSet<>();
+    private static int id = 1;
 
     public void addProduct(Category category, String name) {
-        final Product productToAdd = new Product(name, category);
+        final Product productToAdd = new Product(name, category, id++);
         if (products.contains(productToAdd)) {
             System.out.println("Set products already contains product " + name);
         } else {
