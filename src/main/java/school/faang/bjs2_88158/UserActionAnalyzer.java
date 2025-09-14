@@ -25,8 +25,8 @@ public class UserActionAnalyzer {
 
     public static List<String> topHashtags(List<UserAction> actions, int n) {
         return actions.stream()
-                .filter(action -> action.getActionType() == ActionType.COMMENT ||
-                        action.getActionType() == ActionType.POST)
+                .filter(action -> action.getActionType() == ActionType.COMMENT
+                        || action.getActionType() == ActionType.POST)
                 .map(UserAction::getContent)
                 .filter(Objects::nonNull)
                 .flatMap(content -> Arrays.stream(content.split(" ")))
