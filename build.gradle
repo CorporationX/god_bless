@@ -1,11 +1,6 @@
 plugins {
     id 'checkstyle'
     id 'java'
-    id 'application'
-}
-
-application {
-    mainClass = 'school.faang.bjs2_86085.Main'
 }
 
 group = "faang.school"
@@ -17,14 +12,17 @@ repositories {
 }
 
 dependencies {
-   compileOnly 'org.projectlombok:lombok:1.18.32'
-    annotationProcessor 'org.projectlombok:lombok:1.18.32'
-    testCompileOnly 'org.projectlombok:lombok:1.18.32'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
-    
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
-    testImplementation 'org.mockito:mockito-junit-jupiter:5.5.0'
-    testImplementation 'org.assertj:assertj-core:3.24.2'
+
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
+    implementation("org.slf4j:slf4j-api:2.0.5")
+    implementation("ch.qos.logback:logback-classic:1.4.6")
+    implementation("org.projectlombok:lombok:1.18.26")
+    annotationProcessor("org.projectlombok:lombok:1.18.26")
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
 }
 
 test {
@@ -42,11 +40,13 @@ tasks.checkstyleMain {
     source = fileTree("${project.rootDir}/src/main/java")
     include("**/*.java")
     exclude("**/resources/**")
+
     classpath = files()
 }
 
 tasks.checkstyleTest {
     source = fileTree("${project.rootDir}/src/test")
     include("**/*.java")
+
     classpath = files()
 }
