@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public class WeatherData {
 
-    private String city;
+    private City city;
     private double temperature;
     private double humidity;
     private long timestamp;
@@ -17,7 +17,7 @@ public class WeatherData {
     @Override
     public String toString() {
         return "WeatherData{" +
-                "city='" + city + '\'' +
+                "city=" + city.getCityName() +
                 ", temperature=" + temperature +
                 ", humidity=" + humidity +
                 '}';

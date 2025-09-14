@@ -6,7 +6,7 @@ public class WeatherService implements WeatherProvider {
 
     private static final Random RANDOM = new Random();
 
-    public WeatherData fetchWeatherData(String city) {
+    public WeatherData fetchWeatherData(City city) {
         return new WeatherData(
                 city,
                 RANDOM.nextDouble(-10, 25),

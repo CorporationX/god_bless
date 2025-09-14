@@ -7,19 +7,19 @@ public class App {
         final FrequentUpdateWeatherCache frequentUpdateWeatherCache = new FrequentUpdateWeatherCache();
 
         WeatherData londonWeatherData = standardWeatherCache
-                .getWeatherData(City.LONDON.getCityName(), System.currentTimeMillis());
+                .getWeatherData(City.LONDON, System.currentTimeMillis());
 
         WeatherData parisWeatherData = standardWeatherCache
-                .getWeatherData(City.PARIS.getCityName(), System.currentTimeMillis());
+                .getWeatherData(City.PARIS, System.currentTimeMillis());
 
         WeatherData brazilWeatherData = frequentUpdateWeatherCache
-                .getWeatherData(City.BRAZIL.getCityName(), System.currentTimeMillis() + 25000);
+                .getWeatherData(City.BRAZIL, System.currentTimeMillis() + 25000);
 
         WeatherData sochiWeatherData = frequentUpdateWeatherCache
-                .getWeatherData(City.SOCHI.getCityName(), System.currentTimeMillis());
+                .getWeatherData(City.SOCHI, System.currentTimeMillis());
 
         WeatherData madridWeatherData = standardWeatherCache
-                .getWeatherData(City.MADRID.getCityName(), System.currentTimeMillis() + 100);
+                .getWeatherData(City.MADRID, System.currentTimeMillis() + 100);
 
         System.out.println(londonWeatherData);
         System.out.println(parisWeatherData);
@@ -27,10 +27,10 @@ public class App {
         System.out.println(sochiWeatherData);
         System.out.println(madridWeatherData);
 
-        standardWeatherCache.forceUpdateWeather(City.MADRID.getCityName());
+        standardWeatherCache.forceUpdateWeather(City.MADRID);
 
         madridWeatherData = standardWeatherCache
-                .getWeatherData(City.MADRID.getCityName(), System.currentTimeMillis() + 100);
+                .getWeatherData(City.MADRID, System.currentTimeMillis() + 100);
 
         System.out.println(madridWeatherData);
     }
