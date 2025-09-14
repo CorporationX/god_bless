@@ -2,6 +2,7 @@ package school.faang.bjs2_91020;
 
 public class Main {
     public static void main(String[] args) {
+
         Droid droid1 = new Droid();
         Droid droid2 = new Droid();
 
