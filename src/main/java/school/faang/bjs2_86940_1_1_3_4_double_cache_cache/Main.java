@@ -1,0 +1,7 @@
+package school.faang.bjs2_86940_1_1_3_4_double_cache_cache;
+
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
