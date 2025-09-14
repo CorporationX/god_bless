@@ -2,36 +2,27 @@ package school.faang.secrets.droids;
 
 
 public record Droid(String name) {
-    String encryptMessage(String message, int key) {
-        DroidMessageEncryptor encryptor = (msg, encryptionKey) -> {
-            StringBuilder encryptedMessage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - base + encryptionKey) % 26 + base));
-                } else {
-                    encryptedMessage.append(ch);
-                }
+    private static final int ALPHABET_LENGTH = 26;
+
+    private static final DroidMessageEncryptor ENCRYPTOR = (msg, encryptionKey) -> {
+        StringBuilder encryptedMessage = new StringBuilder();
+        for (char ch : msg.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                char base = Character.isLowerCase(ch) ? 'a' : 'A';
+                encryptedMessage.append((char) ((ch - base + encryptionKey) % 26 + base));
+            } else {
+                encryptedMessage.append(ch);
             }
-            return encryptedMessage.toString();
-        };
-        return encryptor.encrypt(message, key);
+        }
+        return encryptedMessage.toString();
+    };
+
+    String encryptMessage(String message, int key) {
+        return ENCRYPTOR.encrypt(message, key);
     }
 
-    String decryptMessage(String message, int key) {
-        DroidMessageEncryptor decryptor = (msg, decryptionKey) -> {
-            StringBuilder decryptedMessage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base - decryptionKey + 26) % 26 + base));
-                } else {
-                    decryptedMessage.append(ch);
-                }
-            }
-            return decryptedMessage.toString();
-        };
-        return decryptor.encrypt(message, key);
+    String decryptMessage(String encryptedMessage, int key) {
+        return ENCRYPTOR.encrypt(encryptedMessage, ALPHABET_LENGTH - key);
     }
 
     void sendMessage(Droid droid, String message, int encryptionKey) {
