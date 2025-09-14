@@ -10,5 +10,5 @@ import lombok.ToString;
 public class Image {
     private String name;
     @Setter @Getter
-    String description;
+    private String description;
 }
