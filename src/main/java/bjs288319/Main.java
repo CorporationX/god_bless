@@ -11,11 +11,11 @@ public class Main {
         System.out.println("Sum even nums: " + Calculator.sumOfEvenNumbers(numbers));
         System.out.println("Max: " + Calculator.findMax(numbers));
         System.out.println("Average: " + Calculator.findAverage(numbers));
-        System.out.println("Amount strs start with 'a': " + Calculator.findStringAmountsStartsWith(strings, 'a'));
-        System.out.println("Strings contain 'an': " + Calculator.findStringsHasSubstring(strings, "an"));
+        System.out.println("Amount strs start with 'a': " + Calculator.countStringsStartWith(strings, 'a'));
+        System.out.println("Strings contain 'an': " + Calculator.findStringsContainSubstring(strings, "an"));
         System.out.println("Sorted by length: " + Calculator.sortStringsPerLength(strings));
-        System.out.println("All nums are even? " + Calculator.checkNums(numbers, n -> n % 2 == 0));
+        System.out.println("All nums are even? " + Calculator.allNumsMatchFilter(numbers, n -> n % 2 == 0));
         System.out.println("Min bigger than 4: " + Calculator.findMinNumBiggerThan(numbers, 4));
-        System.out.println("Strings length: " + Calculator.transformStringsIntoLengths(strings));
+        System.out.println("Strings length: " + Calculator.convertToLengths(strings));
     }
 }

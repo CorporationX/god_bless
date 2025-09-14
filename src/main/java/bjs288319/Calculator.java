@@ -8,9 +8,10 @@ import java.util.function.Predicate;
 public class Calculator {
 
     public static int sumOfEvenNumbers(List<Integer> numbers) {
-        return (int) numbers.stream()
+        return numbers.stream()
                 .filter(number -> number % 2 == 0)
-                .count();
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public static int findMax(List<Integer> numbers) {
@@ -23,16 +24,16 @@ public class Calculator {
         return numbers.stream()
                 .mapToDouble(Integer::doubleValue)
                 .average()
-                .orElse(0.0);
+                .orElseThrow(() -> new NoSuchElementException("the list is empty"));
     }
 
-    public static long findStringAmountsStartsWith(List<String> strs, char ch) {
+    public static long countStringsStartWith(List<String> strs, char ch) {
         return strs.stream()
                 .filter(str -> !str.isEmpty() && str.charAt(0) == ch)
                 .count();
     }
 
-    public static List<String> findStringsHasSubstring(List<String> strs, String str) {
+    public static List<String> findStringsContainSubstring(List<String> strs, String str) {
         return strs.stream()
                 .filter(newStr -> newStr.contains(str))
                 .toList();
@@ -44,7 +45,7 @@ public class Calculator {
                 .toList();
     }
 
-    public static boolean checkNums(List<Integer> numbers, Predicate<Integer> filter) {
+    public static boolean allNumsMatchFilter(List<Integer> numbers, Predicate<Integer> filter) {
         return numbers.stream()
                 .allMatch(filter);
     }
@@ -56,7 +57,7 @@ public class Calculator {
                 .orElseThrow(() -> new NoSuchElementException("There is no appropriate"));
     }
 
-    public static List<Integer> transformStringsIntoLengths(List<String> strs) {
+    public static List<Integer> convertToLengths(List<String> strs) {
         return strs.stream()
                 .map(String::length)
                 .toList();
