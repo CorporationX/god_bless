@@ -28,8 +28,7 @@ public class Main {
         convertNumberToBinary(otherNumbers).forEach(System.out::println);
 
         List<String> otherWords = List.of("apple", "banana", "cherry", "date", "fig", "grape");
-        Set<Character> alphabet = Set.of('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-                'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
+        String alphabet = "^[a-zA-Z]*$";
         System.out.println("5. Отсортированные строки по длине:");
         filterByAlphabetAndSortByLength(otherWords, alphabet).forEach(System.out::println);
     }
@@ -63,10 +62,9 @@ public class Main {
                 .toList();
     }
 
-    public static List<String> filterByAlphabetAndSortByLength(List<String> words, Set<Character> alphabet) {
+    public static List<String> filterByAlphabetAndSortByLength(List<String> words, String alphabet) {
         return words.stream()
-                .filter(string -> string.chars()
-                        .allMatch(ch -> alphabet.contains((char) ch)))
+                .filter(string -> string.matches(alphabet))
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
