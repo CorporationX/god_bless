@@ -1,4 +1,5 @@
 package school.faang.module1.reverse;
+
 import java.util.Arrays;
 
 public class Example {
@@ -7,7 +8,6 @@ public class Example {
         if (nums == null || nums.length <2) {
             return;
         }
-
         int left = 0;
         int right = nums.length - 1;
 
@@ -18,7 +18,6 @@ public class Example {
             left++;
             right--;
         }
-
     }
 
     public static void main(String[] args) {
