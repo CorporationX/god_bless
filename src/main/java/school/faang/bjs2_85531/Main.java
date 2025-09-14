@@ -5,13 +5,13 @@ public class Main {
         Warrior warrior = new Warrior("Conan");
         Archer archer = new Archer("Legolas");
 
-        while (warrior.isAlive() && archer.isAlive()) {
+        while (warrior.getHealth() > 0 && archer.getHealth() > 0) {
             warrior.attack(archer);
-            if (!archer.isAlive()) {
+            if (!(archer.getHealth() > 0)) {
                 break;
             }
             archer.attack(warrior);
-            if (!warrior.isAlive()) {
+            if (!(warrior.getHealth() > 0)) {
                 break;
             }
         }

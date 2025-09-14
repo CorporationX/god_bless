@@ -13,7 +13,7 @@ import static school.faang.bjs2_85531.HeroCharacter.HEALTH;
 @Setter
 public abstract class Character {
     private int health = HEALTH;
-    private String name;
+    private final String name;
     private final int strength;
     private final int agility;
     private final int intelligence;
@@ -33,10 +33,11 @@ public abstract class Character {
     }
 
     public void attack(Character opponent) {
-        if (opponent.isAlive()) {
+        if (opponent.getHealth() > 0) {
             int damage = this.getHeroAttackDamage();
-            opponent.setHealth(opponent.getHealth() - damage);
-            if (opponent.getHealth() == 0) {
+            int newHealth = Math.max(0, opponent.getHealth() - damage);
+            opponent.setHealth(newHealth);
+            if (opponent.getHealth() <= 0) {
                 System.out.println(opponent.getName() + " повержен");
                 return;
             }
@@ -46,7 +47,4 @@ public abstract class Character {
 
     public abstract int getHeroAttackDamage();
 
-    public boolean isAlive() {
-        return health > 0;
-    }
 }
