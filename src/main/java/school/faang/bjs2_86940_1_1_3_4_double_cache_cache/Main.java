@@ -10,15 +10,15 @@ public class Main {
     public static void main(String[] args) {
         StudentDatabase db = new StudentDatabase();
 
-        Subject math = new Subject("Математика");
-        Subject physics = new Subject("Физика");
-        Subject history = new Subject("История");
-        Subject biology = new Subject("Биология");
+        final Subject math = new Subject("Математика");
+        final Subject physics = new Subject("Физика");
+        final Subject history = new Subject("История");
+        final Subject biology = new Subject("Биология");
 
-        Student ivan = new Student("Иван");
-        Student maria = new Student("Мария");
-        Student petr = new Student("Пётр");
-        Student olga = new Student("Ольга");
+        final Student ivan = new Student("Иван");
+        final Student maria = new Student("Мария");
+        final Student petr = new Student("Пётр");
+        final Student olga = new Student("Ольга");
 
         // Добавляем студентов с оценками (у Иванa и Марии уже есть предметы)
         Map<Subject, Integer> ivanInfo = new HashMap<>();
