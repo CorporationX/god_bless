@@ -8,6 +8,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 public class Notification {
-    private  NotificatonType type;
+    private  NotificationType type;
     private String message;
 }
