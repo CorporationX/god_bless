@@ -4,22 +4,25 @@ package school.faang.bjs2_85531;
 import lombok.Getter;
 import lombok.Setter;
 
+import static school.faang.bjs2_85531.HeroCharacter.CHARACTER_AGILITY;
+import static school.faang.bjs2_85531.HeroCharacter.CHARACTER_INTELLIGENCE;
+import static school.faang.bjs2_85531.HeroCharacter.CHARACTER_STRENGTH;
+import static school.faang.bjs2_85531.HeroCharacter.HEALTH;
+
 @Getter
 @Setter
 public abstract class Character {
-    public static final int STRENGTH = 5;
-    public static final int AGILITY = 5;
-    public static final int INTELLIGENCE = 5;
-    public static final int HELTH = 100;
-
-    private final String name;
+    private int health = HEALTH;
+    private String name;
     private final int strength;
     private final int agility;
     private final int intelligence;
-    protected int health = HELTH;
 
     public Character(String name) {
-        this(name, STRENGTH, AGILITY, INTELLIGENCE);
+        this.name = name;
+        this.strength = CHARACTER_STRENGTH;
+        this.intelligence = CHARACTER_INTELLIGENCE;
+        this.agility = CHARACTER_AGILITY;
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -29,7 +32,17 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public abstract void attack(Character opponent);
+    public void attack(Character opponent) {
+        if (opponent.isAlive()) {
+            int damage = this.getHeroAttackDamage();
+            opponent.setHealth(opponent.getHealth() - damage);
+            if (opponent.getHealth() == 0) {
+                System.out.println(opponent.getName() + " повержен");
+                return;
+            }
+            System.out.printf("%s HP %d \n", opponent.getName(), opponent.getHealth());
+        }
+    }
 
     public abstract int getHeroAttackDamage();
 
