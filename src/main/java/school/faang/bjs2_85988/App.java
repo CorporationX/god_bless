@@ -6,7 +6,7 @@ public class App {
         final HogwartsSpells hogwartsSpells = new HogwartsSpells();
         final String transFiguriya = "Трансфигурация";
 
-        final int spellId =  hogwartsSpells.addSpellEvent(transFiguriya, "Колдует");
+        final int spellId = hogwartsSpells.addSpellEvent(transFiguriya, "Колдует");
         hogwartsSpells.addSpellEvent(transFiguriya, "Преобразует предмет");
         hogwartsSpells.addSpellEvent("Защита", "Защищает от атак");
 
