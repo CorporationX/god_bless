@@ -9,13 +9,14 @@ import lombok.ToString;
 @Getter
 public class Product {
 
-    private static int id;
+    private static int itter;
     private String name;
     private Category category;
+    private int id;
 
     public Product(String name, Category category) {
         this.name = name;
         this.category = category;
-        id++;
+        id = itter++;
     }
 }

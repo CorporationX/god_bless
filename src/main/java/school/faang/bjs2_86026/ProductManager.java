@@ -9,16 +9,20 @@ import java.util.Set;
 
 public class ProductManager {
 
-    private static final Set<Product> PRODUCTS = new HashSet<>();
+    private Set<Product> products = new HashSet<>();
 
     public void addProduct(Category category, String name) {
-        final Product product = new Product(name, category);
-        PRODUCTS.add(product);
+        final Product productToAdd = new Product(name, category);
+        if (products.contains(productToAdd)) {
+            System.out.println("Set products already contains product " + name);
+        } else {
+            products.add(productToAdd);
+        }
     }
 
     public void removeProduct(Category category, String name) {
-        final Product product = new Product(name, category);
-        PRODUCTS.remove(product);
+        products.removeIf(nextProduct ->
+                nextProduct.getCategory().equals(category) && nextProduct.getName().equals(name));
     }
 
     public List<Product> findProductsByCategory(Category category) {
@@ -30,7 +34,7 @@ public class ProductManager {
 
     public Map<Category, List<Product>> groupProductsByCategory() {
         final Map<Category, List<Product>> groupProducts = new HashMap<>();
-        for (Product product : PRODUCTS) {
+        for (Product product : products) {
             groupProducts.computeIfAbsent(
                     product.getCategory(),
                     key -> new ArrayList<>()
