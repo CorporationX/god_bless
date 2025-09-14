@@ -7,12 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.mapping;
 
 public class UserActionAnalyzer {
     private static final BiFunction<Pattern, String, Optional<String>> extractSubstring = (Pattern pattern,
@@ -28,9 +32,22 @@ public class UserActionAnalyzer {
     };
 
     public static List<String> topActiveUsers(@NonNull List<UserAction> userActions, int limit) {
+        Map<Integer, Long> activeUsers = userActions.stream()
+                .filter(Objects::nonNull)
+                .collect(groupingBy(UserAction::userId, counting()));
+
+        Map<Integer, UserAction> listUsers = userActions.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toMap(
+                        UserAction::userId,
+                        Function.identity(),
+                        (first, next) -> first));
+
+
         return userActions.stream()
                 .filter(Objects::nonNull)
-                .collect(groupingBy(UserAction::getUserId)).entrySet()
+                .collect(groupingBy(UserAction::userId))
+                .entrySet()
                 .stream()
                 .sorted(Map.Entry
                         .<Integer, List<UserAction>>comparingByValue(Comparator.comparingInt(List::size)).reversed())
@@ -38,7 +55,7 @@ public class UserActionAnalyzer {
                 .map(itemListUser -> itemListUser
                         .getValue()
                         .get(0)
-                        .getUserName())
+                        .userName())
                 .toList();
     }
 
@@ -48,10 +65,10 @@ public class UserActionAnalyzer {
         return userActions.stream()
                 .filter(Objects::nonNull)
                 .filter(user -> List.of(ActionType.COMMENT,
-                        ActionType.POST).contains(user.getActionType()))
+                        ActionType.POST).contains(user.actionType()))
                 .filter(user -> extractSubstring.apply(regHashTag,
-                        user.getContent()).isPresent())
-                .collect(groupingBy(user -> extractSubstring.apply(regHashTag, user.getContent()).get()))
+                        user.content()).isPresent())
+                .collect(groupingBy(user -> extractSubstring.apply(regHashTag, user.content()).get()))
                 .entrySet().stream()
                 .sorted(Map.Entry
                         .<String, List<UserAction>>comparingByValue(Comparator.comparingInt(List::size)).reversed())
@@ -63,8 +80,8 @@ public class UserActionAnalyzer {
     public static List<String> topCommentersLastMonth(@NonNull List<UserAction> userActions, int limit) {
         return userActions.stream()
                 .filter(Objects::nonNull)
-                .filter(user -> user.getActionType() == ActionType.COMMENT)
-                .collect(groupingBy(UserAction::getUserId))
+                .filter(user -> user.actionType() == ActionType.COMMENT)
+                .collect(groupingBy(UserAction::userId))
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<Integer, List<UserAction>>
@@ -73,7 +90,7 @@ public class UserActionAnalyzer {
                 .map(itemListUser -> itemListUser
                         .getValue()
                         .get(0)
-                        .getUserName())
+                        .userName())
                 .toList();
     }
 
@@ -81,7 +98,7 @@ public class UserActionAnalyzer {
         int countActions = userActions.size();
         return userActions.stream()
                 .filter(Objects::nonNull)
-                .collect(groupingBy(UserAction::getActionType))
+                .collect(groupingBy(UserAction::actionType))
                 .entrySet()
                 .stream()
                 .collect(Collectors.toMap(Map.Entry::getKey,
