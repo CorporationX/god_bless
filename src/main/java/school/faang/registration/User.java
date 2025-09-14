@@ -15,12 +15,12 @@ public class User {
     private String job;
     private String address;
 
-    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York");
-    public static final int MIN_AGE = 18;
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MIN_AGE = 18;
 
     public User(String name, int age, String job, String address) {
-        if (name == null) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
         if (age < MIN_AGE) {
