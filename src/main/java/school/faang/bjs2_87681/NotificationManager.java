@@ -19,7 +19,6 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        notificationTypeConsumerMap.getOrDefault(notification.getType(), not -> {
-        }).accept(notification);
+
     }
 }

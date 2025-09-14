@@ -2,12 +2,10 @@ package school.faang.bjs2_87681;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
-@ToString
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 public class Notification {
-    private  NotificatonType type;
+    private NotificationType type;
     private String message;
 }
