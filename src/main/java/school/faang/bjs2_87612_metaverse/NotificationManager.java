@@ -5,14 +5,14 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    private final Map<NotificationType, Consumer<Notification>> instructionMap = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> handlers = new HashMap<>();
 
     public void registerHandler(NotificationType type, Consumer<Notification> handler) {
-        instructionMap.put(type, handler);
+        handlers.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> handler = instructionMap.getOrDefault(
+        Consumer<Notification> handler = handlers.getOrDefault(
                 notification.getNotificationType(),
                 (n) -> System.out.println("Обработчик для типа " + n.getNotificationType() + " не найден")
         );
