@@ -1,4 +1,4 @@
-package school.faang.BSJ2_87050;
+package school.faang.bsj2_87050;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -11,6 +11,6 @@ import lombok.ToString;
 @Getter
 @EqualsAndHashCode
 @ToString
-public class Subject {
+public class Student {
     private String name;
 }
