@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
