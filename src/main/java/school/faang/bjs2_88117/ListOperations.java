@@ -1,6 +1,8 @@
 package school.faang.bjs2_88117;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
@@ -13,12 +15,14 @@ public class ListOperations {
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compare)
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("List is empty"));
     }
 
     public static double findAverage(List<Integer> numbers) {
         double sum = numbers.stream()
-                .reduce(0, (Integer::sum));
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElseThrow(() -> new NoSuchElementException("List is empty"));
         return sum / numbers.size();
     }
 
@@ -36,7 +40,7 @@ public class ListOperations {
 
     public static List<String> sortByLength(List<String> strings) {
         return strings.stream()
-                .sorted((s1, s2) -> s1.length() - s2.length())
+                .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
@@ -49,7 +53,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(number -> number > x)
                 .min(Integer::compare)
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("List is empty"));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
