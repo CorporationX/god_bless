@@ -1,4 +1,4 @@
-package school.faang.BSJ2_87500;
+package school.faang.bsj_87500;
 
 import java.util.List;
 import java.util.function.Consumer;
