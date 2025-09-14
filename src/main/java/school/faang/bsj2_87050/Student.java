@@ -3,10 +3,8 @@ package school.faang.bsj2_87050;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode

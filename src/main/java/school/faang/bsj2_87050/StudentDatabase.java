@@ -44,8 +44,8 @@ public class StudentDatabase {
         }
     }
 
-    public void addNewSubjectAndStudents(String name, List<Student> students) {
-        Subject newSubject = new Subject(name);
+    public void addNewSubjectAndStudents(String subjectName, List<Student> students) {
+        Subject newSubject = new Subject(subjectName);
         subjectStudents.putIfAbsent(newSubject, new ArrayList<>());
         subjectStudents.get(newSubject).addAll(students);
     }
