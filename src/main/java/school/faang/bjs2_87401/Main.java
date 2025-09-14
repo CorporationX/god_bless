@@ -10,7 +10,7 @@ public class Main {
         String mes1 = "Join the Rebellion!!!";
         String mes2 = "The Death Star is operational!";
 
-        r2d2.sendMessage(c3po, mes1, 33);
+        r2d2.sendMessage(c3po, mes1, 3);
         c3po.sendMessage(f4pz, mes2, 7);
     }
 }
