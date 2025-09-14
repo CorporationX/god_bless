@@ -20,29 +20,47 @@ public class App {
 
         Notification emailNotification = new Notification(NotificationType.EMAIL, "Ваш аккаунт активирован.");
         Notification smsNotification = new Notification(NotificationType.SMS, "Ваш пароль изменен.");
-        Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение!");
-        Notification pushNotification2 = new Notification(NotificationType.PUSH, "У вас новое сообщение bububu!");
+        Notification pushNotification = new Notification(NotificationType.PUSH, "У вас новое сообщение bububu!");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
 
-        notificationManager.sendNotificationWithFilter(pushNotification2, message -> {
-            List<String> badWords = List.of("kuku", "bububu", "lyalyalya");
-            boolean containsBadWord = false;
-            for (String badWord : badWords) {
-                if (message.contains(badWord)) {
-                    containsBadWord = true;
-                    break;
-                }
-            }
-            return containsBadWord;
-        });
+        notificationManager.registerFilter("An unacceptable word in message! Please, edit your message",
+                notification -> {
+                    List<String> badWords = List.of("kuku", "bububu", "lyalyalya");
+                    boolean filterPassed = true;
+                    for (String badWord : badWords) {
+                        if (notification.getMessage().contains(badWord)) {
+                            filterPassed = false;
+                            break;
+                        }
+                    }
+                    return filterPassed;
+                });
 
-        notificationManager.sendNotificationWithEditor(smsNotification,
+        System.out.println("\nAfter filter for bad words");
+        notificationManager.sendNotification(emailNotification);
+        notificationManager.sendNotification(smsNotification);
+        notificationManager.sendNotification(pushNotification);
+
+        notificationManager.registerFilter("Notification type SMS not allowed",
+                notification -> !notification.getType().equals(NotificationType.SMS));
+
+        System.out.println("\nAfter filter for type SMS");
+        notificationManager.sendNotification(emailNotification);
+        notificationManager.sendNotification(smsNotification);
+        notificationManager.sendNotification(pushNotification);
+
+        notificationManager.registerEditor(
                 notification -> {
                     notification.setMessage(notification.getMessage() + " OOO Kukuyevo");
                     return notification;
                 });
+
+        System.out.println("\nAfter register editor");
+        notificationManager.sendNotification(emailNotification);
+        notificationManager.sendNotification(smsNotification);
+        notificationManager.sendNotification(pushNotification);
     }
 }
