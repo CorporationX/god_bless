@@ -5,17 +5,21 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public class Droid {
+    private static final int ALPHABET_LENGTH = 26;
     @Getter
     private String name;
 
     //Поставить потом private
     public String encryptMessage(String message, int key) {
+        if (message == null) {
+            throw new IllegalArgumentException("Message not be null");
+        }
         DroidMessageEncryptor cryptMessage = ((words, keys) -> {
             String crypt = "";
             for (int i = 0; i < words.length(); i++) {
                 if (Character.isLetter(words.charAt(i))) {
                     char base = Character.isLowerCase(words.charAt(i)) ? 'a' : 'A';
-                    char encryptChar = (char) ((words.charAt(i) - base + keys) % 26 + base);
+                    char encryptChar = (char) ((words.charAt(i) - base + keys) % ALPHABET_LENGTH + base);
                     crypt += encryptChar;
                 } else {
                     crypt += words.charAt(i);
@@ -27,12 +31,16 @@ public class Droid {
     }
 
     public String decryptMessage(String message, int key) {
+        if (message == null) {
+            throw new IllegalArgumentException("Message not be null");
+        }
         DroidMessageEncryptor decrypt = ((words, keys) -> {
             String decryptMessage = "";
             for (int i = 0; i < words.length(); i++) {
                 if (Character.isLetter(words.charAt(i))) {
                     char base = Character.isLowerCase(words.charAt(i)) ? 'a' : 'A';
-                    char encryptChar = (char) ((words.charAt(i) - base - keys + 26) % 26 + base);
+                    char encryptChar =
+                            (char) ((words.charAt(i) - base - keys + ALPHABET_LENGTH) % ALPHABET_LENGTH + base);
                     decryptMessage += encryptChar;
                 } else {
                     decryptMessage += words.charAt(i);
