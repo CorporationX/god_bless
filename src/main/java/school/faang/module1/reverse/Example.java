@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Example {
 
     public static void reverse(int[] nums) {
-        if (nums == null || nums.length <2) {
+        if (nums == null || nums.length < 2) {
             return;
         }
         int left = 0;
