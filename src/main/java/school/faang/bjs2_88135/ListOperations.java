@@ -2,6 +2,7 @@ package school.faang.bjs2_88135;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
@@ -9,19 +10,23 @@ public class ListOperations {
     public static int sumOfEvenNumbers(List<Integer> list) {
         return list.stream()
                 .filter(x -> x % 2 == 0)
-                .reduce(0, Integer::sum);
+                .mapToInt(Integer::intValue)
+                .sum();
+        //.filter(x -> x % 2 == 0)
+        //.reduce(0, Integer::sum);
     }
 
     public static int findMax(List<Integer> list) {
         return list.stream()
-                .reduce(0, (x, y) -> Math.max(x, y));
+                .max(Integer::compare)
+                .orElseThrow(() -> new NoSuchElementException("Максимальное значение не найдено"));
     }
 
     public static double findAverage(List<Integer> list) {
         return list.stream()
-                .mapToInt(i -> i.intValue())
+                .mapToInt(Integer::intValue)
                 .average()
-                .orElse(0.0);
+                .orElseThrow(() -> new NoSuchElementException("Среднее значение не найдено"));
     }
 
     public static long countStringsStartingWith(List<String> list, char prefix) {
@@ -51,7 +56,7 @@ public class ListOperations {
         return list.stream()
                 .filter(x -> x > decimal)
                 .min(Comparator.naturalOrder())
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static List<Integer> convertToLengths(List<String> list) {
