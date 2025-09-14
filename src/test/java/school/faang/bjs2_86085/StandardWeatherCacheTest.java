@@ -8,7 +8,7 @@ public class StandardWeatherCacheTest {
     private final WeatherService provider = new WeatherService();
 
     @Test
-    void testStandardCacheReturnsCachedData() {
+    void testStandardCacheReturnsSameDataQuickly() {
         WeatherCacheTemplate cache = new StandardWeatherCache(provider);
         WeatherData d1 = cache.getWeatherData("Paris", 5000);
         WeatherData d2 = cache.getWeatherData("Paris", 5000);
