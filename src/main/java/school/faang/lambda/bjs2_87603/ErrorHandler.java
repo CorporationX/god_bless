@@ -1,4 +1,4 @@
-package school.faang.lambda.bjs2_85376;
+package school.faang.lambda.bjs2_87603;
 
 import java.util.function.Supplier;
 
