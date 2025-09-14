@@ -1,27 +1,29 @@
 package school.faang.bjs2_88126;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
         return numbers.stream()
-                .filter(num -> num % 2 == 0)
-                .reduce(0, (x, y) -> x + y);
+                .filter(x -> x % 2 == 0)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
-                .reduce(0, (x, y) -> Math.max(x, y));
+                .max(Integer::compareTo)
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(integer -> integer.intValue())
                 .average()
-                .orElse(0.0);
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     public static long countStringsStartingWith(List<String> strings, char symbol) {
@@ -51,7 +53,9 @@ public class ListOperations {
         return numbers.stream()
                 .filter(number -> number > threshold)
                 .min(Comparator.naturalOrder())
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException(
+                        "Не найдено элементов больше " + threshold
+                ));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
