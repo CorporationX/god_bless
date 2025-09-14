@@ -9,13 +9,13 @@ public class FrequentUpdateWeatherCacheTest {
     private final WeatherService provider = new WeatherService();
 
     @Test
-    void testFrequentCacheReturnsDifferentDataAlways() {
+    void testFrequentCacheReturnsSameDataQuickly() {
         WeatherCacheTemplate cache = new FrequentUpdateWeatherCache(provider);
 
         WeatherData d1 = cache.getWeatherData("Paris", 1000);
         WeatherData d2 = cache.getWeatherData("Paris", 1000);
 
-        assertNotEquals(d1, d2);
+        assertEquals(d1, d2);
     }
 
     @Test
