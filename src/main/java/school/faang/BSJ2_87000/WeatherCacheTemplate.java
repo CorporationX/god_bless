@@ -1,7 +1,6 @@
 package school.faang.BSJ2_87000;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public abstract class WeatherCacheTemplate {
@@ -12,10 +11,8 @@ public abstract class WeatherCacheTemplate {
 
     public WeatherData getWeatherData(String city, long maxCacheAgeMillis) {
         WeatherData weatherData;
-        if ((weatherData = weatherDatas.get(city)) != null) {
-            if (!isCacheExpired(weatherData, maxCacheAgeMillis)) {
-                return weatherData;
-            }
+        if ((weatherData = weatherDatas.get(city)) != null && !isCacheExpired(weatherData, maxCacheAgeMillis)) {
+            return weatherData;
         }
         weatherData = forceUpdateWeather(city);
         weatherDatas.put(city, weatherData);
@@ -29,12 +26,7 @@ public abstract class WeatherCacheTemplate {
     }
 
     public void clearExpiredCache(long maxCacheAgeMillis) {
-        Iterator<Map.Entry<String, WeatherData>> weatherIterator = weatherDatas.entrySet().iterator();
-        while (weatherIterator.hasNext()) {
-            Map.Entry<String, WeatherData> entry = weatherIterator.next();
-            if (System.currentTimeMillis() - entry.getValue().getTimestamp() > maxCacheAgeMillis) {
-                weatherDatas.remove(entry.getKey());
-            }
-        }
+        weatherDatas.entrySet().removeIf(entry ->
+                (System.currentTimeMillis() - entry.getValue().getTimestamp()) > maxCacheAgeMillis);
     }
 }
