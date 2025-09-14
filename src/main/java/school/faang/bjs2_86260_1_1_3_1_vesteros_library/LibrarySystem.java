@@ -7,7 +7,7 @@ import java.util.Map;
 
 @NoArgsConstructor
 public class LibrarySystem {
-    Map<Book, String> locations = new HashMap<Book, String>();
+    private Map<Book, String> locations = new HashMap<Book, String>();
 
     public void addBook(String title, String author, int year, String location) {
         Book book = new Book(title, author, year);
