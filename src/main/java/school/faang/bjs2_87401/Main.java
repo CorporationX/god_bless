@@ -5,7 +5,7 @@ public class Main {
 
         Droid r2d2 = new Droid("R2D2");
         Droid c3po = new Droid("C3PO");
-        Droid f4pz = new Droid("C3PO");
+        Droid f4pz = new Droid("F4PZ");
 
         String mes1 = "Join the Rebellion!!!";
         String mes2 = "The Death Star is operational!";
