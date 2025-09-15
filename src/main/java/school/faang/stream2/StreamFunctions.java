@@ -1,26 +1,25 @@
 package school.faang.stream2;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.Comparator;
 
 public class StreamFunctions {
 
     public static List<Pair<Integer, Integer>> findPairs(Set<Integer> set, int pairSum) {
-
-        List<Integer> list = new ArrayList<>(set);
-        return IntStream.range(0, list.size())
-                .boxed()
-                .flatMap(i ->
-                        IntStream.range(i + 1, list.size())
-                                .filter(j -> list.get(i) + list.get(j) == pairSum)
-                                .mapToObj(j -> new Pair<>(list.get(i), list.get(j)))
-                )
-                .collect(Collectors.toList());
+        Set<Integer> seen = new HashSet<>();
+        return set.stream()
+                .filter(num -> {
+                    int complement = pairSum - num;
+                    boolean found = seen.contains(complement);
+                    seen.add(num);
+                    return found;
+                })
+                .map(num -> new Pair<>(pairSum - num, num))
+                .toList();
     }
 
     public static List<String> sortedCapitals(Map<String, String> map) {
@@ -34,7 +33,7 @@ public class StreamFunctions {
     public static List<String> filterAndSortByLength(List<String> list, char symbol) {
         return list.stream()
                 .filter(s -> s.charAt(0) == symbol)
-                .sorted()
+                .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
@@ -45,14 +44,11 @@ public class StreamFunctions {
     }
 
     public static List<String> filterByAlphabetAndSort(List<String> list, String alphabet) {
-        Set<Character> alphabetSet = alphabet.chars()
-                .mapToObj(c -> (char) c)
-                .collect(Collectors.toSet());
+        String regex = "^[" + alphabet + "]+$";
 
         return list.stream()
-                .filter(s -> s.chars()
-                        .allMatch(c -> alphabetSet.contains((char) c))
-                ).sorted(Comparator.comparingInt(String::length))
+                .filter(s -> s.matches(regex))
+                .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
