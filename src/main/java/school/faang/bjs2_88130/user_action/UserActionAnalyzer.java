@@ -4,6 +4,8 @@ import java.time.Month;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import school.faang.bjs2_88130.user_action.UserAction.ActionType;
@@ -18,6 +20,7 @@ public class UserActionAnalyzer {
         ensureUsersActionsAndQuantityValid(usersActions, quantity);
 
         return usersActions.stream()
+                .filter(Objects::nonNull)
                 .collect(Collectors.groupingBy(UserAction::getUserId))
                 .entrySet().stream()
                 .sorted((firstUserActions, secondUserActions) ->
@@ -66,9 +69,14 @@ public class UserActionAnalyzer {
         Month lastMonth = usersActions.stream()
                 .filter(userAction -> userAction.getActionType() == ActionType.COMMENT)
                 .map(userAction -> userAction.getActionDate().getMonth())
-                .max(Comparator.comparingInt(Month::getValue)).orElseThrow().minus(1);
+                .max(Comparator.comparingInt(Month::getValue))
+                .orElseThrow(() -> new NoSuchElementException(
+                        "cannot find the last month - user activities list is empty or elements are null"
+                ))
+                .minus(1);
 
         return usersActions.stream()
+                .filter(Objects::nonNull)
                 .filter(userAction -> {
                     Month actionDateMonth = userAction.getActionDate().getMonth();
                     ActionType actionType = userAction.getActionType();
@@ -119,7 +127,7 @@ public class UserActionAnalyzer {
 
     private static void ensureUsersActionsValid(List<UserAction> usersActions) {
         if (usersActions == null || usersActions.isEmpty()) {
-            throw new IllegalArgumentException("users action collection must be full");
+            throw new IllegalArgumentException("users actions list must be full");
         }
     }
 
