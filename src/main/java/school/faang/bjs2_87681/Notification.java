@@ -7,5 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Notification {
     private NotificationType type;
-    private String message;
+    private final String message;
 }
