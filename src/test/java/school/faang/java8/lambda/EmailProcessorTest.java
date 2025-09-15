@@ -37,6 +37,7 @@ class EmailProcessorTest {
         assertEquals("ТЕКСТ ПИСЬМА 2", emails.get(1).getBody());
         assertEquals("Текст спама", emails.get(2).getBody());
 
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        emails.forEach(email ->
+                System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
     }
 }
