@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.group_users;
 
 import java.util.List;
 import java.util.Map;
