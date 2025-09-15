@@ -23,8 +23,8 @@ public class Main {
     private static void printWeatherData(WeatherData weatherData) {
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         System.out.printf("Weather in %s is: temperature = %s, humidity = %s\n",
-                weatherData.getCity(),
-                decimalFormat.format(weatherData.getTemperature()),
-                decimalFormat.format(weatherData.getHumidity()));
+                weatherData.city(),
+                decimalFormat.format(weatherData.temperature()),
+                decimalFormat.format(weatherData.humidity()));
     }
 }

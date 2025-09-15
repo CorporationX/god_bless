@@ -27,6 +27,6 @@ public abstract class WeatherCacheTemplate {
 
     public void clearExpiredCache(long maxCacheAgeMillis) {
         weatherDatas.entrySet().removeIf(entry ->
-                (System.currentTimeMillis() - entry.getValue().getTimestamp()) > maxCacheAgeMillis);
+                (System.currentTimeMillis() - entry.getValue().timestamp()) > maxCacheAgeMillis);
     }
 }
