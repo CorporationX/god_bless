@@ -2,14 +2,14 @@ package school.faang.bjs2_88006;
 
 public class Main {
     public static void main(String[] args) {
-        int distanceToHome = 10; //km
-        int timeToHome = 20; //min
+        int distanceToHomeKm = 10;
+        int timeToHomeMinutes = 20;
 
-        int cheapTripToHome = FareCalculator.calculateFare(distanceToHome, timeToHome,
+        int cheapTripToHome = FareCalculator.calculateFare(distanceToHomeKm, timeToHomeMinutes,
                 (distance, time) -> distance * time * 2);
-        int expenciveTripToHome = FareCalculator.calculateFare(distanceToHome, timeToHome,
+        int expenciveTripToHome = FareCalculator.calculateFare(distanceToHomeKm, timeToHomeMinutes,
                 (distance, time) -> distance * time * 3);
-        int luxaryTripToHome = FareCalculator.calculateFare(distanceToHome, timeToHome,
+        int luxaryTripToHome = FareCalculator.calculateFare(distanceToHomeKm, timeToHomeMinutes,
                 (distance, time) -> distance * time * 4);
 
         System.out.printf("Доехать до дома дешево стоит: %d руб.%n", cheapTripToHome);
