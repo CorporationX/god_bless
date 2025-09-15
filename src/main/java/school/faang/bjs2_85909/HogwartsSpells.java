@@ -11,10 +11,10 @@ import java.util.Map;
 public class HogwartsSpells {
     private final HashMap<Integer, SpellEvent> spellById = new HashMap<>();
     private final HashMap<String, List<SpellEvent>> spellsByType = new HashMap<>();
-    private int currentId = 1;
+    private final IdGenerator idGenerator = new IdGenerator();
 
     public void addSpellEvent(String eventType, String actionDescription) {
-        int id = currentId++;
+        int id = idGenerator.genNextId();
         SpellEvent spellEvent = new SpellEvent(id, eventType, actionDescription);
 
         spellById.put(id, spellEvent);
@@ -26,7 +26,7 @@ public class HogwartsSpells {
         if (spellById.get(id) != null) {
             return spellById.get(id);
         } else {
-            throw new NullPointerException("Такого объекта нет.");
+            throw new IllegalArgumentException("Такого объекта нет.");
         }
     }
 
