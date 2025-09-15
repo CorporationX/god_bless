@@ -1,10 +1,7 @@
 package school.faang.bjs2_91711;
 
-import java.util.function.Consumer;
-
 public class Main {
-    public static void main(String[] args) throws Exception {
-        //Test:
+    public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
         notificationManager.registerHandler(NotificationType.EMAIL,
                 notification -> System.out.println("EMAIL: " + notification.getMessage()));
