@@ -1,12 +1,9 @@
 package school.faang.bjs2_89556;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.regex.Pattern;
-
-
+@Slf4j
 @AllArgsConstructor
 public class SenderRunnable implements Runnable {
     private static final long TIME_SEND_LETTER = 10;
@@ -20,8 +17,7 @@ public class SenderRunnable implements Runnable {
                 Thread.sleep(TIME_SEND_LETTER);
                 System.out.printf("letter %d sent \n", i);
             } catch (InterruptedException e) {
-                e.printStackTrace();
-                Thread.currentThread().interrupt();
+                log.error("Error", e);
             }
         }
     }
