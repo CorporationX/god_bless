@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 public class FilterProcessor {
 
-    Image applyFilter(Image image, Function<Image, Image> filter) {
+    public Image applyFilter(Image image, Function<Image, Image> filter) {
         return filter.apply(image);
     }
 
