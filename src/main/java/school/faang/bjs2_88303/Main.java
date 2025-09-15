@@ -108,9 +108,9 @@ public class Main {
         );
 
         //Test:
-        System.out.println(UserAction.getTopUsers(actions, 3));
-        System.out.println(UserAction.getTopHashtag(actions, 3));
-        System.out.println(UserAction.getTopCommentators(actions, 3));
-        System.out.println(UserAction.countPercentOfActionTypes(actions));
+        System.out.println(UserActionService.getTopUsers(actions, 3));
+        System.out.println(UserActionService.getTopHashtag(actions, 3));
+        System.out.println(UserActionService.getTopCommentators(actions, 3));
+        System.out.println(UserActionService.countPercentOfActionTypes(actions));
     }
 }
