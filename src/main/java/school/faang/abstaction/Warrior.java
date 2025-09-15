@@ -1,6 +1,6 @@
-package school.faang;
+package school.faang.abstaction;
 
-public class Warrior extends Character {
+public class Warrior extends school.faang.abstaction.Character {
 
 
     public Warrior(String name) {
