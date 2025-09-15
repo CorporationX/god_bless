@@ -7,16 +7,17 @@ import java.util.Map;
 import java.util.List;
 
 public class HogwartsSpells {
-    private Map<Integer, SpellEvent> spellById = new HashMap<>();
-    private Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
-
-    private int nextId = 1;
+    private final Map<Integer, SpellEvent> spellById = new HashMap<>();
+    private final Map<String, List<SpellEvent>> spellsByType = new HashMap<>();
 
     public void addSpellEvent(String eventType, String actionDescription) {
-        int id = nextId++;
 
-        SpellEvent event = new SpellEvent(id, eventType, actionDescription);
+        if (eventType == null || actionDescription == null) {
+            throw new IllegalArgumentException("Тип и действие не могут быть null");
+        }
 
+        SpellEvent event = new SpellEvent(eventType, actionDescription);
+        int id = event.getId();
         spellById.put(id, event);
 
         List<SpellEvent> list = spellsByType.get(eventType);
