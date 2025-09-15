@@ -1,22 +1,30 @@
 package school.faang.rpg.game.characters;
 
-import jakarta.validation.constraints.Min;
+
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @ToString
+@Getter
+@Setter
 public abstract class Character {
-    protected String name;
-    protected Integer strength;
-    protected Integer agility;
-    protected Integer intelligence;
-    @Getter
-    protected Integer health = 100;
+
+    public static final Integer STRENGTH = 5;
+    public static final Integer AGILITY = 5;
+    public static final Integer INTELLIGENCE = 5;
+    public static final Integer HEALTH = 100;
+
+    private final String name;
+    private final Integer strength;
+    private final Integer agility;
+    private final Integer intelligence;
+    private Integer health = HEALTH;
 
     public Character(String name) {
-        this.strength = 5;
-        this.agility = 5;
-        this.intelligence = 5;
+        this.strength = STRENGTH;
+        this.agility = AGILITY;
+        this.intelligence = INTELLIGENCE;
         this.name = name;
     }
 

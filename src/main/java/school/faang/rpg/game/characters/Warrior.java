@@ -2,16 +2,16 @@ package school.faang.rpg.game.characters;
 
 public class Warrior extends Character {
 
-    public Warrior(String name) {
-        super(name);
-        this.strength = 10;
-        this.agility = 5;
-        this.intelligence = 3;
+    public static final Integer STRENGTH = 10;
+    public static final Integer AGILITY = 5;
+    public static final Integer INTELLIGENCE = 3;
 
+    public Warrior(String name) {
+        super(name, STRENGTH, AGILITY, INTELLIGENCE);
     }
 
     @Override
     public void attack(Character opponent) {
-        opponent.reduceHealth(strength);
+        opponent.reduceHealth(this.getStrength());
     }
 }
