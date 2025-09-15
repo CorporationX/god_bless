@@ -1,5 +1,6 @@
 package school.faang.bjs2_87593;
 
-public interface ExceptionHandler {
-
+@FunctionalInterface
+public interface ExceptionHandler<T> {
+    T manageException(Exception e);
 }
