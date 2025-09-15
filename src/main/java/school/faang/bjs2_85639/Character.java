@@ -12,11 +12,11 @@ public abstract class Character {
     private int intelligence = 5;
     private byte health = 100;
 
-    protected Character(String name) {
+    public Character(String name) {
         this.name = name;
     }
 
-    protected Character(String name, int strength, int agility, int intelligence) {
+    public Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
         this.strength = strength;
         this.agility = agility;

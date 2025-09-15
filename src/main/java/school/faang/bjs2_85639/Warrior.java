@@ -6,7 +6,7 @@ public class Warrior extends Character {
     }
 
     @Override
-    void attack(Character opponent) {
+    public void attack(Character opponent) {
         opponent.recieveDamage(getStrength());
     }
 }
