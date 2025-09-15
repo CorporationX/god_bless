@@ -1,20 +1,14 @@
 package school.faang.bjs2_87295;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@AllArgsConstructor
 @Getter
 @Setter
 public class Email {
     private String subject;
     private String body;
     private boolean isImportant;
-
-    public Email(String subject, String body, boolean isImportant) {
-        this.subject = subject;
-        this.body = body;
-        this.isImportant = isImportant;
-    }
-
-
 }
