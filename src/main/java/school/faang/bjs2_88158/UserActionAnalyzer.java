@@ -2,6 +2,7 @@ package school.faang.bjs2_88158;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ public class UserActionAnalyzer {
     public static List<String> topActiveUsers(List<UserAction> actions, int n) {
         return actions.stream()
                 .collect(Collectors.groupingBy(
-                        action -> action.getUserId() + ":" + action.getUserName(),
+                        action -> String.format("%s:%s", action.getUserId(), action.getUserName()),
                         Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
@@ -45,7 +46,7 @@ public class UserActionAnalyzer {
                 .filter(action -> action.getActionType() == ActionType.COMMENT
                         && action.getActionDate().isAfter(LocalDate.now().minusMonths(1)))
                 .collect(Collectors.groupingBy(
-                        action -> action.getUserId() + ":" + action.getUserName(),
+                        action -> String.format("%s:%s", action.getUserId(), action.getUserName()),
                         Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
@@ -61,7 +62,7 @@ public class UserActionAnalyzer {
                 .count();
 
         if (total == 0) {
-            return Map.of();
+            return Collections.emptyMap();
         }
 
         return actions.stream()
