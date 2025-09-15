@@ -35,9 +35,6 @@ public class Knight {
     public static void main(String[] args) {
         Knight knightOne = new Knight("Knight One");
         Knight knightTwo = new Knight("Knight Two");
-        List<Knight> knights = List.of(knightOne, knightTwo);
-
-        ExecutorService executor = Executors.newFixedThreadPool(2);
 
         knightOne.addTrial(new Trial(knightOne.getName(), "trial of agility"));
         knightOne.addTrial(new Trial(knightOne.getName(), "trial of strength"));
@@ -46,6 +43,8 @@ public class Knight {
         knightTwo.addTrial(new Trial(knightTwo.getName(), "trial of vitality"));
         knightTwo.addTrial(new Trial(knightTwo.getName(), "trial of luck"));
 
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        List<Knight> knights = List.of(knightOne, knightTwo);
         for (Knight knight : knights) {
             for (Trial trial : knight.getTrials()) {
                 executor.submit(trial);
