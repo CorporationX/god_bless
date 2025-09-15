@@ -3,6 +3,7 @@ package school.faang.handlers;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
+import org.jetbrains.annotations.NotNull;
 
 @AllArgsConstructor
 @Getter
@@ -14,11 +15,7 @@ public class SpellEvent {
     private String eventType;
     private String action;
 
-    public SpellEvent(String eventType, String action) {
-        if (eventType == null || action == null) {
-            throw new IllegalArgumentException("eventType и action не могут быть null");
-        }
-
+    public SpellEvent(@NotNull String eventType, @NotNull String action) {
         this.id = currentId++;
         this.eventType = eventType;
         this.action = action;
