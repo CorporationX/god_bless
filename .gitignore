@@ -57,6 +57,7 @@ out/
 README
 README.md
 
+/src/main/java/school/faang/groupusers/
 src/main/java/school/faang/Archer.java
 src/main/java/school/faang/Character.java
 src/main/java/school/faang/Warrior.java
