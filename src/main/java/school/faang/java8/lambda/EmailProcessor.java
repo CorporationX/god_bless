@@ -10,6 +10,9 @@ public class EmailProcessor {
                               Predicate<Email> importantFilter,
                               Consumer<Email> printEmail,
                               Function<Email, String> toUpperCase) {
-        emails.stream().filter(importantFilter).peek(toUpperCase::apply).forEach(printEmail);
+        emails.stream()
+                .filter(importantFilter)
+                .peek(toUpperCase::apply)
+                .forEach(printEmail);
     }
 }
