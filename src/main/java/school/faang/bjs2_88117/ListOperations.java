@@ -19,11 +19,10 @@ public class ListOperations {
     }
 
     public static double findAverage(List<Integer> numbers) {
-        double sum = numbers.stream()
+        return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
                 .orElseThrow(() -> new NoSuchElementException("List is empty"));
-        return sum / numbers.size();
     }
 
     public static long countStringsStartingWith(List<String> strings, char c) {
