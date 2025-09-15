@@ -27,14 +27,14 @@ public class App {
         System.out.println("\nПроверка, что добавился item watch и не задублировался item bracelet");
         System.out.println(ilonCharacter.getItems());
 
-        inventoryManager.updateItem(ilonCharacter, watch, item -> {
+        inventoryManager.updateItem(ilonCharacter, item -> item.equals(watch), item -> {
             item.setName(item.getName().toUpperCase() + " modified item");
             return item;
         });
 
         Item glasses = new Item("Glasses", 3000);
 
-        inventoryManager.updateItem(ilonCharacter, glasses, item -> {
+        inventoryManager.updateItem(ilonCharacter, item -> item.equals(glasses), item -> {
             item.setName(item.getName().toUpperCase() + " modified item");
             return item;
         });
@@ -44,9 +44,9 @@ public class App {
 
         Item gloves = new Item("Gloves", 1500);
 
-        inventoryManager.removeItem(ilonCharacter, ring, item -> item.getValue() > 900);
-        inventoryManager.removeItem(ilonCharacter, bracelet, item -> item.getValue() < 1000);
-        inventoryManager.removeItem(ilonCharacter, gloves, item -> item.getValue() == 1500);
+        inventoryManager.removeItem(ilonCharacter, item -> item.getValue() > 900 && item.equals(ring));
+        inventoryManager.removeItem(ilonCharacter, item -> item.getValue() < 1000 && item.equals(bracelet));
+        inventoryManager.removeItem(ilonCharacter, item -> item.getValue() == 1500 && item.equals(gloves));
 
         System.out.println("\nПроверка, items после удаления");
         System.out.println(ilonCharacter.getItems());
