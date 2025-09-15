@@ -7,9 +7,10 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
+@Setter
 @ToString
 public class Item {
     private String name;
     private int value;
-    @Setter private int amount;
+    private int amount;
 }
