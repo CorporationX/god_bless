@@ -10,19 +10,19 @@ public class User {
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
-    private final int minAge = 18;
+    private static final int MIN_AGE = 18;
 
-    private String name;
-    private int age;
-    private String job;
-    private String address;
+    private final String name;
+    private final Integer age;
+    private final String job;
+    private final String address;
 
-    public User(String name, Byte age, String job, String address) {
+    public User(String name, int age, String job, String address) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name must not be empty");
         }
-        if (age < minAge) {
-            throw new IllegalArgumentException("Age < 18");
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Age less than " + MIN_AGE);
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Not valid job");
