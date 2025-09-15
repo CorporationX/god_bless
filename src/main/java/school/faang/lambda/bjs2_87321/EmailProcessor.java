@@ -9,13 +9,13 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
 
-    public void processEmails(@NonNull List<Email> emails, Predicate<Email> predicate,
-                              Function<Email, String> function, Consumer<Email> consumer) {
+    public void processEmails(@NonNull List<Email> emails, Predicate<Email> filter,
+                              Function<Email, String> transformer, Consumer<Email> action) {
         if (!emails.isEmpty()) {
             for (Email email : emails) {
-                if (predicate.test(email)) {
-                    consumer.accept(email);
-                    email.setBody(function.apply(email));
+                if (filter.test(email)) {
+                    action.accept(email);
+                    email.setBody(transformer.apply(email));
                 }
             }
         }
