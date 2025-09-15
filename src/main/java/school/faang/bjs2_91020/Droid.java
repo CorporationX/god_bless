@@ -8,31 +8,11 @@ public class Droid {
     private static final int ALPHABET_SIZE = 26;
 
     private static final DroidMessageEncryptor DEFAULT_ENCRYPTOR = (msg, key) -> {
-        StringBuilder result = new StringBuilder();
-        for (char c : msg.toCharArray()) {
-            if (Character.isUpperCase(c)) {
-                result.append((char) encryptChar(c, key, MIN_UPPER, MAX_UPPER));
-            } else if (Character.isLowerCase(c)) {
-                result.append((char) encryptChar(c, key, MIN_LOWER, MAX_LOWER));
-            } else {
-                result.append(c);
-            }
-        }
-        return result.toString();
+        return processCharacters(msg, key, true);
     };
 
     private static final DroidMessageEncryptor DEFAULT_DECRYPTOR = (msg, key) -> {
-        StringBuilder result = new StringBuilder();
-        for (char c : msg.toCharArray()) {
-            if (Character.isUpperCase(c)) {
-                result.append((char) decryptChar(c, key, MIN_UPPER, MAX_UPPER));
-            } else if (Character.isLowerCase(c)) {
-                result.append((char) decryptChar(c, key, MIN_LOWER, MAX_LOWER));
-            } else {
-                result.append(c);
-            }
-        }
-        return result.toString();
+        return processCharacters(msg, key, false);
     };
 
     public String encryptMessage(String message, int key) {
@@ -60,21 +40,32 @@ public class Droid {
         return processor.process(message, key);
     }
 
-    private static int encryptChar(char c, int key, int min, int max) {
-        int shift = key % ALPHABET_SIZE;
-        int code = c + shift;
-        if (code > max) {
-            code = min + (code - max - 1) % ALPHABET_SIZE;
+    private static String processCharacters(String message, int key, boolean encrypt) {
+        StringBuilder result = new StringBuilder();
+        int direction = encrypt ? 1 : -1;
+
+        for (char c : message.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                result.append((char) processChar(c, key, MIN_UPPER, MAX_UPPER, direction));
+            } else if (Character.isLowerCase(c)) {
+                result.append((char) processChar(c, key, MIN_LOWER, MAX_LOWER, direction));
+            } else {
+                result.append(c);
+            }
         }
-        return code;
+        return result.toString();
     }
 
-    private static int decryptChar(char c, int key, int min, int max) {
+    private static int processChar(char c, int key, int min, int max, int direction) {
         int shift = key % ALPHABET_SIZE;
-        int code = c - shift;
-        if (code < min) {
+        int code = c + (direction * shift);
+
+        if (direction > 0 && code > max) {
+            code = min + (code - max - 1) % ALPHABET_SIZE;
+        } else if (direction < 0 && code < min) {
             code = max - (min - code - 1) % ALPHABET_SIZE;
         }
+
         return code;
     }
 }
