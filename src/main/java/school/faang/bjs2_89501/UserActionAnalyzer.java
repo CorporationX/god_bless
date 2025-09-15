@@ -1,15 +1,9 @@
 package school.faang.bjs2_89501;
 
-import school.faang.bjs2_85520.User;
-
 import java.time.LocalDate;
-import java.time.Year;
 import java.time.YearMonth;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -27,14 +21,14 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int count) {
-        Pattern regex = Pattern.compile("#.$");
+        Pattern regex = Pattern.compile("#\\w+");
         return actions.stream()
-                .filter(action -> action.getContent().isBlank()
-                        && action.getContent() != null
+                .filter(action -> !action.getContent().isBlank()
                         && ActionType.POST.equals(action.getActionType())
                         || ActionType.COMMENT.equals(action.getActionType()))
                 .flatMap(action -> regex.matcher(action.getContent()).results())
                 .map(MatchResult::group)
+                .map(String::toLowerCase)
                 .collect(Collectors.groupingBy(hashtag -> hashtag, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())

@@ -1,12 +1,17 @@
 package school.faang.bjs2_89501;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class Main {
     private static final int TOP_USERS = 3;
+    private static final int TOP_HASHTAG = 3;
+    private static final int TOP_COMMENT = 3;
 
     @SuppressWarnings("checkstyle:LineLength")
     public static void main(String[] args) {
@@ -63,17 +68,15 @@ public class Main {
         );
 
         List<String> top10Users = UserActionAnalyzer.topActiveUsers(actions, TOP_USERS);
-        List<String> top5Hashtags = UserActionAnalyzer.topPopularHashtags(actions, 5);
-        List<String> top3Commenters = UserActionAnalyzer.topCommentersLastMonth(actions, 3);
+        List<String> top5Hashtags = UserActionAnalyzer.topPopularHashtags(actions, TOP_HASHTAG);
+        List<String> top3Commenters = UserActionAnalyzer.topCommentersLastMonth(actions, TOP_COMMENT);
         Map<ActionType, Double> actionPercentages = UserActionAnalyzer.actionTypePercentages(actions);
 
         // Вывод результатов
-        System.out.printf("Топ-10 активных пользователей: %s%n", top10Users);
-        System.out.printf("Топ-5 популярных хэштегов: %s%n",
-                top5Hashtags);
-        System.out.printf("Топ-3 комментаторов за последний месяц: %s",
-                top3Commenters);
-        System.out.println("Процент действий по типам: " + actionPercentages.keySet() + actionPercentages.entrySet());
+        log.info("Топ-10 активных пользователей: {}\n", top10Users);
+        log.info("Топ-5 популярных хэштегов: {}\n", top5Hashtags);
+        log.info("Топ-3 комментаторов за последний месяц: {}", top3Commenters);
+        log.info("Процент действий по типам: {}, {}", actionPercentages.keySet(), actionPercentages.values());
 
 
     }
