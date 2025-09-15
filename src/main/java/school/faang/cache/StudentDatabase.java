@@ -1,90 +1,94 @@
 package school.faang.cache;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class StudentDatabase {
 
     private final Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
     private final Map<Subject, Set<Student>> subjectStudents = new HashMap<>();
 
-    public void addStudentWithGrade(String studentName, List<GradedItem> gradedItems) {
-        Student currentStudent = new Student(studentName);
-        Map<Subject, Integer> currentStudentGrade = studentSubjects.get(currentStudent) == null
-                ? new HashMap<>() : studentSubjects.get(currentStudent);
+    public void addStudentWithGrade(Student currentStudent, List<GradedItem> gradedItems) {
+        Map<Subject, Integer> currentStudentGrade = studentSubjects.getOrDefault(currentStudent,
+                new HashMap<>());
         for (GradedItem gradedItem : gradedItems) {
             Subject currentSubject = new Subject(gradedItem.subjectName());
             currentStudentGrade.put(currentSubject, gradedItem.mark());
-            subjectStudents.computeIfAbsent(currentSubject, sub -> new HashSet<>())
-                    .add(currentStudent);
+            addStudentToSubjects(currentStudent, currentSubject);
         }
         studentSubjects.put(currentStudent, currentStudentGrade);
     }
 
-    public void addSubjectWithStudents(String subjectName, List<String> studentNames) {
-        Subject currentSubject = new Subject(subjectName);
-        Set<Student> studentBySubject = subjectStudents.get(currentSubject) == null
-                ? new HashSet<>() : subjectStudents.get(currentSubject);
+    public void addStudentToSubjects(Student student, Subject subject) {
+        subjectStudents.computeIfAbsent(subject, sub -> new HashSet<>())
+                .add(student);
+    }
+
+    public void addSubjectWithStudents(Subject currentSubject, List<String> studentNames) {
+        Set<Student> studentBySubject = subjectStudents.getOrDefault(currentSubject, new HashSet<>());
         for (String studentName : studentNames) {
             Student currentStudent = new Student(studentName);
             studentBySubject.add(currentStudent);
-            studentSubjects.computeIfAbsent(currentStudent,
-                    student -> new HashMap<>()).putIfAbsent(currentSubject, null);
+            addSubjectToStudentGrade(currentStudent, currentSubject);
         }
         subjectStudents.put(currentSubject, studentBySubject);
     }
 
-    public void deleteStudentByName(String studentName) {
-        Student studentForDeleting = new Student(studentName);
-        if (studentSubjects.containsKey(studentForDeleting)) {
-            Set<Subject> subjectByStudent = studentSubjects.get(studentForDeleting).keySet();
-            for (Subject subject : subjectByStudent) {
-                subjectStudents.get(subject).remove(studentForDeleting);
+    public void addSubjectToStudentGrade(Student student, Subject subject) {
+        studentSubjects.computeIfAbsent(student,
+                s -> new HashMap<>()).putIfAbsent(subject, 0);
+    }
+
+    public void deleteStudent(Student studentForDeleting) {
+        Set<Subject> subjectByStudent = studentSubjects.getOrDefault(studentForDeleting,
+                Collections.emptyMap()).keySet();
+        deleteStudentFromSubjects(studentForDeleting, subjectByStudent);
+        studentSubjects.remove(studentForDeleting);
+    }
+
+    public void deleteStudentFromSubjects(Student studentForDeleting, Set<Subject> subjectByStudent) {
+        subjectByStudent.forEach(subject -> {
+            Set<Student> studentBySubject = subjectStudents.getOrDefault(subject,
+                    Collections.emptySet());
+            if (!studentBySubject.isEmpty()) {
+                studentBySubject.remove(studentForDeleting);
             }
-            studentSubjects.remove(studentForDeleting);
+        });
+    }
+
+    public void deleteStudentFromSubject(Student studentForDeleting, Subject currentSubject) {
+        deleteSubjectFromGrade(studentForDeleting, currentSubject);
+        Set<Student> studentBySubject = subjectStudents.getOrDefault(currentSubject, Collections.emptySet());
+        if (!studentBySubject.isEmpty()) {
+            studentBySubject.remove(studentForDeleting);
         }
     }
 
-    public void deleteStudentFromSubject(String studentName, String subjectName) {
-        Student studentForDeleting = new Student(studentName);
-        Subject currentSubject = new Subject(subjectName);
-        if (studentSubjects.containsKey(studentForDeleting)) {
-            studentSubjects.get(studentForDeleting).remove(currentSubject);
+    private void deleteSubjectFromGrade(Student studentForDeleting, Subject currentSubject) {
+        Map<Subject, Integer> gradeForDeleting = studentSubjects.getOrDefault(studentForDeleting,
+                Collections.emptyMap());
+        if (!gradeForDeleting.isEmpty()) {
+            gradeForDeleting.remove(currentSubject);
         }
-        if (subjectStudents.containsKey(currentSubject)) {
-            subjectStudents.get(currentSubject).remove(studentForDeleting);
-        }
-
     }
-
 
     public void printStudentWithGrade() {
-        for (Map.Entry<Student, Map<Subject, Integer>> entry : studentSubjects.entrySet()) {
-            StringBuilder resultList = new StringBuilder(entry.getKey().getName()).append(" [");
-            entry.getValue().forEach((key, value) -> {
-                resultList.append(key.getName()).append(": ");
-                resultList.append(value).append(" ");
+        studentSubjects.forEach((student, grade) -> {
+            System.out.println(student.getName() + ": ");
+            grade.forEach((subject, mark) -> {
+                System.out.println(subject + " " + mark + " ");
             });
-            resultList.append("] ");
-            System.out.println(resultList);
-        }
+            System.out.println();
+        });
     }
 
     public void printSubjectWithStudents() {
-        StringBuilder resultList = new StringBuilder();
-        for (Map.Entry<Subject, Set<Student>> entry : subjectStudents.entrySet()) {
-            resultList.append(entry.getKey().getName()).append(": ").append(entry.getValue().stream()
-                    .map(Student::getName)
-                    .collect(Collectors.joining(", ")));
-            resultList.append("\n");
-        }
-        System.out.println(resultList);
+        subjectStudents.forEach((subject, students) -> {
+            System.out.println(subject + ": " + students);
+        });
     }
-
-
 }
