@@ -1,6 +1,8 @@
 package school.faang.bjs2_89330;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -9,12 +11,24 @@ import java.util.stream.Collectors;
 public class Practice {
 
     public static List<int[]> findPairs(Set<Integer> numbers, int targetSum) {
-        return numbers.stream()
-                .flatMap(a -> numbers.stream()
-                        .map(b -> new int[]{a, b}))
-                .filter(pair -> pair[0] + pair[1] == targetSum)
-                .filter(pair -> pair[0] < pair[1])
-                .collect(Collectors.toList());
+        Set<Integer> seen = new HashSet<>();
+
+        List<int[]> result = new ArrayList<>();
+
+        for (Integer num : numbers) {
+            int complement = targetSum - num;
+
+            if (seen.contains(complement)) {
+                int min = Math.min(num, complement);
+                int max = Math.max(num, complement);
+
+                result.add(new int[]{min, max});
+            }
+
+            seen.add(num);
+        }
+
+        return result;
     }
 
     public static List<String> sortCountries(Map<String, String> countryCapital) {
@@ -33,6 +47,12 @@ public class Practice {
     }
 
     public static List<String> filterByAlphabet(List<String> strings, String alphabet) {
-        return null; // не придумал решения, пробовал, не получилось, хочется от вас небольшую подсказку)
+
+        String regex = "^[" + alphabet + "]*$";
+
+        return strings.stream()
+                .filter(s -> s.matches(regex))
+                .sorted((s1, s2) -> Integer.compare(s1.length(), s2.length()))
+                .collect(Collectors.toList());
     }
 }

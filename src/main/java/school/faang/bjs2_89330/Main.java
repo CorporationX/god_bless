@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.Map;
 
-import static school.faang.bjs2_89330.Practice.*;
+import static school.faang.bjs2_89330.Practice.convert;
+import static school.faang.bjs2_89330.Practice.filter;
+import static school.faang.bjs2_89330.Practice.filterByAlphabet;
+import static school.faang.bjs2_89330.Practice.findPairs;
+import static school.faang.bjs2_89330.Practice.sortCountries;
 
 public class Main {
     public static void main(String[] args) {
@@ -42,5 +46,12 @@ public class Main {
         List<String> binaryNums = convert(nums);
         System.out.println("Двоичное представление: " + binaryNums);
         System.out.println();
+
+        System.out.println("Задача 5: Фильтрация слов по алфавиту");
+        List<String> input = Arrays.asList("apple", "banana", "cherry", "date", "fig", "grape");
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+        List<String> result = filterByAlphabet(input, alphabet);
+        System.out.println(result);
     }
 }
