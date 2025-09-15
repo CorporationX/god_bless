@@ -8,8 +8,8 @@ public class SpellCaster {
         String result = action.apply(spellName);
         if (result == null) {
             System.out.println("The spell didn't work");
-        } else {
-            System.out.println(result);
+            return;
         }
+        System.out.println(result);
     }
 }
