@@ -23,21 +23,33 @@ public class HogwartsSpells {
     }
 
     public SpellEvent getSpellEventById(int id) {
-        return spellById.get(id);
+        if (spellById.get(id) != null) {
+            return spellById.get(id);
+        } else {
+            throw new NullPointerException("Такого объекта нет.");
+        }
     }
 
     public List<SpellEvent> getSpellEventByType(String eventType) {
-        return spellsByType.get(eventType);
+        if (spellsByType.get(eventType) != null) {
+            return spellsByType.get(eventType);
+        } else {
+            throw new NullPointerException("Такого объекта нет.");
+        }
     }
 
     public void deleteSpellEvent(int id) {
         SpellEvent spellEvent = spellById.remove(id);
-        if (spellEvent != null) {
-            List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
-            if (events != null) {
-                events.remove(spellEvent);
-            }
+        if (spellEvent == null) {
+            return;
         }
+        
+        List<SpellEvent> events = spellsByType.get(spellEvent.getEventType());
+        if (events == null) {
+            return;
+        }
+
+        events.remove(spellEvent);
     }
 
     public void printAllSpellEvents() {
