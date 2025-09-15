@@ -1,7 +1,9 @@
 package school.faang.s1.java_core;
 
 import java.util.Set;
+import lombok.Getter;
 
+@Getter
 public class User {
     private static final int VALID_AGE = 18;
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
@@ -30,21 +32,5 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public String getAddress() {
-        return address;
     }
 }
