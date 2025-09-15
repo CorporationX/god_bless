@@ -8,26 +8,26 @@ public class Main {
         Character legolas = new Character("Legolas", new ArrayList<>());
 
         inventoryManager.addItem(legolas, character -> {
-                    character.getInventory().add(new Item("Bow", 950, 1));
-                    System.out.printf("Предмет %s куплен за %d золота и добавлен в инвентарь %s%n",
+            character.getInventory().add(new Item("Bow", 950, 1));
+            System.out.printf("Предмет %s куплен за %d золота и добавлен в инвентарь %s%n",
                             character.getInventory().get(character.getInventory().size() - 1).getName(),
                             character.getInventory().get(character.getInventory().size() - 1).getValue(),
                             character.getName());
-                });
+        });
         inventoryManager.addItem(legolas, character -> {
-                    character.getInventory().add(new Item("Arrows", 400, 5));
-                    System.out.printf("Предмет %s куплен за %d золота и добавлен в инвентарь %s%n",
+            character.getInventory().add(new Item("Arrows", 400, 5));
+            System.out.printf("Предмет %s куплен за %d золота и добавлен в инвентарь %s%n",
                             character.getInventory().get(character.getInventory().size() - 1).getName(),
                             character.getInventory().get(character.getInventory().size() - 1).getValue(),
                             character.getName());
-                });
+        });
         inventoryManager.addItem(legolas, character -> {
-                    character.getInventory().add(new Item("Cloak", 1200, 1));
-                    System.out.printf("Предмет %s куплен за %d золота и добавлен в инвентарь %s%n",
+            character.getInventory().add(new Item("Cloak", 1200, 1));
+            System.out.printf("Предмет %s куплен за %d золота и добавлен в инвентарь %s%n",
                             character.getInventory().get(character.getInventory().size() - 1).getName(),
                             character.getInventory().get(character.getInventory().size() - 1).getValue(),
                             character.getName());
-                });
+        });
         legolas.getInventory().forEach(System.out::println);
         System.out.println("-----------------------------------------");
 
@@ -41,19 +41,19 @@ public class Main {
         System.out.println("-----------------------------------------");
 
         inventoryManager.addItem(legolas, character -> {
-                    character.getInventory().add(new Item("Poison arrows", 500, 5));
-                    System.out.printf("Предмет %s куплен за %d золота и добавлен в инвентарь %s%n",
+            character.getInventory().add(new Item("Poison arrows", 500, 5));
+            System.out.printf("Предмет %s куплен за %d золота и добавлен в инвентарь %s%n",
                             character.getInventory().get(character.getInventory().size() - 1).getName(),
                             character.getInventory().get(character.getInventory().size() - 1).getValue(),
                             character.getName());
-                });
+        });
         inventoryManager.addItem(legolas, character -> {
-                    character.getInventory().add(new Item("Fire arrows", 500, 5));
-                    System.out.printf("Предмет %s куплен за %d золота и добавлен в инвентарь %s%n",
+            character.getInventory().add(new Item("Fire arrows", 500, 5));
+            System.out.printf("Предмет %s куплен за %d золота и добавлен в инвентарь %s%n",
                             character.getInventory().get(character.getInventory().size() - 1).getName(),
                             character.getInventory().get(character.getInventory().size() - 1).getValue(),
                             character.getName());
-                });
+        });
         legolas.getInventory().forEach(System.out::println);
         System.out.println("-----------------------------------------");
 
