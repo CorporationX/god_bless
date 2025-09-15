@@ -3,7 +3,6 @@ package school.faang.handlers;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-import org.jetbrains.annotations.NotNull;
 
 @AllArgsConstructor
 @Getter
@@ -15,7 +14,7 @@ public class SpellEvent {
     private String eventType;
     private String action;
 
-    public SpellEvent(@NotNull String eventType, @NotNull String action) {
+    public SpellEvent(String eventType, String action) {
         this.id = currentId++;
         this.eventType = eventType;
         this.action = action;
