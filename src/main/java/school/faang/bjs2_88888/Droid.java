@@ -2,7 +2,9 @@ package school.faang.bjs2_88888;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @AllArgsConstructor
 public class Droid {
     private static final int ALPHABET_LENGTH = 26;
@@ -10,7 +12,7 @@ public class Droid {
     private String name;
 
     //Поставить потом private
-    public String encryptMessage(String message, int key) {
+    private String encryptMessage(String message, int key) {
         if (message == null) {
             throw new IllegalArgumentException("Message not be null");
         }
@@ -30,7 +32,7 @@ public class Droid {
         return cryptMessage.encrypt(message, key);
     }
 
-    public String decryptMessage(String message, int key) {
+    private String decryptMessage(String message, int key) {
         if (message == null) {
             throw new IllegalArgumentException("Message not be null");
         }
@@ -51,14 +53,14 @@ public class Droid {
         return decrypt.encrypt(message, key);
     }
 
-    public void sendMessage(Droid name, String message, int key) {
+    public void sendMessage(Droid droid, String message, int key) {
         String encryptMessage = encryptMessage(message, key);
-        System.out.printf("%s - Зашифровал сообщение : %s%n", this.name, encryptMessage);
-        receiveMessage(name, encryptMessage, key);
+        log.info("{} - Зашифровал сообщение : {}\n", this.name, encryptMessage);
+        receiveMessage(droid, encryptMessage, key);
     }
 
-    public void receiveMessage(Droid name, String message, int key) {
+    public void receiveMessage(Droid droid, String message, int key) {
         String decrypt = decryptMessage(message, key);
-        System.out.printf("%s - Расшифровал сообщение : %s%n", name.getName(), decrypt);
+        log.info("{} - Расшифровал сообщение : {}\n", droid.getName(), decrypt);
     }
 }
