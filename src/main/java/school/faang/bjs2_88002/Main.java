@@ -63,7 +63,7 @@ public class Main {
 
     static Set<List<Integer>> getPairsOfNumbersEqualToValue(Set<Integer> numbers, int value) {
         if (numbers.isEmpty()) {
-            throw new NullPointerException("Здесь пусто!");
+            throw new IllegalArgumentException("Здесь пусто!");
         }
         return numbers.stream()
                 .filter((num) -> (num != value - num) && numbers.contains(value - num))
