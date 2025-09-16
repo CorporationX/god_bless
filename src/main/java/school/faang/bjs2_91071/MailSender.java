@@ -28,7 +28,7 @@ public class MailSender {
         }
 
         try {
-            if (!executor.awaitTermination(TERMINATION_TIMEOUT_MINUTES , TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(TERMINATION_TIMEOUT_MINUTES, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
