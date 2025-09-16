@@ -48,8 +48,8 @@ public class UserActionAnalyzer {
         LocalDate oneMonthAgo = now.minusMonths(1);
 
         return actions.stream()
-                .filter(a -> a.getActionType() == ActionType.COMMENT)
-                .filter(a -> !a.getActionDate().isBefore(oneMonthAgo) && !a.getActionDate().isAfter(now))
+                .filter(action -> action.getActionType() == ActionType.COMMENT)
+                .filter(action -> !action.getActionDate().isBefore(oneMonthAgo) && !action.getActionDate().isAfter(now))
                 .collect(Collectors.groupingBy(UserAction::getUserName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue(Comparator.reverseOrder()))
