@@ -60,7 +60,7 @@ public class MapOperations {
                 .stream()
                 .filter(s -> s.charAt(0) == a)
                 .sorted(Comparator.comparingInt(String::length))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /*
