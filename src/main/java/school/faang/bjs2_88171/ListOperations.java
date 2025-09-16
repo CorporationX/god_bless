@@ -17,19 +17,19 @@ public class ListOperations {
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compareTo)
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("List is empty"));
     }
 
     public static double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("List is empty"));
     }
 
-    public static long countStringsStartingWith(List<String> strings, char c) {
+    public static long countStringsStartingWith(List<String> strings, char symbol) {
         return strings.stream()
-                .filter(s -> !s.isEmpty() && s.charAt(0) == c)
+                .filter(s -> !s.isEmpty() && s.charAt(0) == symbol)
                 .count();
     }
 
