@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.bjs2_91444;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,11 +13,10 @@ public class Squad {
     private String squadName;
     private List<Unit> units;
 
-    public static int calculateSquadPower(List<Unit> units) {
-        return units.stream()
+    public static int calculateSquadPower(Squad squad) {
+        return squad.units.stream()
                 .map(Unit::getPower)
                 .mapToInt(Integer::intValue)
-                .max()
-                .orElse(522);
+                .sum();
     }
 }
