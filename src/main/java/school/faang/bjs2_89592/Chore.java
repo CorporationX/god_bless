@@ -2,11 +2,13 @@ package school.faang.bjs2_89592;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @AllArgsConstructor
 @Getter
 public class Chore implements Runnable {
-    private static long TIME_PERFORM_TASK = 1_000;
+    private static final long TIME_PERFORM_TASK = 1_000;
     private String chore;
 
     @Override
