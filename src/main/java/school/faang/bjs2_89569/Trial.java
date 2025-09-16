@@ -1,7 +1,5 @@
 package school.faang.bjs2_89569;
 
-import lombok.SneakyThrows;
-
 public class Trial implements Runnable {
     private String knightName;
     private String trialName;
@@ -11,10 +9,13 @@ public class Trial implements Runnable {
         this.trialName = trialName;
     }
 
-    @SneakyThrows
     public void run() {
         System.out.println("Trial " + trialName + " for " + knightName + " start.");
-        Thread.sleep(5000);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println("Trial " + trialName + " for " + knightName + " finished.");
     }
 }

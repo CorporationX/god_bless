@@ -31,24 +31,4 @@ public class Knight {
         }
         executor.shutdown();
     }
-
-    public static void main(String[] args) {
-        Knight knightOne = new Knight("Knight One");
-        knightOne.addTrial(new Trial(knightOne.getName(), "trial of agility"));
-        knightOne.addTrial(new Trial(knightOne.getName(), "trial of strength"));
-        knightOne.addTrial(new Trial(knightOne.getName(), "trial of intelligence"));
-
-        Knight knightTwo = new Knight("Knight Two");
-        knightTwo.addTrial(new Trial(knightTwo.getName(), "trial of vitality"));
-        knightTwo.addTrial(new Trial(knightTwo.getName(), "trial of luck"));
-
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        List<Knight> knights = List.of(knightOne, knightTwo);
-        for (Knight knight : knights) {
-            for (Trial trial : knight.getTrials()) {
-                executor.submit(trial);
-            }
-        }
-        executor.shutdown();
-    }
 }
