@@ -18,13 +18,13 @@ public class Runner {
         inventory.addItem(frodo, new Item("Кольцо", 1000), item ->
                 System.out.println("Добавлен предмет: " + item));
 
-        inventory.addItem(frodo, new Item("Меч", 500), item ->
+        inventory.addItem(frodo, new Item("Пожилая заточка", 500), item ->
                 System.out.println("Добавлен предмет: " + item));
 
         inventory.removeItem(frodo, item -> item.getName().contains("Кольцо"));
         inventory.updateItem(frodo,
-                item -> item.getName().equals("Меч"),
-                item -> new Item(item.getName(), item.getValue() * 2));
+                item -> item.getName().equals("Пожилая заточка"),
+                item -> new Item(item.getName(),  1488));
 
         System.out.println(frodo);
     }
