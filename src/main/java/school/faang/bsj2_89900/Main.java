@@ -18,7 +18,8 @@ public class Main {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.printf("Ошибка ожидания потоков %s ", e);
+                Thread.currentThread().interrupt();
             }
         }
     }
