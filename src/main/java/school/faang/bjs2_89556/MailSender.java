@@ -1,5 +1,8 @@
 package school.faang.bjs2_89556;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MailSender {
     private static final int COUNT_THREAD = 5;
     private static final int COUNT_LETTER = 1000;
@@ -17,7 +20,7 @@ public class MailSender {
 
         for (Thread thread : threads) {
             thread.join();
-            System.out.println("Thread " + thread.getName() + " finished");
+            log.info("Thread {} finished", thread.getName());
         }
         System.out.println("All letters have been sent");
     }

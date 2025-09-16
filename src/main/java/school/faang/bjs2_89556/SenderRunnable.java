@@ -15,7 +15,7 @@ public class SenderRunnable implements Runnable {
         for (int i = startIndex; i < endIndex; i++) {
             try {
                 Thread.sleep(TIME_SEND_LETTER);
-                System.out.printf("letter %d sent \n", i);
+                log.info("letter {} sent", i);
             } catch (InterruptedException e) {
                 log.error("Error", e);
             }
