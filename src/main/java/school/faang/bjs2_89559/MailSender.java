@@ -2,15 +2,15 @@ package school.faang.bjs2_89559;
 
 public class MailSender {
 
-    public static final int currentLetterQuantity = 1000;
-    public static final int threadQuantity = 5;
-    public static final int batchSize = currentLetterQuantity / threadQuantity;
+    public static final int CURRENT_LETTER_QUANTITY = 1000;
+    public static final int THREAD_QUANTITY = 5;
+    public static final int BATCH_SIZE = CURRENT_LETTER_QUANTITY / THREAD_QUANTITY;
 
     public static void main(String[] args) {
-        Thread[] threads = new Thread[threadQuantity];
+        Thread[] threads = new Thread[THREAD_QUANTITY];
 
-        for (int i = 0; i < threadQuantity; i++) {
-            threads[i] = new Thread(new SenderRunnable(i * batchSize, ((i + 1) * batchSize) - 1));
+        for (int i = 0; i < THREAD_QUANTITY; i++) {
+            threads[i] = new Thread(new SenderRunnable(i * BATCH_SIZE, ((i + 1) * BATCH_SIZE)));
             threads[i].start();
         }
 
@@ -19,6 +19,7 @@ public class MailSender {
                 thread.join();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                System.out.printf("Поток %s: Меня преравали в процессе ожидания!", Thread.currentThread().getName());
             }
         }
 
