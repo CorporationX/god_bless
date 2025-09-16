@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class MailSender {
     private static final int COUNT_THREADS = 5;
     private static final int COUNT_MESSAGE = 1000;
+    private static final int TERMINATION_TIMEOUT_MINUTES  = 1;
 
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(COUNT_THREADS);
@@ -27,7 +28,7 @@ public class MailSender {
         }
 
         try {
-            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(TERMINATION_TIMEOUT_MINUTES , TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
