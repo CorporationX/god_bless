@@ -2,6 +2,7 @@ package school.faang.training.streamapi1;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
@@ -16,25 +17,25 @@ public class ListOperations {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .max()
-                .orElse(Integer.MIN_VALUE);
-
+                .orElseThrow(() -> new NoSuchElementException("List is empty"));
     }
 
     static double findAverage(List<Integer> numbers) {
         return numbers.stream()
-                .mapToDouble(Integer::doubleValue)
-                .sum() / numbers.size();
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0.0);
     }
 
-    static long countStringsStartingWith(List<String> strings, char ch) {
+    static long countStringsStartingWith(List<String> strings, char symbol) {
         return strings.stream()
-                .filter(string -> string.startsWith(String.valueOf(ch)))
+                .filter(string -> string.startsWith(String.valueOf(symbol)))
                 .count();
     }
 
-    static List<String> filterStringsContainingSubstring(List<String> strings, String ch) {
+    static List<String> filterStringsContainingSubstring(List<String> strings, String substring) {
         return strings.stream()
-                .filter(string -> string.contains(ch))
+                .filter(string -> string.contains(substring))
                 .toList();
     }
 
@@ -52,7 +53,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(number -> number > condition)
                 .min(Integer::compareTo)
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("No element found greater than " + condition));
     }
 
     static List<Integer> convertToLengths(List<String> strings) {
