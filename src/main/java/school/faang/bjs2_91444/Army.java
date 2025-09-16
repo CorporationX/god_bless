@@ -5,7 +5,7 @@ import java.util.List;
 public class Army {
     public List<List<Unit>> wholeArmy;
 
-    public static int calculateTotalPower(List<List<Unit>> army) {
+    public static void calculateTotalPower(List<List<Unit>> army) {
         for (List<Unit> squad : army) {
 
         }
