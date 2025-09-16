@@ -2,28 +2,27 @@ package school.faang.streamapi_1_bjs_2_88179;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
-    public static int sumNumbers(List<Integer> listnumbers) {
+    public static int sumEvenNumbers(List<Integer> listnumbers) {
         return listnumbers.stream()
                 .filter(number -> number % 2 == 0)
                 .reduce(0, Integer::sum);
-
-
     }
 
     public static int maxNumber(List<Integer> listnumbers) {
         return listnumbers.stream()
                 .max(Integer::compareTo)
-                .orElse(null);
+                .orElseThrow(() -> new NoSuchElementException("Пусто"));
     }
 
     public static double findAverage(List<Integer> listnumbers) {
         return listnumbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElse(0.0);
+                .orElseThrow(() -> new NoSuchElementException("Пусто"));
     }
 
     public static long findCharStrings(List<String> liststrings, char c) {

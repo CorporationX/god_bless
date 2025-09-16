@@ -10,7 +10,7 @@ public class OperatorMain {
 
         List<String> strings = List.of("aaa", "dsaerg", "aaa", "ihebn", "aaa");
 
-        System.out.println("Сумма" + ListOperations.sumNumbers(number));
+        System.out.println("Сумма" + ListOperations.sumEvenNumbers(number));
 
         System.out.println("Самое большое число" + ListOperations.maxNumber(number));
 
