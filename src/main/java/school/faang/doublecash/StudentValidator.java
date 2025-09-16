@@ -2,7 +2,7 @@ package school.faang.doublecash;
 
 import java.util.Map;
 
-public class Validator {
+public class StudentValidator {
     //Проверка на null или пустую строку
     public static boolean isNullOrEmpty(String value) {
         return value == null || value.trim().isEmpty();
@@ -26,15 +26,6 @@ public class Validator {
     public static boolean validateSubject(Subject subject) {
         if (isNull(subject) || isNullOrEmpty(subject.getName())) {
             System.out.println("Ошибка: Недопустимое имя предмета.");
-            return false;
-        }
-        return true;
-    }
-
-    //Проверка имени студента
-    public static boolean validateStudentName(Student student) {
-        if (isNullOrEmpty(student.getName())) {
-            System.out.println("Ошибка: Студент с пустым или недопустимым именем.");
             return false;
         }
         return true;
