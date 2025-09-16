@@ -1,6 +1,5 @@
 package school.faang.stream2;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -10,15 +9,9 @@ import java.util.Comparator;
 public class StreamFunctions {
 
     public static List<Pair<Integer, Integer>> findPairs(Set<Integer> set, int pairSum) {
-        Set<Integer> seen = new HashSet<>();
         return set.stream()
-                .filter(num -> {
-                    int complement = pairSum - num;
-                    boolean found = seen.contains(complement);
-                    seen.add(num);
-                    return found;
-                })
-                .map(num -> new Pair<>(pairSum - num, num))
+                .filter(num -> set.contains(pairSum - num) && num < pairSum - num)
+                .map(num -> new Pair<>(num, pairSum - num))
                 .toList();
     }
 
