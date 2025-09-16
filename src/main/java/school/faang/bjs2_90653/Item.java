@@ -9,5 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Item {
     private String name;
-    private int value;
+    private int value ;
 }

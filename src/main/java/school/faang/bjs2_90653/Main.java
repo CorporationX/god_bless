@@ -7,6 +7,6 @@ public class Main {
 
         InventoryManager manager = new InventoryManager();
 
-        manager.addItem(frodo, ring, (item) -> );
+        manager.addItem(frodo, ring, (item) ->  );
     }
 }
