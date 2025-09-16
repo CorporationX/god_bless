@@ -19,7 +19,7 @@ public class User {
 
     public User(String name, int age, String job, String address) {
 
-        if (name == null || name.trim().isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
 
