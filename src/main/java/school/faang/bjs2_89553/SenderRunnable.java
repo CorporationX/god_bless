@@ -1,15 +1,15 @@
 package school.faang.bjs2_89553;
 
-public class SenderRunnable implements Runnable {
-    private int startIndex;
-    private int endIndex;
+import lombok.RequiredArgsConstructor;
 
-    public SenderRunnable(int startIndex, int endIndex) {
-        this.startIndex = startIndex;
-        this.endIndex = endIndex;
-    }
+@RequiredArgsConstructor
+public class SenderRunnable implements Runnable {
+    private final int startIndex;
+    private final int endIndex;
 
     public void run() {
-        System.out.println("Письмо " + startIndex + " отправлено");
+        for (int i = startIndex; i <= endIndex; i++) {
+            System.out.println("Письмо " + startIndex + " отправлено");
+        }
     }
 }
