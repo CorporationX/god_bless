@@ -10,6 +10,6 @@ import lombok.ToString;
 public class Image {
 
     private final String name;
-    private String description;
+    private final String description;
 
 }
