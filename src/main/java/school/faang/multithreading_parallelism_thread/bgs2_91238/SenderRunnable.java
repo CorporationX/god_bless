@@ -1,10 +1,11 @@
 package school.faang.multithreading_parallelism_thread.bgs2_91238;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import static java.util.concurrent.ThreadLocalRandom.current;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SenderRunnable implements Runnable {
     private final int startIndex;
     private final int endIndex;
