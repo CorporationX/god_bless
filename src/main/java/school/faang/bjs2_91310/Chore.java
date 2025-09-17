@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Chore implements Runnable{
+public class Chore implements Runnable {
     private String chore;
 
     @Override
