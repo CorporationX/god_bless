@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
+
     String[] chores = {"помыть посуду", "подмести пол", "приготовить ужин"};
 
     ExecutorService executor = Executors.newCachedThreadPool();
