@@ -29,13 +29,16 @@ public class NotificationManager {
     }
 
     public void sendNotification(@NonNull Notification notification) {
+
         Notification editedNotification = applyEditors(notification);
-        for (Map.Entry<String, Predicate<Notification>> filterEntry : filters.entrySet()) {
-            if (!filterEntry.getValue().test(editedNotification)) {
-                System.out.println("Blocked by filter: " + filterEntry.getKey());
-                return;
-            }
-        }
+
+        filters.entrySet().stream()
+                .filter(filterEntry -> !filterEntry.getValue().test(editedNotification))
+                .findFirst()
+                .ifPresent(filterEntry -> {
+                    System.out.println("Blocked by filter: " + filterEntry.getKey());
+                    return;
+                });
 
         Consumer<Notification> handler = handlers.get(editedNotification.getType());
         if (handler != null) {
