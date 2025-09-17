@@ -1,7 +1,10 @@
 package school.faang.bjs2_90002;
 
+import java.util.Random;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
     Chore[] chores = {new Chore("Решить эту задачу."),
