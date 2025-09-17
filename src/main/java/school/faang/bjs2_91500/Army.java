@@ -1,32 +1,38 @@
 package school.faang.bjs2_91500;
 
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 public class Army {
-    private final List<Squad> units = new ArrayList<>();
+    private final List<Squad> squad = new ArrayList<>();
 
     public int calculateTotalPower() {
-        CalculatePower calculatePower = new CalculatePower(units);
-        Thread threadFirst = new Thread(calculatePower);
-        Thread threadSecond = new Thread(calculatePower);
-        Thread threadThird = new Thread(calculatePower);
+        int totalPower = 0;
+        List<CalculatePower> taskCalculate = new ArrayList<>();
+        List<Thread> threadList = new ArrayList<>();
+        log.info("Запускаем потоки");
+        for (int i = 0; i < squad.size(); i++) {
+            Squad oneSquad = squad.get(i);
+            CalculatePower calculatePower = new CalculatePower(oneSquad);
+            Thread thread = new Thread(calculatePower);
+            thread.start();
+            threadList.add(thread);
+            taskCalculate.add(calculatePower);
+        }
         try {
-            log.info("Запуск первого потока");
-            threadFirst.start();
-            log.info("Запуск второго потока");
-            threadSecond.start();
-            log.info("Запуск третьего потока");
-            threadThird.start();
-            threadFirst.join();
-            threadSecond.join();
-            threadThird.join();
+            for (int i = 0; i < threadList.size(); i++) {
+                Thread thread = threadList.get(i);
+                thread.join();
+                log.info("{} Общая сила для группы равна {}", thread.getName(), taskCalculate.get(i).getPower());
+                totalPower += taskCalculate.get(i).getPower();
+            }
         } catch (Exception e) {
             log.info("Ошибка в подсчете общей силы");
         }
-        return calculatePower.getPower();
+        return totalPower;
     }
 
     public void addSquad(Squad squad) {
@@ -34,6 +40,6 @@ public class Army {
             log.info("Ошибка в валидации, при рассчете силы новой группы {} - класс", getClass());
             throw new IllegalArgumentException("Группа не может быть пустой");
         }
-        units.add(squad);
+        this.squad.add(squad);
     }
 }

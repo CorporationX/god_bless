@@ -9,10 +9,10 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public class Squad {
-    private final List<Unit> squad;
+    private final List<Unit> unit;
 
     public int calculateSquadPower() {
-        return squad.stream()
+        return unit.stream()
                 .mapToInt(Unit::getPower).sum();
     }
 
