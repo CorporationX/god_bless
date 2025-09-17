@@ -29,6 +29,7 @@ public class WeasleyFamily {
         } catch (InterruptedException e) {
             System.out.println("Перси прервали пока он следил за потоками! Волшебные потоки остановлены.");
             executor.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 }
