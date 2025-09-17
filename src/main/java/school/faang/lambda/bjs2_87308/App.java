@@ -19,23 +19,23 @@ public class App {
         System.out.println(ilonCharacter.getItems());
 
         inventoryManager.addItem(ilonCharacter, watch, item ->
-                System.out.printf("Item %s was added to character %s\n", watch.getName(), ilonCharacter.getName()));
+                System.out.printf("Item %s was added to character %s\n", watch.name(), ilonCharacter.getName()));
 
         inventoryManager.addItem(ilonCharacter, bracelet, item ->
-                System.out.printf("Item %s was added to character %s\n", bracelet.getName(), ilonCharacter.getName()));
+                System.out.printf("Item %s was added to character %s\n", bracelet.name(), ilonCharacter.getName()));
 
         System.out.println("\nПроверка, что добавился item watch и не задублировался item bracelet");
         System.out.println(ilonCharacter.getItems());
 
         inventoryManager.updateItem(ilonCharacter, item -> item.equals(watch), item -> {
-            item.setName(item.getName().toUpperCase() + " modified item");
+            new Item(item.name().toUpperCase() + " modified item", item.value());
             return item;
         });
 
         Item glasses = new Item("Glasses", 3000);
 
         inventoryManager.updateItem(ilonCharacter, item -> item.equals(glasses), item -> {
-            item.setName(item.getName().toUpperCase() + " modified item");
+            new Item(item.name().toUpperCase() + " modified item", item.value());
             return item;
         });
 
@@ -44,9 +44,9 @@ public class App {
 
         Item gloves = new Item("Gloves", 1500);
 
-        inventoryManager.removeItem(ilonCharacter, item -> item.getValue() > 900 && item.equals(ring));
-        inventoryManager.removeItem(ilonCharacter, item -> item.getValue() < 1000 && item.equals(bracelet));
-        inventoryManager.removeItem(ilonCharacter, item -> item.getValue() == 1500 && item.equals(gloves));
+        inventoryManager.removeItem(ilonCharacter, item -> item.value() > 900 && item.equals(ring));
+        inventoryManager.removeItem(ilonCharacter, item -> item.value() < 1000 && item.equals(bracelet));
+        inventoryManager.removeItem(ilonCharacter, item -> item.value() == 1500 && item.equals(gloves));
 
         System.out.println("\nПроверка, items после удаления");
         System.out.println(ilonCharacter.getItems());

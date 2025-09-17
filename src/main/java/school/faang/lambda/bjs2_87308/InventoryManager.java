@@ -14,7 +14,7 @@ public class InventoryManager {
             character.getItems().add(item);
             consumer.accept(item);
         } else {
-            System.out.printf("Character %s already has item %s\n", character.getName(), item.getName());
+            System.out.printf("Character %s already has item %s\n", character.getName(), item.name());
         }
     }
 
@@ -29,11 +29,11 @@ public class InventoryManager {
             final Item item = characterItems.get(i);
             if (predicate.test(item)) {
                 isUpdated = true;
-                final String itemNameBefore = item.getName();
+                final String itemNameBefore = item.name();
                 final Item modifiedItem = function.apply(item);
                 character.getItems().set(i, modifiedItem);
                 System.out.printf("Item '%s' of character %s was modified to '%s'\n", itemNameBefore,
-                        character.getName(), modifiedItem.getName());
+                        character.getName(), modifiedItem.name());
             }
         }
         if (!isUpdated) {
