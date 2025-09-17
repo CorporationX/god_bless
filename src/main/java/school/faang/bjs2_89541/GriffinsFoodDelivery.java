@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class GriffinsFoodDelivery {
     private static final int THREAD = 3;
-    private final static int AWAIT_TIME = 1;
+    private static final int AWAIT_TIME = 1;
 
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(THREAD);

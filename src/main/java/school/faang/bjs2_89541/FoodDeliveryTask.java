@@ -8,7 +8,7 @@ public class FoodDeliveryTask implements Runnable {
     private String character;
     private int foodAmount;
     private final Random random = new Random();
-    private final static int COUNT_SLEEP = 5000;
+    private static final int COUNT_SLEEP = 5000;
 
 
     public FoodDeliveryTask(String character, int foodAmount) {
