@@ -2,7 +2,11 @@ package school.faang.bjs2_89707;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class Main {
@@ -10,27 +14,32 @@ public class Main {
     private static final Random random = new Random();
 
     public static void main(String[] args) throws InterruptedException {
-        int[][] customers = {
+        Integer[][] customers = {
                 {5, 7, 3, 2},
                 {1, 2, 3},
                 {6, 5, 2},
                 {10, 2, 1, 3, 5}
         };
+        List<CashierThread> cashiers = new ArrayList<>();
 
-        CashierThread[] cashiers = new CashierThread[customers.length];
-
-        for (int i = 0; i < customers.length; i++) {
-            int cashierId = random.nextInt(NUM_OF_CASHIERS) + 1;
-            cashiers[i] = new CashierThread(cashierId, customers[i]);
+        for (int i = 0; i < NUM_OF_CASHIERS; i++) {
+            cashiers.add(new CashierThread(i));
         }
 
-        for (CashierThread cashier : cashiers) {
-            cashier.start();
-        }
+        Arrays.stream(customers).forEach(customer -> {
+            int cashierId = random.nextInt(NUM_OF_CASHIERS);
+            cashiers.get(cashierId).addCustomer(customer);
+        });
 
-        for (CashierThread cashier : cashiers) {
-            cashier.join();
-        }
+        cashiers.forEach(Thread::start);
+
+        cashiers.forEach(cashierThread -> {
+            try {
+                cashierThread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
 
         log.info("All cashiers have completed their work");
     }
