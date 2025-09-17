@@ -1,7 +1,9 @@
 package school.faang.bjs2_91909;
 
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.function.Function;
+
 
 @Slf4j
 public class Runner {
@@ -17,6 +19,6 @@ public class Runner {
 
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(blackFilter, pinkFilter);
         Image combinedFilterImage = filterProcessor.applyFilter(firstImage, combinedFilter);
-        log.info(String.valueOf(combinedFilterImage.getDescription()));
+        log.info(combinedFilterImage.getDescription());
     }
 }
