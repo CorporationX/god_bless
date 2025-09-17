@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
+    private static final String EMPTY_LINE = "";
+
     public List<String> getTopActiveUsers(List<UserAction> actions, int top) {
         return new ArrayList<>(actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getUserId))
@@ -22,7 +24,7 @@ public class UserActionAnalyzer {
                     if (!entry.getValue().isEmpty()) {
                         return entry.getValue().get(0).getUserName();
                     } else {
-                        return  "";
+                        return EMPTY_LINE;
                     }
                 }))
                 .values());
@@ -32,14 +34,10 @@ public class UserActionAnalyzer {
         return new HashSet<>(actions.stream()
                 .collect(Collectors.groupingBy(action -> {
                     Matcher matcher = Pattern.compile("#[a-zA-Z]+").matcher(action.getContent());
-                    try {
-                        if (matcher.find()) {
-                            return matcher.group();
-                        } else {
-                            throw new IllegalStateException();
-                        }
-                    } catch (IllegalStateException e) {
-                        return "";
+                    if (matcher.find()) {
+                        return matcher.group();
+                    } else {
+                        return EMPTY_LINE;
                     }
                 }))
                 .entrySet().stream()
@@ -65,7 +63,7 @@ public class UserActionAnalyzer {
                     if (!entry.getValue().isEmpty()) {
                         return entry.getValue().get(0).getUserName();
                     } else {
-                        return "";
+                        return EMPTY_LINE;
                     }
                 }))
                 .values());
