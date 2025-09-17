@@ -6,8 +6,8 @@ import static java.util.concurrent.ThreadLocalRandom.current;
 
 @RequiredArgsConstructor
 public class SenderRunnable implements Runnable {
-    private static int RANDOM_TIME_LOWER_BOUND = 1;
-    private static int RANDOM_TIME_UPPER_BOUND = 15;
+    private static final int RANDOM_TIME_LOWER_BOUND = 1;
+    private static final int RANDOM_TIME_UPPER_BOUND = 15;
     private final int startIndex;
     private final int endIndex;
 
