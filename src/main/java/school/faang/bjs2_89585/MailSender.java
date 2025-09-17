@@ -1,7 +1,21 @@
 package school.faang.bjs2_89585;
 
 public class MailSender {
+    @SuppressWarnings({"checkstyle:AbbreviationAsWordInName", "checkstyle:MemberName"})
+    final int THREAD_COUNT = 5;
+    @SuppressWarnings({"checkstyle:MemberName", "checkstyle:AbbreviationAsWordInName"})
+    final int TOTAL_MESSAGES = 1000;
+    @SuppressWarnings("checkstyle:EmptyLineSeparator")
     public static void main(String[] args) {
+        
+
+
+
+
+
+
+
+
         Thread thread1 = new Thread(new SenderRunnable(1, 200));
         thread1.start();
         Thread thread2 = new Thread(new SenderRunnable(201, 400));
