@@ -29,7 +29,7 @@ public class SenderRunnable implements Runnable {
                 Thread.currentThread().interrupt();
                 System.out.print(e.getMessage());
             }
-            System.out.printf("Письмо № %d1 отправлено таймаут: %d2 \n", mailLetterNumber, randomTime);
+            System.out.printf("Письмо № %d отправлено таймаут: %d \n", mailLetterNumber, randomTime);
         }
     }
 }

@@ -1,6 +1,7 @@
 package school.faang.multithreading_parallelism_thread.bgs2_91238;
 
-import org.jetbrains.annotations.NotNull;
+
+import lombok.NonNull;
 
 import java.util.List;
 import java.util.function.BiFunction;
@@ -43,7 +44,7 @@ public class MailSender {
         System.out.print("Все письма отправлены");
     }
 
-    private static @NotNull Function<Integer, Integer> calculateBatchSize() {
+    private static @NonNull Function<Integer, Integer> calculateBatchSize() {
         BiFunction<Integer, Integer, Function<Integer, Integer>> calculateBatchSize =
                 (numberOfThreads, numberOfMailLetters) -> {
                     int batchSize = numberOfMailLetters / numberOfThreads;
