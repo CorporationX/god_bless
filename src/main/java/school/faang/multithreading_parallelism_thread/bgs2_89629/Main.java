@@ -15,8 +15,11 @@ public class Main {
         army.addSquad(mages);
 
         Optional<Integer> totalPower = army.calculateTotalPower();
-        System.out.println("Общая сила армии: " + (totalPower.isPresent()
-                ? totalPower.get()
-                : "сила отсутствует, так как "));
+        // Вариант 1 — просто и прямо
+        totalPower.ifPresentOrElse(
+                power -> System.out.println("Общая сила армии: " + power),
+                () -> System.out.println("Общая сила армии: сила отсутствует, так как ")
+        );
+
     }
 }
