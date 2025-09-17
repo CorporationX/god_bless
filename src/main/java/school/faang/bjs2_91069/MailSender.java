@@ -5,7 +5,7 @@ public class MailSender {
     private static final int THREADS_COUNT = 5;
 
     public static void main(String[] args) throws InterruptedException {
-        int batchSize = MAILS_QUANTITY / 5;
+        int batchSize = MAILS_QUANTITY / THREADS_COUNT;
         Thread[] sendersThreads = new Thread[THREADS_COUNT];
 
         for (int i = 0; i < THREADS_COUNT; i++) {

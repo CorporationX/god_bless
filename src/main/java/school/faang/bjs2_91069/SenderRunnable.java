@@ -4,7 +4,7 @@ public record SenderRunnable(int start, int end) implements Runnable {
     @Override
     public void run() {
         for (int i = start; i < end; i++) {
-            System.out.println("Письмо отправлено");
+            System.out.printf("Письмо [%d] отправлено потоком %s\n", i, Thread.currentThread().getName());
         }
     }
 }
