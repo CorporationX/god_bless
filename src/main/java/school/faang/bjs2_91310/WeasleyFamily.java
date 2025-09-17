@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
 
-    private final int TIMEOUT_DURATION = 1;
+    private static final int TIMEOUT_DURATION = 1;
     private final String[] chores = { "помыть посуду", "подмести пол", "приготовить ужин" };
 
     ExecutorService executor = Executors.newCachedThreadPool();

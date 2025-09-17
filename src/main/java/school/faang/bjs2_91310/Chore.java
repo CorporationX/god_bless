@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Chore implements Runnable {
     private String chore;
-    private final int TIME_IN_MILLIS;
+    private final int timeInMillis;
 
     @Override
     public void run() {
@@ -15,7 +15,7 @@ public class Chore implements Runnable {
                 Thread.currentThread().getName(), chore);
 
         try {
-            Thread.sleep(TIME_IN_MILLIS);
+            Thread.sleep(timeInMillis);
             System.out.printf("%s завершил: %s%n",
                     Thread.currentThread().getName(), chore);
         } catch (InterruptedException e) {
