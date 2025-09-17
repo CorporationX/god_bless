@@ -1,20 +1,30 @@
 package school.faang.bjs2_90002;
 
-import java.util.Random;
-import java.util.concurrent.Executor;
+import lombok.Getter;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Getter
 public class WeasleyFamily {
-    Chore[] chores = {new Chore("Решить эту задачу."),
-            new Chore("Решить еще 3 задачи по этой теме."),
-            new Chore("Изучить Synchronized."),
-            new Chore("Решить не менее 4 задач по Synchronized.")};
+    private static final String[] chores = {"Решить эту задачу.",
+            "Решить еще 3 задачи по этой теме.",
+            "Изучить Synchronized.",
+            "Решить не менее 4 задач по Synchronized."};
 
-    Executor executor = Executors.newCachedThreadPool();
-    for (Chore tast : chores)
-
-
-
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newCachedThreadPool();
+        for (String task : chores) {
+            executor.execute(new Chore(task));
+        }
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(3, TimeUnit.MINUTES)) {
+                System.out.println("Не все задачи завершены в указанный период времени.");
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Поток main не смог должаться окончания, он был прерван.");
+        }
+    }
 }
