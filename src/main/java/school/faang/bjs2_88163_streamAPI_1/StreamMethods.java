@@ -2,6 +2,7 @@ package school.faang.bjs2_88163_streamAPI_1;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.OptionalInt;
 import java.util.function.Predicate;
@@ -22,32 +23,30 @@ public class StreamMethods {
                 .filter(Objects::nonNull)
                 .mapToInt(num -> num)
                 .max()
-                .orElse(0);
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     //Найти среднее значение чисел в списке.
-    public static double countAverage(List<Integer> list) {
+    public static double findAverage(List<Integer> list) {
         return list.stream()
                 .filter(Objects::nonNull)
                 .mapToInt(num -> num)
                 .average()
-                .orElse(0.0);
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
     // Найти количество строк, начинающихся с определённого символа.
     @SuppressWarnings("checkstyle:ParameterName")
-    public static long countStringsStartingWith(List<String> list, char ch) {
+    public static long countStringsStartingWithCaseSensitive(List<String> list, char ch) {
         return list.stream()
                 .filter(Objects::nonNull)
                 .filter(str -> !str.isEmpty())
-                .filter(str ->
-                        Character.toLowerCase(str.charAt(0))
-                                == Character.toLowerCase(ch))
+                .filter(str -> str.startsWith(String.valueOf(ch)))
                 .count();
     }
 
     //Отфильтровать список строк и оставить только те, которые содержат определённую подстроку.
-    public static List<String> filterBySubstring(List<String> list, String substring) {
+    public static List<String> filterStringContainsSubstringIgnoreCase(List<String> list, String substring) {
         return list.stream()
                 .filter(Objects::nonNull)
                 .filter(str -> !str.isEmpty())
@@ -56,7 +55,7 @@ public class StreamMethods {
     }
 
     //Отсортировать список строк по длине.
-    public static List<String> sortStringByLong(List<String> list) {
+    public static List<String> sortStringByLenght(List<String> list) {
         return list.stream()
                 .filter(Objects::nonNull)
                 .filter(str -> !str.isEmpty())
