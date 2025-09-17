@@ -16,15 +16,10 @@ public class Main {
         List<Integer> listNumbers = List.of(1, 2, 3, 4);
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-        //Найдите уникальные пары чисел
         System.out.println(Operations.findUniquePairs(setNumbers, 7));
-        //Отсортируйте страны и выведите столицы
         System.out.println(Operations.sortCountriesPrintCities(countriesWithCities));
-        //Фильтрация и сортировка строк
         System.out.println(Operations.filterAndSortStrings(strings, 'a'));
-        //Преобразование чисел в двоичный формат
         System.out.println(Operations.convertNumbersToBinary(listNumbers));
-        //Фильтрация строк по алфавиту и сортировка по длине
         System.out.println(Operations.filterAndSortByLength(strings, alphabet));
     }
 }
