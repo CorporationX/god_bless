@@ -35,7 +35,7 @@ public class MailSender {
         tasksFlow.stream()
                 .peek(itemThread -> {
                     itemThread.start();
-                    System.out.print("Старт потока " + itemThread.getName() + " \n");
+                    System.out.printf("Старт потока %s \n", itemThread.getName());
                 })
                 .toList()
                 .forEach(threadJoin);
