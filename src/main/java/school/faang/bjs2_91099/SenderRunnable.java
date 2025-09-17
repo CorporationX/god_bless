@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @AllArgsConstructor
@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class SenderRunnable implements Runnable {
     private int startIndex;
     private int endIndex;
-    public static AtomicLong count = new AtomicLong(0);
+    public static AtomicInteger count = new AtomicInteger(0);
 
     @Override
     public void run() {
