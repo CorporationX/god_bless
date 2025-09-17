@@ -13,9 +13,6 @@ import java.util.function.Function;
 public class Army {
     private final List<Squad> squads = new ArrayList<>();
 
-    public Army() {
-    }
-
     public void addSquad(@NonNull Squad squad) {
         squads.add(squad);
     }
