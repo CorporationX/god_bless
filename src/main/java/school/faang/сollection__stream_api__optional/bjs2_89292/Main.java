@@ -13,7 +13,7 @@ public class Main {
                 "David", List.of("Bob", "Charlie")
         );
         System.out.println("Люди, которые не друзья, но имеют общих друзей: "
-                + OperationWithStream.findPeopleWithMutualFriends(people));
+                + OperationWithStream.findPeopleWithCommonFriends(people));
 
         List<Employee> employees = List.of(
                 new Employee("John", 2000, "Department1"),

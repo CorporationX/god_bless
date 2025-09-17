@@ -1,52 +1,64 @@
 package school.faang.сollection__stream_api__optional.bjs2_89292;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class OperationWithStream {
-    public static Map<String, String> findPeopleWithMutualFriends(Map<String, List<String>> people) {
-        Map<String, String> result = new HashMap<>();
-//        people.entrySet().stream()
-//                .collect(Collectors.toMap(
-//                        entry -> entry.getKey(),
-//                        entry-> entry.getValue().stream()
-//                ))
+    public static Set<List<String>> findPeopleWithCommonFriends(Map<String, List<String>> friendships) {
+        Set<List<String>> result = new HashSet<>();
+
+        for (Map.Entry<String, List<String>> entry : friendships.entrySet()) {
+            String person = entry.getKey();
+            List<String> friends = entry.getValue();
+            friendships.keySet().stream()
+                    .filter(other -> !other.equals(person) && !friends.contains(other))
+                    .forEach(other -> {
+                        List<String> commonFriends = friends.stream()
+                                .filter(friendships.getOrDefault(other, List.of())::contains)
+                                .toList();
+
+                        if (!commonFriends.isEmpty()) {
+                            List<String> pair = Arrays.asList(person, other);
+                            pair.sort(String::compareTo); // Уникальность пар
+                            result.add(pair);
+                        }
+                    });
+        }
+
         return result;
     }
 
-    public static Map<String, Long> averageSalaryByDepartment(List<Employee> employees) {
-        Map<String, List<Employee>> employeesByDepartment = employees.stream()
-                .collect(Collectors.groupingBy(employee -> employee.getDepartment()));
-        return employeesByDepartment.entrySet().stream()
-                .collect(Collectors.toMap(
-                        entry -> entry.getKey(),
-                        entry -> entry.getValue().stream().mapToLong(Employee::getSalary).sum()
+    public static Map<String, Double> averageSalaryByDepartment(List<Employee> employees) {
+        return employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::department,
+                        Collectors.averagingDouble(Employee::salary)
                 ));
     }
 
-    public static ArrayList<Integer> numbersPalindromes(int startNumber, int endNumber) {
+    public static List<Integer> numbersPalindromes(int startNumber, int endNumber) {
         return IntStream.rangeClosed(startNumber, endNumber)
                 .filter(num -> {
                     String numStr = Integer.toString(num);
-                    String reversed = new StringBuilder(numStr).reverse().toString();
-                    return numStr.equals(reversed);
+                    return numStr.contentEquals((new StringBuilder(numStr)).reverse().toString());
                 })
                 .boxed()
-                .collect(Collectors.toCollection(ArrayList::new));
+                .toList();
     }
 
     public static List<String> palindromeSubstrings(String inputString) {
-        return IntStream.range(0, inputString.length())
+        return IntStream.rangeClosed(0, inputString.length())
                 .boxed()
-                .flatMap(i -> IntStream.range(i + 1, inputString.length())
+                .flatMap(i -> IntStream.rangeClosed(i + 1, inputString.length())
                         .mapToObj(j -> inputString.substring(i, j))
-                        .filter(str -> str.equals(new StringBuilder(str).reverse().toString())))
+                        .filter(str -> str.contentEquals(new StringBuilder(str).reverse())))
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<Integer> findPerfectNumbers(int startNumber, int endNumber) {
