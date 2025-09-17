@@ -7,14 +7,9 @@ package school.faang.hogwards;
  * Дата: 16.09.2025
  */
 
-public class SpellCaster implements  SpellAction {
+public class SpellCaster {
     public void cast(String spell, SpellAction action) {
         String result = action.act(spell);
         System.out.println(result);
-    }
-
-    @Override
-    public String act(String spell) {
-        return spell;
     }
 }
