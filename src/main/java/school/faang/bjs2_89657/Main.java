@@ -12,41 +12,19 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static school.faang.bjs2_89657.Constant.COUNT_POOL_THREAD;
+import static school.faang.bjs2_89657.Constant.SIZE_PERSON_LIST;
+import static school.faang.bjs2_89657.Constant.TIME_WAITING_THREAD;
+
 @Slf4j
 public class Main {
-    public static final int COUNT_POOL_THREAD = 10;
-    public static final int SIZE_PERSON_LIST = 100_000;
-    private static final int TIME_WAITING_THREAD = 5;
-    private static final int MIN_AGE = 18;
-    private static final int MAX_AGE = 70;
 
     public static void main(String[] args) {
-        List<Person> persons = IntStream.rangeClosed(0, SIZE_PERSON_LIST)
-                .mapToObj(i -> new Person("name " + i,
-                        "surname " + i,
-                        new Random().nextInt(MIN_AGE, MAX_AGE),
-                        "workplace"))
-                .collect(Collectors.toCollection(ArrayList::new));
-
-        int batchSize = SIZE_PERSON_LIST / COUNT_POOL_THREAD;
-
-        List<Person> batch = new ArrayList<>();
+        List<Person> persons = PersonBatchService.createListPerson();
 
         ExecutorService executor = Executors.newFixedThreadPool(COUNT_POOL_THREAD);
 
-        for (int i = 0; i < persons.size(); i++) {
-            batch.add(persons.get(i));
-            if ((i + 1) % batchSize == 0) {
-                PersonInfoPrinter infoPrinter = new PersonInfoPrinter(batch);
-                executor.submit(infoPrinter);
-                batch = new ArrayList<>();
-            }
-        }
-
-        if (!batch.isEmpty()) {
-            PersonInfoPrinter infoPrinter = new PersonInfoPrinter(batch);
-            executor.submit(infoPrinter);
-        }
+        PersonBatchService.processPersons(persons, SIZE_PERSON_LIST / COUNT_POOL_THREAD, executor);
 
         executor.shutdown();
 
