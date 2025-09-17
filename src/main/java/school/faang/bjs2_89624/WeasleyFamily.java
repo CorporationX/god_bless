@@ -11,6 +11,8 @@ public class WeasleyFamily {
             "убраться в саду", "уничтожить ненужный хлам", "помыть отцовскую машину"
     };
 
+    private final static int ONE_MINUTE_WAITING = 1;
+
     public static void main(String[] args) {
         ExecutorService executor = Executors.newCachedThreadPool();
 
@@ -20,7 +22,7 @@ public class WeasleyFamily {
 
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(ONE_MINUTE_WAITING, TimeUnit.MINUTES)) {
                 System.out.println("День подходит к концу - Перси не может ждать вечно. Потоки приостановлены.");
                 executor.shutdownNow();
             } else {
