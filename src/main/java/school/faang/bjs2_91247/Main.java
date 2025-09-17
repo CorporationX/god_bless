@@ -6,13 +6,16 @@ import school.faang.bjs2_91247.character.Swordsman;
 import school.faang.bjs2_91247.character_groups.Army;
 import school.faang.bjs2_91247.character_groups.Squad;
 
-import static school.faang.bjs2_91247.character_groups.Squad.CharacterClass.*;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Squad magicians = new Squad(MAGICIANS, new Magician(), new Magician(), new Magician(), new Magician());
-        Squad archers = new Squad(ARCHERS, new Archer(), new Archer(), new Archer(), new Archer(), new Archer());
-        Squad swordsmen = new Squad(SWORDSMEN, new Swordsman(), new Swordsman(), new Swordsman(), new Swordsman());
+        Squad<Magician> magicians =
+                new Squad<>(List.of(new Magician(), new Magician(), new Magician(), new Magician()));
+        Squad<Archer> archers =
+                new Squad<>(List.of(new Archer(), new Archer(), new Archer(), new Archer(), new Archer()));
+        Squad<Swordsman> swordsmen =
+                new Squad<>(List.of(new Swordsman(), new Swordsman(), new Swordsman(), new Swordsman()));
 
         Army army = new Army();
         army.addSquad(magicians);

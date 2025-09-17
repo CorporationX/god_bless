@@ -5,12 +5,12 @@ import lombok.Getter;
 import java.util.Random;
 
 @Getter
-public abstract class Character {
+public abstract class Unit {
     private final int power;
 
     private static final Random POWER_RANGE = new Random();
 
-    public Character(int minPower, int maxPower) {
+    public Unit(int minPower, int maxPower) {
         this.power = POWER_RANGE.nextInt(minPower, maxPower + 1);
     }
 }

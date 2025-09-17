@@ -1,47 +1,26 @@
 package school.faang.bjs2_91247.character_groups;
 
-import lombok.Getter;
-import school.faang.bjs2_91247.character.Character;
-
-
+import school.faang.bjs2_91247.character.Unit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class Squad {
-    private final List<school.faang.bjs2_91247.character.Character> characters;
+public class Squad<T extends Unit> {
+    private final List<Unit> units;
 
-    public Squad(CharacterClass characterClass, school.faang.bjs2_91247.character.Character... someCharacters) {
-        for (school.faang.bjs2_91247.character.Character character : someCharacters) {
-            if (!character.getClass().getSimpleName().equals(characterClass.getCharacterClassName())) {
-                throw new IllegalArgumentException(String.format("В одном отряде " +
-                        "могут быть персонажи исключительно определенного типа. " +
-                        "В данном случае: %s", characterClass.getCharacterClassName()));
-            }
+    public Squad(List<T> squad) {
+        if (squad.isEmpty()) {
+            throw new IllegalArgumentException("Отряд должен содержать юнитов!");
         }
-        characters = new ArrayList<>(Arrays.stream(someCharacters).toList());
+        units = new ArrayList<>(squad);
     }
 
-    public List<school.faang.bjs2_91247.character.Character> getCharacterSquad() {
-        return new ArrayList<>(characters);
+    public List<Unit> getCharacterSquad() {
+        return new ArrayList<>(units);
     }
 
     public int calculateSquadPower() {
-        return characters.stream()
-                .mapToInt(Character::getPower)
+        return units.stream()
+                .mapToInt(Unit::getPower)
                 .sum();
-    }
-
-    @Getter
-    public enum CharacterClass {
-        ARCHERS("Archer"),
-        MAGICIANS("Magician"),
-        SWORDSMEN("Swordsman");
-
-        private final String characterClassName;
-
-        CharacterClass(String characterClassName) {
-            this.characterClassName = characterClassName;
-        }
     }
 }

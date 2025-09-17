@@ -1,6 +1,6 @@
 package school.faang.bjs2_91247.character;
 
-public class Swordsman extends Character {
+public class Swordsman extends Unit {
     private static final int SWORDSMAN_MIN_POWER = 42;
     private static final int SWORDSMAN_MAX_POWER = 48;
 

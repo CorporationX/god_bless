@@ -11,16 +11,14 @@ public class Army {
     public int calculateTotalPower() throws InterruptedException {
         AtomicInteger totalPower = new AtomicInteger(0);
 
-        Thread[] threads = new Thread[squads.size()];
-        int threadIndex = 0;
+        List<Thread> threads = new ArrayList<>();
 
         for (Squad squad : squads) {
             Thread newThread = new Thread(() -> {
                 int result = squad.calculateSquadPower();
                 totalPower.addAndGet(result);
             });
-            threads[threadIndex] = newThread;
-            threadIndex += 1;
+            threads.add(newThread);
             newThread.start();
         }
 
