@@ -1,5 +1,7 @@
 package school.faang.multithreading_parallelism_thread.bgs2_91238;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -13,18 +15,7 @@ public class MailSender {
 
     public static void main(String[] args) {
 
-        BiFunction<Integer, Integer, Function<Integer, Integer>> calculateBatchSize =
-                (numberOfThreads, numberOfMailLetters) -> {
-                    int batchSize = numberOfMailLetters / numberOfThreads;
-                    int remainder = numberOfMailLetters % numberOfThreads;
-
-                    return batchNumber -> batchNumber < numberOfThreads
-                            ? batchNumber * batchSize
-                            : batchNumber * batchSize + remainder;
-                };
-
-        Function<Integer, Integer> getBatchSize =
-                calculateBatchSize.apply(NUMBER_OF_THREADS, NUMBER_OF_MAIL_LETTERS);
+        Function<Integer, Integer> getBatchSize = calculateBatchSize();
 
         Consumer<Thread> threadJoin = t -> {
             try {
@@ -50,5 +41,19 @@ public class MailSender {
                 .forEach(threadJoin);
 
         System.out.print("Все письма отправлены");
+    }
+
+    private static @NotNull Function<Integer, Integer> calculateBatchSize() {
+        BiFunction<Integer, Integer, Function<Integer, Integer>> calculateBatchSize =
+                (numberOfThreads, numberOfMailLetters) -> {
+                    int batchSize = numberOfMailLetters / numberOfThreads;
+                    int remainder = numberOfMailLetters % numberOfThreads;
+
+                    return batchNumber -> batchNumber < numberOfThreads
+                            ? batchNumber * batchSize
+                            : batchNumber * batchSize + remainder;
+                };
+
+        return calculateBatchSize.apply(NUMBER_OF_THREADS, NUMBER_OF_MAIL_LETTERS);
     }
 }
