@@ -15,7 +15,7 @@ public class FoodDeliveryTask implements Runnable {
 
     public static FoodType getFoodType() {
         final Random random = new Random();
-        return  FoodType.values()[random.nextInt(FoodType.values().length)];
+        return FoodType.values()[random.nextInt(FoodType.values().length)];
     }
 
     @Override
