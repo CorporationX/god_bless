@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class ListOperations {
 
@@ -28,22 +27,22 @@ public class ListOperations {
                 .orElse(Double.NaN);
     }
 
-    public static long countStringsStartingWith(List<String> strings, char c) {
+    public static long countStringsStartingWith(List<String> strings, char symbol) {
         return strings.stream()
-                .filter(s -> !s.isEmpty() && s.charAt(0) == c)
+                .filter(s -> !s.isEmpty() && s.charAt(0) == symbol)
                 .count();
     }
 
     public static List<String> filterStringsContainingSubstring(List<String> strings, String substring) {
         return strings.stream()
                 .filter(s -> s.contains(substring))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> sortByLength(List<String> strings) {
         return strings.stream()
                 .sorted(Comparator.comparingInt(String::length))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> predicate) {
@@ -61,6 +60,6 @@ public class ListOperations {
     public static List<Integer> convertToLengths(List<String> strings) {
         return strings.stream()
                 .map(String::length)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
