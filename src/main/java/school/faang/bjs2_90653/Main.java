@@ -19,4 +19,5 @@ public class Main {
 
         frodo.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
     }
+
 }
