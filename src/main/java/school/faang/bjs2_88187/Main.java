@@ -10,7 +10,7 @@ public class Main {
 
         ListOperations.validateListNotNull(numbers, "numbers");
         ListOperations.validateListNotNull(strings, "strings");
-        // Пример использования методов:
+
         System.out.println("Сумма четных чисел: " + ListOperations.sumOfEvenNumbers(numbers));
         System.out.println("Максимум: " + ListOperations.findMax(numbers));
         System.out.println("Среднее: " + ListOperations.findAverage(numbers));

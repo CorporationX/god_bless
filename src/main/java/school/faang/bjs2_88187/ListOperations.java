@@ -28,10 +28,9 @@ public class ListOperations {
                 .orElseThrow(() -> new NoSuchElementException("Пусто"));
     }
 
-    public static long countStringsStartingWith(List<String> strings, char simbol) {
+    public static long countStringsStartingWith(List<String> strings, char symbol) {
         return strings.stream()
-
-                .filter(s -> s.startsWith(String.valueOf(simbol)))
+                .filter(s -> s.startsWith(String.valueOf(symbol)))
                 .count();
     }
 
@@ -48,16 +47,13 @@ public class ListOperations {
     }
 
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> condition) {
-        if (numbers == null || numbers.isEmpty()) {
-            throw new IllegalArgumentException("Переданный список пуст или ничего не содержит");
-        }
         return numbers.stream()
                 .allMatch(condition);
     }
 
-    public static int findMinGreaterThan(List<Integer> numbers, int number) {
+    public static int findMinGreaterThan(List<Integer> numbers, int thresholdNumber) {
         return numbers.stream()
-                .filter(n -> n > number)
+                .filter(n -> n > thresholdNumber)
                 .min(Comparator.naturalOrder())
                 .orElseThrow(() -> new NoSuchElementException("Пусто"));
     }
@@ -69,9 +65,8 @@ public class ListOperations {
     }
 
     public static <T> void validateListNotNull(List<T> list, String listName) {
-        if (list == null || list.isEmpty()) {
-            throw new IllegalArgumentException(listName + " или его значения, содержат null");
+        if (list == null) {
+            throw new IllegalArgumentException(listName + " содержит null");
         }
-
     }
 }
