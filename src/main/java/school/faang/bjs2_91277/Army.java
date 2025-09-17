@@ -4,11 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Army {
-    private static final int DEFAULT_CORE_PROCESSOR = 2;
+    private static final int DEFAULT_CORE_PROCESSOR = 3;
     private final List<Squad> squads = new ArrayList<>();
 
     public void addSquad(Squad squad) {
@@ -16,8 +20,7 @@ public class Army {
     }
 
     public int calculateTotalPower() {
-        ExecutorService executor = Executors.newFixedThreadPool(
-                Math.max(Runtime.getRuntime().availableProcessors(), DEFAULT_CORE_PROCESSOR));
+        ExecutorService executor = Executors.newFixedThreadPool(DEFAULT_CORE_PROCESSOR);
 
         try {
             List<Future<Integer>> futures = squads.stream()
