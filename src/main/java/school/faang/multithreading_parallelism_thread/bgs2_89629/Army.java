@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import java.util.function.Function;
+
+import static java.util.Collections.synchronizedList;
 
 public class Army {
     private final List<Squad> squads = new ArrayList<>();
@@ -18,9 +18,9 @@ public class Army {
     }
 
     public Optional<Integer> calculateTotalPower() {
-        BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(squads.size());
+        List<Integer> synchronizedIntegerList = synchronizedList(new ArrayList<>());
         Function<Squad, Runnable> taskSumEnergiesFighters = (squad) ->
-             () -> queue.add(squad.calculateSquadPower());
+                () -> synchronizedIntegerList.add(squad.calculateSquadPower());
 
         squads.stream()
                 .filter(Objects::nonNull)
@@ -34,6 +34,6 @@ public class Army {
                         e.printStackTrace();
                     }
                 });
-        return queue.stream().reduce(Integer::sum);
+        return synchronizedIntegerList.stream().reduce(Integer::sum);
     }
 }
