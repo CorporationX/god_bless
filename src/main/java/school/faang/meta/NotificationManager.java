@@ -18,7 +18,6 @@ import java.util.function.Predicate;
  * Дата: 17.09.2025
  */
 
-@Setter(onParam_ = @NonNull)
 public class NotificationManager {
     private final Map<NotificationType, Consumer<Notification>> notificationHandlders = new HashMap<>();
 
@@ -26,6 +25,7 @@ public class NotificationManager {
     private final List<Function<Notification, Notification>> correctors = new ArrayList<>();
 
     @NonNull
+    @Setter
     private Consumer<Notification> defaultHandler =
             notification -> System.out.printf("%nОбработчик для %s не найден! Сообщение: %s",
                     notification.getType(), notification.getMessage());
