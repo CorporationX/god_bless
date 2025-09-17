@@ -8,10 +8,15 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class WeasleyFamily {
-    private static final String[] CHORES = {"wash the dishes", "sweep the floor", "cook dinner", "do the laundry", "water the plants"};
+    private static final String[] CHORES = {
+            "wash the dishes",
+            "sweep the floor",
+            "cook dinner",
+            "do the laundry",
+            "water the plants"};
+    private static final int MAX_WAIT_MILLISECONDS = 12000;
 
     public static void main(String[] args) {
-        int MAX_WAIT_MILLISECONDS = 12000;
         ExecutorService executorService = Executors.newCachedThreadPool();
 
         for (String task : CHORES) {
