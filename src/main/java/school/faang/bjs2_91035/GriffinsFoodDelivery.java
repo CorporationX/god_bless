@@ -9,17 +9,18 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class GriffinsFoodDelivery {
-    public static final int COUNT_POOL_THREAD = 3;
+    public static final int THREAD_POOL_SIZE = 3;
     public static final int WAITING_TIME_THREAD = 5;
+    public static final Random random = new Random();
 
     public static void main(String[] args) {
         String[] characterNames = new String[]{"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
-        ExecutorService executor = Executors.newFixedThreadPool(COUNT_POOL_THREAD);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
         for (String characterName : characterNames) {
             FoodDeliveryTask foodDeliveryTask = new FoodDeliveryTask(characterName,
-                    new Random().nextInt(1, 100));
+                    random.nextInt(1, 100));
             executor.submit(foodDeliveryTask::run);
         }
 

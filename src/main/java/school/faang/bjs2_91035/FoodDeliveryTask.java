@@ -22,7 +22,7 @@ public class FoodDeliveryTask implements Runnable {
         FoodType foodType = getFoodType();
         try {
             log.info("{} gets food - {} {}", character, foodAmount, foodType);
-            Thread.sleep(2000);
+            Thread.sleep(TIME_FOR_LUNCH);
             log.info("{} devoured {} {}", character, foodAmount, foodType);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
