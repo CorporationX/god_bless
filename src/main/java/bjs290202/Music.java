@@ -5,13 +5,15 @@ public class Music {
         Player player = new Player();
 
         Thread thread1 = new Thread(player::play);
-        Thread thread2 = new Thread(player::skip);
-        Thread thread3 = new Thread(player::previous);
-        Thread thread4 = new Thread(player::pause);
-
         thread1.start();
+
+        Thread thread2 = new Thread(player::skip);
         thread2.start();
+
+        Thread thread3 = new Thread(player::previous);
         thread3.start();
+
+        Thread thread4 = new Thread(player::pause);
         thread4.start();
 
         thread1.join();
