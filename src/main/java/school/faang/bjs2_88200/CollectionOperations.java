@@ -8,12 +8,11 @@ import java.util.stream.Collectors;
 
 public class CollectionOperations {
 
-    public static Set<Map.Entry<Integer, Integer>> findPairsWithSum(Set<Integer> numbers, int target) {
+    public static Map<Integer, Integer> findPairsWithSum(Set<Integer> numbers, int target) {
         return numbers.stream()
                 .filter(n -> numbers.contains(target - n))
                 .filter(n -> n < target - n)
-                .map(n -> Map.entry(n, target - n))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toMap(n -> n, n -> target - n));
     }
 
     public static List<String> getCapitalsSortedByCountry(Map<String, String> country) {
