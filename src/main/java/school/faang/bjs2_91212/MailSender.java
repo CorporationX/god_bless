@@ -1,16 +1,17 @@
 package school.faang.bjs2_91212;
 
 public class MailSender {
+
+    private static final int TOTAL_MESSAGES = 1000;
+    private static final int THREAD_COUNT = 5;
+    private static final int EMAIL_FOR_THREAD = TOTAL_MESSAGES / THREAD_COUNT;
+
     public static void main(String[] args) {
-        int totalEmails = 1000;
-        int threadCount = 5;
-        int emailForThread = totalEmails / threadCount;
+        Thread[] threads = new Thread[THREAD_COUNT];
 
-        Thread[] threads = new Thread[threadCount];
-
-        for (int i = 0; i < threadCount; i++) {
-            int startIndex = i * emailForThread + 1;
-            int endIndex = (i + 1) * emailForThread;
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            int startIndex = i * EMAIL_FOR_THREAD + 1;
+            int endIndex = (i + 1) * EMAIL_FOR_THREAD;
 
             SenderRunnable task = new SenderRunnable(startIndex, endIndex);
 

@@ -1,8 +1,8 @@
 package school.faang.bjs2_91212;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SenderRunnable implements Runnable {
     private final int startIndex;
     private final int endIndex;
