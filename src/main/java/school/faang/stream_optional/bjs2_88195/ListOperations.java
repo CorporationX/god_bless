@@ -2,6 +2,7 @@ package school.faang.stream_optional.bjs2_88195;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
@@ -17,7 +18,8 @@ public class ListOperations {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .max()
-                .getAsInt();
+                .orElseThrow(() -> new NoSuchElementException("Не удалось найти максимальное значение. " +
+                        "Возможная причина: передан пустой список"));
     }
 
     public static double findAverage(List<Integer> numbers) {
@@ -54,7 +56,9 @@ public class ListOperations {
         return numbers.stream()
                 .filter(number -> number > filterNumber)
                 .min(Integer::compareTo)
-                .get();
+                .orElseThrow(() -> new NoSuchElementException(
+                        "Не удалось найти минимальное значение после числа " +
+                                "%d. Возможная причина: передан пустой список".formatted(filterNumber)));
     }
 
     public static List<Integer> convertToLengths(List<String> stringList) {
