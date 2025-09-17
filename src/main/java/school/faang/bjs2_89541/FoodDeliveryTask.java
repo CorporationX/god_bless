@@ -8,6 +8,7 @@ public class FoodDeliveryTask implements Runnable {
     private String character;
     private int foodAmount;
     private final Random random = new Random();
+    private final static int COUNT_SLEEP = 5000;
 
 
     public FoodDeliveryTask(String character, int foodAmount) {
@@ -23,8 +24,8 @@ public class FoodDeliveryTask implements Runnable {
     @SneakyThrows
     public void run() {
         FoodType food = getFoodType();
-        System.out.println(character + " receives " + foodAmount + " " + food);
-        Thread.sleep(5000);
-        System.out.println(character + " eat " + foodAmount + " " + food);
+        System.out.printf("%s receives %d %s%n", character, foodAmount, food);
+        Thread.sleep(COUNT_SLEEP);
+        System.out.printf("%s eat %d %s%n", character, foodAmount, food);
     }
 }
