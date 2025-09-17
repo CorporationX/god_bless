@@ -17,9 +17,9 @@ public class Main {
         System.out.println(StreamMethods.findMax(numbers));
         System.out.println("3. Среднее значение:");
         System.out.println(StreamMethods.findAverage(numbers));
-        System.out.println("4. Количество строк начинающихся с «а»:");
+        System.out.println("4. Количество строк начинающихся с «а» (чувствительно к регистру:");
         System.out.println(StreamMethods.countStringsStartingWithCaseSensitive(words, 'a'));
-        System.out.println("5. Строки которые содержат подстроку «ap»:");
+        System.out.println("5. Строки которые содержат подстроку «ap» игнорируя регистр:");
         System.out.println(StreamMethods.filterStringContainsSubstringIgnoreCase(words, "ap"));
         System.out.println("6. Сортируем строки по возрастанию их длины:");
         System.out.println(StreamMethods.sortStringByLenght(words));
