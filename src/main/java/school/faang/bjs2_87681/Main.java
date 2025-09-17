@@ -3,6 +3,8 @@ package school.faang.bjs2_87681;
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
+        //todo избавиться от комментариев в фильнальной версии кода,
+
         // Регистрация обработчиков оповещений
         notificationManager.registerHandler(NotificationType.EMAIL,
                 notification -> System.out.println("Email: " + notification.getMessage())
