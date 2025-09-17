@@ -7,16 +7,21 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Chore implements Runnable {
     private String chore;
+    private final int TIME_IN_MILLIS;
 
     @Override
     public void run() {
-        System.out.println(Thread.currentThread().getName() + " выполняет: " + chore);
+        System.out.printf("%s выполняет: %s%n",
+                Thread.currentThread().getName(), chore);
 
         try {
-            Thread.sleep(1000);
-            System.out.println(Thread.currentThread().getName() + " завершил: " + chore);
+            Thread.sleep(TIME_IN_MILLIS);
+            System.out.printf("%s завершил: %s%n",
+                    Thread.currentThread().getName(), chore);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(
+                    String.format("Поток %s был прерван во время выполнения: %s",
+                            Thread.currentThread().getName(), chore), e);
         }
     }
 }
