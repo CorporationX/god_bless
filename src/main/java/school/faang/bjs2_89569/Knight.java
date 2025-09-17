@@ -12,6 +12,7 @@ public class Knight {
     private String name;
     @Getter
     private List<Trial> trials = new ArrayList<>();
+    private static final int THREAD = 4;
 
     public Knight(String name) {
         this.name = name;
@@ -25,7 +26,7 @@ public class Knight {
     }
 
     public void startTrials() {
-        ExecutorService executor = Executors.newFixedThreadPool(4);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD);
         for (Trial trial : trials) {
             executor.submit(trial);
         }
