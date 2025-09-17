@@ -14,6 +14,20 @@ public class Droid {
     private static final int MAX_LOWER_KEY = 'z';
     private static final int ROTATION_CORRECTION = 1;
 
+    private static final DroidMessageEncryptor ENCRYPTOR = (message, key) -> process(
+            message,
+            key,
+            (c, k) -> encrypt(c, k, MIN_UPPER_KEY, MAX_UPPER_KEY),
+            (c, k) -> encrypt(c, k, MIN_LOWER_KEY, MAX_LOWER_KEY)
+    );
+
+    private static final DroidMessageEncryptor DECRYPTOR = (message, key) -> process(
+            message,
+            key,
+            (c, k) -> decrypt(c, k, MIN_UPPER_KEY, MAX_UPPER_KEY),
+            (c, k) -> decrypt(c, k, MIN_LOWER_KEY, MAX_LOWER_KEY)
+    );
+
     public String encryptMessage(String message, int key) {
         return ENCRYPTOR.processMessage(message, key);
     }
@@ -33,20 +47,6 @@ public class Droid {
         System.out.println(name + " получил расшифрованное сообщение: " + decryptedMessage);
     }
 
-    private static final DroidMessageEncryptor ENCRYPTOR = (message, key) -> process(
-            message,
-            key,
-            (c, k) -> encrypt(c, k, MIN_UPPER_KEY, MAX_UPPER_KEY),
-            (c, k) -> encrypt(c, k, MIN_LOWER_KEY, MAX_LOWER_KEY)
-    );
-
-    private static final DroidMessageEncryptor DECRYPTOR = (message, key) -> process(
-            message,
-            key,
-            (c, k) -> decrypt(c, k, MIN_UPPER_KEY, MAX_UPPER_KEY),
-            (c, k) -> decrypt(c, k, MIN_LOWER_KEY, MAX_LOWER_KEY)
-    );
-
     private static String process(String message, int key,
                                   BiFunction<Character, Integer, Character> upperProcessor,
                                   BiFunction<Character, Integer, Character> lowerProcessor) {
@@ -63,17 +63,18 @@ public class Droid {
         return result.toString();
     }
 
-    private static char encrypt(char ch, int key, int minChar, int maxChar) {
+    private static char processChar(char ch, int key, int minChar, int maxChar) {
         int alphabetSize = maxChar - minChar + ROTATION_CORRECTION;
         int code = ch - minChar;
         code = (code + key % alphabetSize + alphabetSize) % alphabetSize;
         return (char) (code + minChar);
     }
 
+    private static char encrypt(char ch, int key, int minChar, int maxChar) {
+        return processChar(ch, key, minChar, maxChar);
+    }
+
     private static char decrypt(char ch, int key, int minChar, int maxChar) {
-        int alphabetSize = maxChar - minChar + ROTATION_CORRECTION;
-        int code = ch - minChar;
-        code = (code - key % alphabetSize + alphabetSize) % alphabetSize;
-        return (char) (code + minChar);
+        return processChar(ch, -key, minChar, maxChar);
     }
 }
