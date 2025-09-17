@@ -1,43 +1,65 @@
 package school.faang.stream_optional.bjs2_88195;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class ListOperations {
 
     public static int sumOfEvenNumbers(List<Integer> numbers) {
-        return numbers.stream().filter(x -> x % 2 == 0).mapToInt(Integer::intValue).sum();
+        return numbers.stream()
+                .filter(x -> x % 2 == 0)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public static int findMax(List<Integer> numbers) {
-        return numbers.stream().mapToInt(Integer::intValue).max().orElseGet(() -> 0);
+        return numbers.stream()
+                .mapToInt(Integer::intValue)
+                .max()
+                .getAsInt();
     }
 
     public static double findAverage(List<Integer> numbers) {
-        return numbers.stream().mapToInt(Integer::intValue).average().orElseGet(() -> 0);
+        return numbers.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0);
     }
 
     public static long countStringsStartingWith(List<String> stringList, char startChar) {
-        return stringList.stream().filter(s -> s.startsWith(String.valueOf(startChar))).count();
+        return stringList.stream()
+                .filter(s -> s.startsWith(String.valueOf(startChar)))
+                .count();
     }
 
     public static List<String> filterStringsContainingSubstring(List<String> stringList, String containsString) {
-        return stringList.stream().filter(s -> s.contains(containsString)).toList();
+        return stringList.stream()
+                .filter(s -> s.contains(containsString))
+                .toList();
     }
 
     public static List<String> sortByLength(List<String> stringList) {
-        return stringList.stream().sorted((s1, s2) -> s1.length() - s2.length()).toList();
+        return stringList.stream()
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
     }
 
     public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> filter) {
-        return numbers.stream().allMatch(filter);
+        return numbers.stream()
+                .allMatch(filter);
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int filterNumber) {
-        return numbers.stream().filter(number -> number > filterNumber).sorted().toList().get(0);
+        return numbers.stream()
+                .filter(number -> number > filterNumber)
+                .min(Integer::compareTo)
+                .get();
     }
 
     public static List<Integer> convertToLengths(List<String> stringList) {
-        return stringList.stream().map(s -> s.length()).toList();
+        return stringList.stream()
+                .map(String::length)
+                .toList();
     }
 }
