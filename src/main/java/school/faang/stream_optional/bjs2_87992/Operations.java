@@ -13,7 +13,7 @@ public class Operations {
     public Set<List<Integer>> getPairsThatSumEqualsArgument(int sum, Set<Integer> numbers) {
         return
                 numbers.stream()
-                        .filter(num -> numbers.contains(sum - num) && num != 6 - num)
+                        .filter(num -> numbers.contains(sum - num) && num != sum - num)
                         .map(num -> Arrays.asList(num, sum - num))
                         .peek(Collections::sort)
                         .collect(Collectors.toSet());
@@ -21,23 +21,20 @@ public class Operations {
 
     public List<String> getSortedMapValues(Map<String, String> valuesMap) {
         return valuesMap.entrySet().stream()
-                .map(entry -> entry.getKey())
-                .sorted()
-                .map(key -> valuesMap.get(key))
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
                 .toList();
     }
 
     public List<String> filterByChar(List<String> strings, char filterChar) {
         return strings.stream()
                 .filter(str -> str.startsWith(String.valueOf(filterChar)))
-                .sorted((s1, s2) -> {
-                    int result = s1.length() - s2.length();
-                    return result == 0 ? s1.compareTo(s2) : result;
-                }).toList();
+                .sorted(Comparator.comparingInt(String::length).thenComparing(String::compareTo))
+                .toList();
     }
 
     public List<String> getBinaryFormat(List<Integer> numbers) {
-        return numbers.stream().map(num -> Integer.toBinaryString(num)).toList();
+        return numbers.stream().map(Integer::toBinaryString).toList();
     }
 
     public List<String> filterByAllWordCharsContainsInString(List<String> words, String filterString) {
@@ -45,7 +42,7 @@ public class Operations {
                 str -> {
                     boolean b = true;
                     for (char c : str.toCharArray()) {
-                        if (!"abcdefghijklmnopqrstuvwxyz".contains(String.valueOf(c))) {
+                        if (!filterString.contains(String.valueOf(c))) {
                             b = false;
                             break;
                         }
