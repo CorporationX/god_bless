@@ -22,9 +22,13 @@ public class Army {
         Function<Squad, Runnable> taskSumEnergiesFighters = (squad) ->
                 () -> synchronizedIntegerList.add(squad.calculateSquadPower());
 
-        squads.stream()
+        List<Thread> squadThreads = squads.stream()
                 .filter(Objects::nonNull)
-                .map(itemSquad -> new Thread(taskSumEnergiesFighters.apply(itemSquad)))
+                .map(taskSumEnergiesFighters)
+                .map(Thread::new)
+                .toList();
+
+        squadThreads.stream()
                 .peek(Thread::start)
                 .toList()
                 .forEach(t -> {
