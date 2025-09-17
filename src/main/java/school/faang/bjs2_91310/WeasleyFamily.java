@@ -1,12 +1,11 @@
 package school.faang.bjs2_91310;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
 
-    String[] chores = {"помыть посуду", "подмести пол", "приготовить ужин"};
+    String[] chores = { "помыть посуду", "подмести пол", "приготовить ужин" };
 
     ExecutorService executor = Executors.newCachedThreadPool();
 
