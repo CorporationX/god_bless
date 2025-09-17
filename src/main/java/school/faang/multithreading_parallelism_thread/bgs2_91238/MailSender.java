@@ -26,13 +26,13 @@ public class MailSender {
             }
         };
 
-        List<Thread> taksForLow = rangeClosed(0, NUMBER_OF_THREADS - 1)
+        List<Thread> tasksFlow = rangeClosed(0, NUMBER_OF_THREADS - 1)
                 .mapToObj(item -> new Thread(new SenderRunnable(getBatchSize.apply(item),
                                                                 getBatchSize.apply(item + 1)),
                                        "Thread № " + item))
                 .toList();
 
-        taksForLow.stream()
+        tasksFlow.stream()
                 .peek(itemThread -> {
                     itemThread.start();
                     System.out.print("Старт потока " + itemThread.getName() + " \n");
