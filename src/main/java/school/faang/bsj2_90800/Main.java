@@ -5,7 +5,6 @@ public class Main {
     private static final int RING_VALUE = 1000000;
     private static final int VALUE_FOR_COMPARE = 1000000;
 
-
     public static void main(String[] args) {
 
         Item sword = new Item("Sword", SWORD_VALUE);
