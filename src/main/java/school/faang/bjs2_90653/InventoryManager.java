@@ -6,16 +6,16 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
-    public static void addItem(Character character, Item item, Consumer<Item> consumer) {
+    public void addItem(Character character, Item item, Consumer<Item> consumer) {
         character.getInventory().add(item);
         consumer.accept(item);
     }
 
-    public static void removeItem(Character character, Predicate<Item> predicate) {
+    public void removeItem(Character character, Predicate<Item> predicate) {
         character.getInventory().removeIf(predicate);
     }
 
-    public static void updateItem(Character character,
+    public void updateItem(Character character,
                            Predicate<Item> predicate,
                            Function<Item, Item> updater) {
         List<Item> items = character.getInventory();
