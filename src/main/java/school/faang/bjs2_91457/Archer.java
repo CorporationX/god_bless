@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Archer implements Fighter{
+public class Archer implements Fighter {
     private final int power;
 
     @Override
