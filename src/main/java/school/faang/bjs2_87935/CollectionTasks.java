@@ -12,7 +12,7 @@ public class CollectionTasks {
 
     public static Set<List<Integer>> findUniquePairs(Set<Integer> numbers, int target) {
         return numbers.stream()
-                .filter(n -> n != target - n && numbers.contains(target - n))
+                .filter(n -> numbers.contains(target - n))
                 .map(n -> Arrays.asList(n, target - n))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
@@ -39,10 +39,10 @@ public class CollectionTasks {
     }
 
     public static List<String> filterByAlphabetAndSort(List<String> strings, String alphabet) {
-        String regex = "[" + alphabet + "]+";
         return strings.stream()
-                .filter(s -> s.matches(regex))
-                .sorted(Comparator.comparingInt(String::length))
+                .filter(s -> s.chars()
+                .allMatch(c -> alphabet.indexOf(c) >= 0))
+                .sorted()
                 .toList();
     }
 
