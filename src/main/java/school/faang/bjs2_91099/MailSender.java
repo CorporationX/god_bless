@@ -15,19 +15,22 @@ public class MailSender {
 
     public static void main(String[] args) {
         List<Thread> threadList = new ArrayList<>();
-        SenderRunnable senderMessage = null;
+        List<SenderRunnable> senderList = new ArrayList<>();
         log.info("Запускаем обработчики писем");
         for (int i = 0; i < THREAD_COUNT; i++) {
-            senderMessage = new SenderRunnable(START_INDEX, END_INDEX);
+            SenderRunnable senderMessage = new SenderRunnable(START_INDEX, END_INDEX);
+            senderList.add(senderMessage);
             Thread thread = new Thread(senderMessage);
             thread.start();
             threadList.add(thread);
         }
         try {
             log.info("Ждем обработки писем от обработчиков");
-            for (Thread thread : threadList) {
+            for (int i = 0; i < threadList.size(); i++) {
+                Thread thread = threadList.get(i);
+                SenderRunnable sender = senderList.get(i);
+                log.info("{} - Обработчик {} - Обработано писем", thread.getName(), sender.getStartIndex());
                 thread.join();
-                log.info("{} - Обработчик {} - Обработано писем", thread.getName(), senderMessage.getStartIndex());
             }
             log.info("Отправка сообщений законченна! - отправленно {}", SenderRunnable.count);
         } catch (InterruptedException e) {
