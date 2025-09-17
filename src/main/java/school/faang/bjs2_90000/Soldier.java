@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Soldier {
-    protected int power;
+public abstract class Soldier {
+    private int power;
 }
