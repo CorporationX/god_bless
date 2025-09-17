@@ -4,8 +4,8 @@ public class Main {
     public static void main(String[] args) {
         SpellCaster spellCaster = new SpellCaster();
 
-        String aloexplosion = "Babaha";
+        String aloExplosion = "Babaha";
 
-        spellCaster.cast(aloexplosion, (spell) -> "The door is blown up using by " + spell);
+        spellCaster.cast(aloExplosion, (spell) -> "The door is blown up using by " + spell);
     }
 }
