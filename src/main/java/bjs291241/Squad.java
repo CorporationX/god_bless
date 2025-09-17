@@ -7,11 +7,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Squad {
     private final String name;
-    private final List<Fighters> fighters;
+    private final List<Fighter> fighters;
 
     public int calculateSquadPower() {
         int totalPowerOfSquad = 0;
-        for (Fighters fighter : fighters) {
+        for (Fighter fighter : fighters) {
             totalPowerOfSquad += fighter.getPower();
         }
         return totalPowerOfSquad;
