@@ -36,6 +36,7 @@ public class GriffinsFoodDelivery {
             }
         } catch (InterruptedException e) {
             System.out.println("Все доставки отменены в связи с крахом компании!");
+            executor.shutdownNow();
             Thread.currentThread().interrupt();
         }
     }
