@@ -11,11 +11,12 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class RocketLaunchService {
-
+    private static final int TIME_SLEEP = 1000;
+    private static final int CORE_POOL_SIZE = 3;
 
     public void launch(RocketLaunch rocketLaunch) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(TIME_SLEEP);
             log.info("The launch {} took place in {}", rocketLaunch.getName(), rocketLaunch.getLaunchTime());
         } catch (InterruptedException e) {
             log.error("startup {} interrupted! Time - {}", rocketLaunch.getName(), rocketLaunch.getLaunchTime(), e);
@@ -23,9 +24,11 @@ public class RocketLaunchService {
     }
 
     public void planRocketLaunches(List<RocketLaunch> launches) {
-        // не знаю подходящее ли использование newScheduledThreadPool, ибо выполняет задачу после задержки
-        // как в этой задаче, но  по условию требуется newSingleThreadExecutor(), как по мне, он тут не нужен
-        ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(launches.size());
+        //  newScheduledThreadPool - не думал, что четко выполнит все запуски.
+        //  Думал запорит тайминги запуска, а нет
+        //  Правда если ставить одинаковое время,то бывает проблемы, не одновременно запускает
+        // Но мне кажется так везде будет, если потоков будет меньше, чем запусков
+        ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(CORE_POOL_SIZE);
 
         launches.forEach((rocketLaunch) -> {
             LocalDateTime localDateTime = rocketLaunch.getLaunchTime();
