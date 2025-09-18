@@ -1,6 +1,8 @@
 package school.faang.bjs2_92220;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -12,11 +14,12 @@ public class Music {
 
     public static void main(String[] args) {
         Player player = new Player("ATL");
+        List<Runnable> taskThread = List.of(
+                () -> player.play(), () -> player.pause(), () -> player.skip(), () -> player.previous());
         ExecutorService execute = Executors.newFixedThreadPool(THREAD_COUNT);
-        execute.submit(() -> player.play());
-        execute.submit(() -> player.pause());
-        execute.submit(() -> player.skip());
-        execute.submit(() -> player.previous());
+        for (Runnable runnable : taskThread) {
+            execute.submit(runnable);
+        }
         execute.shutdownNow();
         try {
             if (!execute.awaitTermination(MAX_AWAIT_TIME_MINUTE, TimeUnit.MINUTES)) {
