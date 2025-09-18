@@ -1,25 +1,19 @@
 package school.faang.bjs2_91090;
 
 public class MailSender {
+    private static final int EMAIL_AMOUNT = 1000;
+    private static final int THREAD_AMOUNT = 5;
+
     public static void main(String[] args) throws InterruptedException {
-        final Thread firstThread = new Thread(new SenderRunnable(1, 200));
-        final Thread secondThread = new Thread(new SenderRunnable(201, 400));
-        final Thread thirdThread = new Thread(new SenderRunnable(401, 600));
-        final Thread forthThread = new Thread(new SenderRunnable(601, 800));
-        final Thread fifthThread = new Thread(new SenderRunnable(801, 1000));
-
-        firstThread.start();
-        secondThread.start();
-        thirdThread.start();
-        forthThread.start();
-        fifthThread.start();
-
-        firstThread.join();
-        secondThread.join();
-        thirdThread.join();
-        forthThread.join();
-        fifthThread.join();
-
+        Thread[] threads = new Thread[THREAD_AMOUNT];
+        int batchSize = EMAIL_AMOUNT / THREAD_AMOUNT;
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(new SenderRunnable(i * batchSize + 1, (i + 1) * batchSize));
+            threads[i].start();
+        }
+        for (Thread thread : threads) {
+            thread.join();
+        }
         System.out.println("Все сообщения отправлены!");
     }
 }
