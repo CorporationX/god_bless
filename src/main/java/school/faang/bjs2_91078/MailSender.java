@@ -16,8 +16,7 @@ public class MailSender {
 
             Thread thread = new Thread(new SenderRunnable(i, i + MAIL_COUNT_IN_THREAD));
             threads.add(thread);
-            thread.start()
-            ;
+            thread.start();
         }
 
         threads.forEach(t -> {
@@ -26,6 +25,7 @@ public class MailSender {
 
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                System.out.println("Задача была прервана");
             }
         });
         System.out.println("Все письма отправлены!");
