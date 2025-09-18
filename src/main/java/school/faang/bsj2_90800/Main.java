@@ -16,43 +16,43 @@ public class Main {
                 sword,
                 ((addeditem) ->
                         System.out.printf("%s добавлено герою %s\n",
-                                addeditem.getName(),
+                                addeditem.name(),
                                 character.getName())));
 
         inventoryManager.addItem(character,
                 ring,
                 (item) -> System.out.printf("%s добавлено герою %s\n",
-                        item.getName(),
+                        item.name(),
                         character.getName()));
 
         System.out.println("\nAfter adding items\n");
         for (Item characterItem : character.inventory) {
             System.out.printf("%s has %s with value %d\n",
                     character.getName(),
-                    characterItem.getName(),
-                    characterItem.getValue());
+                    characterItem.name(),
+                    characterItem.value());
         }
 
         inventoryManager.updateItem(character,
-                (searchedItem) -> searchedItem.getName().equals("Ring"),
-                (updatedItem) -> new Item(updatedItem.getName(),
-                        updatedItem.getValue() * 2));
+                (searchedItem) -> searchedItem.name().equals("Ring"),
+                (updatedItem) -> new Item(updatedItem.name(),
+                        updatedItem.value() * 2));
 
         System.out.println("\nAfter updating item\n");
         for (Item characterItem : character.inventory) {
             System.out.printf("%s has %s with value %d\n",
                     character.getName(),
-                    characterItem.getName(),
-                    characterItem.getValue());
+                    characterItem.name(),
+                    characterItem.value());
         }
 
-        inventoryManager.removeItem(character, (item) -> item.getValue() < VALUE_FOR_COMPARE);
+        inventoryManager.removeItem(character, (item) -> item.value() < VALUE_FOR_COMPARE);
         System.out.println("\nAfter removing items\n");
         for (Item characterItem : character.inventory) {
             System.out.printf("%s has %s with value %d\n",
                     character.getName(),
-                    characterItem.getName(),
-                    characterItem.getValue());
+                    characterItem.name(),
+                    characterItem.value());
         }
     }
 }
