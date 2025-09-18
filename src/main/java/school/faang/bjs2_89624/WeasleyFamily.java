@@ -11,7 +11,7 @@ public class WeasleyFamily {
             "убраться в саду", "уничтожить ненужный хлам", "помыть отцовскую машину"
     };
 
-    private final static int ONE_MINUTE_WAITING = 1;
+    private static final int ONE_MINUTE_WAITING = 1;
 
     public static void main(String[] args) {
         ExecutorService executor = Executors.newCachedThreadPool();
