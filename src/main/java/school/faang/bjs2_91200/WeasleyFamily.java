@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Getter
 public class WeasleyFamily {
+    private static final int MAX_WAIT_SECOND = 1000;
     private List<String> chores = new ArrayList<>();
 
     public void doTask() {
@@ -20,6 +22,15 @@ public class WeasleyFamily {
             executors.submit(task);
         }
         executors.shutdown();
+        try {
+            if (!executors.awaitTermination(MAX_WAIT_SECOND, TimeUnit.SECONDS)) {
+                log.info("Не все задачи завершены за {} секунд. Завершаем принудительно", MAX_WAIT_SECOND);
+                executors.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            log.error("Ожидание завершения потоков прервано.");
+            executors.shutdownNow();
+        }
     }
 
     public void addTask(String task) {
