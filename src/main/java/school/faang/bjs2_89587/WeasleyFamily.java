@@ -4,5 +4,5 @@ import lombok.Getter;
 
 public class WeasleyFamily {
     @Getter
-    private String[] chores = {"помыть посуду", "подмести пол", "приготовить ужин"};
+    private final String[] chores = {"помыть посуду", "подмести пол", "приготовить ужин"};
 }
