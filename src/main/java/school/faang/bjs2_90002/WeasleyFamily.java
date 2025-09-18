@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 @Getter
 public class WeasleyFamily {
+    static long WAITING_TIME = 3;
     private static final String[] chores = {"Решить эту задачу.",
             "Решить еще 3 задачи по этой теме.",
             "Изучить Synchronized.",
@@ -20,10 +21,11 @@ public class WeasleyFamily {
         }
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(3, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(WAITING_TIME, TimeUnit.MINUTES)) {
                 System.out.println("Не все задачи завершены в указанный период времени.");
             }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             System.out.println("Поток main не смог должаться окончания, он был прерван.");
         }
     }
