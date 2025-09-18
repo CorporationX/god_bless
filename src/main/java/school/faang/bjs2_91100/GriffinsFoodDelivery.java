@@ -12,7 +12,7 @@ public class GriffinsFoodDelivery {
     private static final int THREAD_COUNT = 3;
     private static final int SEEDS_START_RANDOM_FOOD = 1;
     private static final int SEEDS_END_RANDOM_FOOD = 30;
-    private static final int MAX_WAIT_SECOND = 1000;
+    private static final int MAX_WAIT_MINUTE = 1;
 
     public static void main(String[] args) {
         ExecutorService execute = Executors.newFixedThreadPool(THREAD_COUNT);
@@ -25,8 +25,9 @@ public class GriffinsFoodDelivery {
         }
         execute.shutdown();
         try {
-            if (!execute.awaitTermination(MAX_WAIT_SECOND, TimeUnit.SECONDS)) {
-                log.info("Не все задачи завершены за {} секунд. Завершаем принудительно", MAX_WAIT_SECOND);
+            if (!execute.awaitTermination(MAX_WAIT_MINUTE, TimeUnit.MINUTES)) {
+                log.info("Не все задачи завершены за {} секунд. Завершаем принудительно", MAX_WAIT_MINUTE);
+                execute.shutdownNow();
             }
         } catch (InterruptedException e) {
             log.info("Ожидание завершения потоков прервано");

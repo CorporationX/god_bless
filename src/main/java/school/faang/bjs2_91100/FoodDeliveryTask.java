@@ -8,6 +8,8 @@ import java.util.Random;
 @Slf4j
 @AllArgsConstructor
 public class FoodDeliveryTask implements Runnable {
+    private static final int SEEDS_SLEEP_START = 1000;
+    private static final int SEEDS_SLEEP_END = 5000;
     private final Random random = new Random();
     private String character;
     private int foodAmount;
@@ -22,7 +24,7 @@ public class FoodDeliveryTask implements Runnable {
         log.info("{} - доставщик, {} - Получает {} в количестве {}",
                 Thread.currentThread().getName(), character, getFoodType(), foodAmount);
         try {
-            Thread.sleep(random.nextInt(1000, 5000));
+            Thread.sleep(random.nextInt(SEEDS_SLEEP_START, SEEDS_SLEEP_END));
         } catch (InterruptedException e) {
             log.info("Exception with Thread Sleep");
         }
