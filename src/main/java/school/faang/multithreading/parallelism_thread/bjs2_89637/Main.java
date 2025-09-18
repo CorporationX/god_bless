@@ -1,4 +1,4 @@
-package school.faang.multithreading_parallelism_thread.bjs2_89637;
+package school.faang.multithreading.parallelism_thread.bjs2_89637;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {

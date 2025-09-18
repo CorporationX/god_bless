@@ -1,4 +1,4 @@
-package school.faang.multithreading_parallelism_thread.bjs2_89547;
+package school.faang.multithreading.parallelism_thread.bjs2_89547;
 
 public class MailSender {
     private static final int TOTAL_MESSAGES = 1000;
