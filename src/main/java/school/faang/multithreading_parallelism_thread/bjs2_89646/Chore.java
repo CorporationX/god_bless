@@ -1,19 +1,21 @@
 package school.faang.multithreading_parallelism_thread.bjs2_89646;
 
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-@RequiredArgsConstructor
-public class Chore implements Runnable {
-    private final String chore;
+import java.util.concurrent.TimeUnit;
+
+@Slf4j
+public record Chore(String chore) implements Runnable {
+    private static final int TIME_DELAY = 1;
 
     @Override
     public void run() {
         try {
-            System.out.println(Thread.currentThread().getName() + " выполняет задачу: " + chore);
-            Thread.sleep(1000);
-            System.out.printf("Задача '%s' выполнена!\n", chore);
+            log.info("Выполняет задачу: {}", chore);
+            TimeUnit.SECONDS.sleep(TIME_DELAY);
+            log.info("Задача '{}' выполнена!", chore);
         } catch (InterruptedException e) {
-            System.out.printf("Задача '%s' была прервана.\n", chore);
+            log.error("Задача '{}' была прервана.", chore);
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }

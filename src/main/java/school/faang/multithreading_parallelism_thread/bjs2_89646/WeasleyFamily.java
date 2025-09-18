@@ -5,24 +5,26 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
+    private static final int TIME_DELAY = 1;
+
     public static void main(String[] args) {
         String[] chores = {
                 "помыть посуду", "подмести пол", "приготовить ужин", "постирать белье",
                 "сходить в магазин", "выхлопать половики", "покормить питомцев"
         };
 
-        ExecutorService service = Executors.newCachedThreadPool();
+        ExecutorService executorService = Executors.newCachedThreadPool();
 
         for (String chore : chores) {
-            service.submit(new Chore(chore));
+            executorService.submit(new Chore(chore));
         }
 
         try {
-            if (!service.awaitTermination(1, TimeUnit.MINUTES)) {
-                service.shutdownNow();
+            if (!executorService.awaitTermination(TIME_DELAY, TimeUnit.MINUTES)) {
+                executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            service.shutdownNow();
+            executorService.shutdownNow();
         }
 
     }
