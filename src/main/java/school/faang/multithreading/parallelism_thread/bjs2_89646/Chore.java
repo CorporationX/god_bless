@@ -1,4 +1,4 @@
-package school.faang.multithreading_parallelism_thread.bjs2_89646;
+package school.faang.multithreading.parallelism_thread.bjs2_89646;
 
 import lombok.extern.slf4j.Slf4j;
 

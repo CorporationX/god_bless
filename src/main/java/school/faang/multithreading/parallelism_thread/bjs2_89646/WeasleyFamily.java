@@ -1,4 +1,4 @@
-package school.faang.multithreading_parallelism_thread.bjs2_89646;
+package school.faang.multithreading.parallelism_thread.bjs2_89646;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
