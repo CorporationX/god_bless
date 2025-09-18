@@ -26,7 +26,7 @@ public class GriffinsFoodDelivery {
         execute.shutdown();
         try {
             if (!execute.awaitTermination(MAX_WAIT_MINUTE, TimeUnit.MINUTES)) {
-                log.info("Не все задачи завершены за {} секунд. Завершаем принудительно", MAX_WAIT_MINUTE);
+                log.info("Не все задачи завершены за {} минут. Завершаем принудительно", MAX_WAIT_MINUTE);
                 execute.shutdownNow();
             }
         } catch (InterruptedException e) {
