@@ -45,7 +45,7 @@ public class GooglePhotoAutoUploader {
         }
         for (String photo : uploadPhoto) {
             log.info("Фотография загружена на сервер {}", photo);
-            photosToUploader.clear();
         }
+        photosToUploader.clear();
     }
 }
