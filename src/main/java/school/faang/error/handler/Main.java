@@ -1,4 +1,4 @@
-package error.handler;
+package school.faang.error.handler;
 
 
 public class Main {

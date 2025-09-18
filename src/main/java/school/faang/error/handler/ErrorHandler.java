@@ -1,4 +1,4 @@
-package error.handler;
+package school.faang.error.handler;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
