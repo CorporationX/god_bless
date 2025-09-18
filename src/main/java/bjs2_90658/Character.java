@@ -1,0 +1,17 @@
+package bjs2_90658;
+
+import lombok.Getter;
+
+import java.util.*;
+
+@Getter
+public class Character {
+    private final String name;
+    private final List<Item> inventory;
+
+    public Character(String name) {
+        this.name = name;
+        this.inventory = new ArrayList<>();
+    }
+
+}
