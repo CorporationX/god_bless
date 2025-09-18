@@ -1,9 +1,10 @@
 package school.faang.bjs2_91050;
 
 import lombok.Getter;
-
+import lombok.extern.slf4j.Slf4j;
 import java.util.Random;
 
+@Slf4j
 @Getter
 public class FoodDeliveryTask implements Runnable {
     private final String character;
@@ -25,9 +26,8 @@ public class FoodDeliveryTask implements Runnable {
     @Override
     public void run() {
         FoodType randomFoodType = getFoodType();
-        System.out.printf("Машина %s начала свой путь. Получатель: %s, Продукт: %s, Количество: %d\n",
-                Thread.currentThread().getName(), character, getFoodType().getFoodTypeFormatted(), foodAmount
-        );
+        log.info("Машина начала свой путь. Получатель: {}, Продукт: {}, Количество: {}",
+                character, getFoodType().getFoodTypeFormatted(), foodAmount);
         try {
             Thread.sleep(DELIVERY_TIME);
             System.out.printf("Машина %s: Успешно доставили еду! %s получил %d штук %s\n",

@@ -5,26 +5,30 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class GriffinsDeliveryFood {
+    private static final int THREAD_POOL_SIZE = 3;
+    private static final int WAITING_TIME = 20;
+
     public static void main(String[] args) {
-        ExecutorService deliveryCars = Executors.newFixedThreadPool(3);
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewart"};
 
         for (String character : characterNames) {
-            deliveryCars.execute(new FoodDeliveryTask(character));
+            executorService.execute(new FoodDeliveryTask(character));
         }
 
-        deliveryCars.shutdown();
+        executorService.shutdown();
 
         try {
-            if (!deliveryCars.awaitTermination(20, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(WAITING_TIME, TimeUnit.SECONDS)) {
                 System.out.println("Машины слишком задерживаются, что-то пошло не так. Отменяем доставку!");
-                deliveryCars.shutdownNow();
+                executorService.shutdownNow();
             } else {
                 System.out.println("Оператор: Гриффины получили свои заказы!");
             }
         } catch (InterruptedException e) {
             System.out.println("Работа оператора была прервана!");
             Thread.currentThread().interrupt();
+            executorService.shutdownNow();
         }
     }
 }
