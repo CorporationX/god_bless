@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Getter
 public class WeasleyFamily {
-    private static final int MAX_WAIT_SECOND = 1000;
+    private static final int MAX_WAIT_MINUTE = 1;
     private List<String> chores = new ArrayList<>();
 
     public void doTask() {
@@ -23,8 +23,8 @@ public class WeasleyFamily {
         }
         executors.shutdown();
         try {
-            if (!executors.awaitTermination(MAX_WAIT_SECOND, TimeUnit.SECONDS)) {
-                log.info("Не все задачи завершены за {} секунд. Завершаем принудительно", MAX_WAIT_SECOND);
+            if (!executors.awaitTermination(MAX_WAIT_MINUTE, TimeUnit.MINUTES)) {
+                log.info("Не все задачи завершены за {} секунд. Завершаем принудительно", MAX_WAIT_MINUTE);
                 executors.shutdownNow();
             }
         } catch (InterruptedException e) {
