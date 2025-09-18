@@ -13,12 +13,12 @@ public class GriffinsFoodDelivery {
     private static final int MIN_FOOD_AMOUNT = 1;
     private static final int MAX_FOOD_AMOUNT = 100;
 
-    private static final int THREAD_COUNTER = 3;
+    private static final int THREAD_POOL_SIZE = 3;
     private static final int ONE_MINUTE_WAITING = 1;
 
     public static void main(String[] args) {
         Random random = new Random();
-        ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNTER);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
         for (String griffin : GRIFFINS) {
             executor.execute(
