@@ -15,12 +15,12 @@ public class Trial implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Испытание началось!");
+        System.out.printf("%s начал первую попытку %s%n", knightName, trialName);
         try {
             Thread.sleep(TRIAL_DURATION);
-            System.out.println("Победил победитель, наградили наградой, подарили подарок.");
+            System.out.printf("%s справился!%n", knightName);
         } catch (InterruptedException e) {
-            throw new RuntimeException("Испытание не закончилось, прервалось посередине");
+            throw new RuntimeException("Испытание не закончилось, рыцарь отбросил коньки...");
         }
     }
 }

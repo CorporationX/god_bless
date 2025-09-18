@@ -1,18 +1,29 @@
 package school.faang.bjs2_89600;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+
+@Getter
+@Setter
 public class Knight {
     private String name;
-    private List<Trial> trials;
+    private List<Trial> trials = new ArrayList<>();
 
     public Knight(String name) {
         this.name = name;
     }
 
-    public static void addTrial(Trial trial) {
+    public void addTrial(Trial trial) {
         trials.add(trial);
     }
 
-    public static void startTrials() {
-        //Здесь нужно будет запустить испытания
+    public void startTrials(ExecutorService executor) {
+        for (Trial trial : trials) {
+            executor.execute(trial);
+        }
     }
 }
