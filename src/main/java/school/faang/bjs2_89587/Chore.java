@@ -1,12 +1,11 @@
 package school.faang.bjs2_89587;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class Chore implements Runnable {
     private String chore;
     private static final int SLEEP = 5000;
-
-    public Chore(String chore) {
-        this.chore = chore;
-    }
 
     public void run() {
         System.out.printf("Thread performing task: %s Task: %s%n",
