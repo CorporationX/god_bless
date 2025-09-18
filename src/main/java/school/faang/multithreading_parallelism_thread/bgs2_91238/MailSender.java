@@ -1,0 +1,60 @@
+package school.faang.multithreading_parallelism_thread.bgs2_91238;
+
+
+import lombok.NonNull;
+
+import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
+import static java.util.stream.IntStream.rangeClosed;
+
+public class MailSender {
+    private static final int NUMBER_OF_THREADS = 5;
+    private static final int NUMBER_OF_MAIL_LETTERS = 1000;
+
+    public static void main(String[] args) {
+
+        Function<Integer, Integer> getBatchSize = calculateBatchSize();
+
+        Consumer<Thread> threadJoin = t -> {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.print(e.getMessage());
+            }
+        };
+
+        List<Thread> tasksFlow = rangeClosed(0, NUMBER_OF_THREADS - 1)
+                .mapToObj(item -> new Thread(new SenderRunnable(getBatchSize.apply(item),
+                                                                getBatchSize.apply(item + 1)),
+                                       "Thread № " + item))
+                .toList();
+
+        tasksFlow.stream()
+                .peek(itemThread -> {
+                    itemThread.start();
+                    System.out.printf("Старт потока %s \n", itemThread.getName());
+                })
+                .toList()
+                .forEach(threadJoin);
+
+        System.out.print("Все письма отправлены");
+    }
+
+    private static @NonNull Function<Integer, Integer> calculateBatchSize() {
+        BiFunction<Integer, Integer, Function<Integer, Integer>> calculateBatchSize =
+                (numberOfThreads, numberOfMailLetters) -> {
+                    int batchSize = numberOfMailLetters / numberOfThreads;
+                    int remainder = numberOfMailLetters % numberOfThreads;
+
+                    return batchNumber -> batchNumber < numberOfThreads
+                            ? batchNumber * batchSize
+                            : batchNumber * batchSize + remainder;
+                };
+
+        return calculateBatchSize.apply(NUMBER_OF_THREADS, NUMBER_OF_MAIL_LETTERS);
+    }
+}
