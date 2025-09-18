@@ -14,11 +14,4 @@ public class Character {
         this.name = name;
     }
 
-    public void addItem(Item item) {
-        inventory.add(item);
-    }
-
-    public void removeItem(Item item) {
-        inventory.remove(item);
-    }
 }
