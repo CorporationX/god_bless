@@ -5,13 +5,13 @@ public class Music {
         Player player = new Player();
 
         Thread user1 = new Thread(() -> {
-              player.play();
-              player.pause();
-              player.play();
-              player.skip();
-              player.skip();
-              player.previous();
-              player.getStatus();
+            player.play();
+            player.pause();
+            player.play();
+            player.skip();
+            player.skip();
+            player.previous();
+            player.getStatus();
         }, "User1");
 
         Thread user2 = new Thread(() -> {
