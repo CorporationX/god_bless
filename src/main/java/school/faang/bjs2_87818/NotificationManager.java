@@ -28,24 +28,39 @@ public class NotificationManager {
         if (notification == null) {
             throw new IllegalArgumentException("notification is null");
         }
-        for (Predicate<Notification> filter : filters) {
-            if (!filter.test(notification)) {
-                System.out.println("Заблокировано фильтром");
-                return;
-            }
+
+        if (!passesFilters(notification)) {
+            System.out.println("Заблокировано фильтром");
+            return;
         }
-        for (Function<Notification, Notification> corrector : correctors) {
-            notification = corrector.apply(notification);
-            if (notification == null) {
-                throw new RuntimeException("Корректор вернул NULL");
-            }
-        }
+
+        notification = applyCorrectors(notification);
+
         Consumer<Notification> handler = handlers.get(notification.getType());
         if (handler == null) {
             System.out.println("Нет обработчика для типа " + notification.getType());
             return;
         }
         handler.accept(notification);
+    }
+
+    private boolean passesFilters(Notification notification) {
+        for (Predicate<Notification> filter : filters) {
+            if (!filter.test(notification)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private Notification applyCorrectors(Notification notification) {
+        for (Function<Notification, Notification> corrector : correctors) {
+            notification = corrector.apply(notification);
+            if (notification == null) {
+                throw new RuntimeException("Корректор вернул NULL");
+            }
+        }
+        return notification;
     }
 
     public void addFilter(Predicate<Notification> filter) {
