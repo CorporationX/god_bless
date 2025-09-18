@@ -1,11 +1,9 @@
 package school.faang.bjs2_88258;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class ListOperations {
 
@@ -19,14 +17,14 @@ public class ListOperations {
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .max(Comparator.naturalOrder())
-                .get();
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public static double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToDouble(number -> number)
                 .average()
-                .getAsDouble();
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public static long countStringsStartingWith(List<String> strings, char startSymbol) {
@@ -55,7 +53,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(i -> i > threshold)
                 .max(Comparator.naturalOrder())
-                .get();
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
