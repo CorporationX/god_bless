@@ -5,28 +5,27 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) {
-        // Список домашних дел
-        String[] chores = {
-                "помыть посуду",
-                "подмести пол",
-                "приготовить ужин",
-                "почистить камин",
-                "накормить сову"
-        };
 
-        // Создаём пул потоков
+    private static final String[] CHORES = {
+            "помыть посуду",
+            "подмести пол",
+            "приготовить ужин",
+            "почистить камин",
+            "накормить сову"
+    };
+    private static final int TIMEOUT = 1;
+
+    public static void main(String[] args) {
+
         ExecutorService executor = Executors.newCachedThreadPool();
 
-        // Добавляем задачи в пул
-        for (String task : chores) {
+        for (String task : CHORES) {
             executor.execute(new Chore(task));
         }
 
-        // Завершаем работу пула
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(TIMEOUT, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
