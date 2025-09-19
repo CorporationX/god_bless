@@ -11,21 +11,19 @@ import java.util.stream.Collectors;
 public class Practice {
 
     public static List<int[]> findPairs(Set<Integer> numbers, int targetSum) {
-        Set<Integer> seen = new HashSet<>();
-
         List<int[]> result = new ArrayList<>();
 
         for (Integer num : numbers) {
             int complement = targetSum - num;
 
-            if (seen.contains(complement)) {
+            if (numbers.contains(complement)) {
                 int min = Math.min(num, complement);
                 int max = Math.max(num, complement);
 
                 result.add(new int[]{min, max});
             }
 
-            seen.add(num);
+            numbers.add(num);
         }
 
         return result;
