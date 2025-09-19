@@ -1,16 +1,25 @@
 package school.faang.bjs2_85703;
 
-import lombok.AllArgsConstructor;
-import school.faang.bjs2_86654.User;
+import java.util.ArrayList;
+import java.util.List;
 
-@AllArgsConstructor
 public class Main {
-    static User user1 = new User("Jackson", 17, "Amazon", "New York");
-    static User user2 = new User("Stress", 23, "Microsoft", "New York");
-    static User user3 = new User("Lock", 23, "Amazon", "Miami");
-    static User user4 = new User("", 23, "Amazon", "New York");
-
     public static void main(String[] args) {
+        User gangster = new User("John", 32, "street", "Times Square");
+        User singer = new User("Richard", 23, "studio", "Grand Canyon");
+        User dancer = new User("Alex", 56, "dance_studio", "Sequoia National Park");
+        User hardWorker = new User("Michael", 44, "office", "Washington Monument");
 
+        List<User> users = new ArrayList<>();
+        users.add(gangster);
+        users.add(singer);
+        users.add(dancer);
+        users.add(hardWorker);
+
+        var groupedList = User.groupByUserAge(users);
+
+        groupedList.forEach((age, userList) -> {
+            System.out.println(age + ": " + userList);
+        });
     }
 }
