@@ -1,6 +1,7 @@
 package school.faang.bjs2_87982_stream_API2;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -30,10 +31,10 @@ public class Methods {
     }
 
     public static List<String> filterStringsByStartingCharAndSortByLength(List<String> list, char ch) {
-       return list.stream()
+        return list.stream()
                .filter(Objects::nonNull)
                .filter(s -> s.startsWith(String.valueOf(ch)))
-               .sorted((s1, s2) -> s1.length() - s2.length())
+               .sorted(Comparator.comparingInt(String::length))
                .toList();
     }
 }
