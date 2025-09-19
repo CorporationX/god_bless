@@ -11,10 +11,10 @@ public record Player(String name) {
     public void doBattle(Boss boss) {
         boss.joinBattle(this);
         try {
-            log.info("{} начинает бой с боссом", this.name);
+            log.info("{} начинает бой с боссом", name);
             TimeUnit.SECONDS.sleep(BATTLE_TIME);
         } catch (InterruptedException e) {
-            log.info("{} прервали в процессе боя", this.name);
+            log.info("{} прервали в процессе боя", name);
             Thread.currentThread().interrupt();
         } finally {
             boss.leaveBattle(this);

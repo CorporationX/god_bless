@@ -27,7 +27,7 @@ public class Boss {
         synchronized (lock) {
             log.info("{} Выходит из боя и освобождает слот", player.name());
             currentPlayers--;
-            lock.notifyAll();
+            lock.notify();
         }
     }
 }
