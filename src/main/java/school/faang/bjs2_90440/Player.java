@@ -13,10 +13,10 @@ public class Player {
     public void doBattle(Boss boss) throws InterruptedException {
         try {
             boss.joinBattle(this);
-            System.out.printf("Игрок %s на потоке %s начал битву.%n", Thread.currentThread().getName(), name);
-            Thread.sleep(8000);
+            System.out.printf("Игрок %s на потоке %s начал битву.%n", name, Thread.currentThread().getName());
+            Thread.sleep(10000);
             System.out.printf("Игрок %s на потоке %s завершил свою битву.%n",
-                    Thread.currentThread().getName(), name);
+                    name, Thread.currentThread().getName());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new InterruptedException("Ожидание прервалось.");
