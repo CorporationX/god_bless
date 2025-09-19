@@ -1,6 +1,8 @@
 package school.faang.bjs2_87982_stream_API2;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,5 +15,25 @@ public class Methods {
                         .filter(n2 -> n1 + n2 == targetSum)
                         .map(n2 -> List.of(n1, n2)))
                 .toList();
+    }
+
+    public static List<String> getCapitalsSortedByCountry(Map<String, String> mapCountriesAndCapitals) {
+        if (mapCountriesAndCapitals == null) {
+            return new ArrayList<>();
+        }
+        return mapCountriesAndCapitals.entrySet().stream()
+                    .filter(entry -> entry.getKey() != null)
+                    .sorted(Map.Entry.comparingByKey())
+                    .map(Map.Entry::getValue)
+                    .filter(Objects::nonNull)
+                    .toList();
+    }
+
+    public static List<String> filterStringsByStartingCharAndSortByLength(List<String> list, char ch) {
+       return list.stream()
+               .filter(Objects::nonNull)
+               .filter(s -> s.startsWith(String.valueOf(ch)))
+               .sorted((s1, s2) -> s1.length() - s2.length())
+               .toList();
     }
 }
