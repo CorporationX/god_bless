@@ -1,5 +1,8 @@
 package school.faang.multithreading_parallelism_thread.bjs2_91292;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ThreeLittlePigs {
     public static void main(String[] args) {
         Pig1Thread pig1 = new Pig1Thread();
@@ -18,6 +21,6 @@ public class ThreeLittlePigs {
             e.printStackTrace();
         }
 
-        System.out.println("Игра завершена.");
+        log.info("Игра завершена.");
     }
 }
