@@ -10,9 +10,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class UserAction {
-    private int userId;
-    private String userName;
-    private ActionType actionType;
-    private LocalDate actionDate;
-    private String content;
+    private final int userId;
+    private final String userName;
+    private final ActionType actionType;
+    private final LocalDate actionDate;
+    private final String content;
 }
