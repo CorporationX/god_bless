@@ -1,19 +1,19 @@
 package school.faang.bjs2_90246;
 
-import lombok.SneakyThrows;
-
 public class Music {
-    @SneakyThrows
     public static void main(String[] args) {
         Player player = new Player();
-        Thread t1 = new Thread(player::play);
-        Thread t2 = new Thread(player::pause);
-        Thread t3 = new Thread(player::skip);
-        Thread t4 = new Thread(player::previous);
 
+        Thread t1 = new Thread(player::play);
         t1.start();
+
+        Thread t2 = new Thread(player::pause);
         t2.start();
+
+        Thread t3 = new Thread(player::skip);
         t3.start();
+
+        Thread t4 = new Thread(player::previous);
         t4.start();
     }
 }
