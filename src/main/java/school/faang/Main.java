@@ -30,8 +30,8 @@ public class Main {
 
         Function<Email, String> obfuscateTransformer = email -> {
             String body = email.getBody();
-            body = body.toUpperCase(); // переводим в верх. регистр
-            body = body.replaceAll("[АЕЁИОУЫЭЮЯAEIOUY]", "*"); // заменяем гласн.
+            body = body.toUpperCase();
+            body = body.replaceAll("[АЕЁИОУЫЭЮЯAEIOUY]", "*");
             return body;
         };
 

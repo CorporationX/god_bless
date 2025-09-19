@@ -11,7 +11,7 @@ public class EmailProcessor {
                               Consumer<Email> emailConsumer,
                               Function<Email, String> bodyTransformer) {
         for (Email email : emails) {
-            if (!filter.test(email)) {
+            if (filter.test(email)) {
                 continue;
             }
             String transformedBody = bodyTransformer.apply(email);
