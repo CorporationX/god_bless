@@ -9,23 +9,23 @@ public class Main {
 
         // Добавляем предмет
         manager.addItem(frodo, ring,
-                item -> System.out.println(item.getName() + " был добавлен в инвентарь."));
+                item -> System.out.println(item.name() + " был добавлен в инвентарь."));
 
         // Удаляем предмет
         manager.removeItem(frodo,
-                item -> item.getName().contains("Ring"));
+                item -> item.name().contains("Ring"));
 
         // Добавляем обратно предмет
         manager.addItem(frodo, ring,
-                item -> System.out.println(item.getName() + " снова добавлен."));
+                item -> System.out.println(item.name() + " снова добавлен."));
 
         // Увеличиваем цену предмета в 2 раза
         manager.updateItem(frodo,
-                item -> item.getName().equals("The One Ring"),
-                item -> new Item(item.getName(), item.getValue() * 2));
+                item -> item.name().equals("The One Ring"),
+                item -> new Item(item.name(), item.value() * 2));
 
         // Проверка
         frodo.getInventory().forEach(item ->
-                System.out.println(item.getName() + ": " + item.getValue()));
+                System.out.println(item.name() + ": " + item.value()));
     }
 }
