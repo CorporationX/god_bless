@@ -5,13 +5,15 @@ public class Music {
         Player playerHub = new Player();
 
         Thread firstListener = new Thread(playerHub::play, "слушатель 1");
-        Thread secondListener = new Thread(playerHub::pause, "слушатель 2");
-        Thread thirdListener = new Thread(playerHub::skip, "слушатель 3");
-        Thread fourthListener = new Thread(playerHub::previous, "слушатель 4");
-
         firstListener.start();
+
+        Thread secondListener = new Thread(playerHub::pause, "слушатель 2");
         secondListener.start();
+
+        Thread thirdListener = new Thread(playerHub::skip, "слушатель 3");
         thirdListener.start();
+
+        Thread fourthListener = new Thread(playerHub::previous, "слушатель 4");
         fourthListener.start();
     }
 }
