@@ -38,7 +38,7 @@ public class GooglePhotosAutoUploader {
 
     public void uploadPhotos() {
         for (String photo : photosToUpload) {
-            System.out.printf("Загружаем фото: %s%n" , photo);
+            System.out.printf("Загружаем фото: %s%n", photo);
         }
         photosToUpload.clear();
     }
