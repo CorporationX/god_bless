@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private List<Squad> squads = new ArrayList<>();
+    private List<Squad<? extends Unit>> squads = new ArrayList<>();
 
     public int calculateTotalPower() {
         SquadPowerThread[] threads = new SquadPowerThread[squads.size()];
@@ -24,7 +24,7 @@ public class Army {
         return totalPower;
     }
 
-    public void addSquad(Squad squad) {
+    public void addSquad(Squad<? extends Unit> squad) {
         if (squad == null) {
             throw new IllegalArgumentException("Squad cannot be null");
         }
