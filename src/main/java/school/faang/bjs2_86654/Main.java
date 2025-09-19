@@ -1,9 +1,5 @@
-package school.faang;
+package school.faang.bjs2_86654;
 
-import lombok.AllArgsConstructor;
-import school.faang.bjs2_86654.User;
-
-@AllArgsConstructor
 public class Main {
     static User user1 = new User("Jackson", 17, "Amazon", "New York");
     static User user2 = new User("Stress", 23, "Microsoft", "New York");
