@@ -20,7 +20,7 @@ public class Music {
         for (Runnable runnable : taskThread) {
             execute.submit(runnable);
         }
-        execute.shutdownNow();
+        execute.shutdown();
         try {
             if (!execute.awaitTermination(MAX_AWAIT_TIME_MINUTE, TimeUnit.MINUTES)) {
                 log.info("Потоки не успели закончить работу за {} - минут. Останавливаем потоки",
