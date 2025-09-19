@@ -20,8 +20,8 @@ public class Main {
         Set<String> hob2 = new HashSet<String>();
         hob2.add("play");
         Map<String,String> map=User.findHobbyLovers(users, hob2);
-        map.forEach((name,hobby)->{
-            System.out.println("name: "+name+ "   hobby: " + hobby);
-        });
+        map.forEach((name,hobby)->
+            System.out.println("name: "+name+ "   hobby: " + hobby)
+        );
     }
 }
