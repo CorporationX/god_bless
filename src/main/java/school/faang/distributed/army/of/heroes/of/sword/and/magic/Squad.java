@@ -1,0 +1,30 @@
+package school.faang.distributed.army.of.heroes.of.sword.and.magic;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@AllArgsConstructor
+@NoArgsConstructor
+public class Squad {
+    private String name;
+    private List<Unit> units = new ArrayList<>();
+
+    public void addUnit(Unit unit) {
+        if (units == null) {
+            units = new ArrayList<>();
+        }
+        units.add(unit);
+    }
+
+    public int calculateSquadPower() {
+        if (units == null || units.isEmpty()) {
+            return 0;
+        }
+        return units.parallelStream()
+                .mapToInt(Unit::getPower)
+                .sum();
+    }
+}
