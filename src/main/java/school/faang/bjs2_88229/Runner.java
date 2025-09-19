@@ -1,7 +1,6 @@
 package school.faang.bjs2_88229;
 
 import lombok.extern.slf4j.Slf4j;
-
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
