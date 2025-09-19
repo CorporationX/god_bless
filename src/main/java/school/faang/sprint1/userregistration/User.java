@@ -1,4 +1,4 @@
-package school.faang.userregistration;
+package school.faang.sprint1.userregistration;
 
 import java.util.Set;
 import lombok.ToString;

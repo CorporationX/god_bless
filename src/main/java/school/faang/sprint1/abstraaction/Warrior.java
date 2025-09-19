@@ -1,4 +1,4 @@
-package school.faang.abstraaction;
+package school.faang.sprint1.abstraaction;
 
 public class Warrior extends Character {
 

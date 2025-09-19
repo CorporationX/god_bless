@@ -1,4 +1,4 @@
-package school.faang.abstraaction;
+package school.faang.sprint1.abstraaction;
 
 import java.util.Objects;
 import lombok.Getter;

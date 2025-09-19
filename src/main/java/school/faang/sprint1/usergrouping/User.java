@@ -1,4 +1,4 @@
-package school.faang.usergrouping;
+package school.faang.sprint1.usergrouping;
 
 import java.util.List;
 import java.util.Map;
