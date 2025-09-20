@@ -20,10 +20,12 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int n) {
+        final String hashtagSplitRegex = "\\s+";
+
         Map<String, Long> userHashtagCount = actions.stream()
-                .filter(x -> x.getContent() != null && (ActionType.POST.equals(x.getActionType())
-                        || ActionType.COMMENT.equals(x.getActionType())))
-                .flatMap(x -> Arrays.stream(x.getContent().split("\\s+")))
+                .filter(x -> x.getContent() != null && (ActionType.POST == x.getActionType()
+                        || ActionType.COMMENT == x.getActionType()))
+                .flatMap(x -> Arrays.stream(x.getContent().split(hashtagSplitRegex)))
                 .filter(w -> w.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         return userHashtagCount.entrySet().stream()
@@ -36,7 +38,7 @@ public class UserActionAnalyzer {
     public static List<String> topCommentersLastMonth(List<UserAction> actions, int n) {
         LocalDateTime monthAgo = LocalDateTime.now().minusMonths(1);
         Map<String, Long> userHashtagCount = actions.stream()
-                .filter(x -> ActionType.COMMENT.equals(x.getActionType())
+                .filter(x -> ActionType.COMMENT == x.getActionType()
                         && x.getActionDate().isAfter(ChronoLocalDate.from(monthAgo)))
                 .collect(Collectors.groupingBy(UserAction::getUserName, Collectors.counting()));
         return userHashtagCount.entrySet().stream()
@@ -54,8 +56,7 @@ public class UserActionAnalyzer {
         return actionTypeCount.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
-                        entry -> Double.valueOf((entry.getValue() * 100) / totalAction)
+                        entry -> Double.valueOf((double) (entry.getValue() * 100) / totalAction)
                 ));
     }
-
 }
