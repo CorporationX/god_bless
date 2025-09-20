@@ -10,23 +10,25 @@ import java.util.*;
 public class User {
     private String name;
     private int age;
+    private String address;
+    private String job;
 
-    public  User(String name, int age) {
+    public static final Set<String> VALID_JOBS=Set.of("Google", "Uber", "Amazon");
+    public static final Set<String> VALID_ADDRESSES=Set.of("London", "New York", "Amsterdam");
+
+
+    public User(String name, int age, String address, String job) {
         this.name = name;
         this.age = age;
-    }
-    public static Map<Integer, List<User>> groupUsers(List<User> users){
-        Map<Integer, List<User>> map = new HashMap<>();
-        for (User user: users){
-            if (!map.containsKey(user.age)){
-                map.put(user.age, new ArrayList<>());
-            }
-            map.get(user.age).add(user);
+        if (VALID_ADDRESSES.contains(address)){
+            this.address = address;
+        }else{
+            System.out.println("Error: address");
         }
-        return map;
-    }
-    @Override
-    public String toString() {
-        return name + " (" + age + ")";
+        if (VALID_JOBS.contains(job)){
+            this.job = job;
+        }else{
+            System.out.println("Error: job");
+        }
     }
 }
