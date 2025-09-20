@@ -2,8 +2,6 @@ package school.faang.microsoft;
 
 import lombok.AllArgsConstructor;
 
-import java.util.concurrent.TimeUnit;
-
 @AllArgsConstructor
 public class SenderRunnable implements Runnable {
 
@@ -13,13 +11,12 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("Письмо отправлено");
+            for (int i = startIndex; i <= endIndex; i++) {
+                System.out.println(Thread.currentThread().getName() + " отправлено письмо #" + i);
+            }
         } catch (Exception e) {
             Thread.currentThread().interrupt();
-            System.out.println("Меня прервали!");
+            System.out.println(Thread.currentThread().getName() + ": Меня прервали!");
         }
-    }
-
-    public void join() {
     }
 }
