@@ -1,11 +1,8 @@
 package school.faang.bjs2_90291;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Getter
 public class Boss {
     private final Object lock = new Object();
     private final int maxPlayers;
