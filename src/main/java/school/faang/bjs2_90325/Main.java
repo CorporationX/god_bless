@@ -2,6 +2,7 @@ package school.faang.bjs2_90325;
 
 public class Main {
     private static final int TIME_BY_SLEEP_MILLIS = 500;
+
     public static void main(String[] args) {
         Boss boss = new Boss(5, 0);
 

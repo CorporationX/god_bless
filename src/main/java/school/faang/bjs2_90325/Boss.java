@@ -24,7 +24,7 @@ public class Boss {
         }
     }
 
-    public void leaveBattle(Player player) throws InterruptedException{
+    public void leaveBattle(Player player) throws InterruptedException {
         synchronized (lock) {
             if (currentPlayers > 0) {
                 currentPlayers--;
