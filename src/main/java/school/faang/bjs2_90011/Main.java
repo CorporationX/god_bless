@@ -17,11 +17,8 @@ public class Main {
         VideoManager videoManager = new VideoManager();
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
-        IntStream.range(1, NUM_VIDEOS + 1).forEach(i -> {
-            StringBuilder sb = new StringBuilder();
-            String videoId = sb.append("video ")
-                    .append(i)
-                    .toString();
+        IntStream.rangeClosed(1, NUM_VIDEOS + 1).forEach(i -> {
+            String videoId = appendString("video", i);
             IntStream.range(1, NUM_THREADS + 1).forEach(j -> {
                 executor.submit(() -> videoManager.addView(videoId));
                 log.info("video {} watch {}", videoId, videoManager.getViewCount(videoId));
@@ -36,5 +33,12 @@ public class Main {
         } catch (InterruptedException e) {
             executor.shutdownNow();
         }
+    }
+
+    public static String appendString(String str, int i) {
+        StringBuilder sb = new StringBuilder();
+        return sb.append(str)
+                .append(i)
+                .toString();
     }
 }
