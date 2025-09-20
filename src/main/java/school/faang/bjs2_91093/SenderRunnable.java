@@ -16,6 +16,5 @@ public class SenderRunnable implements Runnable {
             System.out.printf("Отправлено письмо #%d\n", i);
         }
         partOfMailsSent = true;
-        System.out.println("Партия писем успешно отправлена");
     }
 }
