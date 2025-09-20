@@ -8,8 +8,11 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class BigBangTheory {
+    private static final int THREAD_COUNT = 4;
+    private static final int TIMEOUT = 10;
+
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(4);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
 
         Task sheldon = new Task("Шелдон", "подготовка теории");
         Task leonard = new Task("Леонард", "моделирование эксперимента");
@@ -23,7 +26,7 @@ public class BigBangTheory {
 
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
