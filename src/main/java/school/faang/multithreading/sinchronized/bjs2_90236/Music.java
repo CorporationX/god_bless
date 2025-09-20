@@ -21,7 +21,7 @@ public class Music {
         Random random = new Random();
         for (int i = 0; i < NUMBER_OF_ACTIONS; i++) {
             for (int j = 0; j < NUMBER_OF_TREADS; j++) {
-                threads[j] = new Thread(players.get(random.nextInt(4)));
+                threads[j] = new Thread(players.get(random.nextInt(players.size())));
                 threads[j].start();
             }
         }
