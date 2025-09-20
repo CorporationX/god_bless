@@ -13,7 +13,7 @@ public class Music {
                 new Thread(player::skip),
                 new Thread(player::pause)
         };
-        for (Thread thread: threads) {
+        for (Thread thread : threads) {
             thread.start();
         }
     }
