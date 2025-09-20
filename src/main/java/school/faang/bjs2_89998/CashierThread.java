@@ -12,12 +12,12 @@ public class CashierThread extends Thread {
     @Override
     public void run() {
         for (Item item : customerItems) {
-            System.out.printf("%s %d руб", item.getName(), item.getPrice());
+            System.out.printf("%s %d руб%n", item.getName(), item.getPrice());
         }
         int totalSum = customerItems.stream()
                 .map(Item::getPrice)
                 .mapToInt(Integer::intValue)
                 .sum();
-        System.out.printf("Итого с вас %d руб за %d товаров.", totalSum, customerItems.size());
+        System.out.printf("Итого с вас %d руб за %d товаров.%n", totalSum, customerItems.size());
     }
 }
