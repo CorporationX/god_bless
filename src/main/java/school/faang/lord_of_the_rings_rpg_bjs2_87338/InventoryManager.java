@@ -1,5 +1,6 @@
 package school.faang.lord_of_the_rings_rpg_bjs2_87338;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -16,9 +17,10 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> condition, Function<Item, Item> updater) {
-        character.setInventory(character.getInventory().stream()
+        List<Item> updateInventory = character.getInventory().stream()
                 .map(x -> condition.test(x) ? updater.apply(x) : x)
-                .toList());
+                .toList();
+        character.setInventory(updateInventory);
     }
 }
 
