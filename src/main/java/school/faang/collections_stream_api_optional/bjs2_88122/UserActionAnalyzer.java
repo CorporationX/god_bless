@@ -2,8 +2,8 @@ package school.faang.collections_stream_api_optional.bjs2_88122;
 
 import lombok.NonNull;
 
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -45,19 +45,17 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topCommentersLastMonth(@NonNull List<UserAction> userActions, int limit) {
-        return userActions.stream()
-                .filter(Objects::nonNull)
-                .filter(user -> user.actionType() == ActionType.COMMENT)
-                .collect(groupingBy(UserAction::userId))
-                .entrySet()
-                .stream()
-                .sorted(Map.Entry.<Integer, List<UserAction>>
-                        comparingByValue(Comparator.comparingInt(List::size)).reversed())
+
+        LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
+        Map<String, Long> userNameToCommentsCount = userActions.stream()
+                .filter(action -> ActionType.COMMENT.equals(action.actionType())
+                        && action.actionDate().isAfter(oneMonthAgo))
+                .collect(Collectors.groupingBy(UserAction::userName, Collectors.counting()));
+
+        return userNameToCommentsCount.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(limit)
-                .map(itemListUser -> itemListUser
-                        .getValue()
-                        .get(0)
-                        .userName())
+                .map(Map.Entry::getKey)
                 .toList();
     }
 
