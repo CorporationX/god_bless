@@ -2,26 +2,26 @@ package school.faang;
 
 import java.util.*;
 
+import static school.faang.User.groupUsers;
+
 public class Main {
     public static void main(String[] args) {
-        Set<String> hob = new HashSet<>();
-        hob.add("play");
-        hob.add("swim");
-        Set<String> hob1 = new HashSet<>();
-        hob.add("read");
-        hob.add("learn");
-        User Nariman=new User(1, "Nariman", 24, hob);
-        User Era=new User(2, "Era", 25, hob1);
-        User Shifu=new User(3, "Shifu", 27, hob);
-        ArrayList<User> users=new ArrayList<>();
-        users.add(Nariman);
-        users.add(Era);
-        users.add(Shifu);
-        Set<String> hob2 = new HashSet<>();
-        hob2.add("play");
-        Map<String,String> map=User.findHobbyLovers(users, hob2);
-        map.forEach((name,hobby)->
-            System.out.println("name: "+name+ "   hobby: " + hobby)
-        );
+        User newUser1=new User("Nariman", 20);
+        User newUser2=new User("Era", 21);
+        User newUser3=new User("Shifu", 20);
+        User newUser4=new User("Ser", 20);
+        List<User> list=new ArrayList<>();
+        list.add(newUser1);
+        list.add(newUser2);
+        list.add(newUser3);
+        list.add(newUser4);
+
+        Map<Integer, List<User>> map=groupUsers(list);
+        List<Integer> keys=new ArrayList<>(map.keySet());
+
+        for (int i=0;i<keys.size();i++){
+            System.out.println("Возраст: "+keys.get(i)+" "+"Имя: "+map.get(keys.get(i)));
+        }
+
     }
 }

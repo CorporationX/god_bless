@@ -1,37 +1,32 @@
 package school.faang;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
+
 @Getter
 @Setter
 
 public class User {
-    private int id;
     private String name;
     private int age;
-    private Set<String> hobbies;
 
-    public User(int id, String name, int age, Set<String> hobbies) {
-        this.id = id;
+    public  User(String name, int age) {
         this.name = name;
         this.age = age;
-        this.hobbies = hobbies;
     }
-    public static Map<String, String> findHobbyLovers(ArrayList<User> users, Set<String> hobbies) {
-        Map<String, String> map = new HashMap<>();
-        for(int i=0;i<users.size();i++){
-            for (String hobby:users.get(i).getHobbies()){
-                if (hobbies.contains(hobby)){
-                    map.put(users.get(i).getName(), hobby);
-                }
+    public static Map<Integer, List<User>> groupUsers(List<User> users){
+        Map<Integer, List<User>> map = new HashMap<>();
+        for (User user: users){
+            if (!map.containsKey(user.age)){
+                map.put(user.age, new ArrayList<>());
             }
+            map.get(user.age).add(user);
         }
         return map;
     }
+    @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name='" + name + '\'' + ", age=" + age + '}';
+        return name + " (" + age + ")";
     }
 }
