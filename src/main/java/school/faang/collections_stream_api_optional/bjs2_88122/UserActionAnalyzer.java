@@ -2,31 +2,18 @@ package school.faang.collections_stream_api_optional.bjs2_88122;
 
 import lombok.NonNull;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.function.BiFunction;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 
 public class UserActionAnalyzer {
-    private static final BiFunction<Pattern, String, Optional<String>> extractSubstring = (Pattern pattern,
-                                                                                           String string) -> {
-        if (string == null) {
-            return Optional.empty();
-        }
-
-        Matcher m = pattern.matcher(string);
-        return m.find()
-                ? Optional.of(m.group(1))
-                : Optional.empty();
-    };
 
     public static List<String> topActiveUsers(@NonNull List<UserAction> userActions, int limit) {
         Map<String, Long> usersToActionsCount = userActions.stream()
@@ -41,18 +28,17 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topPopularHashtags(@NonNull List<UserAction> userActions, int limit) {
-        Pattern regHashTag = Pattern.compile("#([\\p{L}\\p{M}]+)");
 
-        return userActions.stream()
+        Map<String, Long> hashtagToCount = userActions.stream()
                 .filter(Objects::nonNull)
-                .filter(user -> List.of(ActionType.COMMENT,
-                        ActionType.POST).contains(user.actionType()))
-                .filter(user -> extractSubstring.apply(regHashTag,
-                        user.content()).isPresent())
-                .collect(groupingBy(user -> extractSubstring.apply(regHashTag, user.content()).get()))
-                .entrySet().stream()
-                .sorted(Map.Entry
-                        .<String, List<UserAction>>comparingByValue(Comparator.comparingInt(List::size)).reversed())
+                .filter(action -> action.content() != null
+                        && (List.of(ActionType.COMMENT, ActionType.POST).contains(action.actionType())))
+                .flatMap(action -> Arrays.stream(action.content().split("\\\\\\\\s+")))
+                .filter(word -> word.startsWith("#"))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        return hashtagToCount.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
