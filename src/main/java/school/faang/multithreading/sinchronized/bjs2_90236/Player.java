@@ -2,7 +2,7 @@ package school.faang.multithreading.sinchronized.bjs2_90236;
 
 public class Player {
     private final Object lock = new Object();
-    private boolean isPlaying =  false;
+    private boolean isPlaying = false;
 
     public void play() {
         synchronized (lock) {
@@ -20,22 +20,17 @@ public class Player {
             if (isPlaying) {
                 isPlaying = false;
                 System.out.println("Музыка поставлена на паузу");
-            }  else {
+            } else {
                 System.out.println("Музыка уже остановлена");
             }
         }
     }
 
     public void skip() {
-        synchronized (lock) {
-            System.out.println("Трек пропущен");
-        }
-
+        System.out.println("Трек пропущен");
     }
 
     public void previous() {
-        synchronized (lock) {
-            System.out.println("Вернулись к предыдущему треку");
-        }
+        System.out.println("Вернулись к предыдущему треку");
     }
 }
