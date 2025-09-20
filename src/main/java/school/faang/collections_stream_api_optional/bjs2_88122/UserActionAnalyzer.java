@@ -7,16 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.mapping;
 
 public class UserActionAnalyzer {
     private static final BiFunction<Pattern, String, Optional<String>> extractSubstring = (Pattern pattern,
@@ -32,30 +29,14 @@ public class UserActionAnalyzer {
     };
 
     public static List<String> topActiveUsers(@NonNull List<UserAction> userActions, int limit) {
-        Map<Integer, Long> activeUsers = userActions.stream()
+        Map<String, Long> usersToActionsCount = userActions.stream()
                 .filter(Objects::nonNull)
-                .collect(groupingBy(UserAction::userId, counting()));
+                .collect(groupingBy(UserAction::userName, counting()));
 
-        Map<Integer, UserAction> listUsers = userActions.stream()
-                .filter(Objects::nonNull)
-                .collect(Collectors.toMap(
-                        UserAction::userId,
-                        Function.identity(),
-                        (first, next) -> first));
-
-
-        return userActions.stream()
-                .filter(Objects::nonNull)
-                .collect(groupingBy(UserAction::userId))
-                .entrySet()
-                .stream()
-                .sorted(Map.Entry
-                        .<Integer, List<UserAction>>comparingByValue(Comparator.comparingInt(List::size)).reversed())
+        return usersToActionsCount.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(limit)
-                .map(itemListUser -> itemListUser
-                        .getValue()
-                        .get(0)
-                        .userName())
+                .map(Map.Entry::getKey)
                 .toList();
     }
 
