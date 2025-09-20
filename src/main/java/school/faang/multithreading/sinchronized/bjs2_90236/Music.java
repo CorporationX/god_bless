@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Music {
     private static final int NUMBER_OF_ACTIONS = 15;
+    private static final int NUMBER_OF_TREADS = 4;
 
     public static void main(String[] args) {
         Player player = new Player();
@@ -16,10 +17,13 @@ public class Music {
                 player::previous
         );
 
+        Thread[] threads = new Thread[4];
         Random random = new Random();
         for (int i = 0; i < NUMBER_OF_ACTIONS; i++) {
-            Thread thread = new Thread(players.get(random.nextInt(4)));
-            thread.start();
+            for (int j = 0; j < NUMBER_OF_TREADS; j++) {
+                threads[j] = new Thread(players.get(random.nextInt(4)));
+                threads[j].start();
+            }
         }
     }
 }
