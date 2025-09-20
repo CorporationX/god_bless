@@ -34,7 +34,6 @@ public class Game {
     }
 
     private void gameOver() {
-        log.info("Game over");
-        Thread.currentThread().interrupt();
+        log.info("Game over. Score = {}", score);
     }
 }

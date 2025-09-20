@@ -10,7 +10,7 @@ public class Main {
         Game game = new Game();
 
         Random random = new Random();
-        for (int i = 0; i < 100; i++) {
+        while (game.getLives() > 0) {
             boolean isPointsEarned = random.nextBoolean();
             boolean isLifeLost = random.nextInt(100) < 20;
 
@@ -21,10 +21,6 @@ public class Main {
                 TimeUnit.SECONDS.sleep(TIME_DELAY);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
-
-            if (game.getLives() == 0) {
-                break;
             }
         }
 
