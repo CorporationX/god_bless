@@ -18,8 +18,8 @@ import static school.faang.streamapi_2_bjs2_88043.StreamApi.getSortedCapitals;
 @ToString
 public class StreamApiMain {
     public static void main(String[] args) {
-        Set<Integer> numbers = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
-        Set<List<Integer>> pairs = findPairsNumbers(numbers, 6);
+        Set<Integer> numbers = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5));
+        Set<List<Integer>> pairs = findPairsNumbers(numbers, 7);
         System.out.println(pairs);
         System.out.println("------------------------------");
 

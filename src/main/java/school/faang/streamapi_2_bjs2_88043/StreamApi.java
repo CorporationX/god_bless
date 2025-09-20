@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class StreamApi {
     public static Set<List<Integer>> findPairsNumbers(Set<Integer> numbers, int sum) {
         return numbers.stream()
-                .filter(number -> number < sum - number)
+                .filter(number -> number < sum - number && numbers.contains(sum - number))
                 .map(number -> Arrays.asList(number, sum - number))
                 .collect(Collectors.toSet());
     }
