@@ -17,7 +17,7 @@ public class Music {
                 player::previous
         );
 
-        Thread[] threads = new Thread[4];
+        Thread[] threads = new Thread[NUMBER_OF_TREADS];
         Random random = new Random();
         for (int i = 0; i < NUMBER_OF_ACTIONS; i++) {
             for (int j = 0; j < NUMBER_OF_TREADS; j++) {
