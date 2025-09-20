@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
     Logger log = (Logger) LoggerFactory.getLogger(WeasleyFamily.class);
-    private final int MAX_WAIT_MINUTES = 5;
+    private final int maxWaitMinutes = 5;
     List<String> familyChores = new ArrayList<>(List.of("помыть посуду", "подмести пол"));
 
     ExecutorService executor = Executors.newCachedThreadPool();
@@ -26,8 +26,8 @@ public class WeasleyFamily {
         }
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(MAX_WAIT_MINUTES, TimeUnit.MINUTES)) {
-                log.info("Не все задачи завершены за {} минут. Завершаем принудительно...", MAX_WAIT_MINUTES);
+            if (!executor.awaitTermination(maxWaitMinutes, TimeUnit.MINUTES)) {
+                log.info("Не все задачи завершены за {} минут. Завершаем принудительно...", maxWaitMinutes);
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
@@ -36,5 +36,4 @@ public class WeasleyFamily {
             Thread.currentThread().interrupt();
         }
     }
-
 }
