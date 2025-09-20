@@ -11,38 +11,30 @@ import java.util.List;
 @Getter
 @Setter
 @Slf4j
+@AllArgsConstructor
 public class Boss {
     private final int maxPlayers;
     private int currentPlayers;
-    private List<Player> players = new ArrayList<>();
-    private final Object lock = new Object();
+    private final List<Player> players = new ArrayList<>();
 
-    public Boss(int maxPlayers) {
-        this.maxPlayers = maxPlayers;
-    }
-
-    public void joinBattle(Player player) {
-        synchronized (lock) {
-            while (currentPlayers == maxPlayers) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    log.error("the player {} interrupted the boss battle", player, e);
-                }
+    public synchronized void joinBattle(Player player) {
+        while (currentPlayers == maxPlayers) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                log.error("the player {} interrupted the boss battle", player, e);
             }
-            players.add(player);
-            currentPlayers++;
-            log.info("the player {} has been added to the boss battle", player);
         }
+        players.add(player);
+        currentPlayers++;
+        log.info("the player {} has been added to the boss battle", player);
     }
 
-    public void leaveBattle(Player player) {
-        synchronized (lock) {
-            currentPlayers--;
-            players.remove(player);
-            lock.notify();
-            log.info("the player {} left for the boss fight", player);
-        }
+    public synchronized void leaveBattle(Player player) {
+        players.remove(player);
+        currentPlayers--;
+        notify();
+        log.info("the player {} left for the boss fight", player);
     }
 }

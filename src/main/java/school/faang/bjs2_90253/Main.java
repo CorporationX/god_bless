@@ -3,8 +3,8 @@ package school.faang.bjs2_90253;
 public class Main {
 
     public static void main(String[] args) {
-        Boss boss = new Boss(2);
-        // Создаем игроков
+        Boss boss = new Boss(2, 0);
+
         Player player1 = new Player("Игрок 1");
         Player player2 = new Player("Игрок 2");
         Player player3 = new Player("Игрок 3");
@@ -12,7 +12,6 @@ public class Main {
         Thread thread1 = new Thread(() -> player1.doBattle(boss));
         Thread thread2 = new Thread(() -> player2.doBattle(boss));
         Thread thread3 = new Thread(() -> player3.doBattle(boss));
-
 
         thread1.start();
         thread2.start();
