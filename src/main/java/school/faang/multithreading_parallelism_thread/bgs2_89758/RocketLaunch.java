@@ -4,17 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static school.faang.multithreading_parallelism_thread.bgs2_89758.Utils.createPrintfWithSuffix;
-import static school.faang.multithreading_parallelism_thread.bgs2_89758.Utils.isBetweenClose;
+import static school.faang.multithreading_parallelism_thread.bgs2_89758.Utils.runAwaitAndShutdown;
+import static school.faang.multithreading_parallelism_thread.bgs2_89758.Utils.runWithThreadErrorHandling;
 
 @Getter
 @AllArgsConstructor
@@ -22,10 +27,22 @@ public class RocketLaunch {
 
     private static final int ROCKET_LAUNCH_TIME = 1000;
     private static final Printf printf = createPrintfWithSuffix("%n");
+    private static final BiFunction<Long, RocketLaunch, Runnable> creationRunnable =
+            (timeBeforeLaunch, rocketLaunch) -> () -> {
+                try {
+                    Thread.sleep(timeBeforeLaunch);
+                    rocketLaunch.launch();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    System.out.print(e.getMessage());
+                }
+            };
     private String name;
-    private long launchTime;
+    private Long launchTime;
 
-    private static List<RocketLaunch> determineLaunchReadyRockets(@NonNull List<RocketLaunch> launches) {
+    public static void planRocketLaunches(@NonNull List<RocketLaunch> launches) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
         Map<Long, RocketLaunch> mapRocketLaunch = launches
                 .stream()
                 .filter(Objects::nonNull)
@@ -43,111 +60,69 @@ public class RocketLaunch {
                 .sorted()
                 .toList();
 
-        List<List<Long>> prohibitedTimeRangesRocketLaunch = sortedRocketsByLaunchTime.stream()
-                .map(launchTime -> List.of(launchTime, launchTime + ROCKET_LAUNCH_TIME))
-                .toList();
+        List<List<Long>> rocketsReadyForLaunch = new ArrayList<>();
 
+        IntStream.range(0, sortedRocketsByLaunchTime.size())
+                .forEach(i -> {
+                    Long currentTime = sortedRocketsByLaunchTime.get(i);
+                    Long rocketsByLaunchTime;
+                    RocketLaunch currentRocketLaunch = mapRocketLaunch.get(currentTime);
+                    if (i == 0) {
+                        rocketsReadyForLaunch.add(List.of(currentTime, currentRocketLaunch.getLaunchTime()));
+                    } else {
+                        rocketsByLaunchTime = rocketsReadyForLaunch.get(rocketsReadyForLaunch.size() - 1).get(0);
+                        long diff = currentTime
+                                - rocketsByLaunchTime
+                                - ROCKET_LAUNCH_TIME;
 
-        List<Long> timeRocketsReadyForLaunch = IntStream.range(1, sortedRocketsByLaunchTime.size())
-                .mapToObj(i -> {
-                    List<Long> rangeRocketLaunch = prohibitedTimeRangesRocketLaunch.get(i - 1);
-                    Long rocketsByLaunchTime = sortedRocketsByLaunchTime.get(i);
-                    boolean isInRange = isBetweenClose(rangeRocketLaunch, rocketsByLaunchTime);
-
-                    if (!isInRange) {
-                        return rocketsByLaunchTime;
+                        if (diff > 0) {
+                            rocketsReadyForLaunch.add(List.of(currentTime, diff));
+                        } else {
+                            RocketLaunch currentStartRocketLaunch = mapRocketLaunch.get(rocketsByLaunchTime);
+                            printf.print("Старт вашей ракеты %s невозможен, так как в это время %d с %d по %d, %n " +
+                                            "все еще выполняется старт %s",
+                                    currentRocketLaunch,
+                                    currentRocketLaunch.getLaunchTime(),
+                                    rocketsByLaunchTime,
+                                    rocketsByLaunchTime + ROCKET_LAUNCH_TIME,
+                                    currentStartRocketLaunch);
+                        }
                     }
+                });
 
-                    RocketLaunch currentRocketLaunch = mapRocketLaunch.get(rocketsByLaunchTime);
-                    RocketLaunch currentStartRocketLaunch = mapRocketLaunch.get(rangeRocketLaunch.get(0));
-                    printf.print("Старт вашей ракеты %s невозможен, так как в это время %d, с %d до %d \n " +
-                                    "стартует %s в %d",
-                            currentRocketLaunch,
-                            rocketsByLaunchTime,
-                            rangeRocketLaunch.get(0),
-                            rangeRocketLaunch.get(1),
-                            currentStartRocketLaunch,
-                            currentStartRocketLaunch.getLaunchTime());
-                    return null;
-                })
-                .filter(Objects::nonNull)
-                .toList();
+        runAwaitAndShutdown(executor, () -> {
+            List<Runnable> listTasks = rocketsReadyForLaunch.stream()
+                    .map(item -> {
+                        RocketLaunch rocketLaunch1 = mapRocketLaunch.get(item.get(0));
+                        return creationRunnable.apply(item.get(1), rocketLaunch1);
+                    })
+                    .toList();
 
-        return timeRocketsReadyForLaunch.stream()
-                .map(mapRocketLaunch::get)
-                .toList();
+            listTasks.stream()
+                    .map(executor::submit)
+                    .forEach(future -> runWithThreadErrorHandling(future::get));
+        });
     }
 
-    @SuppressWarnings("checkstyle:CommentsIndentation")
-    public static void planRocketLaunches(@NonNull List<RocketLaunch> launches) {
+    public void launch() {
+        runWithThreadErrorHandling(() -> {
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
+            String now = LocalTime.now().format(fmt);
 
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        try {
-            for (RocketLaunch rocket : launches) {
-                long delay = rocket.getLaunchTime() - System.currentTimeMillis();
-                if (delay > 0) {
-                    Thread.sleep(delay);
-                }
-                executor.submit(rocket::launch);
-            }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.out.println("Planning interrupted");
-        } finally {
-            executor.shutdown();
-            try {
-                if (!executor.awaitTermination(5,  java.util.concurrent.TimeUnit.SECONDS)) {
-                    executor.shutdownNow();
-                }
-            } catch (InterruptedException e) {
-                executor.shutdownNow();
-            }
-        }
+            printf.print("%s готовится к запуску ракета %s", now, name);
 
+            Thread.sleep(ROCKET_LAUNCH_TIME);
+            now = LocalTime.now().format(fmt);
 
-
-
-       /* List<RocketLaunch> rocketsReadyForLaunch = determineLaunchReadyRockets(launches);
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-
-        BiFunction<Long, RocketLaunch, Runnable> creationRunnable  = (timeBeforeLaunch, rocketLaunch) -> () -> {
-            try {
-                Thread.sleep(timeBeforeLaunch);
-                rocketLaunch.launch();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                System.out.print(e.getMessage());
-            }
-        };*/
-
-
-        printf.print("ddd");
-        printf.print("ddввввввввввd");
-
-        System.out.printf("ddd");
+            printf.print("Старт %s Ракета %s полетела", now, name);
+        });
     }
 
     @Override
     public String toString() {
-
         return "RocketLaunch{" +
                 "name='" + name + '\'' +
                 ", launchTime=" + launchTime +
                 '}';
-    }
-
-    public int getNextAvailableLaunchTime() {
-
-        return ROCKET_LAUNCH_TIME;
-    }
-
-    public void launch() {
-        try {
-            Thread.sleep(ROCKET_LAUNCH_TIME);
-            printf.print("Ракета %d полетела", name);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.out.print(e.getMessage());
-        }
     }
 }
