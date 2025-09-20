@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.Collections;
+import java.util.Objects;
 
 import lombok.Getter;
 import lombok.AllArgsConstructor;
@@ -33,7 +34,7 @@ public class Student {
                                              List<Integer> merged = listOfList.stream()
                                                      .flatMap(List::stream)
                                                      .toList();
-                                             return (int) Math.round(averageNote(merged));
+                                             return roundNum(averageNote(merged));
                                          }
                                  )
 
@@ -44,11 +45,12 @@ public class Student {
     public Map<String, Integer> getAverageStudentNote(List<Student> students, String firstName, String lastName) {
         return students.stream()
                 .distinct()
-                .filter(s -> s.getFirstName().equals(firstName) && s.getLastName().equals(lastName))
+                .filter(s -> Objects.equals(s.getFirstName(), firstName)
+                        && Objects.equals(s.getLastName(), lastName))
                 .flatMap(c -> c.getSubjects().entrySet().stream())
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
-                        e -> (int) Math.round(averageNote(e.getValue())),
+                        e -> roundNum(averageNote(e.getValue())),
                         (existing, replacement) -> replacement
                 ));
     }
@@ -80,17 +82,23 @@ public class Student {
                 .distinct()
                 .toList();
 
-        String header = String.format("%-20s", "ФИО");
+        StringBuilder header = new StringBuilder();
+        header.append(String.format("%-20s", "ФИО"));
+
         for (String subject : allSubjects) {
-            header += String.format("| %-10s", subject);
+            header.append(String.format("| %-10s", subject));
         }
-        header += "| %-6s| %-20s";
+
+        header.append(String.format("| %-6s| %-20s", "", "")); // если нужны пустые заголовки
+
         System.out.println(header);
         System.out.println("-".repeat(header.length()));
 
         List<String> rows = students.stream()
                 .map(s -> {
-                    String fio = String.format("%-20s", s.getFirstName() + " " + s.getLastName());
+                    StringBuilder row = new StringBuilder();
+                    row.append(String.format("%-20s", s.getFirstName() + " " + s.getLastName()));
+
 
                     List<Double> averages = allSubjects.stream()
                             .map(subj -> {
@@ -106,12 +114,11 @@ public class Student {
                     double percent = count > 0 ? (total / (count * 5)) * 100 : 0;
                     double finalGrade = count > 0 ? total / count : 0;
 
-                    String row = fio;
-                    for (Double avg : averages) {
-                        row += String.format("| %-10.1f", avg);
+                    for (double avg : averages) {
+                        row.append(String.format("| %-10.1f", avg));
                     }
-                    row += String.format("| %-6.1f| %-20.1f", percent, finalGrade);
-                    return row;
+                    row.append(String.format("| %-6.1f| %-20.1f", percent, finalGrade));
+                    return row.toString();
                 })
                 .toList();
 
@@ -125,5 +132,7 @@ public class Student {
                 .orElse(0.0);
     }
 
-
+    private static int roundNum(double value) {
+        return (int) Math.round(value);
+    }
 }
