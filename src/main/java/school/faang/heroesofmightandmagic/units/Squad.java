@@ -1,7 +1,7 @@
-package school.faang.heroesOfMightAndMagic.units;
+package school.faang.heroesofmightandmagic.units;
 
 import lombok.AllArgsConstructor;
-import school.faang.heroesOfMightAndMagic.fighters.Fighter;
+import school.faang.heroesofmightandmagic.fighters.Fighter;
 
 import java.util.List;
 

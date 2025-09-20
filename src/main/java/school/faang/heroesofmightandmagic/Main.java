@@ -1,10 +1,10 @@
-package school.faang.heroesOfMightAndMagic;
+package school.faang.heroesofmightandmagic;
 
-import school.faang.heroesOfMightAndMagic.fighters.Archer;
-import school.faang.heroesOfMightAndMagic.fighters.Mage;
-import school.faang.heroesOfMightAndMagic.fighters.Swordsman;
-import school.faang.heroesOfMightAndMagic.units.Army;
-import school.faang.heroesOfMightAndMagic.units.Squad;
+import school.faang.heroesofmightandmagic.fighters.Archer;
+import school.faang.heroesofmightandmagic.fighters.Mage;
+import school.faang.heroesofmightandmagic.fighters.Swordsman;
+import school.faang.heroesofmightandmagic.units.Army;
+import school.faang.heroesofmightandmagic.units.Squad;
 
 import java.util.List;
 

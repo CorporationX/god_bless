@@ -1,4 +1,4 @@
-package school.faang.heroesOfMightAndMagic.units;
+package school.faang.heroesofmightandmagic.units;
 
 import lombok.Getter;
 
