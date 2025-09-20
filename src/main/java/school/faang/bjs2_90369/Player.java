@@ -19,6 +19,7 @@ public class Player {
             }
         }
     }
+
     public void pause() {
         synchronized (lock) {
             if (isPlaying) {
