@@ -18,7 +18,7 @@ public class GooglePhotoAutoUploader {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
-                    log.info("Выбросило исключение на ожидании потока {}", Thread.currentThread().getName());
+                    log.error("Выбросило исключение на ожидании потока {}", Thread.currentThread().getName());
                     Thread.currentThread().interrupt();
                 }
             }
@@ -28,7 +28,7 @@ public class GooglePhotoAutoUploader {
 
     public void onNewPhotoAdded(String photoPath) {
         if (photoPath == null) {
-            log.info("Фотография не может быть пустой");
+            log.error("Фотография не может быть пустой");
             throw new IllegalArgumentException("PhotoPath not be null");
         }
         synchronized (lock) {
