@@ -16,14 +16,14 @@ public class LocationSearchEngine {
                 .toList();
     }
 
-    public void processLocations(List<Location> locations, Consumer<Location> consumer) {
+    public void processLocations(List<Location> locations, Consumer<Location> processor) {
         locations.stream()
-                .forEach(consumer::accept);
+                .forEach(processor);
     }
 
-    public List<Double> calculateDistances(List<Location> locations, Function<Location, Double> function) {
+    public List<Double> calculateDistances(List<Location> locations, Function<Location, Double> calculator) {
         return locations.stream()
-                .map(function::apply)
+                .map(calculator)
                 .toList();
     }
 }
