@@ -7,28 +7,25 @@ import java.util.ArrayList;
 
 @Slf4j
 public class GooglePhotosAutoUploader {
-    private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
 
-    public void startAutoUpload() {
-        synchronized (lock) {
+    public synchronized void startAutoUpload() {
+        while (true) {
             while (photosToUpload.isEmpty()) {
                 try {
-                    lock.wait();
+                    this.wait();
                 } catch (InterruptedException e) {
                     log.info("ожидалось наполнение списка, но поток был прерван в процессе");
                     Thread.currentThread().interrupt();
                 }
             }
+            uploadPhotos();
         }
-        uploadPhotos();
     }
 
-    public void onNewPhotoAdded(String photoPath) {
-        synchronized (lock) {
-            photosToUpload.add(photoPath);
-            lock.notify();
-        }
+    public synchronized void onNewPhotoAdded(String photoPath) {
+        photosToUpload.add(photoPath);
+        this.notify();
     }
 
     private void uploadPhotos() {
