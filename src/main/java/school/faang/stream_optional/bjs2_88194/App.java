@@ -11,7 +11,7 @@ public class App {
         List<String> top10Users = UserActionAnalyzer.getTopActiveUsers(actions, 10);
         List<String> top5Hashtags = UserActionAnalyzer.getTopPopularHashtags(actions, 5);
         List<String> top3Commenters = UserActionAnalyzer.getTopCommentersLastMonth(actions, 3);
-        Map<String, Double> actionPercentages = UserActionAnalyzer.getActionTypePercentages(actions);
+        Map<ActionType, Double> actionPercentages = UserActionAnalyzer.getActionTypePercentages(actions);
 
         // Вывод результатов
         System.out.println("Топ-10 активных пользователей: " + top10Users);

@@ -1,16 +1,12 @@
 package school.faang.stream_optional.bjs2_88194;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import java.time.LocalDate;
 
-@Getter
-@AllArgsConstructor
-public class UserAction {
-    private int userId;
-    private String userName;
-    private ActionType actionType;
-    private LocalDate actionDate;
-    private String content;
+public record UserAction(
+        int userId,
+        String userName,
+        ActionType actionType,
+        LocalDate actionDate,
+        String content
+) {
 }
