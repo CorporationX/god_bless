@@ -37,4 +37,8 @@ public class Methods {
                .sorted(Comparator.comparingInt(String::length))
                .toList();
     }
+
+    public static List<Integer> toBinaryStringList(List<Integer> integerList) {
+        return
+    }
 }
