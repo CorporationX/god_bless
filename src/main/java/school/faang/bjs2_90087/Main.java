@@ -4,15 +4,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Main {
+    @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
     public static void main(String[] args) {
-        Game broForce = new Game(8);
+        Game game = new Game(8);
 
         Runnable playerLifeCycle = () -> {
             while (!Thread.currentThread().isInterrupted()) {
                 boolean isScoreEarned = Math.random() < 0.6;
                 boolean isLiveLost = Math.random() < 0.5;
 
-                broForce.update(isScoreEarned, isLiveLost);
+                game.update(isScoreEarned, isLiveLost);
 
                 try {
                     Thread.sleep(1000);
@@ -20,8 +21,7 @@ public class Main {
                     Thread.currentThread().interrupt();
                     break;
                 }
-
-                if (!broForce.isGameInProgress) {
+                if (!game.isGameInProgress) {
                     break;
                 }
             }

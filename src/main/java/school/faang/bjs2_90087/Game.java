@@ -8,24 +8,26 @@ public class Game {
     public int lives;
     public boolean isGameInProgress = true;
 
+    private final Object scoreLock = new Object();
+    private final Object livesLock = new Object();
+
     public Game(int lives) {
         this.lives = lives;
     }
 
-    private final Object scoreLock = new Object();
-    private final Object livesLock = new Object();
-
     public void update(boolean isScoreEarned, boolean isLiveLost) {
-        synchronized (scoreLock) {
+        if (isGameInProgress) {
             if (isScoreEarned) {
-                score++;
-                log.info("Заработано одно очко, текущее количество общих очков: {}", score);
+                synchronized (scoreLock) {
+                    score++;
+                    log.info("Заработано одно очко, текущее количество общих очков: {}", score);
+                }
             }
-        }
-        synchronized (livesLock) {
             if (isLiveLost && lives > 0) {
-                lives--;
-                log.info("Жизни пользователей уменьшились на 1. Оставшиеся жизни: {}", lives);
+                synchronized (livesLock) {
+                    lives--;
+                    log.info("Жизни пользователей уменьшились на 1. Оставшиеся жизни: {}", lives);
+                }
             }
             if (lives <= 0) {
                 gameOver();
