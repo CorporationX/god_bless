@@ -1,10 +1,12 @@
 .gradle
 **/build/
+**/resources/
 !src/**/build/
 *configuration_1_3.dtd
 # Ignore Gradle GUI config
 gradle-app.setting
 description_tasks
+resources
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
 
