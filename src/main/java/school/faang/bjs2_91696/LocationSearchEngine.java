@@ -10,9 +10,9 @@ import java.util.function.Predicate;
 @AllArgsConstructor
 public class LocationSearchEngine {
 
-    public List<Location> filterLocations(List<Location> locations, Predicate<Location> predicate) {
+    public List<Location> filterLocations(List<Location> locations, Predicate<Location> filter) {
         return locations.stream()
-                .filter(predicate::test)
+                .filter(filter)
                 .toList();
     }
 
