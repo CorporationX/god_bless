@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 public class Player {
-    private final String lock;
+    private final Object lock;
     private final AtomicBoolean isPlaying = new AtomicBoolean();
 
     public Player(String lock) {
