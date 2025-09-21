@@ -3,12 +3,9 @@ package school.faang.bjs2_92300;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 public class Main {
-    private static final int ACTION_AMOUNT = 3;
-
     public static void main(String[] args) {
         log.info("Программа запущена");
         Game game = new Game();
