@@ -108,7 +108,8 @@ public class Main {
 
         System.out.println("Топ-10 активных пользователей: " + UserActionAnalyzer.topActiveUsers(actions, 10));
         System.out.println("Топ-5 популярных хэштегов: " + UserActionAnalyzer.topPopularHashtags(actions, 5));
-        System.out.println("Топ-3 комментаторов за последний месяц: " + UserActionAnalyzer.topCommentersLastMonth(actions, 3));
+        System.out.println("Топ-3 комментаторов за последний месяц: " +
+                UserActionAnalyzer.topCommentersLastMonth(actions, 3));
         System.out.println("Процент действий по типам: " + UserActionAnalyzer.actionTypePercentages(actions));
     }
 }
