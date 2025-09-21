@@ -8,15 +8,18 @@ public class Main {
     private static final int COUNT_THREAD = 2;
     private static final int AWAIT_TERMINATION_MIN = 1;
     private static final int THREAD_SLEEP_MILLIS = 100;
+    private static final double PERCENT_ADD_SCORE = 0.5;
+    private static final double PERCENT_LOST_LIVES = 0.3;
+    private static final int COUNT_AVAILABLE_LIVES = 0;
 
     public static void main(String[] args) {
         Game game = new Game();
         ExecutorService executor = Executors.newFixedThreadPool(COUNT_THREAD);
 
         try {
-            while (game.getLivesCount() > 0) {
-                boolean isPointEarned = Math.random() < 0.5;
-                boolean isLifeLost = Math.random() < 0.3;
+            while (game.getLivesCount() > COUNT_AVAILABLE_LIVES) {
+                boolean isPointEarned = Math.random() < PERCENT_ADD_SCORE;
+                boolean isLifeLost = Math.random() < PERCENT_LOST_LIVES;
 
                 executor.submit(() -> game.update(isPointEarned, isLifeLost));
 

@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Getter
 @Slf4j
 public class Game {
+    private static final int COUNT_AVAILABLE_LIVES = 0;
     private final AtomicInteger lives = new AtomicInteger(10);
     private final AtomicInteger score =  new AtomicInteger(0);
 
@@ -25,7 +26,7 @@ public class Game {
             int remainingLives = lives.decrementAndGet();
             log.info("Жизни уменьшены, оставшиеся жизни: {}", remainingLives);
 
-            if (remainingLives <= 0) {
+            if (remainingLives <= COUNT_AVAILABLE_LIVES) {
                 gameOver();
             }
         }
