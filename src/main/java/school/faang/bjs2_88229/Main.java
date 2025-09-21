@@ -84,6 +84,7 @@ public class Main {
                         10, 18), "Can't wait for the next #update."),
                 new UserAction(4, "Dave", ActionType.SHARE, LocalDate.of(2025, 10, 19), "")
         );
+
         UserActionAnalyser analyser = new UserActionAnalyser();
         log.info("Топ-5 активных пользователей: {}", analyser.topActiveUsers(actions, 5));
         log.info("Топ-5 обсуждаемых хештегов: {}", analyser.topUsableHashtags(actions, 5));
