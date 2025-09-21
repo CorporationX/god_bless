@@ -2,23 +2,24 @@ package school.faang.multithreading.sinchronized.bjs2_90309;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
-@Setter
 @Slf4j
 @EqualsAndHashCode
 public class House {
-    private Role role;
+    private final List<Role> roles = new ArrayList<>();
     private String name;
 
     public House(String name) {
         this.name = name;
     }
 
-    public synchronized void assignRole(Role role) {
-        while (role == this.role) {
+    public synchronized Role assignRole(Role role) {
+        while (roles.isEmpty() || roles.contains(role)) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -27,11 +28,17 @@ public class House {
                 throw new RuntimeException(e);
             }
         }
-        setRole(role);
+        int index = 0;
+        for (int i = 0; i < roles.size(); i++) {
+            if (roles.get(i).equals(role)) {
+                index = i;
+            }
+        }
+        return roles.remove(index);
     }
 
     public synchronized void releaseRole(Role role) {
-        setRole(null);
+        roles.add(role);
         notify();
     }
 }

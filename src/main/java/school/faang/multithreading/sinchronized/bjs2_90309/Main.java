@@ -30,22 +30,87 @@ public class Main {
                 () -> lord2.leaveHouse()
         );
 
-        Thread[] threads = new Thread[3];
-        for (int i = 0; i < joinHouse.size(); i++) {
-            for (int j = 0; j < 3; i++) {
-                threads[j] = new Thread(joinHouse.get(i));
-                threads[j].start();
-                try {
-                    Thread.sleep(2000); //имитация нахождения в доме
-                } catch (InterruptedException e) {
-                    System.err.println("Ошибка в потоке: " + e.getMessage());
-                    Thread.currentThread().interrupt();
-                    throw new RuntimeException(e);
-                } finally {
-                    threads[j] = new Thread(leaveHouse.get(i)); // возможно ли это вызвать в текущем потоке?
-                    threads[j].start();
-                }
+        Thread t1 = new Thread(() -> {
+            try {
+                knight2.joinHouse(firstHouse, Role.KNIGHT);
+                Thread.sleep(2000); // Имитация времени в доме
+            } catch (InterruptedException e) {
+                System.err.println("Ошибка в потоке: " + e.getMessage());
+                Thread.currentThread().interrupt(); // Восстанавливаем флаг
+                throw new RuntimeException(e); // Завершаем работу потока
+            } finally {
+                knight2.leaveHouse(); // Убедимся, что освобождение роли выполнится
             }
+        });
+
+        Thread t2 = new Thread(() -> {
+            try {
+                knight.joinHouse(firstHouse, Role.KNIGHT);
+                Thread.sleep(2000); // Имитация времени в доме
+            } catch (InterruptedException e) {
+                System.err.println("Ошибка в потоке: " + e.getMessage());
+                Thread.currentThread().interrupt(); // Восстанавливаем флаг
+                throw new RuntimeException(e); // Завершаем работу потока
+            } finally {
+                knight.leaveHouse(); // Убедимся, что освобождение роли выполнится
+            }
+        });
+
+        Thread t3 = new Thread(() -> {
+            try {
+                mag.joinHouse(firstHouse, Role.MAGE);
+                Thread.sleep(2000); // Имитация времени в доме
+            } catch (InterruptedException e) {
+                System.err.println("Ошибка в потоке: " + e.getMessage());
+                Thread.currentThread().interrupt(); // Восстанавливаем флаг
+                throw new RuntimeException(e); // Завершаем работу потока
+            } finally {
+                mag.leaveHouse(); // Убедимся, что освобождение роли выполнится
+            }
+        });
+
+        Thread t4 = new Thread(() -> {
+            try {
+                mag2.joinHouse(firstHouse, Role.MAGE);
+                Thread.sleep(2000); // Имитация времени в доме
+            } catch (InterruptedException e) {
+                System.err.println("Ошибка в потоке: " + e.getMessage());
+                Thread.currentThread().interrupt(); // Восстанавливаем флаг
+                throw new RuntimeException(e); // Завершаем работу потока
+            } finally {
+                mag2.leaveHouse(); // Убедимся, что освобождение роли выполнится
+            }
+        });
+
+        Thread t5 = new Thread(() -> {
+            try {
+                lord.joinHouse(firstHouse, Role.LORD);
+                Thread.sleep(2000); // Имитация времени в доме
+            } catch (InterruptedException e) {
+                System.err.println("Ошибка в потоке: " + e.getMessage());
+                Thread.currentThread().interrupt(); // Восстанавливаем флаг
+                throw new RuntimeException(e); // Завершаем работу потока
+            } finally {
+                lord.leaveHouse(); // Убедимся, что освобождение роли выполнится
+            }
+        });
+
+        Thread t6 = new Thread(() -> {
+            try {
+                lord2.joinHouse(firstHouse, Role.LORD);
+                Thread.sleep(2000); // Имитация времени в доме
+            } catch (InterruptedException e) {
+                System.err.println("Ошибка в потоке: " + e.getMessage());
+                Thread.currentThread().interrupt(); // Восстанавливаем флаг
+                throw new RuntimeException(e); // Завершаем работу потока
+            } finally {
+                lord2.leaveHouse(); // Убедимся, что освобождение роли выполнится
+            }
+        });
+
+        for (Thread t : List.of(t1, t2, t3, t4, t5, t6)) {
+            t.start();
         }
     }
+
 }

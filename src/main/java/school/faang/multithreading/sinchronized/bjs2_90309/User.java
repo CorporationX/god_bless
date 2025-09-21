@@ -16,9 +16,8 @@ public class User {
 
     public void joinHouse(House house, Role role) {
         synchronized (house) {
-            assignedRole = role;
+            assignedRole = house.assignRole(role);
             this.house = house;
-            house.assignRole(role);
             log.info("{} присоединяется к дому '{}' с ролью '{}'", name, house.getName(), assignedRole);
         }
     }
