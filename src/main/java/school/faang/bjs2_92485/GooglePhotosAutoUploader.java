@@ -7,36 +7,34 @@ import java.util.List;
 
 @Slf4j
 public class GooglePhotosAutoUploader {
-    private final Object lock = new Object();
     private List<String> photosToUpload = new ArrayList<>();
 
     private boolean hasPhoto = false;
 
-    public void startAutoUpload() {
-        synchronized (lock) {
-            if (hasPhoto) {
-                // вызов uploadPhoto
-                System.out.println("Фото загруженно");
-            } else {
+    public synchronized void startAutoUpload() {
+        while (true) {
+            while (!hasPhoto) {
                 try {
-                    lock.wait();
+                    this.wait();
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
+                    return;
                 }
             }
+
+            uploadPhotos();
+            log.info("Фото загружено");
             hasPhoto = false;
         }
     }
 
-    public void onNewPhotoAdded(String photoPath) {
-        synchronized (lock) {
-            photosToUpload.add(photoPath);
-            hasPhoto = true;
-            lock.notify();
-        }
+    public synchronized void onNewPhotoAdded(String photoPath) {
+        photosToUpload.add(photoPath);
+        hasPhoto = true;
+        this.notify();
     }
 
-    public void uploadPhotos() {
+    private void uploadPhotos() {
         for (String photo : photosToUpload) {
             System.out.printf("Загружаем фото: %s%n", photo);
         }
