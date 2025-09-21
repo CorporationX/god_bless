@@ -1,7 +1,6 @@
 package school.faang.bjs2_88229;
 
 import lombok.EqualsAndHashCode;
-
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -66,4 +65,3 @@ public class UserActionAnalyser {
                 ));
     }
 }
-
