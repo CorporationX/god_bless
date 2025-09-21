@@ -1,22 +1,27 @@
 package school.faang.multithreading.sinchronized.bjs2_90384;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        while (true) {
+            synchronized (lock) {
+                while (photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
+                uploadPhotos();
             }
-            uploadPhotos();
         }
     }
 
@@ -28,9 +33,7 @@ public class GooglePhotosAutoUploader {
     }
 
     public void uploadPhotos() {
-        photosToUpload.stream()
-                .forEach(photo ->
-                        System.out.printf("Фотография '%s' на сервер загружена\n", photo));
+        photosToUpload.forEach(photo -> log.info("Фотография '{}' на сервер загружена", photo));
         photosToUpload.clear();
     }
 }
