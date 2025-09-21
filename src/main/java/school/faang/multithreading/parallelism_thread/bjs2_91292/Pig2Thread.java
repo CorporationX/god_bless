@@ -1,4 +1,4 @@
-package school.faang.multithreading_parallelism_thread.bjs2_91292;
+package school.faang.multithreading.parallelism_thread.bjs2_91292;
 
 public class Pig2Thread extends PigThread {
     public Pig2Thread() {
