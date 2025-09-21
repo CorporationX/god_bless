@@ -6,15 +6,11 @@ import java.util.Map;
 public class VideoManager {
     private final Map<String, Integer> viewsMap = new HashMap<>();
 
-    public void addView(String videoId) {
-        synchronized (viewsMap) {
+    public synchronized void addView(String videoId) {
             viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + 1);
         }
-    }
 
     public int getViewCount(String videoId) {
-        synchronized (viewsMap) {
-            return viewsMap.getOrDefault(videoId, 0);
-        }
+        return viewsMap.getOrDefault(videoId, 0);
     }
 }
