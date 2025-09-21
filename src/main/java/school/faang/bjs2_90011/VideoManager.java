@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentMap;
 public class VideoManager {
     private final Map<String, Integer> viewsMap = new ConcurrentHashMap<>();
 
-    public synchronized void addView(String videoId) {
+    public void addView(String videoId) {
         viewsMap.merge(videoId, 1, Integer::sum);
     }
 
