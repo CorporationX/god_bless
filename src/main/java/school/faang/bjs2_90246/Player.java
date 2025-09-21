@@ -4,7 +4,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Player {
-    private Lock lock = new ReentrantLock();
+    private final Lock lock = new ReentrantLock();
     private boolean isPlaying = false;
 
     public void play() {
