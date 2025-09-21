@@ -16,16 +16,19 @@ public class Game {
     }
 
     public void update(boolean isPlayerEarningPoints, boolean isPlayerLosingLive) {
-        synchronized (scoreLock) {
+        if (isGameInProgress) {
             if (isPlayerEarningPoints) {
-                score++;
-                log.info("игрок зарабатывает очко -- текущие очки: {}", score);
+                synchronized (scoreLock) {
+                    score++;
+                    log.info("игрок зарабатывает очко -- текущие очки: {}", score);
+                }
             }
-        }
-        synchronized (livesLock) {
+
             if (isPlayerLosingLive && lives > 0) {
-                lives--;
-                log.info("игрок теряет жизнь -- текущие жизни: {}", lives);
+                synchronized (livesLock) {
+                    lives--;
+                    log.info("игрок теряет жизнь -- текущие жизни: {}", lives);
+                }
             }
             if (lives <= 0) {
                 gameOver();
@@ -38,7 +41,3 @@ public class Game {
         log.info("игрок потерял последнюю жизнь - игра окончена");
     }
 }
-
-// if (!isGameInProgress) {
-//                gameOver();
-//            }

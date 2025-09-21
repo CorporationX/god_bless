@@ -9,13 +9,13 @@ public class Main {
 
         Runnable action = () -> {
             while (!Thread.currentThread().isInterrupted()) {
-                boolean earnedPoints = Math.random() < 0.5; // 50% шанс заработать очки
-                boolean lostLife = Math.random() < 0.3;     // 30% шанс потерять жизнь
+                boolean earnedPoints = Math.random() < 0.5;
+                boolean lostLife = Math.random() < 0.3;
 
                 game.update(earnedPoints, lostLife);
 
                 try {
-                    Thread.sleep(100); // Задержка для симуляции шага игры
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     log.info("Меня прервали");
                     Thread.currentThread().interrupt();
