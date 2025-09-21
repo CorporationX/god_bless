@@ -8,26 +8,22 @@ public class Boss {
     private int currentPlayers;
     private final Object lock = new Object();
 
-    public void joinBattle(Player player) {
-        synchronized (lock) {
-            while (currentPlayers >= MAX_PLAYERS) {
-                try {
-                    log.info("{} Ждёт свободный слот, чтобы присоединиться к бою", player.name());
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    log.info("Меня прервали в процессе ожидания");
-                    Thread.currentThread().interrupt();
-                }
+    public synchronized void joinBattle(Player player) {
+        while (currentPlayers >= MAX_PLAYERS) {
+            try {
+                log.info("{} Ждёт свободный слот, чтобы присоединиться к бою", player.name());
+                lock.wait();
+            } catch (InterruptedException e) {
+                log.info("Меня прервали в процессе ожидания");
+                Thread.currentThread().interrupt();
             }
-            currentPlayers++;
         }
+        currentPlayers++;
     }
 
-    public void leaveBattle(Player player) {
-        synchronized (lock) {
-            log.info("{} Выходит из боя и освобождает слот", player.name());
-            currentPlayers--;
-            lock.notify();
-        }
+    public synchronized void leaveBattle(Player player) {
+        log.info("{} Выходит из боя и освобождает слот", player.name());
+        currentPlayers--;
+        lock.notifyAll();
     }
 }
