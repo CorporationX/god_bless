@@ -2,57 +2,56 @@ package school.faang.bjs2_90026;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 @Slf4j
-public class VideoManager {
+public class VideoManager extends VideoViewsCounter {
     private static final int NUM_THREADS = 10;
     private static final int NUM_VIDEOS = 5;
+    private static final int TIME_WAITING_THREAD = 1;
 
-    private final ConcurrentHashMap<String, Integer> viewsMap = new ConcurrentHashMap<>();
-
-
-    public synchronized void addView(String videoId) {
-        viewsMap.merge(videoId, 1, Integer::sum);
-    }
-
-    public synchronized int getViewCount(String videoId) {
-        return viewsMap.getOrDefault(videoId, 0);
+    public String buildVideoId(int videoIndex, String video) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(video).append(videoIndex);
+        return sb.toString();
     }
 
     public static void main(String[] args) {
-
         VideoManager manager = new VideoManager();
 
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
-        for (int videoIndex = 1; videoIndex <= NUM_VIDEOS; videoIndex++) {
-            String videoId = "video" + videoIndex;
+        IntStream.rangeClosed(1, NUM_VIDEOS).forEach(videoIndex -> {
+            String videoId = manager.buildVideoId(videoIndex, "video");
 
-            for (int i = 0; i < NUM_THREADS; i++) {
-                executor.submit(() -> {
-                    manager.addView(videoId);
-                });
-            }
-        }
+            IntStream.range(0, NUM_THREADS).forEach(i -> {
+                executor.submit(() -> manager.addView(videoId));
+            });
+        });
 
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(TIME_WAITING_THREAD, TimeUnit.MINUTES)) {
+                log.info("Не все задачи завершены за минуту. Завершаем принудительно...");
                 executor.shutdownNow();
+            } else {
+                log.info("Все задачи успешно завершены.");
             }
         } catch (InterruptedException e) {
+            log.error("Ожидание завершения потоков прервано.");
             executor.shutdownNow();
             Thread.currentThread().interrupt();
         }
 
-        for (int videoIndex = 1; videoIndex <= NUM_VIDEOS; videoIndex++) {
-            String videoId = "video" + videoIndex;
+        IntStream.rangeClosed(1, NUM_VIDEOS).forEach(videoIndex -> {
+            String videoId = manager.buildVideoId(videoIndex, "video");
+
+
             log.info("{} views: {}", videoId, manager.getViewCount(videoId));
-        }
+        });
     }
 }
