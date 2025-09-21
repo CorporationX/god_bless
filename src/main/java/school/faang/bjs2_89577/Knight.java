@@ -28,6 +28,13 @@ public class Knight {
         trials.add(trial);
     }
 
+    public void startTrials(ExecutorService executor) {
+        Objects.requireNonNull(executor, "Пул потоков не может быть null");
+        for (Trial trial : trials) {
+            executor.execute(trial);
+        }
+    }
+
     private static void ensureAddingTrialValid(Trial addingTrial, String name, List<Trial> trials) {
         Objects.requireNonNull(addingTrial, "Рыцарь должен получать испытание, а не null!");
         if (!addingTrial.getKnightName().equalsIgnoreCase(name)) {
@@ -37,15 +44,6 @@ public class Knight {
             if (trial.getTrialName().equalsIgnoreCase(addingTrial.getTrialName())) {
                 throw new IllegalArgumentException("Нельзя давать рыцарю одни и те же испытания!");
             }
-        }
-    }
-
-    public void startTrials(ExecutorService executor) {
-        if (executor == null) {
-            throw new IllegalArgumentException("Пул потоков не может быть null");
-        }
-        for (Trial trial : trials) {
-            executor.execute(trial);
         }
     }
 }

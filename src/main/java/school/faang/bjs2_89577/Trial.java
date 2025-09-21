@@ -17,15 +17,6 @@ public class Trial implements Runnable {
         this.knightName = knightName;
     }
 
-    private static void validateTrial(String trialName, String knightName) {
-        if (trialName == null || trialName.isBlank()) {
-            throw new IllegalArgumentException("Название испытания не может быть ни null, ни пустым!");
-        }
-        if (knightName == null || knightName.isBlank()) {
-            throw new IllegalArgumentException("Имя рыцаря не может быть ни null, ни пустым!");
-        }
-    }
-
     @Override
     public void run() {
         try {
@@ -35,6 +26,15 @@ public class Trial implements Runnable {
         } catch (InterruptedException e) {
             System.out.printf("%s возможно застрял... Испытание провелено - Королю такое не по вкусу!\n", knightName);
             Thread.currentThread().interrupt();
+        }
+    }
+
+    private static void validateTrial(String trialName, String knightName) {
+        if (trialName == null || trialName.isBlank()) {
+            throw new IllegalArgumentException("Название испытания не может быть ни null, ни пустым!");
+        }
+        if (knightName == null || knightName.isBlank()) {
+            throw new IllegalArgumentException("Имя рыцаря не может быть ни null, ни пустым!");
         }
     }
 }
