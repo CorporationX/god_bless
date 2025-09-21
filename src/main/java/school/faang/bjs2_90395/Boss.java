@@ -28,6 +28,6 @@ public class Boss {
     public synchronized void leaveBattle(Player player) {
         log.info("игрок {} выходит из лобби и освобождает занятый слот", player.getName());
         currentPlayers--;
-        this.notify();
+        this.notifyAll();
     }
 }
