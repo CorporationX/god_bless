@@ -15,6 +15,6 @@ public class VideoManager {
     }
 
     public synchronized int getViewCount(String videoId) {
-        return viewsMap.get(videoId);
+        return viewsMap.getOrDefault(videoId, 0);
     }
 }
