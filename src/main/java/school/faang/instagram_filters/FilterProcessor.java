@@ -9,10 +9,7 @@ public class FilterProcessor {
     }
 
     @SuppressWarnings("checkstyle:WhitespaceAround")
-    public Image combineFilters(Function<Image, Image> f, Function<Image, Image> f2){
-        //   Image updatedImage = f.apply()
-        //  не понимаю как реализовать этот метод
-
-        return null;
+    public Image combineFilters(Image image, Function<Image, Image> f, Function<Image, Image> f2){
+        return  f.andThen(f2).apply(image);
     }
 }
