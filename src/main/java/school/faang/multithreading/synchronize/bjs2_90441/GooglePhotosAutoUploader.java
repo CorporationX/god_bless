@@ -1,7 +1,6 @@
 package school.faang.multithreading.synchronize.bjs2_90441;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
@@ -32,11 +31,7 @@ public class GooglePhotosAutoUploader {
     private void uploadPhotos() {
         synchronized (photosToUpload) {
             System.out.println("Фотографии загружены на сервер");
-            Iterator<String> iterator = photosToUpload.iterator();
-            while (iterator.hasNext()) {
-                iterator.next();
-                iterator.remove();
-            }
+            photosToUpload.clear();
         }
     }
 }
