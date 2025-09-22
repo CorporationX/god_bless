@@ -7,7 +7,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Squad {
     private final String squadName;
-    private List<? extends Army> squad;
+    private final List<? extends Army> squad;
 
     public int calculateSquadPower() {
         return squad.stream()
