@@ -12,27 +12,24 @@ public class Boss {
         this.maxPlayers = maxPlayers;
     }
 
-    public void joinBattle(Player player) {
-        synchronized (lock) {
-            while (currentPlayers == maxPlayers) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+    public synchronized void joinBattle(Player player) {
+        while (currentPlayers == maxPlayers) {
+            try {
+                lock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            currentPlayers++;
-            System.out.println(player.getName() + " joined the battle. Current: " + currentPlayers);
         }
+        currentPlayers++;
+        System.out.println(player.getName() + " joined the battle. Current: " + currentPlayers);
+        Thread.currentThread().interrupt();
     }
 
-    public void leaveBattle(Player player) {
-        synchronized (lock) {
-            if (currentPlayers > 0) {
-                currentPlayers--;
-                System.out.println(player.getName() + " left the battle. Current: " + currentPlayers);
-                lock.notifyAll();
-            }
+    public synchronized void leaveBattle(Player player) {
+        if (currentPlayers > 0) {
+            currentPlayers--;
+            System.out.println(player.getName() + " left the battle. Current: " + currentPlayers);
+            lock.notifyAll();
         }
     }
 
