@@ -15,8 +15,7 @@ public class Main {
             JobStreamProcessor jobStreamProcessor = new JobStreamProcessor();
 
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(new File("C:\\Users\\iyush\\IdeaProjects\\god_bless" +
-                    "\\src\\main\\java\\school\\faang\\job\\analyzer\\input.json"));
+            JsonNode rootNode = objectMapper.readTree(new File("src/main/java/school/faang/job/analyzer/input.json"));
             Stream<String> stream = StreamSupport.stream(rootNode.spliterator(), false)
                     .map(JsonNode::toString);
 
