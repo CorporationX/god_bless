@@ -7,8 +7,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Game game = new Game();
-
         Bro bro1 = new Bro();
         bro1.setName("Indiana Jones");
         Bro bro2 = new Bro();
@@ -17,6 +15,8 @@ public class Main {
         bro3.setName("John Wick");
         Bro bro4 = new Bro();
         bro4.setName("Terminator");
+
+        Game game = new Game();
 
         game.addBro(bro1);
         game.addBro(bro2);
