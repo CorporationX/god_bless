@@ -16,6 +16,7 @@ public class User {
             house.assignRole(this);
         } catch (InterruptedException e) {
             log.error(e.getMessage());
+            Thread.currentThread().interrupt();
         }
         log.info("Пользователь {} присоединился к {} как {}", name, house.getName(), assignedRole);
     }
