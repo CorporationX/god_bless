@@ -1,29 +1,33 @@
 package school.faang.multithreading.parallelism.bjs2_91117;
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
 public class MailSender {
+    private static final int THREADS_COUNT = 5;
+    private static final int EMAILS_COUNT = 1000;
+    private static final int BATCH_SIZE = EMAILS_COUNT / THREADS_COUNT;
 
     public static void main(String[] args) {
-        final Thread firstSender = new Thread(new SenderRunnable(1, 200));
-        final Thread secondSender = new Thread(new SenderRunnable(201, 400));
-        final Thread thirdSender = new Thread(new SenderRunnable(401, 600));
-        final Thread fourthSender = new Thread(new SenderRunnable(601, 800));
-        final Thread fifthSender = new Thread(new SenderRunnable(801, 1000));
+        log.info("Старт отправки писем");
 
-        System.out.println("Старт отправки писем");
+        final List<Thread> threadList = new ArrayList<>();
 
-        firstSender.start();
-        secondSender.start();
-        thirdSender.start();
-        fourthSender.start();
-        fifthSender.start();
+        for (int i = 0; i < THREADS_COUNT; i++) {
+            int startIndex = i * BATCH_SIZE + 1;
+            int endIndex = i == THREADS_COUNT - 1 ? EMAILS_COUNT : (1 + i) * BATCH_SIZE;
 
-        threadJoin(firstSender);
-        threadJoin(secondSender);
-        threadJoin(thirdSender);
-        threadJoin(fourthSender);
-        threadJoin(fifthSender);
+            Thread thread = new Thread(new SenderRunnable(startIndex, endIndex));
+            thread.start();
+            threadList.add(thread);
+        }
 
-        System.out.println("Письма успешно отправлены");
+        threadList.forEach(MailSender::threadJoin);
+
+        log.info("Письма успешно отправлены");
     }
 
     private static void threadJoin(Thread thread) {
@@ -31,7 +35,7 @@ public class MailSender {
             thread.join();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            System.out.printf("Поток %s был остановлен%n", thread.getName());
+            log.info("Поток {} был остановлен", thread.getName());
         }
     }
 }

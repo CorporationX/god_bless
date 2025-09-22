@@ -1,7 +1,9 @@
 package school.faang.multithreading.parallelism.bjs2_91117;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @AllArgsConstructor
 public class SenderRunnable implements Runnable {
 
@@ -11,7 +13,7 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         for (int i = startIndex; i <= endIndex; i++) {
-            System.out.printf("Письмо № %d отправлено%n", i);
+            log.info("Письмо № {} отправлено", i);
         }
     }
 }
