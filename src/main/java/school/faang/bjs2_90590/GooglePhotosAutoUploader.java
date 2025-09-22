@@ -1,36 +1,46 @@
 package school.faang.bjs2_90590;
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
+@Slf4j
 public class GooglePhotosAutoUploader {
-    private final Object lock = new Object();
     private List<String> photosToUpload = new ArrayList<>();
 
-    public void onNewPhotoAdded(String photoPath) {
-        synchronized (lock) {
-            photosToUpload.add(photoPath);
-            lock.notify();
-        }
+    public synchronized void onNewPhotoAdded(String photoPath) {
+        photosToUpload.add(photoPath);
+        log.info("Есть новое фото для загрузки");
+        this.notify();
     }
 
-    public void startAutoUpload() throws InterruptedException {
-        synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
-                System.out.println("Ожидаю фото");
-                lock.wait();
+    public synchronized void startAutoUpload() throws InterruptedException {
+        boolean isFinish = false;
+        LocalTime start = LocalTime.now();
+        LocalTime end;
+        while (true) {
+            while (photosToUpload.isEmpty()) {
+                end = LocalTime.now();
+                if (end.getSecond() - start.getSecond() >= 15) {
+                    isFinish = true;
+                    break;
+                }
+                log.info("Ожидаю фото");
+                this.wait(1000);
             }
             uploadPhotos();
+            if (isFinish) {
+                break;
+            }
         }
     }
 
     private void uploadPhotos() {
-        Iterator<String> iterator = photosToUpload.iterator();
-        while (iterator.hasNext()) {
-            iterator.next();
-            System.out.println("Фото загружено на сервер");
-            iterator.remove();
+        for (String photoPath : photosToUpload) {
+            log.info("Фото, расположенное по пути {}, загружено на сервер", photoPath);
         }
+        photosToUpload.clear();
     }
 }

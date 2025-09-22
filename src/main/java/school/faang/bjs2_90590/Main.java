@@ -1,25 +1,26 @@
 package school.faang.bjs2_90590;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader();
         Thread addPhotoThread = new Thread(() -> {
-            googlePhotosAutoUploader.onNewPhotoAdded("FirstPhoto");
-            googlePhotosAutoUploader.onNewPhotoAdded("SecondPhoto");
             try {
+                Thread.sleep(2000);
+                googlePhotosAutoUploader.onNewPhotoAdded("FirstPhoto");
+                Thread.sleep(2000);
+                googlePhotosAutoUploader.onNewPhotoAdded("SecondPhoto");
                 Thread.sleep(5000);
+                googlePhotosAutoUploader.onNewPhotoAdded("ThirdPhoto");
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
-            googlePhotosAutoUploader.onNewPhotoAdded("ThirdPhoto");
         });
         Thread uploadPhotoThread = new Thread(() -> {
             try {
-                Thread.sleep(1000);
-                googlePhotosAutoUploader.startAutoUpload();
-                Thread.sleep(2000);
                 googlePhotosAutoUploader.startAutoUpload();
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
         });
