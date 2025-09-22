@@ -17,12 +17,11 @@ public class Main {
         Game game = new Game();
         Random random = new Random();
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
-        while (game.getLives().get() > 0) {
+        while (game.getLives() > 0) {
             executor.submit(() -> game.update(random.nextBoolean(), random.nextBoolean()));
             try {
                 Thread.sleep(THREAD_SLEEP_MILS);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
                 log.error("Ошибка при имитации игры");
             }
         }
@@ -34,7 +33,6 @@ public class Main {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
             log.error("Ошибка в ожидании потоков");
             executor.shutdownNow();
         }
