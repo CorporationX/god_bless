@@ -8,7 +8,7 @@ import lombok.Getter;
 public class Player {
     private String name;
 
-    public void doBattle(Boss boss) throws InterruptedException {
+    public void doBattle(Boss boss) {
         boss.joinBattle(this);
         try {
             Thread.sleep(500);
