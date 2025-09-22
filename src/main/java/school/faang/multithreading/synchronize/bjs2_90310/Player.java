@@ -3,11 +3,7 @@ package school.faang.multithreading.synchronize.bjs2_90310;
 public class Player {
 
     private static boolean isPlaying;
-    private final Object lock;
-
-    public Player(Object lock) {
-        this.lock = lock;
-    }
+    private static final Object lock = new Object();
 
     public void play() {
         synchronized (lock) {
