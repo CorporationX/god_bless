@@ -26,23 +26,24 @@ public class Main {
                     System.out.println("Video " + finalI + " viewed");
                 });
             }
-            executor.shutdown();
+        }
+        executor.shutdown();
 
-            try {
-                if (!executor.awaitTermination(MAX_WAIT_MINUTES, TimeUnit.MINUTES)) {
-                    log.info("Не все задачи завершены за {} минут. Завершаем принудительно...", MAX_WAIT_MINUTES);
-                    executor.shutdownNow();
-                }
-            } catch (InterruptedException e) {
-                log.error("Ожидание завершения потоков прервано.");
+        try {
+            if (!executor.awaitTermination(MAX_WAIT_MINUTES, TimeUnit.MINUTES)) {
+                log.info("Не все задачи завершены за {} минут. Завершаем принудительно...", MAX_WAIT_MINUTES);
                 executor.shutdownNow();
-                Thread.currentThread().interrupt();
             }
+        } catch (InterruptedException e) {
+            log.error("Ожидание завершения потоков прервано.");
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
 
-            for (int x = 0; x < NUM_VIDEOS; x++) {
-                String videoId = "video" + x;
-                System.out.println(videoId + " total views: " + videoManager.getVideoCount(videoId));
-            }
+        for (int x = 0; x < NUM_VIDEOS; x++) {
+            String videoId = "video" + x;
+            System.out.println(videoId + " total views: " + videoManager.getVideoCount(videoId));
         }
     }
 }
+

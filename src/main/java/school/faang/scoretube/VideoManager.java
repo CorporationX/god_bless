@@ -9,7 +9,7 @@ public class VideoManager {
     private int videoScore;
 
     public synchronized void addView(String videoId) {
-        viewsMap.computeIfPresent(videoId, (k, v) -> v + 1);
+        viewsMap.merge(videoId, 1, Integer::sum);
     }
 
     public synchronized int getVideoCount(String videoId) {
