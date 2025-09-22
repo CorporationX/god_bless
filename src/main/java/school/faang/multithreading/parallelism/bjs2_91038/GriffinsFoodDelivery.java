@@ -7,18 +7,24 @@ import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
 
+    private static final int THREADS = 3;
+    private static final int FOOD_AMOUNT_START_BORDER = 4;
+    private static final int FOOD_AMOUNT_END_BORDER = 20;
+    private static final int AWAIT_TIMEOUT = 20;
+
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        ExecutorService executorService = Executors.newFixedThreadPool(THREADS);
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
         for (String characterName : characterNames) {
-            executorService.execute(new FoodDeliveryTask(characterName, new Random().nextInt(4, 20)));
+            executorService.execute(new FoodDeliveryTask(characterName,
+                    new Random().nextInt(FOOD_AMOUNT_START_BORDER, FOOD_AMOUNT_END_BORDER)));
         }
 
         executorService.shutdown();
 
         try {
-            if (!executorService.awaitTermination(20, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(AWAIT_TIMEOUT, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
