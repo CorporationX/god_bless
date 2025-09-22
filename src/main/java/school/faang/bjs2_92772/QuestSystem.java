@@ -6,25 +6,19 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class QuestSystem {
+    private static final long MLS_IN_SEC = 1_000;
+
     static CompletableFuture<Player> startQuest(Player player, Quest quest) {
         log.debug("Игрок {} с опытом {} баллов приступает к квесту {}.",
                 player.getName(), player.getExperience(), quest.getName());
-        CompletableFuture<Player> completableFuturePlayer = CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.supplyAsync(() -> {
             player.setExperience(player.getExperience() + quest.getReward());
             try {
-                Thread.sleep(quest.getDifficulty());
+                Thread.sleep(quest.getDifficulty() * MLS_IN_SEC);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             return player;
         });
-
-        //
-        //Оно здесь почему-то не дожидается Future. Поток main чешет напрямик, никого не ждет ))
-        //
-
-        log.debug("Игрок {} справился с квестом {}, теперь его опыт {}",
-                player.getName(), quest.getName(), player.getExperience());
-        return completableFuturePlayer;
     }
 }
