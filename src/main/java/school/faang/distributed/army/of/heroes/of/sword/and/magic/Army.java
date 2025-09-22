@@ -1,12 +1,9 @@
 package school.faang.distributed.army.of.heroes.of.sword.and.magic;
 
-import lombok.NoArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@NoArgsConstructor
 public class Army {
     private final List<Squad> allSquads = new ArrayList<>();
 
