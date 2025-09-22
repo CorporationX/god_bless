@@ -10,7 +10,13 @@ public class Player {
 
     public void doBattle(Boss boss) throws InterruptedException {
         boss.joinBattle(this);
-        Thread.sleep(500);
-        boss.leaveBattle(this);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            System.out.printf("Player %s was interrupted\n", this);
+            throw new RuntimeException(e);
+        } finally {
+            boss.leaveBattle(this);
+        }
     }
 }
