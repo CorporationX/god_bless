@@ -5,15 +5,22 @@ public class Droid {
 
     private static final String LOWER_LATIN = "abcdefghijklmnopqrstuvwxyz";
     private static final String UPPER_LATIN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String LOWER_CYR   = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    private static final String UPPER_CYR   = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 
-    private static final String LOWER_CYR = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-    private static final String UPPER_CYR = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+    private static final DroidMessageEncryptor ENCRYPTOR = (message, key) -> {
+        StringBuilder sb = new StringBuilder(message.length());
+        for (char ch : message.toCharArray()) {
+            sb.append(shiftChar(ch, key));
+        }
+        return sb.toString();
+    };
 
     public Droid(String name) {
         this.name = name;
     }
 
-    private char shiftChar(char ch, int key) {
+    private static char shiftChar(char ch, int key) {
         int idx;
         int n;
         int k;
@@ -49,20 +56,12 @@ public class Droid {
         return ch;
     }
 
-    private String transform(String message, int key) {
-        StringBuilder sb = new StringBuilder(message.length());
-        for (char ch : message.toCharArray()) {
-            sb.append(shiftChar(ch, key));
-        }
-        return sb.toString();
-    }
-
     public String encryptMessage(String message, int key) {
-        return transform(message, key);
+        return ENCRYPTOR.encrypt(message, key);
     }
 
     public String decryptMessage(String encryptedMessage, int key) {
-        return transform(encryptedMessage, -key);
+        return ENCRYPTOR.encrypt(encryptedMessage, -key);
     }
 
     public void sendMessage(Droid receiver, String message, int key) {
