@@ -1,14 +1,18 @@
 package school.faang.bjs2_89600;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class King {
-    @SuppressWarnings({"checkstyle:AbbreviationAsWordInName", "checkstyle:VariableDeclarationUsageDistance"})
+    private static final int THREAD_AMOUNT = 2;
+    private static final long ALL_TRIALS_TIME = 4;
+
+    @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
     public static void main(String[] args) {
-        final int THREAD_AMOUNT = 2;
-        final long ALL_TRIALS_TIME = 4;
         Knight senya = new Knight("Сеня Лютый");
         Knight petya = new Knight("Петя Мясник");
         Trial trial1 = new Trial(senya.getName(), "остановить коня на скаку.");
@@ -26,11 +30,11 @@ public class King {
         executor.shutdown();
         try {
             if (!executor.awaitTermination(ALL_TRIALS_TIME, TimeUnit.MINUTES)) {
-                System.out.println("Публика устала ждать обоих рыцарей, все разошлись по домам.");
+                log.error("Публика устала ждать обоих рыцарей, все разошлись по домам.");
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            System.out.println("Подошло время обеда, всем пришлось прерваться на обед.");
+            log.error("Подошло время обеда, всем пришлось прерваться на обед.");
         }
     }
 }
