@@ -10,7 +10,6 @@ public class QuestSystem {
     public static final int EXP_COEFFICIENT = 100;
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
-
         CompletableFuture<Player> future = CompletableFuture.supplyAsync(() -> {
             synchronized (player) {
                 sleepingThread(quest.getDifficulty());

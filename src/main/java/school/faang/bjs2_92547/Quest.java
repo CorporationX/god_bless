@@ -2,8 +2,6 @@ package school.faang.bjs2_92547;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
-
 
 @Getter
 @AllArgsConstructor
