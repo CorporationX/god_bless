@@ -6,6 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Coordinates {
-    private int coordinateX;
-    private int coordinateY;
+    private int x;
+    private int y;
 }
