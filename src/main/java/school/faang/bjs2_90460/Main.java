@@ -36,7 +36,6 @@ public class Main {
             try {
                 Thread.sleep(THREAD_SLEEP_MILS);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
                 log.error("Ошибка при имитации работы");
             }
             executor.submit(() -> user.leaveHouse(whiteHome, user));
@@ -49,7 +48,6 @@ public class Main {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
             log.error("Ошибка при ожидании потоков.");
             executor.shutdownNow();
         }

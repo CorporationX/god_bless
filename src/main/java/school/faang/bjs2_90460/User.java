@@ -15,11 +15,11 @@ public class User {
         this.name = name;
     }
 
-    public void joinHouse(House house) {
+    public synchronized void joinHouse(House house) {
         this.assignRole = house.assignRole();
     }
 
-    public void leaveHouse(House house, User user) {
+    public synchronized void leaveHouse(House house, User user) {
         house.releaseRole(user);
     }
 
