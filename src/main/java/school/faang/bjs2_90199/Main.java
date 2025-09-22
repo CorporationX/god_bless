@@ -19,11 +19,9 @@ public class Main {
             String videoId = "video" + i;
             for (int j = 0; j < NUM_THREADS; j++) {
                 execute.submit(() -> {
-                    synchronized (videoId) {
-                        videoManager.addView(videoId);
-                        int count = videoManager.getViewCount(videoId);
-                        log.info("Ваше видео {}, набрало {} просмотров", videoId, count);
-                    }
+                    videoManager.addView(videoId);
+                    int count = videoManager.getViewCount(videoId);
+                    log.info("Ваше видео {}, набрало {} просмотров", videoId, count);
                 });
             }
         }
