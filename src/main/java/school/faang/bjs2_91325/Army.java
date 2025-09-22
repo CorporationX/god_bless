@@ -18,30 +18,19 @@ public class Army {
     }
 
     public int calculateTotalPower() {
-        int[] sumArray = new int[3];
+        int[] sumArray = new int[fullArmy.size()];
+        Thread[] threads = new Thread[fullArmy.size()];
 
-        Thread firstSquadPower = new Thread(() -> {
-            sumArray[0] = fullArmy.get(0).calculateSquadPower();
-            System.out.println("Поток 1 выполнен");
-        });
-        Thread secondSquadPower = new Thread(() -> {
-            sumArray[1] = fullArmy.get(1).calculateSquadPower();
-            System.out.println("Поток 2 выполнен");
-        });
-        Thread thirdSquadPower = new Thread(() -> {
-            sumArray[2] = fullArmy.get(2).calculateSquadPower();
-            System.out.println("Поток 3 выполнен");
-        });
-
-        firstSquadPower.start();
-        secondSquadPower.start();
-        thirdSquadPower.start();
+        for (int i = 0; i < sumArray.length; i++) {
+            final int index = i;
+            threads[i] = new Thread(() -> sumArray[index] = fullArmy.get(index).calculateSquadPower());
+            threads[i].start();
+        }
 
         try {
-            firstSquadPower.join();
-            secondSquadPower.join();
-            thirdSquadPower.join();
-            System.out.println("Все потоки успешно выполнены");
+            for (Thread thread : threads) {
+                thread.join();
+            }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

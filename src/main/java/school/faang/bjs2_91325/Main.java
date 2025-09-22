@@ -9,11 +9,11 @@ public class Main {
         Squad mages = new Squad("Маги", List.of(new Mage(), new Mage()));
 
         Army army = new Army();
-        // Добавляем отряды в армию
+
         army.getFullArmy().add(archers);
         army.getFullArmy().add(swordsmen);
         army.getFullArmy().add(mages);
-        // Вычисляем общую силу армии
+
         int totalPower = army.calculateTotalPower();
         System.out.println("Общая сила армии: " + totalPower);
     }
