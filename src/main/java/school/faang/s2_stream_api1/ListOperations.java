@@ -20,9 +20,9 @@ public class ListOperations {
     }
 
     public static double findAverage(List<Integer> numbers) {
-        return numbers.stream().
-                mapToInt(Integer::intValue).
-                average()
+        return numbers.stream()
+                .mapToInt(Integer::intValue)
+                .average()
                 .orElse(0.0);
     }
 
@@ -49,16 +49,16 @@ public class ListOperations {
                 .allMatch(condition);
     }
 
-   public static int  findMinGreaterThan(List<Integer> numbers, int threshold) {
+    public static int  findMinGreaterThan(List<Integer> numbers, int threshold) {
         return numbers.stream()
                 .filter(x -> x > threshold)
                 .min(Integer::compareTo)
                 .orElseThrow(() -> new NoSuchElementException("Нет элементов больше " + threshold));
-   }
+    }
 
-   public static List<Integer> mapToLengths(List<String> strings) {
+    public static List<Integer> mapToLengths(List<String> strings) {
         return strings.stream()
                 .map(String::length)
                 .toList();
-   }
+    }
 }
