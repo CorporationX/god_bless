@@ -19,12 +19,15 @@ public class Army {
             calculator.start();
         });
 
-        return calculators.stream().peek(c -> {
-            try {
-                c.join();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }).map(ArmyCalculator::getTotalPower).mapToInt(Integer::intValue).sum();
+        return calculators.stream()
+                .peek(c -> {
+                    try {
+                        c.join();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                })
+                .mapToInt(ArmyCalculator::getTotalPower)
+                .sum();
     }
 }
