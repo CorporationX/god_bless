@@ -14,8 +14,8 @@ public class MatrixUtils {
         for (int x = 0; x < matrixSize; x++) {
             for (int y = 0; y < matrixSize; y++) {
                 Coordinates newCoords = transformer.transform(x, y);
-                int newX = newCoords.getX() == -1 ? matrixSize - 1 - x : newCoords.getX();
-                int newY = newCoords.getY() == -1 ? matrixSize - 1 - y : newCoords.getY();
+                int newX = newCoords.getCoordX() == -1 ? matrixSize - 1 - x : newCoords.getCoordX();
+                int newY = newCoords.getCoordY() == -1 ? matrixSize - 1 - y : newCoords.getCoordY();
                 result[newX][newY] = matrix[x][y];
             }
         }
