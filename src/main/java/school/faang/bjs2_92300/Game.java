@@ -11,15 +11,17 @@ public class Game {
     private final Object livesLock = new Object();
 
     public void update(boolean isScoreUp, boolean isLiveLost, Player player) {
-        synchronized (scoreLock) {
-            synchronized (livesLock) {
-                if (isScoreUp) {
+        if (!player.isGameOver()) {
+            if (isScoreUp) {
+                synchronized (scoreLock) {
                     player.setScore(player.getScore() + 1);
                     log.info("Счет игрока {} увеличен на 1 и равен {}", player.getName(), player.getScore());
                     score++;
                     log.info("Общий счет в игре увеличен на 1 и равен {}", score);
                 }
-                if (isLiveLost) {
+            }
+            if (isLiveLost) {
+                synchronized (livesLock) {
                     player.setLives(player.getLives() - 1);
                     log.info("Игрок {} потерял 1 жизнь, осталось: {}", player.getName(), player.getLives());
                     lives++;
@@ -33,7 +35,7 @@ public class Game {
     }
 
     private void gameOver(Player player) {
+        player.setGameOver(true);
         log.info("Игрок {} потерял все жизни. {} проиграл!", player.getName(), player.getName());
-
     }
 }

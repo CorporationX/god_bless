@@ -8,6 +8,7 @@ public class Player {
     private String name;
     @Setter private int score = 0;
     @Setter private int lives = 2;
+    @Setter private boolean isGameOver = false;
 
     public Player(String name) {
         this.name = name;
