@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 public class Methods {
@@ -38,7 +39,24 @@ public class Methods {
                .toList();
     }
 
-    public static List<Integer> toBinaryStringList(List<Integer> integerList) {
-        return
+    public static Optional<List<String>> toBinaryStringList(List<Integer> integerList) {
+        return integerList.stream()
+                .filter(Objects::nonNull)
+                .map(Integer::toBinaryString)
+                .toList();
+    }
+
+    public static List<String> filterByAlphabetAndLength(List<String> words, String alphabet) {
+        if (alphabet == null || alphabet.isEmpty()) {
+            throw new IllegalArgumentException("Алфавит не может быть пустым");
+        }
+        if (words == null) {
+            return List.of();
+        }
+        return words.stream()
+                .filter(Objects::nonNull)
+                .filter(w -> w.matches("^[" + alphabet + "]+$"))
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
     }
 }

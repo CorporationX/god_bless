@@ -24,5 +24,9 @@ public class Main {
         List<String> words = List.of("apple", "banana", "avocado", "apricot");
         char c = 'a';
         System.out.println(Methods.filterStringsByStartingCharAndSortByLength(words, c));
+
+        System.out.println("Задача 4");
+        List<Integer> intNumbers = List.of(1, 2, 3, 4);
+        System.out.println(Methods.toBinaryStringList(intNumbers));
     }
 }
