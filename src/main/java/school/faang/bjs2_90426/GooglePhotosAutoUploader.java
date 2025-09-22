@@ -36,9 +36,7 @@ public class GooglePhotosAutoUploader {
         }
         log.info("📤 Начинаем загрузку {} фотографий", toUpload.size());
 
-        for (String photoPath : toUpload) {
-            log.info("Фотография загружена: {}", photoPath);
-        }
+        toUpload.forEach(photo -> log.info("Фотография загружена: {}", photo));
     }
 
     public void onNewPhotoAdded(String photoPath) {
