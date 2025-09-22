@@ -32,7 +32,6 @@ public class Main {
         }
         masterCardService.doAll();
 
-        //
         executorService.shutdownNow();
 
     }
