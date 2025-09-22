@@ -1,33 +1,32 @@
 package school.faang.bjs2_87333;
 
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class TriangleAreaCalculator {
-    private static final Function<Double, Function<Double, Double>> ADD = (x) -> (y) -> x + y;
-    private static final Function<Double, Function<Double, Double>> MULTIPLY = (x) -> (y) -> x * y;
-    private static final Function<Double, Function<Double, Double>> SUBTRACT = (x) -> (y) -> x - y;
-    private static final Function<Double, Function<Double, Double>> DIVIDE = (x) -> (y) -> x / y;
+    private static final BiFunction<Double, Double, Double> ADD = Double::sum;
+    private static final BiFunction<Double, Double, Double> MULTIPLY = (x, y) -> x * y;
+    private static final BiFunction<Double, Double, Double> SUBTRACT = (x, y) -> x - y;
+    private static final BiFunction<Double, Double, Double> DIVIDE = (x, y) -> x / y;
     private static final Function<Double, Double> SQUARE_ROOT = Math::sqrt;
 
     public static Double calculateTriangleArea(double a, double b, double c) {
         validateTriangle(a, b, c);
 
-        double semiPerimeter = DIVIDE.apply(ADD.apply(a).apply(ADD.apply(b).apply(c))).apply(2.0);
+        double semiPerimeter = DIVIDE.apply(ADD.apply(ADD.apply(a, b), c), 2.0);
 
-        return SQUARE_ROOT
-                .apply(MULTIPLY
-                        .apply(MULTIPLY
-                                .apply(semiPerimeter)
-                                .apply(SUBTRACT
-                                        .apply(semiPerimeter)
-                                        .apply(a)))
-                        .apply(MULTIPLY
-                                .apply(SUBTRACT
-                                        .apply(semiPerimeter)
-                                        .apply(b))
-                                .apply(SUBTRACT
-                                        .apply(semiPerimeter)
-                                        .apply(c))));
+        return SQUARE_ROOT.apply(
+                MULTIPLY.apply(
+                        MULTIPLY.apply(
+                                semiPerimeter,
+                                SUBTRACT.apply(semiPerimeter, a)
+                        ),
+                        MULTIPLY.apply(
+                                SUBTRACT.apply(semiPerimeter, b),
+                                SUBTRACT.apply(semiPerimeter, c)
+                        )
+                )
+        );
     }
 
     private static void validateTriangle(double a, double b, double c) {
