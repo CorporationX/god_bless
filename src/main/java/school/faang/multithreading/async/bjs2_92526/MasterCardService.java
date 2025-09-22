@@ -38,18 +38,16 @@ public class MasterCardService {
     }
 
     public void doAll() throws ExecutionException, InterruptedException {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        Future<Integer> paymentFuture = executor.submit(() -> collectPayment());
-        CompletableFuture<Integer> analiticsFuture = CompletableFuture.supplyAsync(() -> sendAnalytics());
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
+        CompletableFuture<Integer> analiticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
 
         Integer analiticsResult = analiticsFuture.join();
-        log.info("Аналитика отправлена: " + analiticsResult);
+        log.info("Аналитика отправлена: {}", analiticsResult);
 
         Integer paymentResult = paymentFuture.get();
-        log.info("Оплата прошла успешно: " + paymentResult);
+        log.info("Оплата прошла успешно: {}", paymentResult);
 
-        paymentFuture.cancel(true);
-        analiticsFuture.cancel(true);
         executor.shutdown();
     }
 }
