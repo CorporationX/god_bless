@@ -5,22 +5,27 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
+    private static final int THREAD_POOL_SIZE = 4;
+    private static final int AWAIT_TERMINATION_TIMEOUT = 10;
+
+    @SuppressWarnings("checkstyle:EmptyLineSeparator")
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(4);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
-        Task t1 = new Task("Sheldon", "Build a superstring control");
-        Task t2 = new Task("Leonard", "Conduct an experiment");
-        Task t3 = new Task("Raj", "Write an article");
-        Task t4 = new Task("Howard", "Build a device");
+        Task[] tasks = {
+                new Task("Sheldon", "Build a superstring control"),
+                new Task("Leonard", "Conduct an experiment"),
+                new Task("Raj", "Write an article"),
+                new Task("Howard", "Build a device")
+        };
 
-        executor.submit(t1);
-        executor.submit(t2);
-        executor.submit(t3);
-        executor.submit(t4);
+        for (Task task : tasks) {
+            executor.submit(task);
+        }
 
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(10, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(AWAIT_TERMINATION_TIMEOUT, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
