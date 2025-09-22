@@ -1,9 +1,11 @@
 package school.faang.bjs2_89998;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 @AllArgsConstructor
 public class CashierThread extends Thread {
     private int cashierId;
@@ -12,12 +14,12 @@ public class CashierThread extends Thread {
     @Override
     public void run() {
         for (Item item : customerItems) {
-            System.out.printf("%s %d руб%n", item.getName(), item.getPrice());
+            log.debug("{} {} руб.", item.getName(), item.getPrice());
         }
         int totalSum = customerItems.stream()
                 .map(Item::getPrice)
                 .mapToInt(Integer::intValue)
                 .sum();
-        System.out.printf("Итого с вас %d руб за %d товаров.%n", totalSum, customerItems.size());
+        log.debug("Итого с вас {} руб за {} товаров.", totalSum, customerItems.size());
     }
 }

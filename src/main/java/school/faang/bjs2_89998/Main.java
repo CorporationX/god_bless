@@ -1,10 +1,13 @@
 package school.faang.bjs2_89998;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         List<List<Item>> customers = List.of(
                 List.of(new Item("Колбаса", 420), new Item("Хлеб", 79), new Item("Сникерс", 112)),
                 List.of(new Item("Сосиски", 320), new Item("Сок яблочный", 159), new Item("Семечки", 156)),
@@ -23,7 +26,7 @@ public class Main {
                 cashier.join();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new InterruptedException("Поток main не смог дождаться остальных, его прервали");
+                log.error("Поток main не смог дождаться остальных, его прервали.");
             }
         }
     }
