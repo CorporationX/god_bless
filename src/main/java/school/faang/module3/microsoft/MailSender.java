@@ -1,24 +1,27 @@
 package school.faang.module3.microsoft;
 
 public class MailSender {
+    private static final int TOTAL_MESSAGES = 1000;
+    private static final int THREAD_COUNT = 5;
+
     public static void main(String[] args) {
-        Thread thread1 = new Thread(new SenderRunnable(1, 200));
-        thread1.start();
-        Thread thread2 = new Thread(new SenderRunnable(201, 400));
-        thread2.start();
-        Thread thread3 = new Thread(new SenderRunnable(401, 600));
-        thread3.start();
-        Thread thread4 = new Thread(new SenderRunnable(601, 800));
-        thread4.start();
-        Thread thread5 = new Thread(new SenderRunnable(801, 1000));
-        thread5.start();
+        int batchSize = TOTAL_MESSAGES / THREAD_COUNT;
+        Thread[] threads = new Thread[THREAD_COUNT];
+
+        int startIndex = 1;
+        int endIndex = batchSize;
+
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            threads[i] = new Thread(new SenderRunnable(startIndex, endIndex));
+            threads[i].start();
+            startIndex += batchSize;
+            endIndex += batchSize;
+        }
 
         try {
-            thread1.join();
-            thread2.join();
-            thread3.join();
-            thread4.join();
-            thread5.join();
+            for (int i = 0; i < THREAD_COUNT; i++) {
+                threads[i].join();
+            }
 
             System.out.println("Все письма доставлены");
         } catch (InterruptedException e) {
