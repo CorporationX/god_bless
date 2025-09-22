@@ -16,7 +16,7 @@ public class StreamApi2 {
         return elems.stream()
                 .filter(elem -> elem != sum - elem && elems.contains(sum - elem))
                 .map(elem ->
-                        elem < sum - elem ? new Pair<>(elem, sum - elem):new Pair<>(sum - elem, elem))
+                        elem < sum - elem ? new Pair<>(elem, sum - elem) : new Pair<>(sum - elem, elem))
                 .distinct()
                 .toList();
     }
@@ -58,8 +58,8 @@ public class StreamApi2 {
         )));
         System.out.println(findLinesStartingWith(List.of("apple", "banana", "avocado", "apricot"), "a"));
         System.out.println(converter(List.of(1, 2, 3, 4), 2));
-        System.out.println(filterByInputAlphabetAndSortLines(List.of("apple", "banana", "cherry", "date", "fig", "grape"),
-                "abcdefghijklmnopqrstuvwxyz"));
+        System.out.println(filterByInputAlphabetAndSortLines(
+                List.of("apple", "banana", "cherry", "date", "fig", "grape"), "abcdefghijklmnopqrstuvwxyz"));
 
     }
 }
