@@ -1,6 +1,7 @@
 package school.faang.bjs2_91177;
 
 public class MailSender {
+    @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
     public static void main(String[] args) {
         SenderRunnable pack1 = new SenderRunnable(0, 200);
         SenderRunnable pack2 = new SenderRunnable(200, 400);
