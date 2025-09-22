@@ -12,16 +12,13 @@ public class Main {
                 new Player("player2"),
                 new Player("player3"),
                 new Player("player4"),
-                new Player("player5"));
+                new Player("player5"),
+                new Player("player6"));
 
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         for (Player player : players) {
             executorService.execute(() -> {
-                try {
-                    player.doBattle(boss);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                player.doBattle(boss);
             });
         }
         executorService.shutdown();
