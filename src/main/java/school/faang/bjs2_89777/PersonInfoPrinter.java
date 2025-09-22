@@ -1,9 +1,11 @@
 package school.faang.bjs2_89777;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 @AllArgsConstructor
 public class PersonInfoPrinter implements Runnable {
     List<Person> persons;
@@ -11,10 +13,10 @@ public class PersonInfoPrinter implements Runnable {
     @Override
     public void run() {
         for (Person person : persons) {
-            System.out.printf("Имя: %s. ", person.getName());
-            System.out.printf("Фамилия: %s. ", person.getSurname());
-            System.out.printf("Возраст: %d. ", person.getAge());
-            System.out.printf("Место работы: %s.%n", person.getWorkplace());
+            log.debug("Имя: {}.", person.getName());
+            log.debug("Фамилия: {}.", person.getSurname());
+            log.debug("Возраст: {}.", person.getAge());
+            log.debug("Место работы: {}.", person.getWorkplace());
         }
     }
 }
