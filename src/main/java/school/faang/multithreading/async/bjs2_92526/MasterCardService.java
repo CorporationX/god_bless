@@ -40,7 +40,8 @@ public class MasterCardService {
     public void doAll() throws ExecutionException, InterruptedException {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
-        CompletableFuture<Integer> analiticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+        CompletableFuture<Integer> analiticsFuture =
+                CompletableFuture.supplyAsync(MasterCardService::sendAnalytics,  executor);
 
         Integer analiticsResult = analiticsFuture.join();
         log.info("Аналитика отправлена: {}", analiticsResult);
