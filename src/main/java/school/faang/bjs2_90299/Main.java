@@ -2,7 +2,6 @@ package school.faang.bjs2_90299;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -19,11 +18,11 @@ public class Main {
 
     public static void main(String[] args) {
         House house = new House();
-        house.addRole(Role.butler);
-        house.addRole(Role.cook);
-        house.addRole(Role.cleaner);
-        house.addRole(Role.securityGuard);
-        house.addRole(Role.gardener);
+        house.addRole(Role.BUTLER);
+        house.addRole(Role.COOK);
+        house.addRole(Role.CLEANER);
+        house.addRole(Role.SECURITY_GUARD);
+        house.addRole(Role.GARDENER);
 
         List<User> userList = Arrays.asList(
                 new User("andrew"),
@@ -36,20 +35,31 @@ public class Main {
                 new User("Pavel"),
                 new User("Dima")
         );
-        Random random = new Random();
+
         ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE_THREAD);
 
-        userList.stream().parallel().forEach(user -> {
-            executor.submit(() -> user.joinHouse(house));
-            try {
-                Thread.sleep(random.nextInt(MIN_TIME_WORK, MAX_TIME_WORK));
-            } catch (InterruptedException e) {
-                log.error("Error in stream:", e.getMessage());
-                throw new RuntimeException(e);
-            }
-            user.leaveHouse(house);
-        });
+        createThread(executor, userList, house);
 
+        executorShutdown(executor);
+    }
+
+    public static void createThread(ExecutorService executor, List<User> userList, House house) {
+        Random random = new Random();
+        userList.stream().forEach(user -> {
+            executor.submit(() -> {
+                user.joinHouse(house);
+                try {
+                    Thread.sleep(random.nextInt(MIN_TIME_WORK, MAX_TIME_WORK));
+                } catch (InterruptedException e) {
+                    log.error("Error in stream:", e.getMessage());
+                    throw new RuntimeException(e);
+                }
+                user.leaveHouse(house);
+            });
+        });
+    }
+
+    public static void executorShutdown(ExecutorService executor) {
         executor.shutdown();
         try {
             if (!executor.awaitTermination(TIME_WAITING, TimeUnit.MINUTES)) {
@@ -60,6 +70,5 @@ public class Main {
             executor.shutdownNow();
             throw new RuntimeException(e);
         }
-
     }
 }

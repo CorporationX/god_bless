@@ -2,14 +2,14 @@ package school.faang.bjs2_90299;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 @Slf4j
 public class House {
-    private final List<Role> roles = new ArrayList<>();
+    private final Queue<Role> roles = new ArrayDeque<>();
 
-    public void addRole(Role role) {
+    public synchronized void addRole(Role role) {
         roles.add(role);
     }
 
@@ -24,7 +24,7 @@ public class House {
             }
         }
 
-        return roles.remove(0);
+        return roles.remove();
     }
 
     public synchronized void releaseRole(Role role) {
