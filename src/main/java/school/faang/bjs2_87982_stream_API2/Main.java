@@ -28,5 +28,10 @@ public class Main {
         System.out.println("Задача 4");
         List<Integer> intNumbers = List.of(1, 2, 3, 4);
         System.out.println(Methods.toBinaryStringList(intNumbers));
+
+        System.out.println("Задача 5");
+        List<String> list = List.of("apple", "banana", "2cherry", "date", "fig", "grape");
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        System.out.println(Methods.filterByAlphabetAndLength(list, alphabet));
     }
 }
