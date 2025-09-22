@@ -6,6 +6,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
+    private static final int TIME_FOR_WAITING = 1;
+
     public static void main(String[] args) {
         ExecutorService executor = Executors.newCachedThreadPool();
 
@@ -18,7 +20,7 @@ public class WeasleyFamily {
 
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(TIME_FOR_WAITING, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
