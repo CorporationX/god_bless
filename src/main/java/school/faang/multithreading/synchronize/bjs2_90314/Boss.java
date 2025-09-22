@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Boss {
     private static final int MAX_PLAYERS = 10;
-    private static int currentPlayers = 7;
+    private static int currentPlayers = 0;
     private final Object lock;
 
     public void joinBattle(Player player) {
