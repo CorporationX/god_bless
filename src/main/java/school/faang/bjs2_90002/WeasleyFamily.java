@@ -9,10 +9,12 @@ import java.util.concurrent.TimeUnit;
 @Getter
 public class WeasleyFamily {
     static long WAITING_TIME = 3;
-    private static final String[] chores = {"Решить эту задачу.",
+    private static final String[] chores = {
+            "Решить эту задачу.",
             "Решить еще 3 задачи по этой теме.",
             "Изучить Synchronized.",
-            "Решить не менее 4 задач по Synchronized."};
+            "Решить не менее 4 задач по Synchronized."
+    };
 
     public static void main(String[] args) {
         ExecutorService executor = Executors.newCachedThreadPool();
