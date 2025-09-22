@@ -15,6 +15,7 @@ public class Player {
             Thread.sleep((int) (Math.random() * 8000));
             boss.leaveBattle(this);
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
 
