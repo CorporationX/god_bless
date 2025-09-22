@@ -13,23 +13,6 @@ public class Main {
         User lord = new User("Lord");
         User lord2 = new User("Лорд");
 
-        List<Runnable> joinHouse = List.of(
-                () -> knight.joinHouse(firstHouse, Role.KNIGHT),
-                () -> knight2.joinHouse(firstHouse, Role.KNIGHT),
-                () -> mag.joinHouse(firstHouse, Role.MAGE),
-                () -> mag2.joinHouse(firstHouse, Role.MAGE),
-                () -> lord.joinHouse(firstHouse, Role.LORD),
-                () -> lord2.joinHouse(firstHouse, Role.LORD)
-        );
-        List<Runnable> leaveHouse = List.of(
-                () -> knight.leaveHouse(),
-                () -> knight2.leaveHouse(),
-                () -> mag.leaveHouse(),
-                () -> mag2.leaveHouse(),
-                () -> lord.leaveHouse(),
-                () -> lord2.leaveHouse()
-        );
-
         Thread t1 = new Thread(() -> {
             try {
                 knight2.joinHouse(firstHouse, Role.KNIGHT);
