@@ -27,9 +27,7 @@ public class GooglePhotoAutoUploader {
     }
 
     public void uploadPhotos() {
-        for (String s : photosToUpload) {
-            System.out.printf("Photo is uploaded %s\n", s);
-        }
+        photosToUpload.forEach(photo -> System.out.printf("Photo is uploaded %s\n", photo));
         photosToUpload.clear();
     }
 }
