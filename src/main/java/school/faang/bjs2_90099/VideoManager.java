@@ -10,11 +10,10 @@ public class VideoManager {
     private Map<String, Integer> viewsMap = new HashMap<>();
 
     public synchronized void addView(String videoId) {
-        viewsMap.putIfAbsent(videoId, 0);
         viewsMap.put(videoId, getViewCount(videoId) + 1);
     }
 
-    private int getViewCount(String videoId) {
-        return viewsMap.get(videoId);
+    public int getViewCount(String videoId) {
+        return viewsMap.getOrDefault(videoId, 0);
     }
 }
