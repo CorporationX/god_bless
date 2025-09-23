@@ -12,9 +12,6 @@ public class Game {
     private final Object livesLock = new Object();
 
     public void update(boolean isPointsEarned, boolean isLifeLost) {
-        if (!isGameRunning) {
-            return;
-        }
         if (isPointsEarned) {
             synchronized (scoreLock) {
                 score++;
@@ -24,12 +21,11 @@ public class Game {
 
         if (isLifeLost) {
             synchronized (livesLock) {
-                if (lives > 0) {
+                if (lives <= 0) {
+                    gameOver();
+                } else {
                     lives--;
                     log.info("Жизни уменьшены, оставшиеся жизни: {}", lives);
-                    if (lives <= 0) {
-                        gameOver();
-                    }
                 }
             }
         }
