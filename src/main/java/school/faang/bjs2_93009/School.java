@@ -16,7 +16,7 @@ public class School {
 
     int getTotalPoints() {
         return team.stream()
-                .map(student -> student.getPoints())
+                .map(Student::getPoints)
                 .mapToInt(Integer::intValue)
                 .sum();
     }

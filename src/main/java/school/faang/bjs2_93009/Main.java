@@ -47,7 +47,10 @@ public class Main {
         for (School school : schoolsAfterTasks) {
             log.info("По итогу {} получила {} баллов", school.getName(), school.getTotalPoints());
         }
-        Tournament.EX
+        Tournament.EXECUTOR.shutdown();
+        try {
+            if ()
+        }
 
     }
 }

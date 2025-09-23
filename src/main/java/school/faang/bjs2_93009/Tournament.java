@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Getter
 public class Tournament {
     private static final int THREAD_AMOUNT = 2;
-    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(THREAD_AMOUNT);
+    static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(THREAD_AMOUNT);
 
     static CompletableFuture<School> startTask(School school, Task task) {
         synchronized (school.getLock()) {
