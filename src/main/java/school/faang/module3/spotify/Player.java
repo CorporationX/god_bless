@@ -4,12 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Player {
-
-    private final Object lock = new Object();
     private boolean isPlaying;
 
     public void play() {
-        synchronized (lock) {
+        synchronized (this) {
             isPlaying = true;
             log.info("Music starts playing");
             printCurrentTrackState();
@@ -18,7 +16,7 @@ public class Player {
     }
 
     public void pause() {
-        synchronized (lock) {
+        synchronized (this) {
             isPlaying = false;
             log.info("Music was paused");
             printCurrentTrackState();
@@ -27,7 +25,7 @@ public class Player {
     }
 
     public void skip() {
-        synchronized (lock) {
+        synchronized (this) {
             log.info("Track skipped");
             printCurrentTrackState();
             imitateAction();
@@ -35,7 +33,7 @@ public class Player {
     }
 
     public void previous() {
-        synchronized (lock) {
+        synchronized (this) {
             log.info("Selected previous track");
             printCurrentTrackState();
             imitateAction();
