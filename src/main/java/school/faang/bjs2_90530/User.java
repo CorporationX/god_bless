@@ -14,7 +14,7 @@ public class User implements Runnable {
     public void run() {
         try {
             joinHouse(currentHouse);
-            Thread.sleep(1000); // Имитация пребывания в доме
+            Thread.sleep(1000);
             leaveHouse();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -49,7 +49,7 @@ public class User implements Runnable {
             if (released) {
                 System.out.printf("Пользователь %s покинул дом и освободил роль %s%n", name, assignedRole);
                 assignedRole = null;
-                currentHouse.notifyAll(); // ✅ Будим ожидающих
+                currentHouse.notifyAll();
                 currentHouse = null;
             }
         }
