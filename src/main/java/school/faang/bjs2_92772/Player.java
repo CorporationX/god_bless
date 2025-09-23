@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Player {
+    private final Object lock = new Object();
     private String name;
     private int level;
     private int experience;
