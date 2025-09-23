@@ -1,8 +1,6 @@
 package school.faang.m1.thread.army;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import school.faang.m1.thread.army.units.Archer;
 
 import java.util.ArrayList;
 import java.util.Collection;
