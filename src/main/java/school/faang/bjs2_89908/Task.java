@@ -1,23 +1,25 @@
 package school.faang.bjs2_89908;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.TimeUnit;
+
+@Slf4j
 @AllArgsConstructor
 public class Task implements Runnable {
-    @SuppressWarnings({"checkstyle:MemberName", "checkstyle:AbbreviationAsWordInName"})
-    private final int SLEEPING_TIME = 5000;
+    private static final int SLEEPING_TIME = 5;
     private String name;
     private String task;
 
     @Override
     public void run() {
-        System.out.printf("Задача '%s' начала выполняться.%n", name);
+        log.info("Задача {} начала выполняться.", name);
         try {
-            Thread.sleep(SLEEPING_TIME);
+            TimeUnit.SECONDS.sleep(SLEEPING_TIME);
         } catch (InterruptedException e) {
-            System.out.printf("Потоку %s не удалось уснуть во время выполнения задачи '%s', бессонница...%n)",
-                    Thread.currentThread().getName(), name);
+            log.info("Потоку не удалось уснуть во время выполнения задачи {}, бессонница...)", name);
         }
-        System.out.printf("Задача '%s' закончила выполняться.%n", name);
+        log.info("Задача {} закончила выполняться.", name);
     }
 }
