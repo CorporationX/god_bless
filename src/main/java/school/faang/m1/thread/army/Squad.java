@@ -3,7 +3,6 @@ package school.faang.m1.thread.army;
 import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Squad<T extends Unit> {
