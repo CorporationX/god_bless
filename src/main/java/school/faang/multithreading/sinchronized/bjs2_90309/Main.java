@@ -1,99 +1,55 @@
 package school.faang.multithreading.sinchronized.bjs2_90309;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
         House firstHouse = new House("Первый дом");
 
-        User knight = new User("первый рыцарь");
-        User knight2 = new User("Tom");
-        User mag = new User("прирожденный маг");
-        User mag2 = new User("маг2");
-        User lord = new User("Lord");
-        User lord2 = new User("Лорд");
+        HouseAction houseAction = (user, house, role) -> {
+            user.joinHouse(house, role);
+            Thread.sleep(2000);
+        };
 
-        Thread t1 = new Thread(() -> {
-            try {
-                knight2.joinHouse(firstHouse, Role.KNIGHT);
-                Thread.sleep(2000); // Имитация времени в доме
-            } catch (InterruptedException e) {
-                System.err.println("Ошибка в потоке: " + e.getMessage());
-                Thread.currentThread().interrupt(); // Восстанавливаем флаг
-                throw new RuntimeException(e); // Завершаем работу потока
-            } finally {
-                knight2.leaveHouse(); // Убедимся, что освобождение роли выполнится
-            }
-        });
-
-        Thread t2 = new Thread(() -> {
-            try {
-                knight.joinHouse(firstHouse, Role.KNIGHT);
-                Thread.sleep(2000); // Имитация времени в доме
-            } catch (InterruptedException e) {
-                System.err.println("Ошибка в потоке: " + e.getMessage());
-                Thread.currentThread().interrupt(); // Восстанавливаем флаг
-                throw new RuntimeException(e); // Завершаем работу потока
-            } finally {
-                knight.leaveHouse(); // Убедимся, что освобождение роли выполнится
-            }
-        });
-
-        Thread t3 = new Thread(() -> {
-            try {
-                mag.joinHouse(firstHouse, Role.MAGE);
-                Thread.sleep(2000); // Имитация времени в доме
-            } catch (InterruptedException e) {
-                System.err.println("Ошибка в потоке: " + e.getMessage());
-                Thread.currentThread().interrupt(); // Восстанавливаем флаг
-                throw new RuntimeException(e); // Завершаем работу потока
-            } finally {
-                mag.leaveHouse(); // Убедимся, что освобождение роли выполнится
-            }
-        });
-
-        Thread t4 = new Thread(() -> {
-            try {
-                mag2.joinHouse(firstHouse, Role.MAGE);
-                Thread.sleep(2000); // Имитация времени в доме
-            } catch (InterruptedException e) {
-                System.err.println("Ошибка в потоке: " + e.getMessage());
-                Thread.currentThread().interrupt(); // Восстанавливаем флаг
-                throw new RuntimeException(e); // Завершаем работу потока
-            } finally {
-                mag2.leaveHouse(); // Убедимся, что освобождение роли выполнится
-            }
-        });
-
-        Thread t5 = new Thread(() -> {
-            try {
-                lord.joinHouse(firstHouse, Role.LORD);
-                Thread.sleep(2000); // Имитация времени в доме
-            } catch (InterruptedException e) {
-                System.err.println("Ошибка в потоке: " + e.getMessage());
-                Thread.currentThread().interrupt(); // Восстанавливаем флаг
-                throw new RuntimeException(e); // Завершаем работу потока
-            } finally {
-                lord.leaveHouse(); // Убедимся, что освобождение роли выполнится
-            }
-        });
-
-        Thread t6 = new Thread(() -> {
-            try {
-                lord2.joinHouse(firstHouse, Role.LORD);
-                Thread.sleep(2000); // Имитация времени в доме
-            } catch (InterruptedException e) {
-                System.err.println("Ошибка в потоке: " + e.getMessage());
-                Thread.currentThread().interrupt(); // Восстанавливаем флаг
-                throw new RuntimeException(e); // Завершаем работу потока
-            } finally {
-                lord2.leaveHouse(); // Убедимся, что освобождение роли выполнится
-            }
-        });
-
-        for (Thread t : List.of(t1, t2, t3, t4, t5, t6)) {
-            t.start();
-        }
+        List<Thread> threads = createThreadsForHouseActions(firstHouse, houseAction,
+                new User("первый рыцарь"), Role.KNIGHT,
+                new User("Tom"), Role.KNIGHT,
+                new User("прирожденный маг"), Role.MAGE,
+                new User("маг2"), Role.MAGE,
+                new User("Lord"), Role.LORD,
+                new User("Лорд"), Role.LORD
+        );
+        threads.forEach(Thread::start);
     }
 
+    private static List<Thread> createThreadsForHouseActions(House house,
+                                                             HouseAction action,
+                                                             Object... userRolePairs) {
+        return IntStream.range(0, userRolePairs.length / 2)
+                .mapToObj(i -> {
+                    User user = (User) userRolePairs[i * 2];
+                    Role role = (Role) userRolePairs[i * 2 + 1];
+                    return createThreadWithHouseAction(user, house, role, action);
+                })
+                .toList();
+    }
+
+    private static Thread createThreadWithHouseAction(User user, House house, Role role, HouseAction action) {
+        return new Thread(() -> {
+            try {
+                action.execute(user, house, role);
+            } catch (InterruptedException e) {
+                handleInterruptedException(user, e);
+            } finally {
+                user.leaveHouse();
+            }
+        });
+    }
+
+    private static void handleInterruptedException(User user, InterruptedException e) {
+        System.err.println("Ошибка в потоке для пользователя " + user.getName() + ": " + e.getMessage());
+        Thread.currentThread().interrupt();
+        throw new RuntimeException(e);
+    }
 }
