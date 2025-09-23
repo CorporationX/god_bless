@@ -2,13 +2,13 @@ package school.faang.bjs2_86611;
 
 public class Main {
     public static void main(String[] args) {
-        Warrior warrior = new Warrior("Aleks");
-        Archer archer = new Archer("Boris");
+        Warrior warrior = new Warrior("Aleks", 10, 3, 5);
+        Archer archer = new Archer("Boris", 3, 9, 5);
 
         System.out.println(" name " + warrior.getName() +
                 " power " + warrior.getPower() + " hp " + warrior.getHealth());
         System.out.println(" name " + archer.getName() +
-                " power " + warrior.getAgility() + " hp " + warrior.getHealth());
+                " power " + archer.getAgility() + " hp " + archer.getHealth());
 
 
         for (int i = 0; i < archer.getHealth(); i++) {
@@ -23,6 +23,6 @@ public class Main {
                 return;
             }
         }
-    
+
     }
 }

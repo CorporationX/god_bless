@@ -8,6 +8,14 @@ public class Warrior extends Character {
         this.intellect = 3;
     }
 
+    public Warrior(String name, int power, int agility, int intellect) {
+        super(name, power, agility, intellect);
+        this.name = name;
+        this.power = power;
+        this.agility = agility;
+        this.intellect = intellect;
+    }
+
     @Override
     public int attack(Character opponent) {
         opponent.inAttack(this.getPower());
