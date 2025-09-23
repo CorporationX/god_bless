@@ -24,7 +24,7 @@ public abstract class Character {
         this.intellect = intellect;
     }
 
-    public abstract int attack(Character opponent);
+    public abstract void attack(Character opponent);
 
     public void inAttack(int damage) {
         this.checkHealth(this.health);
