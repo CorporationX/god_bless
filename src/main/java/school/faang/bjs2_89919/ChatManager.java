@@ -15,8 +15,8 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ChatManager {
     private final UserList userList;
     private final List<Chat> activeChats = new ArrayList<>();
-    private final Lock lock = new ReentrantLock();
-    private final Condition chatAvailable = lock.newCondition();
+    //private final Lock lock = new ReentrantLock();
+    //private final Condition chatAvailable = lock.newCondition();
 
     public synchronized void startChat(User user) {
         while (userList.getOnlineUsersLookingForChat(user).isEmpty() || activeChats.contains(user.getChat())) {

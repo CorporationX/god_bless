@@ -1,22 +1,21 @@
 package school.faang.bjs2_89919;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
-@ToString
 @Getter
-@AllArgsConstructor
 public class User {
-    private String name;
-    private volatile boolean isOnline;
-    private volatile boolean isLookingForChat;
-    private volatile boolean isChatting;
+    private final String name;
+    private boolean isOnline;
+    private boolean isLookingForChat;
+    private boolean isChatting;
+    private Chat chat;
 
     public User(String name) {
         this.name = name;
         this.isOnline = false;
         this.isLookingForChat = false;
+        this.isChatting = false;
+        this.chat = null;
     }
 
     public synchronized boolean isOnline() {
@@ -24,19 +23,27 @@ public class User {
     }
 
     public synchronized void setOnline(boolean online) {
-        isOnline = online;
+        this.isOnline = online;
     }
 
     public synchronized boolean isLookingForChat() {
         return isLookingForChat;
     }
 
-    public void setChat() {
+    public synchronized void setLookingForChat(boolean lookingForChat) {
+        this.isLookingForChat = lookingForChat;
+    }
+
+    public synchronized boolean isChatting() {
+        return isChatting;
+    }
+
+    public synchronized void setChat(Chat chat) {
         this.chat = chat;
         this.isChatting = true;
     }
 
-    public void resetChat() {
+    public synchronized void resetChat() {
         this.chat = null;
         this.isChatting = false;
     }

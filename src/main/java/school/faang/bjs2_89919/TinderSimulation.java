@@ -9,13 +9,13 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class TinderSimulation {
 
-    public static void createUserTask(ChatManager chatManager, User user) {
+    public static Runnable createUserTask(ChatManager chatManager, User user) {
         return () -> {
             try {
                 chatManager.startChat(user);
                 Thread.sleep(2000);
                 chatManager.endChat(user);
-                System.out.println(user.getName() + " завершил чат");
+                log.info("{} завершил чат", user.getName());
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -38,9 +38,18 @@ public class TinderSimulation {
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
 
+        executorService.submit(createUserTask(chatManager, user1));
+        executorService.submit(createUserTask(chatManager, user2));
+        executorService.submit(createUserTask(chatManager, user3));
+        executorService.submit(createUserTask(chatManager, user4));
+
+        executorService.shutdown();
         try {
-            executorService.awaitTermination(1, TimeUnit.MINUTES);
+            if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+                executorService.shutdownNow();
+            }
         } catch (InterruptedException e) {
+            executorService.shutdownNow();
             Thread.currentThread().interrupt();
         }
     }
