@@ -9,8 +9,8 @@ import lombok.ToString;
 @ToString
 public class Product {
 
-  private final int id;
-  private final String name;
-  private final Category category;
+    private final int id;
+    private final String name;
+    private final Category category;
 
 }
