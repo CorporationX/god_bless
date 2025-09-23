@@ -14,13 +14,9 @@ public class UserList {
         users.remove(user);
     }
 
-    public synchronized List<User> getOnlineUsersLookingForChat() {
-        List<User> result = new ArrayList<>();
-        for (User user : users) {
-            if (user.isOnline() && user.isLookingForChat()) {
-                result.add(user);
-            }
-        }
-        return result;
+    public synchronized List<User> getOnlineUsersLookingForChat(User user) {
+        return users.stream()
+                .filter(u -> u.isOnline() && u.isLookingForChat() && !u.equals(user))
+                .toList();
     }
 }

@@ -1,13 +1,15 @@
 package school.faang.bjs2_89919;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+import java.util.Objects;
 
-@ToString
-@Getter
-@AllArgsConstructor
-public class Chat {
-    private final User user1;
-    private final User user2;
+public record Chat(User user1, User user2) {
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Chat chat = (Chat) o;
+        return (Objects.equals(user1, chat.user1) && Objects.equals(user2, chat.user2))
+                || (Objects.equals(user2, chat.user1) && Objects.equals(user1, chat.user2));
+    }
 }

@@ -11,8 +11,10 @@ public class User {
     private String name;
     private volatile boolean isOnline;
     private volatile boolean isLookingForChat;
+    private volatile boolean isChatting;
 
     public User(String name) {
+        this.name = name;
         this.isOnline = false;
         this.isLookingForChat = false;
     }
@@ -29,7 +31,13 @@ public class User {
         return isLookingForChat;
     }
 
-    public synchronized void setLookingForChat(boolean lookingForChat) {
-        isLookingForChat = lookingForChat;
+    public void setChat() {
+        this.chat = chat;
+        this.isChatting = true;
+    }
+
+    public void resetChat() {
+        this.chat = null;
+        this.isChatting = false;
     }
 }

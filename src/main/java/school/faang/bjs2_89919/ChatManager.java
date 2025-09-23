@@ -18,44 +18,35 @@ public class ChatManager {
     private final Lock lock = new ReentrantLock();
     private final Condition chatAvailable = lock.newCondition();
 
-    public Chat startChat(User user) throws InterruptedException {
-        lock.lock();
-        try {
-            user.setLookingForChat(true);
-            while (true) {
+    public synchronized void startChat(User user) {
+        while (userList.getOnlineUsersLookingForChat(user).isEmpty() || activeChats.contains(user.getChat())) {
+            waitForChat();
+        }
+        User otherUser = userList.getOnlineUsersLookingForChat(user).get(0);
+        Chat chat = new Chat(user, otherUser);
+        activeChats.add(chat);
+        user.setChat(chat);
+        otherUser.setChat(chat);
+        log.info("{} начал чат с {}", user.getName(), otherUser.getName());
+    }
 
-                List<User> candidates = userList.getOnlineUsersLookingForChat();
-                candidates.remove(user);
-                if (!candidates.isEmpty()) {
-                    User partner = candidates.get(0);
-                    partner.setLookingForChat(false);
-                    user.setLookingForChat(false);
-                    Chat chat = new Chat(user, partner);
-                    activeChats.add(chat);
-                    log.info("Started {}", chat);
-                    return chat;
-                }
-                log.info("{} ждёт собеседника...", user.getName());
-                chatAvailable.await();
-            }
-        } finally {
-            lock.unlock();
+    public void waitForChat() {
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 
-    public Chat waitForChat(User user) throws InterruptedException {
-        lock.lock();
-        try {
-            while (true) {
-                for (Chat chat : activeChats) {
-                    if (chat.getUser1().equals(user) || chat.getUser2().equals(user));
-                    return chat;
-                }
-            }
-            chatAvailable.await();
-        }
-    } finally {
-        lock.unlock();
+    public synchronized void endChat(User user) {
+        Chat chat = user.getChat();
+        activeChats.remove(chat);
+        User user1 = chat.user1();
+        User user2 = chat.user2();
+        user1.resetChat();
+        user2.resetChat();
+        notifyAll();
+        log.info("{} завершил чат {}", user1.getName(), user2.getName());
     }
 }
 
