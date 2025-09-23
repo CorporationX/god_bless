@@ -4,12 +4,17 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Player {
+    private static final long TIME_FOR_ACTION_MS = 2000;
     private boolean isPlaying;
 
     public void play() {
         synchronized (this) {
-            isPlaying = true;
-            log.info("Music starts playing");
+            if (isPlaying) {
+                log.info("Music was already playing");
+            } else {
+                isPlaying = true;
+                log.info("Music starts playing");
+            }
             printCurrentTrackState();
             imitateAction();
         }
@@ -17,8 +22,12 @@ public class Player {
 
     public void pause() {
         synchronized (this) {
-            isPlaying = false;
-            log.info("Music was paused");
+            if (!isPlaying) {
+                log.info("Music was already stopped");
+            } else {
+                isPlaying = false;
+                log.info("Music was paused");
+            }
             printCurrentTrackState();
             imitateAction();
         }
@@ -42,7 +51,7 @@ public class Player {
 
     private void imitateAction() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(TIME_FOR_ACTION_MS);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
