@@ -10,12 +10,14 @@ import java.util.concurrent.Future;
 
 @Slf4j
 public class Main {
+    public static final int THREAD_AMOUNT = 2;
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_AMOUNT);
         log.debug("Запускаем все Future.");
         Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> analyticsCompletableFuture = CompletableFuture.supplyAsync(
-                MasterCardService::sendAnalytics);
+                MasterCardService::sendAnalytics, executor);
         int payment = paymentFuture.get();
         int analytics = analyticsCompletableFuture.get();
         log.debug("Платеж выполнен: {}", payment);
