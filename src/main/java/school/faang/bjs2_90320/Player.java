@@ -1,34 +1,43 @@
 package school.faang.bjs2_90320;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Player {
     private final Object lock = new Object();
     private boolean isPlaying;
 
     public void play() {
         synchronized (lock) {
-            this.isPlaying = true;
-            System.out.println("Play " + isPlaying);
+            if (!isPlaying) {
+                isPlaying = true;
+                log.info("Music is playing - {}", isPlaying);
+            } else {
+                log.info("Music is already play - {}", isPlaying);
+            }
         }
     }
 
     public void pause() {
         synchronized (lock) {
-            this.isPlaying = false;
-            System.out.println("Pause " + isPlaying);
+            if (isPlaying) {
+                isPlaying = false;
+                log.info("Music is pause - {}", isPlaying);
+            } else {
+                log.info("Music is already pause - {}", isPlaying);
+            }
         }
     }
 
     public void skip() {
         synchronized (lock) {
-            this.isPlaying = true;
-            System.out.println("Next song " + isPlaying);
+            log.info("Next song - {}", isPlaying);
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            this.isPlaying = true;
-            System.out.println("Previous song " + isPlaying);
+            log.info("Previous song - {}", isPlaying);
         }
     }
 }
