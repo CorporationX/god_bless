@@ -20,7 +20,6 @@ public class Utils {
         try {
             logic.run();
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
             log.error("Поток прерван {}", e.getMessage());
             e.printStackTrace(System.err);
         } catch (ExecutionException e) {

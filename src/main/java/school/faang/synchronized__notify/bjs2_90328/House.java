@@ -26,26 +26,21 @@ public class House {
     ));
     private final Object lock = new Object();
 
-    public String assignRole() {
-        synchronized (this.lock) {
-            runWithThreadErrorHandling(() -> {
-                if (roles.isEmpty()) {
-                    log.info("Список ролей пуст, поток ждет");
-                    lock.wait();
-                    log.info("В списке появились роли, поток продолжил работу");
-                }
-            });
-            return roles.poll();
-        }
-
+    public synchronized String assignRole() {
+        runWithThreadErrorHandling(() -> {
+            if (roles.isEmpty()) {
+                log.info("Список ролей пуст, поток ждет");
+                wait();
+                log.info("В списке появились роли, поток продолжил работу");
+            }
+        });
+        return roles.poll();
     }
 
-    public void releaseRole(@NonNull String role) {
-        synchronized (lock) {
-            if (!roles.contains(role)) {
-                roles.add(role);
-            }
-            lock.notify();
+    public synchronized void releaseRole(@NonNull String role) {
+        if (!roles.contains(role)) {
+            roles.add(role);
         }
+        notify();
     }
 }
