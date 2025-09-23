@@ -56,7 +56,7 @@ public class MasterCardService {
         }
     }
 
-    public void shutdownCorrectly(ExecutorService executor) {
+    private void shutdownCorrectly(ExecutorService executor) {
         executor.shutdown();
         try {
             if (executor.awaitTermination(FIFTEEN_SECONDS_IN_MS, TimeUnit.MILLISECONDS)) {
