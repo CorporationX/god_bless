@@ -7,17 +7,19 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Main {
+    private static final ExecutorService executor = Executors.newFixedThreadPool(2);
+
     public static void main(String[] args) {
         doAll();
     }
 
     static void doAll() {
-        CompletableFuture.supplyAsync(MasterCardService::sendAnalytics).thenAccept(System.out::println);
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-        Future<Integer> result1 = executor.submit(MasterCardService::collectPayment);
+        CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor)
+                .thenAccept(System.out::println);
+        Future<Integer> paymentResult = executor.submit(MasterCardService::collectPayment);
 
         try {
-            System.out.println(result1.get());
+            System.out.println(paymentResult.get());
             executor.shutdown();
         } catch (InterruptedException | ExecutionException e) {
             Thread.currentThread().interrupt();
