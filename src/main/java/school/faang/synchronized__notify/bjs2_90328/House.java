@@ -24,7 +24,6 @@ public class House {
             "Безликий",
             "Кхал"
     ));
-    private final Object lock = new Object();
 
     public synchronized String assignRole() {
         runWithThreadErrorHandling(() -> {
