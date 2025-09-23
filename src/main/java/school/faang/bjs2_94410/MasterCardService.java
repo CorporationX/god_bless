@@ -15,6 +15,8 @@ public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10000;
     private static final int FIFTEEN_SECONDS_IN_MS = 15000;
     private static final int NUM_THREAD = 2;
+    private static final int PAYMENT = 5000;
+    private static final int ANALYTICS = 17000;
     private ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREAD);
 
     public void doAll() {
@@ -31,24 +33,13 @@ public class MasterCardService {
                         throw new RuntimeException(e);
                     }
                 });
-        executorService.shutdown();
-        try {
-            if (executorService.awaitTermination(FIFTEEN_SECONDS_IN_MS, TimeUnit.MILLISECONDS)) {
-                log.info("Все задачи выполнены");
-            } else {
-                log.info("Задачи не успели выполниться");
-                executorService.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            log.info("Поток упал");
-            executorService.shutdownNow();
-        }
+        shutdownCorrectly(executorService);
     }
 
     public int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5000;
+            return PAYMENT;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
@@ -58,10 +49,25 @@ public class MasterCardService {
     public int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return 17000;
+            return ANALYTICS;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
+        }
+    }
+
+    public void shutdownCorrectly(ExecutorService executor) {
+        executor.shutdown();
+        try {
+            if (executor.awaitTermination(FIFTEEN_SECONDS_IN_MS, TimeUnit.MILLISECONDS)) {
+                log.info("Все задачи выполнены");
+            } else {
+                log.info("Задачи не успели выполниться");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            log.info("Поток упал");
+            executor.shutdownNow();
         }
     }
 }
