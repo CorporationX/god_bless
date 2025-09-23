@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 public class UserActionAnalyzer {
     // -------- 1) Топ-N активных пользователей --------
     public static List<String> topActiveUsers(List<UserAction> actions, int i) {
-        if (actions == null || actions.isEmpty() || i <= 0) return Collections.emptyList();
+        if (actions == null || actions.isEmpty() || i <= 0) {
+            return Collections.emptyList();
+        }
         return actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getUserName, Collectors.counting()))
                 .entrySet().stream()
