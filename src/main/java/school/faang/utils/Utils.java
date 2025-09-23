@@ -1,4 +1,4 @@
-package school.faang.synchronized__notify.bjs2_90019;
+package school.faang.utils;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;

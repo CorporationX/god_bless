@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static school.faang.synchronized__notify.bjs2_90019.Utils.pickRandom;
-import static school.faang.synchronized__notify.bjs2_90019.Utils.runAwaitAndShutdown;
+import static school.faang.utils.Utils.pickRandom;
+import static school.faang.utils.Utils.runAwaitAndShutdown;
 
 @Slf4j
 public class Main {
