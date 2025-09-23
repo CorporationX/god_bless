@@ -17,7 +17,7 @@ public class Squad<T extends Unit> {
     public Squad(String name, List<? extends T> units) {
         this.name = name;
         if (units != null) {
-            squad.addAll(units);  // безопасно: ? extends T
+            squad.addAll(units);
         }
     }
 
@@ -27,9 +27,4 @@ public class Squad<T extends Unit> {
         }
     }
 
-    public void addAll(Collection<? extends T> units) {
-        if (units != null) {
-            squad.addAll(units);
-        }
-    }
 }
