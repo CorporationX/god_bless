@@ -1,16 +1,12 @@
 package school.faang.m3_1_parallelism.microsoft;
 
-public class SenderRunnable implements Runnable {
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
+public class SenderRunnable implements Runnable {
+    private final String[] messages;
     private final int startIndex;
     private final int endIndex;
-    private final String[] messages;
-
-    public SenderRunnable(String[] messages, int startIndex, int endIndex) {
-        this.startIndex = startIndex;
-        this.endIndex = endIndex;
-        this.messages = messages;
-    }
 
     @Override
     public void run() {
