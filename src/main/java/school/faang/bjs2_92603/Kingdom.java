@@ -31,9 +31,9 @@ public class Kingdom {
 
     public static CompletableFuture<String> sendRaven(Kingdom sender, Kingdom receiver) {
         return CompletableFuture.supplyAsync(() -> {
-                sender.sendMessage(receiver);
-                return "The message was successfully delivered from " + sender.getName() +
-                        " in " + receiver.getName();
+            sender.sendMessage(receiver);
+            return "The message was successfully delivered from " + sender.getName() +
+                    " in " + receiver.getName();
         });
     }
 
