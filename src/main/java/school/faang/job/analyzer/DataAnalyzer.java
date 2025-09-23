@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -53,7 +54,7 @@ public class DataAnalyzer {
         Map<Integer, List<Job>> salaryByRange = generateSalaryCategory(maxSalary);
         jobs
                 .forEach(job -> {
-                    Optional<Integer> range = findRangeBySalary(salaryByRange, job.getSalary());
+                    Optional<Integer> range = findRangeBySalary(job);
                     range.ifPresent(r ->
                             salaryByRange.computeIfAbsent(r, k -> new ArrayList<>()).add(job));
                 });
@@ -78,11 +79,8 @@ public class DataAnalyzer {
         return salaryByRange;
     }
 
-    private Optional<Integer> findRangeBySalary(Map<Integer, List<Job>> salaryByRange, Integer salary) {
-        return salaryByRange.keySet()
-                .stream()
-                .filter(salaryMinInRange -> salary >= salaryMinInRange
-                        && salary < salaryMinInRange + SALARY_RANGE_STEP)
-                .findFirst();
+    private Optional<Integer> findRangeBySalary(Job job) {
+        int salaryRangeStepAmount = ((int) Math.ceil((double) job.getSalary() / SALARY_RANGE_STEP) - 1);
+        return Optional.of(SALARY_RANGE_STEP * salaryRangeStepAmount);
     }
 }
