@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    public static final int WAITING_TIME = 1;
+    private static final int WAITING_TIME = 1;
 
     public static void main(String[] args) {
         KingdomMessenger.sendRaven(new Kingdom("Болгарская империя"), new Kingdom("Киевская Русь"));

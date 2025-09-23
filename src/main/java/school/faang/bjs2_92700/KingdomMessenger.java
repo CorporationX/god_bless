@@ -1,5 +1,6 @@
 package school.faang.bjs2_92700;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
@@ -9,9 +10,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
+@Getter
 public class KingdomMessenger {
-    static final int RAVEN_FLYING_DURATION = 5;
-    static final int THREAD_AMOUNT = 4;
+    private static final int RAVEN_FLYING_DURATION = 5;
+    private static final int THREAD_AMOUNT = 4;
     static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(THREAD_AMOUNT);
 
     public static void sendRaven(Kingdom sender, Kingdom receiver) {
