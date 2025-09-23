@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
+    private static final int WAITING_TIME = 2;
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         List<School> schools = List.of(new School("Школа №1", List.of(
                         new Student("Вася", 2000, 15),
@@ -36,7 +39,7 @@ public class Main {
 
         List<CompletableFuture<School>> completableFuturesSchools = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            completableFuturesSchools.add(Tournament.startTask(schools.get(i), tasks.get(i)););
+            completableFuturesSchools.add(Tournament.startTask(schools.get(i), tasks.get(i)));
         }
 
         List<School> schoolsAfterTasks = new ArrayList<>();
@@ -49,8 +52,12 @@ public class Main {
         }
         Tournament.EXECUTOR.shutdown();
         try {
-            if ()
+            if (!Tournament.EXECUTOR.awaitTermination(WAITING_TIME, TimeUnit.MINUTES)) {
+                log.error("Не все задачи завершены в указанный период времени.");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.error("Поток main не смог должаться окончания, он был прерван.");
         }
-
     }
 }

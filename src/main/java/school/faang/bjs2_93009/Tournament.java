@@ -24,7 +24,7 @@ public class Tournament {
                         student.setPoints(student.getPoints() + task.getReward());
                     }
                     school.getTotalPoints();
-                    log.info("{} закончила выполнять задание по предмету {}", school.getName(), task.getName());
+                    log.info("{} закончила выполнять задание по предмету {}.", school.getName(), task.getName());
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     log.error("{} прекратила выполнять задание по предмету {}, она сдалась",
