@@ -16,6 +16,4 @@ public class School {
                 .map(Student::getPoints)
                 .reduce(0, Integer::sum);
     }
-
-
 }
