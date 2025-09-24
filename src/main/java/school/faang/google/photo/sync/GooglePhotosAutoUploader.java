@@ -31,9 +31,7 @@ public class GooglePhotosAutoUploader {
     }
 
     public void uploadPhotos() {
-        for (String photo : photosToUpload) {
-            log.info("загрузка фотографии на сервер - {}", photo);
-        }
+        photosToUpload.forEach(photo -> log.info("загрузка фотографии на сервер - {}", photo));
         photosToUpload.clear();
     }
 }
