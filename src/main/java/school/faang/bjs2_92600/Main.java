@@ -12,13 +12,13 @@ public class Main {
         QuestSystem questSystem = new QuestSystem();
 
         questSystem.startQuest(firstPlayer, firstQuest)
-                .thenAccept(player -> log.info("{} выполнил квест", player.getName()));
+                .thenAccept(player -> log.info("{} имеет {} опыта", player.getName(), player.getExperience()));
         questSystem.startQuest(firstPlayer, secondQuest)
-                .thenAccept(player -> log.info("{} выполнил квест", player.getName()));
+                .thenAccept(player -> log.info("{} имеет {} опыта", player.getName(), player.getExperience()));
         questSystem.startQuest(secondPlayer, firstQuest)
-                .thenAccept(player -> log.info("{} выполнил квест", player.getName()));
+                .thenAccept(player -> log.info("{} имеет {} опыта", player.getName(), player.getExperience()));
         questSystem.startQuest(secondPlayer, secondQuest)
-                .thenAccept(player -> log.info("{} выполнил квест", player.getName()));
+                .thenAccept(player -> log.info("{} имеет {} опыта", player.getName(), player.getExperience()));
 
         questSystem.shutdownCorrectly();
     }

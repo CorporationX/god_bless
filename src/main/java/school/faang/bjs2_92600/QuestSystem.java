@@ -19,11 +19,16 @@ public class QuestSystem {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep((long) quest.getDifficulty() * COEFFICIENT_TIME);
-                player.setExperience(player.getExperience() + COEFFICIENT_EXPERIENCE * quest.getDifficulty());
+                synchronized (player) {
+                    player.setExperience(player.getExperience() + COEFFICIENT_EXPERIENCE * quest.getDifficulty());
+                    log.info("Игрок {} выполнил квест {} и получил в награду {} золотых",
+                            player.getName(),
+                            quest.getName(),
+                            quest.getReward());
+                }
             } catch (InterruptedException e) {
-                log.error("Поток упал");
+                log.error(e.getMessage());
                 Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
             }
             return player;
         }, executorService);
@@ -39,7 +44,7 @@ public class QuestSystem {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            log.info("Поток упал");
+            log.info(e.getMessage());
             executorService.shutdownNow();
         }
     }
