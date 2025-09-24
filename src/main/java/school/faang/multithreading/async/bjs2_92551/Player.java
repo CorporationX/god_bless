@@ -10,7 +10,7 @@ public class Player {
     private int level;
     private int experience;
 
-    public void updateExperience(int experience) {
+    public synchronized void updateExperience(int experience) {
         this.experience += experience;
     }
 }
