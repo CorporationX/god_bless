@@ -17,8 +17,9 @@ public class MasterCardService {
     private static final int ONE_SECOND_IN_MS = 1_000;
     private static final int DEFAULT_PAYMENT_AMOUNT = 5_000;
     private static final int ANALYTICS_RESULT = 17_000;
+    private static final int NUMBER_OF_THREADS = 2;
 
-    private static final ExecutorService executor = Executors.newFixedThreadPool(2);
+    private static final ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     static int collectPayment() {
         runWithThreadErrorHandling(() -> Thread.sleep(TEN_SECONDS_IN_MS));
