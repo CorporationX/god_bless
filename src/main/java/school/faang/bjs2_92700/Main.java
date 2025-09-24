@@ -9,13 +9,14 @@ public class Main {
     private static final int WAITING_TIME = 1;
 
     public static void main(String[] args) {
-        KingdomMessenger.sendRaven(new Kingdom("Болгарская империя"), new Kingdom("Киевская Русь"));
-        KingdomMessenger.sendRaven(new Kingdom("Византийская империя"), new Kingdom("Хазарский Каганат"));
-        KingdomMessenger.sendRaven(new Kingdom("Хазарский Каганат"), new Kingdom("Киевская Русь"));
-        KingdomMessenger.sendRaven(new Kingdom("Хазарский Каганат"), new Kingdom("Византийская империя"));
-        KingdomMessenger.EXECUTOR.shutdown();
+        KingdomMessenger messenger = new KingdomMessenger();
+        messenger.sendRaven(new Kingdom("Болгарская империя"), new Kingdom("Киевская Русь"));
+        messenger.sendRaven(new Kingdom("Византийская империя"), new Kingdom("Хазарский Каганат"));
+        messenger.sendRaven(new Kingdom("Хазарский Каганат"), new Kingdom("Киевская Русь"));
+        messenger.sendRaven(new Kingdom("Хазарский Каганат"), new Kingdom("Византийская империя"));
+        messenger.getExecutor().shutdown();
         try {
-            if (!KingdomMessenger.EXECUTOR.awaitTermination(WAITING_TIME, TimeUnit.MINUTES)) {
+            if (!messenger.getExecutor().awaitTermination(WAITING_TIME, TimeUnit.MINUTES)) {
                 log.error("Не все задачи завершены в указанный период времени.");
             }
         } catch (InterruptedException e) {

@@ -10,6 +10,3 @@ import lombok.Setter;
 public class Kingdom {
     private String name;
 }
-
-
-
