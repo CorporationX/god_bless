@@ -12,5 +12,6 @@ import lombok.ToString;
 public class Student {
     private final String name;
     private final int years;
+    private boolean isBusy;
     private int points;
 }
