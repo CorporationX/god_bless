@@ -10,18 +10,10 @@ import java.util.concurrent.TimeUnit;
 public class TinderSimulation {
 
     public static Runnable createUserTask(ChatManager chatManager, User user) {
-        return () -> {
-            try {
-                chatManager.startChat(user);
-                Thread.sleep(2000);
-                chatManager.endChat(user);
-                log.info("{} завершил чат", user.getName());
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        };
+        return () -> chatManager.startChat(user);
     }
 
+    @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
     public static void main(String[] args) {
         UserList userList = new UserList();
         ChatManager chatManager = new ChatManager(userList);
@@ -36,7 +28,7 @@ public class TinderSimulation {
         userList.addUser(user3);
         userList.addUser(user4);
 
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
 
         executorService.submit(createUserTask(chatManager, user1));
         executorService.submit(createUserTask(chatManager, user2));

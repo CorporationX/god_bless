@@ -12,8 +12,8 @@ public class User {
 
     public User(String name) {
         this.name = name;
-        this.isOnline = false;
-        this.isLookingForChat = false;
+        this.isOnline = true;
+        this.isLookingForChat = true;
         this.isChatting = false;
         this.chat = null;
     }
@@ -38,13 +38,17 @@ public class User {
         return isChatting;
     }
 
-    public synchronized void setChat(Chat chat) {
+    public void setChat(Chat chat) {
         this.chat = chat;
         this.isChatting = true;
     }
 
-    public synchronized void resetChat() {
+    public void resetChat() {
         this.chat = null;
         this.isChatting = false;
+    }
+
+    public Object getName() {
+        return name;
     }
 }

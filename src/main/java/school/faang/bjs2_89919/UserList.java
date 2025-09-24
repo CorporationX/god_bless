@@ -16,7 +16,7 @@ public class UserList {
 
     public synchronized List<User> getOnlineUsersLookingForChat(User user) {
         return users.stream()
-                .filter(u -> u.isOnline() && u.isLookingForChat() && !u.equals(user))
+                .filter(u -> u.isOnline() && u.isLookingForChat() && !u.equals(user) && !u.isChatting())
                 .toList();
     }
 }
