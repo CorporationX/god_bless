@@ -18,7 +18,6 @@ public class School {
     private final String name;
     private final List<Student> team;
     private final ExecutorService executor;
-    private static final Object lock = new Object();
 
     public synchronized void getTotalPoints() {
         int sumPoints = team.stream()
