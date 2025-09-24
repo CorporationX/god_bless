@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class Main {
     private static final int DEFAULT_LEVEL = 0;
-    private static final double DEFAULT_EXPERIENCE = 0.0;
+    private static final int DEFAULT_EXPERIENCE = 0;
     private static final int DEFAULT_DIFFICULT = 10;
     private static final double EXPERIENCE = 500;
     private static final int START_VALUE_SEEDS = 1;
@@ -31,5 +31,6 @@ public class Main {
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
         player1Quest.thenAccept(player -> log.info("{} - Пришел в Оргримар", player.getName()));
         player2Quest.thenAccept(player -> log.info("{} - Пришел в Даларан", player.getName()));
+        questSystem.gracefullyShutdown();
     }
 }
