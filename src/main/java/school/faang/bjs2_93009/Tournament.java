@@ -12,9 +12,9 @@ import java.util.concurrent.TimeUnit;
 @Getter
 public class Tournament {
     private static final int THREAD_AMOUNT = 2;
-    static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(THREAD_AMOUNT);
+    private final ExecutorService executor = Executors.newFixedThreadPool(THREAD_AMOUNT);
 
-    static CompletableFuture<School> startTask(School school, Task task) {
+    CompletableFuture<School> startTask(School school, Task task) {
         synchronized (school.getLock()) {
             return CompletableFuture.supplyAsync(() -> {
                 log.info("{} начала выполнять задание по предмету {}.", school.getName(), task.getName());
@@ -27,11 +27,11 @@ public class Tournament {
                     log.info("{} закончила выполнять задание по предмету {}.", school.getName(), task.getName());
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-                    log.error("{} прекратила выполнять задание по предмету {}, она сдалась",
+                    log.error("{} прекратила выполнять задание по предмету {}, она сдалась.",
                             school.getName(), task.getName());
                 }
                 return school;
-            }, EXECUTOR);
+            }, executor);
         }
     }
 }

@@ -13,6 +13,7 @@ public class Main {
     private static final int WAITING_TIME = 2;
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
+        Tournament tournament = new Tournament();
         List<School> schools = List.of(new School("Школа №1", List.of(
                         new Student("Вася", 2000, 15),
                         new Student("Петя", 2002, 17),
@@ -39,7 +40,7 @@ public class Main {
 
         List<CompletableFuture<School>> completableFuturesSchools = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            completableFuturesSchools.add(Tournament.startTask(schools.get(i), tasks.get(i)));
+            completableFuturesSchools.add(tournament.startTask(schools.get(i), tasks.get(i)));
         }
 
         List<School> schoolsAfterTasks = new ArrayList<>();
@@ -48,11 +49,11 @@ public class Main {
         }
         log.info("Все школы закончили свои задания.");
         for (School school : schoolsAfterTasks) {
-            log.info("По итогу {} получила {} баллов", school.getName(), school.getTotalPoints());
+            log.info("По итогу {} получила {} баллов.", school.getName(), school.getTotalPoints());
         }
-        Tournament.EXECUTOR.shutdown();
+        tournament.getExecutor().shutdown();
         try {
-            if (!Tournament.EXECUTOR.awaitTermination(WAITING_TIME, TimeUnit.MINUTES)) {
+            if (!tournament.getExecutor().awaitTermination(WAITING_TIME, TimeUnit.MINUTES)) {
                 log.error("Не все задачи завершены в указанный период времени.");
             }
         } catch (InterruptedException e) {
