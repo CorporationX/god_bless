@@ -9,11 +9,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class OrderProcessor {
     private AtomicInteger totalProcessedOrders = new AtomicInteger();
-    private final int SLEEP_COUNT = 1000;
+    private static final int SLEEP_TIME = 1000;
 
     public Order processOrder(Order order) {
         try {
-            Thread.sleep(SLEEP_COUNT);
+            Thread.sleep(SLEEP_TIME);
             order.setStatus("Processed");
             totalProcessedOrders.incrementAndGet();
             log.info("order processed");
