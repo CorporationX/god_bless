@@ -23,7 +23,8 @@ public class Inventory {
         });
     }
 
-    public CompletableFuture<Item> combineItems(CompletableFuture<Item> item1, CompletableFuture<Item> item2, ExecutorService executor) {
+    public CompletableFuture<Item> combineItems(CompletableFuture<Item> item1,
+                                                CompletableFuture<Item> item2, ExecutorService executor) {
         return item1.thenCombineAsync(item2, (itemOne, itemTwo) -> {
             Item newitem = new Item("%s %s".formatted(itemOne.getName(), itemTwo.getName()),
                     itemOne.getPower() + itemTwo.getPower());
