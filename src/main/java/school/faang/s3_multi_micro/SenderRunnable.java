@@ -3,7 +3,7 @@ package school.faang.s3_multi_micro;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class SenderRunnable implements Runnable{
+public class SenderRunnable implements Runnable {
     private final int startIndex;
     private final int endIndex;
 
