@@ -1,6 +1,5 @@
 package school.faang.module3.supercow;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -17,20 +16,15 @@ public class Main {
 
         );
 
-        List<Thread> threads = new ArrayList<>();
-
-        players.forEach(p -> {
-            Thread thread = new Thread(() -> p.doBattle(boss));
-            thread.start();
-            threads.add(thread);
-        });
-
-        threads.forEach(t -> {
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        });
+        players.parallelStream()
+                .map(p -> new Thread(() -> p.doBattle(boss)))
+                .peek(Thread::start)
+                .forEach(t -> {
+                    try {
+                        t.join();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                });
     }
 }
