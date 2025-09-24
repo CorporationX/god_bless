@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @AllArgsConstructor
 @Setter
 @Getter
@@ -13,5 +15,5 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TwitterAccount {
     private final String username;
-    private int followers;
+    private AtomicInteger followers;
 }

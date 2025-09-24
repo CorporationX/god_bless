@@ -8,26 +8,34 @@ import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Slf4j
 public class Main {
     private static final int SIZE_POOL_THREAD = 10;
     private static final int RANDOM_SUBSTRING = 1000;
+    private static List<CompletableFuture<Void>> futures = new ArrayList<>();
+    private static TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
 
     public static void main(String[] args) {
-        TwitterAccount twitterAccount = new TwitterAccount("Twit", 0);
+        TwitterAccount twitterAccount = new TwitterAccount("Twit", new AtomicInteger(0));
 
-        TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
         ExecutorService executorService = Executors.newFixedThreadPool(SIZE_POOL_THREAD);
-        List<CompletableFuture<Void>> futures = new ArrayList<>();
+
         int r = new Random().nextInt(RANDOM_SUBSTRING);
         log.info("Доступная накрутка подписчиков на аккаунт {} - {}", twitterAccount.getUsername(), r);
-        IntStream.rangeClosed(1, r).forEach((i) -> {
-            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> system.followAccount(twitterAccount),
-                    executorService);
-            futures.add(future);
-        });
+
+        futures = IntStream.rangeClosed(1, r)
+                .mapToObj(i -> {
+                    CompletableFuture<Void> future = CompletableFuture.runAsync(
+                            () -> system.followAccount(twitterAccount),
+                            executorService);
+                    return future;
+                })
+                .collect(Collectors.toList());
+
         executorService.shutdown();
         CompletableFuture<Void> allFollowFutures = CompletableFuture.allOf(
                 futures.toArray(new CompletableFuture[0]));
