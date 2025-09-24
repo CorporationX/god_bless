@@ -1,7 +1,10 @@
 package school.faang.bjs2_94777;
 
+import lombok.Getter;
+
 import java.util.List;
 
+@Getter
 public class Chest {
     private final List<Item> chest = List.of(
             new Item("Phase", 20),

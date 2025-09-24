@@ -2,7 +2,6 @@ package school.faang.bjs2_94777;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -24,14 +23,13 @@ public class Inventory {
         });
     }
 
-    public void combineItems(CompletableFuture<Item> item1, CompletableFuture<Item> item2, ExecutorService executor) {
-        CompletableFuture<Item> result = item1.thenCombineAsync(item2, (itemOne, itemTwo) -> {
-            Item newitem = new Item(itemOne.getName() + itemTwo.getName(),
+    public CompletableFuture<Item> combineItems(CompletableFuture<Item> item1, CompletableFuture<Item> item2, ExecutorService executor) {
+        return item1.thenCombineAsync(item2, (itemOne, itemTwo) -> {
+            Item newitem = new Item("%s %s".formatted(itemOne.getName(), itemTwo.getName()),
                     itemOne.getPower() + itemTwo.getPower());
             log.info("Коментатор - {}: В инвентаре объеденились два предмета и образовали {}, силой {}",
                     Thread.currentThread().getName(), newitem.getName(), newitem.getPower());
             return newitem;
-        }, executor);
-        result.thenComposeAsync(this::addItem, executor);
+        }, executor).thenComposeAsync(this::addItem, executor);
     }
 }
