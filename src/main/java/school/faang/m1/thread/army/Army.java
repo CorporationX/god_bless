@@ -2,13 +2,13 @@ package school.faang.m1.thread.army;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Army {
 
-    private final List<Squad<? extends Unit>> squadList = new ArrayList<>();
+    private final List<Squad> squadList = new ArrayList<>();
 
-    public void addSquad(Squad<? extends Unit> squad) {
+    public void addSquad(Squad squad) {
         if (squad != null) {
             squadList.add(squad);
         }
@@ -20,13 +20,11 @@ public class Army {
         }
 
         final int n = squadList.size();
-        final int[] partial = new int[n];
         List<Thread> threads = new ArrayList<>(n);
 
-        for (int i = 0; i < n; i++) {
-            final int idx = i;
-            Thread t = new Thread(() ->
-                    partial[idx] = calculateSquadPower(squadList.get(idx)), "SquadPower-" + idx);
+        AtomicInteger result = new AtomicInteger();
+        for (Squad squad : squadList) {
+            Thread t = new Thread(() -> result.addAndGet(squad.calculateSquadPower()));
             threads.add(t);
             t.start();
         }
@@ -40,20 +38,7 @@ public class Army {
             }
         }
 
-        int total = 0;
-        for (int p : partial) {
-            total += p;
-        }
-        return total;
+        return result.get();
     }
 
-    private static int calculateSquadPower(Squad<? extends Unit> squad) {
-        if (squad == null) {
-            return 0;
-        }
-        return squad.getSquad().stream()
-                .filter(Objects::nonNull)
-                .mapToInt(Unit::getPower)
-                .sum();
-    }
 }

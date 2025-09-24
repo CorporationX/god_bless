@@ -1,5 +1,14 @@
 package school.faang.m1.thread.army;
 
-public interface Unit {
-    int getPower();
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public abstract class Unit {
+    private int power;
+
+    protected int getPower() {
+        return power;
+    }
 }
