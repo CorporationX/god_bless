@@ -1,8 +1,10 @@
 package school.faang.multithreading.parallelism.bjs2_91330;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
+@Getter
 public abstract class Warrior {
-    int power;
+    private int power;
 }

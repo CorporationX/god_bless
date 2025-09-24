@@ -5,14 +5,13 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 
 @AllArgsConstructor
-public class Squad<T extends Warrior> {
-
+public class Squad {
     private String warriorsName;
-    private List<T> warriors;
+    private List<Warrior> warriors;
 
     public int calculateSquadPower() {
         return warriors.stream()
-                .mapToInt(warrior -> warrior.power)
+                .mapToInt(Warrior::getPower)
                 .sum();
     }
 }
