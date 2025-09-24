@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
+    public static final int WAITING_TIME = 3;
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Battle battle = new Battle();
 
@@ -32,6 +35,15 @@ public class Main {
         }
         for (Robot winner : winners) {
             log.info("Победил робот {}!", winner.getName());
+        }
+        battle.getExecutor().shutdown();
+        try {
+            if (!battle.getExecutor().awaitTermination(WAITING_TIME, TimeUnit.MINUTES)) {
+                log.error("Поток main не смог дождаться остальных, время вышло");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.error("Поток main не смог продолжать ждать остальных, его прервали.");
         }
     }
 }
