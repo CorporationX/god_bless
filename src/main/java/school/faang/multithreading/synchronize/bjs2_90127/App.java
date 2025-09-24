@@ -6,13 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 public class App {
     public static void main(String[] args) {
-
         ExecutorService executorService = Executors.newFixedThreadPool(5);
-
-        Object scoreLock = new Object();
-        Object livesLock = new Object();
-
-        Game game = new Game(scoreLock, livesLock);
+        Game game = new Game();
 
         for (int i = 0; i < 20; i++) {
             game.update();

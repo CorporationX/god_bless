@@ -1,15 +1,12 @@
 package school.faang.multithreading.synchronize.bjs2_90127;
 
-import lombok.AllArgsConstructor;
-
 import java.util.Random;
 
-@AllArgsConstructor
 public class Game {
     private static int score = 4;
     private static int lives = 5;
-    private final Object scoreLock;
-    private final Object livesLock;
+    private final Object scoreLock = new Object();
+    private final Object livesLock = new Object();
     private final Random random = new Random();
 
     public void update() {
@@ -18,19 +15,16 @@ public class Game {
                 gameOver();
                 return;
             }
+            if (random.nextInt() % 2 != 0) {
+                lives--;
+                System.out.printf("Количество жизней уменьшилось.\nНовое значение = %d%n", lives);
+            }
         }
 
         synchronized (scoreLock) {
             if (random.nextInt() % 2 == 0) {
                 score++;
                 System.out.printf("Количество очков увеличилось.\nНовое значение = %d%n", score);
-            }
-        }
-
-        synchronized (livesLock) {
-            if (random.nextInt() % 2 != 0) {
-                lives--;
-                System.out.printf("Количество жизней уменьшилось.\nНовое значение = %d%n", lives);
             }
         }
     }
