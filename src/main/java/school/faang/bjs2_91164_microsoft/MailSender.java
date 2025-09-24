@@ -1,29 +1,30 @@
 package school.faang.bjs2_91164_microsoft;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MailSender {
     public static void main(String[] args) {
+        final int TOTAL_EMAILS = 20;
+        final int THREAD_COUNT = 5;
+        final int EMAIL_PER_THREAD = TOTAL_EMAILS / THREAD_COUNT;
 
-        Thread thread1 = new Thread(new SenderRunnable(0, 199));
-        thread1.start();
+        List<Thread> threads = new ArrayList<>();
 
-        Thread thread2 = new Thread(new SenderRunnable(200, 399));
-        thread2.start();
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            int startIndex = i * EMAIL_PER_THREAD;
+            int endIndex = (i < THREAD_COUNT - 1) ? startIndex + EMAIL_PER_THREAD - 1 : TOTAL_EMAILS - 1;
 
-        Thread thread3 = new Thread(new SenderRunnable(400, 599));
-        thread3.start();
+            Thread thread = new Thread(new SenderRunnable(startIndex, endIndex));
+            threads.add(thread);
+            thread.start();
+        }
 
-        Thread thread4 = new Thread(new SenderRunnable(600, 799));
-        thread4.start();
-
-        Thread thread5 = new Thread(new SenderRunnable(800, 999));
-        thread5.start();
 
         try {
-            thread1.join();
-            thread2.join();
-            thread3.join();
-            thread4.join();
-            thread5.join();
+            for (Thread thread : threads) {
+                thread.join();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
