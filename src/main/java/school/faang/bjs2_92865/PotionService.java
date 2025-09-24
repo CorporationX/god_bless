@@ -1,13 +1,19 @@
 package school.faang.bjs2_92865;
 
-import java.util.concurrent.CompletableFuture;
+import lombok.Getter;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
+
+@Getter
 public class PotionService {
     private static final int DEFAULT_SLEEP = 1000;
+    private AtomicInteger atomicInteger = new AtomicInteger(0);
 
     public CompletableFuture<Integer> gatherIngredients(Potion potion) {
         return CompletableFuture.supplyAsync(() -> {
             sleepThread(DEFAULT_SLEEP * potion.getRequiredIngredients());
+            increment(potion.getRequiredIngredients());
             return potion.getRequiredIngredients();
         });
     }
@@ -18,5 +24,9 @@ public class PotionService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void increment(int delta) {
+        atomicInteger.addAndGet(delta);
     }
 }

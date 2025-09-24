@@ -28,13 +28,8 @@ public class Main {
                 .map(potionService::gatherIngredients)
                 .toList();
 
-        AtomicInteger atomicInteger = new AtomicInteger(0);
-
-        futures.forEach(future -> {
-            future.join();
-            future.thenApply(atomicInteger::addAndGet);
-        });
-
-        System.out.println(atomicInteger.get());
+        CompletableFuture<Void> allFollowFutures =  CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+        allFollowFutures.join();
+        System.out.println(potionService.getAtomicInteger().get());
     }
 }
