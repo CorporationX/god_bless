@@ -1,5 +1,6 @@
 .gradle
 **/build/
+**/resources/
 !src/**/build/
 *configuration_1_3.dtd
 # Ignore Gradle GUI config
