@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class StarWarsArena {
-    private final static int THREAD_COUNT = 2;
+    private static final int THREAD_COUNT = 2;
 
     public static void main(String[] args) {
         Battle battle = new Battle(THREAD_COUNT);
