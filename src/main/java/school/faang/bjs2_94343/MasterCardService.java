@@ -9,11 +9,13 @@ import java.util.concurrent.Future;
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 5_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int COLLECT_PAYMENT_RETURN_VALUE = 5_000;
+    private static final int SEND_ANALYTICS_RETURN_VALUE = 17_000;
 
     private static int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            return COLLECT_PAYMENT_RETURN_VALUE;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
@@ -23,7 +25,7 @@ public class MasterCardService {
     private static int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            return SEND_ANALYTICS_RETURN_VALUE;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
@@ -35,7 +37,7 @@ public class MasterCardService {
         Future<Integer> collectPaymentFuture = executorService.submit(MasterCardService::collectPayment);
 
         CompletableFuture<Integer> sendAnalyticsFuture = CompletableFuture
-                .supplyAsync(MasterCardService::sendAnalytics);
+                .supplyAsync(MasterCardService::sendAnalytics, executorService);
 
         int sendAnalyticsResult = sendAnalyticsFuture.join();
         System.out.println(sendAnalyticsResult);
