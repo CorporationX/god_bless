@@ -15,11 +15,13 @@ public class MasterCardService {
 
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int DEFAULT_PAYMENT_AMOUNT = 5_000;
+
     private static final ExecutorService executor = Executors.newFixedThreadPool(2);
 
     static int collectPayment() {
         runWithThreadErrorHandling(() -> Thread.sleep(TEN_SECONDS_IN_MS));
-        return 5_000;
+        return DEFAULT_PAYMENT_AMOUNT;
     }
 
     static int sendAnalytics() {
