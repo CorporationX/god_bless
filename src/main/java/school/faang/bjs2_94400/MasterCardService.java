@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -14,15 +13,15 @@ import java.util.concurrent.TimeoutException;
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10000;
     private static final int ONE_SECOND_IN_MS = 1000;
-    private static final int THREAD_COUNT = 2;
     private static final int FIFTEEN_SECOND_IN_MS = 15000;
-    private static final int TIME_WAIT_IN_MINUTE = 1;
+    private static final int OPERATION_RESULT = 5_000;
+    private static final int ANALYTICS_RESULT = 17_000;
 
     private int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
             log.info("Операция по оплате успешно завершена");
-            return 5_000;
+            return OPERATION_RESULT;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("Ошибка при проведении операции оплаты");
@@ -34,7 +33,7 @@ public class MasterCardService {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
             log.info("Результат аналитики успешно отправлен");
-            return 17_000;
+            return ANALYTICS_RESULT;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("Ошибка при сборе результата аналитики");
@@ -42,9 +41,8 @@ public class MasterCardService {
         }
     }
 
-    public void doAll() {
-        ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
-        Future<Integer> future = executor.submit(() -> collectPayment());
+    public void doAll(ExecutorService executor) {
+        Future<Integer> future = executor.submit(this::collectPayment);
         try {
             int payment = future.get(FIFTEEN_SECOND_IN_MS, TimeUnit.SECONDS);
             log.info("Процесс оплаты прошел на {}", payment);
@@ -60,15 +58,5 @@ public class MasterCardService {
             log.error("Ошибка в отправке аналитики {} - причина", error.getCause().getMessage());
             return null;
         });
-        executor.shutdown();
-        try {
-            if (!executor.awaitTermination(TIME_WAIT_IN_MINUTE, TimeUnit.MINUTES)) {
-                log.info("Потоки не успели завершиться за {} минут. Останавливаем принудительно", TIME_WAIT_IN_MINUTE);
-                executor.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Ошибка в принудительном завершении потоков");
-        }
     }
 }
