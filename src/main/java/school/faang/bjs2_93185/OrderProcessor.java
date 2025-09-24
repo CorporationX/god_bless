@@ -19,29 +19,29 @@ public class OrderProcessor {
         return totalProcessedOrders.get();
     }
 
-    public synchronized CompletableFuture<Order> processOrder(Order order) {
+    private CompletableFuture<Order> processOrder(Order order) {
         CompletableFuture<Order> future = CompletableFuture.supplyAsync(() -> {
             sleepThread();
             totalProcessedOrders.incrementAndGet();
+
             return order;
+        }).thenApply(order1 -> {
+            order1.setStatus(PROCESSED);
+            return order1;
         });
-        order.setStatus(PROCESSED);
         return future;
     }
 
     public void processAllOrders(List<Order> orders) {
-        List<CompletableFuture<Order>> futures = new ArrayList<>();
-        orders.forEach(order -> {
-            CompletableFuture<Order> future = processOrder(order);
-            log.info("Закак обработан {}", order);
-            futures.add(future);
-        });
-        CompletableFuture<Void> allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
-        try {
-            allFutures.get();
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(
+                orders.stream()
+                        .map(order -> {
+                            CompletableFuture<Order> future = processOrder(order);
+                            log.info("Закак обработан {}", order);
+                            return future;
+                        })
+                        .toArray(CompletableFuture[]::new));
+        allFutures.join();
     }
 
     private void sleepThread() {
