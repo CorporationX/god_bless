@@ -12,23 +12,11 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
-        House house1 = new House();
-        House house2 = new House();
-        House house3 = new House();
-
+        House house = new House();
         executorService.submit(() -> {
             for (int i = 0; i < USER_COUNT; i++) {
                 User user = new User("User" + i);
-                switch (i % HOUSE_COUNT) {
-                    case 1:
-                        user.joinHouse(house2);
-                        break;
-                    case 2:
-                        user.joinHouse(house3);
-                        break;
-                    default:
-                        user.joinHouse(house1);
-                }
+                user.joinHouse(house);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
