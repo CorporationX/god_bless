@@ -26,7 +26,7 @@ public class ChatManager {
     }
 
     public void startChat(User user) {
-
+        User otherUser;
         synchronized (monitor) {
             while (userList.getOnlineUsersLookingForChat(user).isEmpty() || activeChats.contains(user.getChat())) {
                 try {
@@ -38,8 +38,10 @@ public class ChatManager {
                 }
             }
             List<User> candidates = userList.getOnlineUsersLookingForChat(user);
-            User otherUser = candidates.get(random.nextInt(candidates.size()));
-            //удалить юзера из списка ищущих чат
+            otherUser = candidates.get(random.nextInt(candidates.size()));
+
+            userList.removeUser(user);
+            userList.removeUser(otherUser);
         }
 
         createChat(user, otherUser);

@@ -13,7 +13,6 @@ public class TinderSimulation {
         return () -> chatManager.startChat(user);
     }
 
-
     public static void main(String[] args) {
         Object monitor = new Object();
         UserList userList = new UserList(monitor);
