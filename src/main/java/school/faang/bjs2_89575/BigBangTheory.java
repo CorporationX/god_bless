@@ -3,6 +3,7 @@ package school.faang.bjs2_89575;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
     public static final int THREAD_POOL_SIZE = 4;
@@ -22,5 +23,17 @@ public class BigBangTheory {
         }
 
         executor.shutdown();
+
+        try {
+            if (!executor.awaitTermination(30, TimeUnit.SECONDS)) {
+                System.out.println("Выполнение задач затянулось, завершаем.");
+                executor.shutdownNow();
+            }
+            System.out.println("Все задачи выполнены.");
+        } catch (InterruptedException e) {
+            System.out.println("Выполнение задач прервано.");
+            executor.shutdownNow();
+            throw new RuntimeException(e);
+        }
     }
 }
