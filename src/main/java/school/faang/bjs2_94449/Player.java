@@ -6,11 +6,11 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Player {
-    String name;
+    private String name;
     int level;
     int experience;
 
-    public void addExperience(int increasingValue) {
+    public synchronized void addExperience(int increasingValue) {
         this.experience += increasingValue;
     }
 }
