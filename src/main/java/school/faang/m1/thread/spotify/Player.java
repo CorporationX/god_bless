@@ -9,30 +9,50 @@ public class Player {
     @Getter
     public boolean isPlaying;
 
-    void play() {
+    public void play() {
         synchronized (lock) {
-            isPlaying = true;
-            System.out.println("Player.play isPlaying = " + isPlaying());
+            if (!isPlaying) {
+                isPlaying = true;
+                System.out.println("Music playing.");
+            } else {
+                System.out.println("Music already playing.");
+            }
         }
+        System.out.println("Player.play isPlaying = " + isPlaying());
     }
 
-    void pause() {
+    public void pause() {
         synchronized (lock) {
-            isPlaying = false;
+            if (isPlaying) {
+                isPlaying = false;
+                System.out.println("Music stopped.");
+            } else {
+                System.out.println("Music already stopped.");
+            }
             System.out.println("Player.pause isPlaying = " + isPlaying());
         }
     }
 
-    void skip() {
+    public void skip() {
         synchronized (lock) {
-            isPlaying = true;
+            if (!isPlaying) {
+                isPlaying = true;
+                System.out.println("Music not playing. Skip to next and play.");
+            } else {
+                System.out.println("Music is playing current. Skip to next and play.");
+            }
             System.out.println("Player.skip isPlaying = " + isPlaying());
         }
     }
 
-    void previous() {
+    public void previous() {
         synchronized (lock) {
-            isPlaying = true;
+            if (!isPlaying) {
+                isPlaying = true;
+                System.out.println("Music not playing. Play previous.");
+            } else {
+                System.out.println("Music is playing current. Move to previous.");
+            }
             System.out.println("Player.previous isPlaying = " + isPlaying());
         }
     }
