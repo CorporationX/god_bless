@@ -32,7 +32,7 @@ public class MasterCardService {
     }
 
     static int doAll(Supplier<Integer> collectPayment, Supplier<Integer> sendAnalytics) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Future<Integer> payFuture = executorService.submit(collectPayment.);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<Integer> payFuture = executor.submit(MasterCardService::collectPayment) ;
     }
 }
