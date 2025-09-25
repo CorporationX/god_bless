@@ -12,17 +12,13 @@ public class TwitterSubscriptionSystem {
             log.error("account cannot be null");
             return;
         }
-        synchronized (account) {
-            account.setFollowers(account.getFollowers() + 1);
-            log.info("followers added");
-        }
+        account.addFollower();
+        log.info("followers added");
     }
 
-    public void followAccount(TwitterAccount account) {
-        CompletableFuture.runAsync(() -> {
+    public CompletableFuture followAccount(TwitterAccount account) {
+        return CompletableFuture.runAsync(() -> {
             addFollower(account);
-        }).thenRun(() -> {
-            System.out.printf("Account: %s, Followers: %s%n", account.getUsername(), account.getFollowers());
         });
     }
 }

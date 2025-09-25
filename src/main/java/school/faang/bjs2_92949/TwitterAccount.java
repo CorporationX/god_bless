@@ -4,10 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @AllArgsConstructor
-@Getter
 @Setter
+@Getter
 public class TwitterAccount {
     private String username;
-    private int followers;
+    private AtomicInteger followers;
+
+    public void addFollower() {
+        followers.incrementAndGet();
+    }
+
+    public int getFollowersCount() {
+        return followers.get();
+    }
 }
