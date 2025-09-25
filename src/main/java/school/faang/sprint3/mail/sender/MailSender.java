@@ -9,13 +9,13 @@ public class MailSender {
 
     public static void main(String[] args) {
 
-        double allMessagesCount = 1000;
-        int messageBatch = Math.max(1, (int) Math.round(allMessagesCount / THREAD_COUNT));
-        List<Thread> threads = IntStream.range(0, THREAD_COUNT)
-                .filter(currentThreadNumber -> currentThreadNumber * messageBatch < allMessagesCount)
-                .mapToObj(currentThreadNumber -> {
-                    int start = currentThreadNumber * messageBatch;
-                    int end = (int) Math.min(start + messageBatch, allMessagesCount);
+        int allMessagesCount = 1000;
+        int actualThreadCount = Math.min(THREAD_COUNT, allMessagesCount);
+        int messageBatch = Math.max(1, (int) Math.round((double) allMessagesCount / actualThreadCount));
+        List<Thread> threads = IntStream.range(0, actualThreadCount)
+                .mapToObj(batchIndex -> {
+                    int start = batchIndex * messageBatch;
+                    int end = Math.min(start + messageBatch, allMessagesCount);
                     Thread thread = new Thread(new SenderRunnable(start, end));
                     thread.start();
                     return thread;
