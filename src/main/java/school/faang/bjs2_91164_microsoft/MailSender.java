@@ -5,15 +5,15 @@ import java.util.List;
 
 public class MailSender {
     public static void main(String[] args) {
-        final int TOTAL_EMAILS = 20;
-        final int THREAD_COUNT = 5;
-        final int EMAIL_PER_THREAD = TOTAL_EMAILS / THREAD_COUNT;
+        final int totalEmails = 20;
+        final int threadCount = 5;
+        final int emailPerThread = totalEmails / threadCount;
 
         List<Thread> threads = new ArrayList<>();
 
-        for (int i = 0; i < THREAD_COUNT; i++) {
-            int startIndex = i * EMAIL_PER_THREAD;
-            int endIndex = (i < THREAD_COUNT - 1) ? startIndex + EMAIL_PER_THREAD - 1 : TOTAL_EMAILS - 1;
+        for (int i = 0; i < threadCount; i++) {
+            int startIndex = i * emailPerThread;
+            int endIndex = (i < threadCount - 1) ? startIndex + emailPerThread - 1 : totalEmails - 1;
 
             Thread thread = new Thread(new SenderRunnable(startIndex, endIndex));
             threads.add(thread);
