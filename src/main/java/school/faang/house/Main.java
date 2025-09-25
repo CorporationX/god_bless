@@ -2,7 +2,6 @@ package school.faang.house;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.List;
 
 
