@@ -25,8 +25,8 @@ public class Army {
                 .toList();
 
         try {
-            for (int i = 0; i < squads.size(); i++) {
-                threads.get(i).join();
+            for (Thread thread : threads) {
+                thread.join();
             }
             return totalPower.sum();
         } catch (InterruptedException e) {
