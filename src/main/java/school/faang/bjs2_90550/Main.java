@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final int USER_COUNT = 10;
     private static final int THREAD_COUNT = 10;
-    private static final int HOUSE_COUNT = 3;
     private static final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
 
     public static void main(String[] args) throws InterruptedException {
