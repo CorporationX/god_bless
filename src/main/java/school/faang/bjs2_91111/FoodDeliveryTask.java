@@ -23,12 +23,12 @@ public class FoodDeliveryTask implements Runnable {
     public void run() {
         try {
             FoodType food = getFoodType();
-            System.out.println(character + " получает " + foodAmount + " " + food.getRussianName());
+            System.out.printf("%s получает %s %s%n", character, foodAmount, food.getRussianName());
 
             int delaySeconds = random.nextInt(MAX_DELIVERY_TIME) + 1;
             Thread.sleep(delaySeconds * 1000);
 
-            System.out.println(character + " ест " + foodAmount + " " + food.getRussianName());
+            System.out.printf("%s ест %s %s%n", character, foodAmount, food.getRussianName());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
