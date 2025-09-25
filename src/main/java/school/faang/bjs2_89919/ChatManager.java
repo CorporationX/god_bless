@@ -26,6 +26,7 @@ public class ChatManager {
     }
 
     public void startChat(User user) {
+
         synchronized (monitor) {
             while (userList.getOnlineUsersLookingForChat(user).isEmpty() || activeChats.contains(user.getChat())) {
                 try {
@@ -38,17 +39,20 @@ public class ChatManager {
             }
             List<User> candidates = userList.getOnlineUsersLookingForChat(user);
             User otherUser = candidates.get(random.nextInt(candidates.size()));
-            createChat(user, otherUser);
-
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                log.warn("Поток {} был прерван во время сна.", Thread.currentThread().getName());
-            }
-
-            user.getChat().ifPresent(this::endChat);
+            //удалить юзера из списка ищущих чат
         }
+
+        createChat(user, otherUser);
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.warn("Поток {} был прерван во время сна.", Thread.currentThread().getName());
+        }
+
+        user.getChat().ifPresent(this::endChat);
+
     }
 
     private void waitForChat() {
