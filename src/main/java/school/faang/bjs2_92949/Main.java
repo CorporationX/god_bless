@@ -12,14 +12,15 @@ public class Main {
         TwitterAccount accountTwo = new TwitterAccount("Two", new AtomicInteger(1));
         TwitterSubscriptionSystem twitterSubscriptionSystem = new TwitterSubscriptionSystem();
 
-        CompletableFuture future1 = twitterSubscriptionSystem.followAccount(accountOne);
-        CompletableFuture future2 = twitterSubscriptionSystem.followAccount(accountTwo);
+        CompletableFuture<Integer> future1 = twitterSubscriptionSystem.followAccount(accountOne);
+        CompletableFuture<Integer> future2 = twitterSubscriptionSystem.followAccount(accountTwo);
 
-        CompletableFuture.allOf(future1, future2).thenRun(() -> {
-                    System.out.printf("Account: %s, Followers: %s%n",
+        CompletableFuture.allOf(future1, future2)
+                .thenRun(() -> {
+                    System.out.printf("Account: %s, Followers: %d%n",
                             accountOne.getUsername(),
                             accountOne.getFollowersCount());
-                    System.out.printf("Account: %s, Followers: %s%n",
+                    System.out.printf("Account: %s, Followers: %d%n",
                             accountTwo.getUsername(),
                             accountTwo.getFollowersCount());
                 })
