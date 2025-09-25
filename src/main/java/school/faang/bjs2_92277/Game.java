@@ -28,6 +28,6 @@ public class Game {
 
     private void gameOver() {
         System.out.printf("Game over with score %d", score);
-        Main.is_game_over = true;
+        Main.isGameOver = true;
     }
 }
