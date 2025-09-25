@@ -1,19 +1,22 @@
 package school.faang.bjs2_89880;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
+@Slf4j
 public class Chore implements Runnable {
     private String chore;
 
     @Override
     public void run() {
         try {
-            System.out.println(Thread.currentThread().getName() + " выполняет задачу: " + chore);
+            log.info("Выполняется задача: {}", chore);
             Thread.sleep(1000);
-            System.out.println(chore + " - выполнено.");
+            log.info("Задача {} выполнена", chore);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error("Задача {} была прервана", chore, e);
+            Thread.currentThread().interrupt();
         }
     }
 }
