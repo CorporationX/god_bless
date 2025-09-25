@@ -3,6 +3,7 @@ package school.faang.bjs2_91111;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
     private static final int MAX_FOOD_AMOUNT = 100;
@@ -19,5 +20,17 @@ public class GriffinsFoodDelivery {
         }
 
         executor.shutdown();
+
+        try {
+            if (!executor.awaitTermination(30, TimeUnit.SECONDS)) {
+                System.out.println("Доставка затянулась, принудительно завершаем.");
+                executor.shutdownNow();
+            }
+            System.out.println("Вся семья Гриффин накормлена!");
+        } catch (InterruptedException e) {
+            System.out.println("Доставка была прервана.");
+            executor.shutdownNow();
+            throw new RuntimeException(e);
+        }
     }
 }
