@@ -9,15 +9,13 @@ public class VideoManager {
 
     public void addView(String videoId) {
         synchronized (lock) {
-            viewsMap.put(
-                    videoId,
-                    getViewCount(videoId) + 1);
+            viewsMap.merge(videoId, 1, Integer::sum);
         }
     }
 
     public int getViewCount(String videoId) {
         synchronized (lock) {
-            return viewsMap.get(videoId) == null ? 0 : viewsMap.get(videoId);
+            return viewsMap.getOrDefault(videoId, 0);
         }
     }
 }
