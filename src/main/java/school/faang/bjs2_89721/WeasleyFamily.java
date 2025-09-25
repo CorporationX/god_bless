@@ -1,6 +1,5 @@
-package school.faang;
+package school.faang.bjs2_89721;
 
-import school.faang.bjs2_89721.Chore;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
