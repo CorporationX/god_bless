@@ -15,7 +15,7 @@ public class MailSender {
         List<Thread> threads = IntStream.range(0, THREAD_COUNT)
                 .mapToObj(currentThreadNumber -> {
                     int start = currentThreadNumber * messageBatch;
-                    int end = start + messageBatch;
+                    int end = (int) Math.min(start + messageBatch, allMessagesCount);
                     Thread thread = new Thread(new SenderRunnable(start, end));
                     thread.start();
                     return thread;
