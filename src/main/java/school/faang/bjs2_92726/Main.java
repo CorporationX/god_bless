@@ -31,5 +31,6 @@ public class Main {
                 e.printStackTrace();
             }
         }
+        superheroBattle.shutdown();
     }
 }

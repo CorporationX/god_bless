@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 public class SuperheroBattle {
     private final ExecutorService executor;
 
-    public SuperheroBattle(int thread) {
-        executor = Executors.newFixedThreadPool(thread);
+    public SuperheroBattle(int poulCount) {
+        executor = Executors.newFixedThreadPool(poulCount);
     }
 
     public List<Future<Superhero>> runCompetitions(List<Pair<Superhero, Superhero>> pairs) {
@@ -19,11 +19,14 @@ public class SuperheroBattle {
                 .map(pair -> executor.submit(() -> {
                     int score1 = pair.first.getAgility() + pair.first.getStrength();
                     int score2 = pair.second.getAgility() + pair.second.getStrength();
-                    executor.shutdown();
                     return score1 > score2 ? pair.first :
                             score1 < score2 ? pair.second :
                                     ThreadLocalRandom.current().nextBoolean() ? pair.first : pair.second;
                 }))
                 .collect(Collectors.toList());
+    }
+
+    public void shutdown() {
+        executor.shutdown();
     }
 }
