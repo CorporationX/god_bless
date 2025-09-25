@@ -3,10 +3,11 @@ package school.faang.bjs2_93093;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Tournament {
     private static final int GET_MILLIS = 100;
-    ExecutorService executorService = Executors.newFixedThreadPool(5);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(5);
 
     public CompletableFuture<School> startTask(School school, Task task) {
         synchronized (task) {
@@ -22,6 +23,24 @@ public class Tournament {
                 }
                 return school;
             }, executorService);
+        }
+    }
+
+    public void shutdownExecutorService(long timeoutInSeconds) {
+        executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(timeoutInSeconds, TimeUnit.SECONDS)) {
+                System.err.println("Threads haven't stopped.");
+                executorService.shutdownNow();
+                if (!executorService.awaitTermination(timeoutInSeconds, TimeUnit.SECONDS)) {
+                    System.err.println("Threads haven't stopped even with shutdownNow()");
+                }
+            }
+
+        } catch (InterruptedException e) {
+            System.err.println("Thread was interrupt while wait the ending of executorService");
+            executorService.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 }

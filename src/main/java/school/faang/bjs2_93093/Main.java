@@ -5,6 +5,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class Main {
+    private static final int TIMEOUT_LONG = 5;
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Tournament tournament = new Tournament();
 
@@ -19,8 +21,6 @@ public class Main {
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
 
-        tournament.executorService.shutdown();
-
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
 
         allTasks.thenRun(() -> {
@@ -30,6 +30,7 @@ public class Main {
             System.out.printf("%s wins the tournament\n", winner);
         });
         allTasks.join();
+        tournament.shutdownExecutorService(TIMEOUT_LONG);
         System.out.println("Турнир завершен");
     }
 }
