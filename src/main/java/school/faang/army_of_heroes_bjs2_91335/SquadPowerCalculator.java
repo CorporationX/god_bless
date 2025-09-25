@@ -10,7 +10,6 @@ public class SquadPowerCalculator implements Callable<Integer> {
         this.squad = squad;
     }
 
-
     @Override
     public Integer call() throws Exception {
         return squad.calculateSquadPower();

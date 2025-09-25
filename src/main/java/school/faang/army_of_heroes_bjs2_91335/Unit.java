@@ -7,6 +7,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Unit {
-    protected int power;
+public abstract class Unit {
+    private int power;
 }

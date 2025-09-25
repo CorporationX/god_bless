@@ -9,18 +9,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-
 @AllArgsConstructor
 public class Army {
     private final List<Squad> squads = new ArrayList<>();
-    ExecutorService executor;
+    private final ExecutorService executor = Executors.newCachedThreadPool();
 
     public void addSquad(Squad squad) {
         squads.add(squad);
-    }
-
-    public Army() {
-        this.executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 
     public int calculateTotalPower() throws ExecutionException, InterruptedException {
@@ -38,6 +33,4 @@ public class Army {
         executor.shutdown();
         return totalPower;
     }
-
-
 }
