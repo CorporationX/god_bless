@@ -13,10 +13,10 @@ public class TinderSimulation {
         return () -> chatManager.startChat(user);
     }
 
-    @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
+
     public static void main(String[] args) {
-        UserList userList = new UserList();
-        ChatManager chatManager = new ChatManager(userList);
+        Object monitor = new Object();
+        UserList userList = new UserList(monitor);
 
         User user1 = new User("Betty");
         User user2 = new User("Elizabeth");
@@ -29,6 +29,7 @@ public class TinderSimulation {
         userList.addUser(user4);
 
         ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ChatManager chatManager = new ChatManager(userList);
 
         executorService.submit(createUserTask(chatManager, user1));
         executorService.submit(createUserTask(chatManager, user2));
