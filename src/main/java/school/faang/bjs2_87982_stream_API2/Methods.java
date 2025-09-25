@@ -1,6 +1,7 @@
 package school.faang.bjs2_87982_stream_API2;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -10,15 +11,26 @@ import java.util.Set;
 public class Methods {
     public static List<List<Integer>> findUniqueNumbersPairWithSum(Set<Integer> numbers, int targetSum) {
         if (numbers == null) {
-            throw new IllegalArgumentException("Набор не может быть null");
+            throw new IllegalArgumentException("Набор чисел не может быть null");
         }
+
+        Set<Integer> seen = new HashSet<>();
+
         return numbers.stream()
                 .filter(Objects::nonNull)
-                .flatMap(n1 -> numbers.stream()
-                        .filter(Objects::nonNull)
-                        .filter(n2 -> n1 < n2)
-                        .filter(n2 -> n1 + n2 == targetSum)
-                        .map(n2 -> List.of(n1, n2)))
+                .filter(num -> {
+                    int complement = targetSum - num;
+                    if (seen.contains(complement)) {
+                        return true;
+                    }
+                    seen.add(num);
+                    return false;
+                })
+                .map(num -> {
+                    int complement = targetSum - num;
+                    return List.of(Math.min(num, complement), Math.max(num, complement));
+                })
+                .distinct()
                 .toList();
     }
 
@@ -29,9 +41,9 @@ public class Methods {
         return mapCountriesAndCapitals.entrySet().stream()
                 .filter(entry -> entry.getKey() != null)
                 .sorted(Map.Entry.comparingByKey())
-                    .map(Map.Entry::getValue)
-                    .filter(Objects::nonNull)
-                    .toList();
+                .map(Map.Entry::getValue)
+                .filter(Objects::nonNull)
+                .toList();
     }
 
     public static List<String> filterStringsByStartingCharAndSortByLength(List<String> list, char ch) {
