@@ -24,8 +24,10 @@ public class King {
 
         ExecutorService exec = Executors.newFixedThreadPool(4);
 
-        knight1.startTrials(exec);
-        knight2.startTrials(exec);
+        TrialStarter trialManager = new TrialStarter();
+
+        trialManager.startTrials(exec, knight1);
+        trialManager.startTrials(exec, knight2);
 
         exec.shutdown();
         try {
