@@ -2,9 +2,10 @@ package school.faang.bjs2_92859;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 public class PotionGathering {
+    private static IngredientsService service = new IngredientsService();
+
     public static void main(String[] args) {
         List<Potion> potions = List.of(
                 new Potion("Healing Potion", 5),
@@ -18,12 +19,12 @@ public class PotionGathering {
     public static void gatherAllIngredients(List<Potion> potions) {
         List<CompletableFuture<Integer>> futures = potions.stream()
                 .map(potion -> CompletableFuture.supplyAsync(() ->
-                        new Potion(potion.getName(), potion.getRequiredIngredients())
-                                .gatherIngredients(potion)))
-                .collect(Collectors.toList());
+                        service.gatherIngredients(potion)))
+                .toList();
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
                 .thenRun(() -> futures.forEach(future ->
-                        System.out.println("Collected: " + future.join()))).join();
+                        System.out.println("Collected: " + future.join())))
+                .join();
     }
 }
