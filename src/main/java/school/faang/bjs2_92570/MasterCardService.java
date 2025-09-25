@@ -1,10 +1,14 @@
 package school.faang.bjs2_92570;
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.function.Supplier;
 
+@Slf4j
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
@@ -31,8 +35,16 @@ public class MasterCardService {
         }
     }
 
-    static int doAll(Supplier<Integer> collectPayment, Supplier<Integer> sendAnalytics) {
+    static void doAll() throws ExecutionException, InterruptedException {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<Integer> payFuture = executor.submit(MasterCardService::collectPayment) ;
+        Future<Integer> payFuture = executor.submit(MasterCardService::collectPayment);
+
+        CompletableFuture<Integer> analyticsFuture =
+                CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+
+        log.info("Analytics is send: {}", analyticsFuture.join());
+        log.info("Pay is done: {}", payFuture.get());
+
+        executor.shutdown();
     }
 }
