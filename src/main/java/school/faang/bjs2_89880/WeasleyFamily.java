@@ -24,6 +24,8 @@ public class WeasleyFamily {
             }
             System.out.println("Все дела выполнены.");
         } catch (InterruptedException e) {
+            System.out.println("Выполнение задач прервано..");
+            executor.shutdownNow();
             throw new RuntimeException(e);
         }
     }
