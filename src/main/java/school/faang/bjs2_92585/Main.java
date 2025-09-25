@@ -19,6 +19,7 @@ public class Main {
     private static final int QUEST_TWO_DIFFICULTY = 8;
     private static final int QUEST_ONE_REWARD = 150;
     private static final int QUEST_TWO_REWARD = 100;
+    private static final int AWAIT_TERMINATION_MIN = 1;
     private static final ExecutorService executor = Executors.newFixedThreadPool(COUNT_THREADS);
 
     public static void main(String[] args) {
@@ -48,7 +49,7 @@ public class Main {
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(AWAIT_TERMINATION_MIN, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
