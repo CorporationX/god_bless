@@ -5,17 +5,17 @@ import java.util.stream.IntStream;
 
 public class MailSender {
 
-    public static final Integer THREAD_COUNT = 5;
+    public static final Integer THREAD_COUNT = 3;
+    public static final Integer MESSAGE_COUNT = 10;
 
     public static void main(String[] args) {
 
-        int allMessagesCount = 1000;
-        int actualThreadCount = Math.min(THREAD_COUNT, allMessagesCount);
-        int messageBatch = Math.max(1, (int) Math.round((double) allMessagesCount / actualThreadCount));
+        int actualThreadCount = Math.min(THREAD_COUNT, MESSAGE_COUNT);
+        int batchSize = Math.max(1, (int) Math.ceil((double) MESSAGE_COUNT / actualThreadCount));
         List<Thread> threads = IntStream.range(0, actualThreadCount)
                 .mapToObj(batchIndex -> {
-                    int start = batchIndex * messageBatch;
-                    int end = Math.min(start + messageBatch, allMessagesCount);
+                    int start = batchIndex * batchSize;
+                    int end = Math.min(start + batchSize, MESSAGE_COUNT);
                     Thread thread = new Thread(new SenderRunnable(start, end));
                     thread.start();
                     return thread;
