@@ -10,12 +10,13 @@ public class MailSender {
     public static void main(String[] args) {
 
         double allMessagesCount = 1000;
-        int messageBatch = (int) Math.ceil(allMessagesCount / THREAD_COUNT);
-
+        int messageBatch = Math.max(1, (int) Math.round(allMessagesCount / THREAD_COUNT));
         List<Thread> threads = IntStream.range(0, THREAD_COUNT)
+                .filter(currentThreadNumber -> currentThreadNumber * messageBatch < allMessagesCount)
                 .mapToObj(currentThreadNumber -> {
                     int start = currentThreadNumber * messageBatch;
                     int end = (int) Math.min(start + messageBatch, allMessagesCount);
+                    System.out.println(start + " " + end);
                     Thread thread = new Thread(new SenderRunnable(start, end));
                     thread.start();
                     return thread;
@@ -23,8 +24,8 @@ public class MailSender {
                 .toList();
 
         try {
-            for (int i = 0; i < THREAD_COUNT; i++) {
-                threads.get(i).join();
+            for (Thread thread : threads) {
+                thread.join();
             }
             System.out.println("Все письма разосланы!");
         } catch (InterruptedException e) {
