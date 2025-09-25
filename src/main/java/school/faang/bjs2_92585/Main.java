@@ -24,8 +24,8 @@ public class Main {
     public static void main(String[] args) {
         QuestSystem questSystem = new QuestSystem();
 
-        Player player1 = new Player("Thrall", PLAYER_ONE_LEVEL, new AtomicInteger(PLAYER_ONE_EXPERIENCE));
-        Player player2 = new Player("Sylvanas", PLAYER_TWO_LEVEL, new AtomicInteger(PLAYER_TWO_EXPERIENCE));
+        Player player1 = new Player("Thrall", PLAYER_ONE_LEVEL, PLAYER_ONE_EXPERIENCE);
+        Player player2 = new Player("Sylvanas", PLAYER_TWO_LEVEL, PLAYER_TWO_EXPERIENCE);
 
         Quest quest1 = new Quest("Defeat the Lich King", QUEST_ONE_DIFFICULTY, QUEST_ONE_REWARD);
         Quest quest2 = new Quest("Retrieve the Sword of Azeroth", QUEST_TWO_DIFFICULTY, QUEST_TWO_REWARD);
