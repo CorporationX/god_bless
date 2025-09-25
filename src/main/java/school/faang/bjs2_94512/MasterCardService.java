@@ -34,7 +34,8 @@ public class MasterCardService {
         try {
             Future<Integer> paymentFuture = executor.submit(() -> MasterCardService.collectPayment());
 
-            CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(() -> MasterCardService.sendAnalytics());
+            CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(()
+                    -> MasterCardService.sendAnalytics());
 
             int analyticsResult = analyticsFuture.get();
             System.out.println("Аналитика отправлена: " + analyticsResult);
