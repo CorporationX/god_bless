@@ -23,6 +23,17 @@ public class UserList {
         }
     }
 
+    public User getAvailableUser(User excludingUser) {
+        for (User user : users) {
+            if (!user.equals(excludingUser)
+                    && user.isOnline()
+                    && user.isLookingForChat()) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     public List<User> getOnlineUsers() {
         List<User> onlineUsers = new ArrayList<>();
         for (User user : users) {

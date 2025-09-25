@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    private static final long BOB_DELAY_MS = 1000L;
+    private static final long CHAT_DURATION_MS = 1000L;
     private static final long TIMEOUT_SECONDS = 5L;
 
     public static void main(String[] args) throws InterruptedException {
@@ -16,36 +16,52 @@ public class Main {
 
         UserList userList = new UserList();
         final ChatManager chatManager = new ChatManager(userList);
-        final ExecutorService executor = Executors.newFixedThreadPool(2);
 
-        User alice = new User("Alice");
-        User bob = new User("Bob");
-        userList.addUser(alice);
-        userList.addUser(bob);
+        final User user1 = new User("Alice", true, false);
+        final User user2 = new User("Bob", true, false);
+        final User user3 = new User("Charlie", true, false);
+        final User user4 = new User("Diana", true, false);
 
-        log.info("Созданы пользователи: {} и {}", alice.getName(), bob.getName());
+        log.info("Созданы пользователи:  Alice, Bob, Charlie, Diana");
 
-        executor.submit(() -> {
-            alice.setLookingForChat(true);
-            Chat chat = chatManager.waitForChat(alice);
-            log.info("{}: {}", alice.getName(), (chat != null ? "Нашла чат!" : "Не нашла"));
-        });
+        userList.addUser(user1);
+        userList.addUser(user2);
+        userList.addUser(user3);
+        userList.addUser(user4);
 
-        executor.submit(() -> {
+        ExecutorService executor = Executors.newFixedThreadPool(4);
+
+        executor.execute(() -> handleChat(chatManager, user1));
+        executor.execute(() -> handleChat(chatManager, user2));
+        executor.execute(() -> handleChat(chatManager, user3));
+        executor.execute(() -> handleChat(chatManager, user4));
+
+        executor.shutdown();
+
+        if (!executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+            log.warn("Не все чаты завершились за отведенное время");
+            executor.shutdownNow();
+        }
+
+        log.info("Приложение завершило работу");
+    }
+
+    private static void handleChat(ChatManager chatManager, User user) {
+        Chat chat = chatManager.startChat(user);
+        if (chat != null) {
+            log.info("{} начал чат с {}", user.getName(), getPartnerName(chat, user));
             try {
-                Thread.sleep(BOB_DELAY_MS);
-                bob.setLookingForChat(true);
-                chatManager.startChat(alice, bob);
-                log.info("Чат создан: {} ↔ {}", alice.getName(), bob.getName());
+                Thread.sleep(CHAT_DURATION_MS);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-        });
-
-        executor.shutdown();
-        if (!executor.awaitTermination(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
-            executor.shutdownNow();
+            chatManager.endChat(user);
         }
-        log.info("Завершено");
+    }
+
+    private static String getPartnerName(Chat chat, User currentUser) {
+        return chat.user1().equals(currentUser)
+                ? chat.user2().getName()
+                : chat.user1().getName();
     }
 }

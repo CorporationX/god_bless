@@ -16,18 +16,34 @@ public class ChatManager {
         this.userList = userList;
     }
 
-    public synchronized Chat startChat(User u1, User u2) {
-        if (!u1.isOnline() || !u2.isOnline()) {
-            throw new IllegalStateException("Оба пользователя должны быть онлайн");
+    public synchronized Chat startChat(User user) {
+        if (user == null) return null;
+        if (!user.isOnline()) {
+            log.warn("Пользователь {} офлайн и не может искать чат", user.getName());
+            return null;
         }
-        Chat chat = new Chat(u1, u2);
+
+        log.info("{} ищет собеседника...", user.getName());
+        user.setLookingForChat(true);
+
+        User availableUser;
+        while ((availableUser = userList.getAvailableUser(user)) == null) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return null;
+            }
+        }
+
+        Chat chat = new Chat(user, availableUser);
         long id = chatIdGenerator.getAndIncrement();
         activeChats.put(id, chat);
 
-        u1.joinChat();
-        u2.joinChat();
+        user.joinChat();
+        availableUser.joinChat();
 
-        log.info("Чат #{} создан: {} ↔ {}", id, u1.getName(), u2.getName());
+        log.info("Чат #{} создан: {} ↔ {}", id, user.getName(), availableUser.getName());
         notifyAll();
         return chat;
     }
