@@ -17,7 +17,9 @@ public class ChatManager {
     }
 
     public synchronized Chat startChat(User user) {
-        if (user == null) return null;
+        if (user == null) {
+            return null;
+        }
         if (!user.isOnline()) {
             log.warn("Пользователь {} офлайн и не может искать чат", user.getName());
             return null;
