@@ -7,11 +7,11 @@ import java.util.List;
 @AllArgsConstructor
 public class Squad {
     private final String squadName;
-    private final List<? extends Army> squad;
+    private final List<Unit> squad;
 
     public int calculateSquadPower() {
         return squad.stream()
-                .map(Army::getPower)
+                .map(Unit::getPower)
                 .mapToInt(Integer::intValue)
                 .sum();
     }

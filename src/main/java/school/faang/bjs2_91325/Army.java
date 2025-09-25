@@ -4,41 +4,29 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public class Army {
-    private int power;
     private final List<Squad> fullArmy = new ArrayList<>();
 
-    public Army(int power) {
-        this.power = power;
-    }
-
-    public Army() {
-    }
-
     public int calculateTotalPower() {
-        int[] sumArray = new int[fullArmy.size()];
-        Thread[] threads = new Thread[fullArmy.size()];
+        List<Thread> threads = new ArrayList<>();
 
-        for (int i = 0; i < sumArray.length; i++) {
-            final int index = i;
-            threads[i] = new Thread(() -> sumArray[index] = fullArmy.get(index).calculateSquadPower());
-            threads[i].start();
+        AtomicInteger result = new AtomicInteger(0);
+        for (Squad squad : fullArmy) {
+            Thread thread = new Thread(() -> result.addAndGet(squad.calculateSquadPower()));
+            thread.start();
+            threads.add(thread);
         }
 
-        try {
-            for (Thread thread : threads) {
+        for (Thread thread : threads) {
+            try {
                 thread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
         }
-
-        int sum = 0;
-        for (int array : sumArray) {
-            sum += array;
-        }
-        return sum;
+        return result.get();
     }
 }
