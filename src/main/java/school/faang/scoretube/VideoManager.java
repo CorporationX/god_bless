@@ -12,7 +12,7 @@ public class VideoManager {
         viewsMap.merge(videoId, 1, Integer::sum);
     }
 
-    public synchronized int getVideoCount(String videoId) {
+    public int getVideoCount(String videoId) {
         return viewsMap.getOrDefault(videoId, 0);
     }
 
