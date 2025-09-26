@@ -1,9 +1,12 @@
 package school.faang.bjs2_92460;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Main {
     public static void main(String[] args) {
+        AtomicBoolean flag = new AtomicBoolean(true);
+
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
         String photo = "foler1/1.png";
         String photo2 = "foler1/2.png";
@@ -11,27 +14,31 @@ public class Main {
         List<String> photosToUpload = List.of(photo, photo2, photo3);
 
         Thread autoUpload = new Thread(() -> {
-            while (true) {
+            while (flag.get()) {
                 uploader.startAutoUpload();
+                try {
+                    Thread.sleep(5_000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
             }
         });
-        autoUpload.setDaemon(true);
 
-        Thread addNewPhotos = new Thread(() -> {
-            for (String photoPath : photosToUpload) {
-                uploader.onNewPhotoAdded(photoPath);
-            }
-        });
+        Thread addNewPhotos = new Thread(() -> photosToUpload.forEach(uploader::onNewPhotoAdded));
         autoUpload.start();
         addNewPhotos.start();
 
         try {
             addNewPhotos.join();
             System.out.println("Ждем завершения загрузки на сервер");
-            Thread.sleep(6000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+
+        flag.set(false);
+        autoUpload.interrupt();
+        System.out.println("Выключаем автозагрузку");
         System.out.println("Программа завершена");
     }
 }
