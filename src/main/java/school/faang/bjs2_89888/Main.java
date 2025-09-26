@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 public class Main {
     public static final int THREAD_COUNT = 4;
@@ -24,13 +25,14 @@ public class Main {
 
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
 
-        for (int i = 0; i < THREAD_COUNT; i++) {
-            int startIndex = i * PERSON_SUBGROUP_COUNT;
-            int endIndex = (i == THREAD_COUNT - 1) ? people.size() : (i + 1) * PERSON_SUBGROUP_COUNT;
-
-            List<Person> subList = people.subList(startIndex, endIndex);
-            executor.submit(new PersonInfoPrinter(subList));
-        }
+        IntStream.range(0, THREAD_COUNT)
+                .mapToObj(i -> people.stream()
+                        .skip((long) i * PERSON_SUBGROUP_COUNT)
+                        .limit((i == (THREAD_COUNT - 1)) ? (people.size() - ((long) i * PERSON_SUBGROUP_COUNT)) :
+                                PERSON_SUBGROUP_COUNT)
+                        .toList())
+                .map(PersonInfoPrinter::new)
+                .forEach(executor::submit);
 
         executor.shutdown();
 
