@@ -11,17 +11,13 @@ public class Game {
     private final Object lockLives = new Object();
 
     public void update(Player player) {
-        int action = new Random().nextInt(100);
+        if (running) {
+            int action = new Random().nextInt(100);
 
-        if (action < 70) {
-            addScore(player, 1);
-        } else {
-            loseLife(player, 1);
-        }
-
-        synchronized (lockLives) {
-            if (totalLives <= 0) {
-                gameOver();
+            if (action < 70) {
+                addScore(player, 1);
+            } else {
+                loseLife(player, 1);
             }
         }
     }
@@ -32,6 +28,9 @@ public class Game {
             player.addScore(amount);
             System.out.println(player.getName() + " earned " + amount +
                     " point. Total=" + totalScore);
+            if (totalLives <= 0) {
+                gameOver();
+            }
         }
     }
 
