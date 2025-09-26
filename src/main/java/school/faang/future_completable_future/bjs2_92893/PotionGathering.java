@@ -55,16 +55,16 @@ public class PotionGathering {
         CompletableFuture
                 .allOf(inProgressTasks)
                 .thenRun(() -> {
-                    shutdownAndAwaitTermination(EXECUTOR_SERVICE);
                     int totalAmountOfIngredients = tasks.stream()
                             .map(completableFuture -> {
                                 Optional<Integer> res = runWithThreadErrorHandling(() -> completableFuture.get());
                                 return res.orElse(0);
                             })
                             .reduce(Integer::sum)
-                            .get();
+                            .orElse(0);
                     log.info("Oбщее количество собранных ингредиентов: {}", totalAmountOfIngredients);
-                });
+                }).join();
+        shutdownAndAwaitTermination(EXECUTOR_SERVICE);
     }
 
     private static CompletableFuture<Integer> gatherIngredients(Potion potion) {
