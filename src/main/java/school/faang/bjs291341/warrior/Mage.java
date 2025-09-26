@@ -3,11 +3,11 @@ package school.faang.bjs291341.warrior;
 import lombok.Getter;
 
 @Getter
-public class Mage {
-    private Integer power;
+public class Mage extends Unit {
+
     private static final String description = "Маги";
 
-    public Mage(int i) {
-        this.power = i;
+    public Mage(Integer power) {
+        super(power);
     }
 }
