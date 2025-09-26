@@ -32,6 +32,7 @@ public class Tournament {
                         taskFutures.toArray(new CompletableFuture[0]))
                 .thenApply(v -> school);
         executor.shutdown();
+
         return future;
     }
 
