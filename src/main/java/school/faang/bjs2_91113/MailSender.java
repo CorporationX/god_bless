@@ -12,8 +12,11 @@ public class MailSender {
         final int MAILS_PER_THREAD = TOTAL_MAILS / NUMBER_OF_THREADS;
 
         ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
-            executor.submit(new SenderRunnable(i * MAILS_PER_THREAD,  (i + 1) * MAILS_PER_THREAD));
+            int startIndex = i * MAILS_PER_THREAD;
+            int endIndex = (i + 1) * MAILS_PER_THREAD;
+            executor.submit(new SenderRunnable(startIndex,  endIndex));
         }
         executor.shutdown();
 
@@ -22,5 +25,7 @@ public class MailSender {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+
+        System.out.println("Всего: " + SenderRunnable.counter); // Всего: 1000
     }
 }
