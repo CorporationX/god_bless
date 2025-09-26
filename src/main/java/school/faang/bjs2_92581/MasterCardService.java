@@ -9,25 +9,27 @@ import java.util.concurrent.Future;
 public class MasterCardService {
     private static final int TEN_SECONDS_IN_MS = 10_000;
     private static final int ONE_SECOND_IN_MS = 1_000;
+    private static final int FIXED_PAYMENT_INFO = 5_000;
+    private static final int FIXED_ANALYTICS_INFO = 17_000;
     private static final ExecutorService executor = Executors.newFixedThreadPool(2);
 
     private static int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
-            return 5_000;
+            return FIXED_PAYMENT_INFO;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new RuntimeException("Ошибка при обработке платежа, операция прервана", e);
         }
     }
 
     private static int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
-            return 17_000;
+            return FIXED_ANALYTICS_INFO;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
+            throw new RuntimeException("Ошибка при отправке аналических данных, операция прервана", e);
         }
     }
 
