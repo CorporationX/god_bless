@@ -1,7 +1,9 @@
 package school.faang.bjs2_92608;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 @Getter
 public enum Difficult {
     EASY(1),
@@ -10,8 +12,4 @@ public enum Difficult {
     PAIN(15);
 
     private final int difficultScore;
-
-    Difficult(int difficultScore) {
-        this.difficultScore = difficultScore;
-    }
 }
