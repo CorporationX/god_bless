@@ -20,26 +20,20 @@ public class OrderProcessor {
     private ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
     private Random randomTime = new Random();
 
-    public CompletableFuture<Order> processOrder(Order order) {
+    public CompletableFuture<Order> processOrder(Order order, OrderStatus newOrderStatus) {
         return CompletableFuture.supplyAsync(() -> {
             synchronized (order) {
                 log.info("Изменение статуса заказа #{}", order.getId());
                 try {
                     Thread.sleep(randomTime.nextInt(LOWER_BOUND, UPPER_BOUND));
+                    OrderStatus oldOrderStatus = order.getStatus();
+                    order.setStatus(newOrderStatus);
+                    log.info("Заказ #{} изменил статус: {} -> {}",
+                            order.getId(), oldOrderStatus, order.getStatus());
                 } catch (InterruptedException e) {
                     log.error(e.getMessage());
                 }
-                OrderStatus[] orderStatuses = OrderStatus.values();
-
-                int oldOrderStatus = order.getStatus().ordinal();
-                if (!order.getStatus().equals(OrderStatus.DONE)) {
-                    order.setStatus(orderStatuses[oldOrderStatus + 1]);
-                    log.info("Заказ #{} изменил статус: {} -> {}",
-                            order.getId(), orderStatuses[oldOrderStatus], order.getStatus());
-                } else {
-                    log.info("Заказ #{} имеет статус {}", order.getId(), order.getStatus());
-                }
-                if (order.getStatus().equals(OrderStatus.CONFIRMED)) {
+                if (order.getStatus() == OrderStatus.CONFIRMED) {
                     totalProcessedOrders.addAndGet(1);
                 }
             }
@@ -47,7 +41,7 @@ public class OrderProcessor {
         }, executorService);
     }
 
-    public void getTotalProcessedOrders() {
+    public void printTotalProcessedOrders() {
         log.info("Обработано {} заказ(-а,-ов)", totalProcessedOrders);
     }
 

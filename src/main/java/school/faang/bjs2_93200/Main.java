@@ -16,17 +16,15 @@ public class Main {
         );
 
         List<CompletableFuture<Order>> allProcessedOrders = orders.stream()
-                .map(orderProcessor::processOrder)
+                .map(order -> orderProcessor.processOrder(order, OrderStatus.CONFIRMED))
                 .toList();
         CompletableFuture.allOf(allProcessedOrders.toArray(new CompletableFuture[0]))
-                .thenRun(orderProcessor::getTotalProcessedOrders);
+                .thenRun(orderProcessor::printTotalProcessedOrders);
 
         Thread.sleep(2000);
-        orderProcessor.processOrder(orders.get(3));
-        Thread.sleep(2000);
-        orderProcessor.processOrder(orders.get(3));
-        Thread.sleep(10000);
-        orderProcessor.getTotalProcessedOrders();
+        orderProcessor.processOrder(orders.get(3), OrderStatus.DONE);
+        Thread.sleep(7000);
+        orderProcessor.printTotalProcessedOrders();
         orderProcessor.shutdownCorrectly();
     }
 }
