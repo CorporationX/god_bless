@@ -2,14 +2,14 @@ package bjs2_90376;
 
 public class Main {
 
+    private static final int MAX_PLAYERS = 2;
+    private static final int ONLINE_PLAYERS = 6;
+
     public static void main(String[] args) {
 
-        int maxPlayers = 2;
-        int onlinePlayers = 6;
+        Boss boss = new Boss(MAX_PLAYERS);
 
-        Boss boss = new Boss(maxPlayers);
-
-        for (int i = 1; i <= onlinePlayers; i++) {
+        for (int i = 1; i <= ONLINE_PLAYERS; i++) {
             int playerIndex = i;
             new Thread(() -> new Player("Игрок " + playerIndex).doBattle(boss)).start();
         }
