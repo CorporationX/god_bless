@@ -17,6 +17,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Droid {
+
+    private static final int ALPHABET_SIZE = 26;
+    private static final char LOWERCASE_A = 'a';
+    private static final char UPPERCASE_A = 'A';
+
     private String name;
     private DroidMessageEncryptor encryptor;
 
@@ -27,8 +32,8 @@ public class Droid {
             StringBuilder result = new StringBuilder();
             for (char message : messages.toCharArray()) {
                 if (Character.isLetter(message)) {
-                    char base = Character.isLowerCase(message) ? 'a' : 'A';
-                    result.append((char) (base + (message - base + key + 26) % 26));
+                    char base = Character.isLowerCase(message) ? LOWERCASE_A : UPPERCASE_A;
+                    result.append((char) (base + (message - base + key + ALPHABET_SIZE) % ALPHABET_SIZE));
                 } else {
                     result.append(message);
                 }
@@ -50,13 +55,18 @@ public class Droid {
     //Отправка сообщения
     public void sendMessage(Droid recipient, @NonNull String message, int key) {
         String encryptedMessage = encryptMessage(message, key);
-        System.out.printf("%s отправил зашифрованное сообщение: %s\n", name, encryptedMessage);
+        logMessage("отправил зашифрованное сообщение", encryptedMessage);
         recipient.receiveMessage(encryptedMessage, key);
     }
 
     //Получение сообщения
     public void receiveMessage(@NonNull String encryptedMessage, int key) {
         String decryptedMessage = decryptMessage(encryptedMessage, key);
-        System.out.printf("%s получил расшифрованное сообщение: %s\n", name, decryptedMessage);
+        logMessage("получил расшифрованное сообщение", decryptedMessage);
+    }
+
+    //Вспомогательный метод
+    private void logMessage(String action, String message) {
+        System.out.println(name + " " + action + ": " + message);
     }
 }
