@@ -16,12 +16,11 @@ public class Main {
         Thread autoUpload = new Thread(() -> {
             while (flag.get()) {
                 uploader.startAutoUpload();
-                try {
-                    Thread.sleep(5_000);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    break;
-                }
+            }
+            try {
+                Thread.sleep(5_000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
         });
 

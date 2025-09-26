@@ -10,9 +10,9 @@ public class GooglePhotosAutoUploader {
         try {
             while (photosToUpload.isEmpty()) {
                 wait();
-                uploadPhotos();
-                Thread.sleep(10_000);
             }
+            Thread.sleep(10_000);
+            uploadPhotos();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
