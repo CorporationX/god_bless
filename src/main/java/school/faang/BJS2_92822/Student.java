@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+
 @Getter
 @Setter
 @ToString
@@ -12,6 +15,6 @@ import lombok.ToString;
 public class Student {
     private final String name;
     private final int years;
-    private boolean isBusy;
+    private AtomicBoolean isBusy;
     private int points;
 }

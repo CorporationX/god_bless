@@ -3,15 +3,16 @@ package school.faang.BJS2_92822;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Main {
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
-
-        List<Student> hogwartsTeam = List.of(new Student("Harry", 5, false, 0),
-                new Student("Hermione", 5, false, 0));
-        List<Student> beauxbatonsTeam = List.of(new Student("Fleur", 6, false, 0),
-                new Student("Gabrielle", 6, false, 0));
+        AtomicBoolean busy = new AtomicBoolean(false);
+        List<Student> hogwartsTeam = List.of(new Student("Harry", 5, busy, 0),
+                new Student("Hermione", 5, busy, 0));
+        List<Student> beauxbatonsTeam = List.of(new Student("Fleur", 6, busy, 0),
+                new Student("Gabrielle", 6, busy, 0));
         School hogwarts = new School("Hogwarts", hogwartsTeam,
                 Executors.newFixedThreadPool(hogwartsTeam.size()));
         School beauxbatons = new School("Beauxbatons", beauxbatonsTeam,

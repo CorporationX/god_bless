@@ -3,9 +3,12 @@ package school.faang.BJS2_92822;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -16,11 +19,14 @@ public class Tournament {
         ExecutorService executor = school.getExecutor();
         List<CompletableFuture<Void>> taskFutures = tasks.stream()
                 .map(task ->
-                        CompletableFuture.runAsync(() -> {
-                            Student student = distributeAmongTasks(school.getTeam());
-                            performTask(student, task);
+                        CompletableFuture.runAsync(new Runnable() {
+                            @Override
+                            public void run() {
+                                Student student = distributeAmongTasks(school.getTeam(), school);
+                                performTask(student, task);
+                            }
                         }, executor))
-                .collect(Collectors.toList());
+                .toList();
 
         CompletableFuture<School> future = CompletableFuture.allOf(
                         taskFutures.toArray(new CompletableFuture[0]))
@@ -29,18 +35,16 @@ public class Tournament {
         return future;
     }
 
-    private synchronized Student distributeAmongTasks(List<Student> students) {
-        Optional<Student> student = students.stream()
-                .filter(st -> !st.isBusy())
-                .reduce((st2, st1) -> st1);
-
-        if (student.isPresent()) {
-            student.get().setBusy(true);
-        } else {
-            throw new NullPointerException();
+    private Student distributeAmongTasks(List<Student> students, School school) {
+        synchronized (school) {
+            Student student = students.stream()
+                    .filter(st -> Objects.equals(st.getIsBusy().get(), false))
+                    .findFirst()
+                    .orElseThrow();
+            AtomicBoolean isBusy = new AtomicBoolean(true);
+            student.setIsBusy(isBusy);
+            return student;
         }
-
-        return student.get();
     }
 
     private void performTask(Student student, Task task) {
@@ -50,7 +54,9 @@ public class Tournament {
         student.setPoints((student.getPoints() + point));
         log.info("Cтудент {} школы имеет очков - {}",
                 student.getName(), student.getPoints());
-        student.setBusy(false);
+
+        AtomicBoolean isBusy = new AtomicBoolean(false);
+        student.setIsBusy(isBusy);
     }
 
     private void sleepThread(int time) {
