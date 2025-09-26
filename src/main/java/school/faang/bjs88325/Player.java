@@ -2,11 +2,7 @@ package school.faang.bjs88325;
 
 public class Player {
     private final Object lock = new Object();
-    private Boolean isPlaying;
-
-    public Player() {
-        this.isPlaying = false;
-    }
+    private boolean isPlaying = false;
 
     public void play() {
         synchronized (lock) {
