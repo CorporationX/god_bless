@@ -12,7 +12,7 @@ public class LibrarySystem {
     }
 
     public void removeBook(String title, String author, int year) {
-        Book removeBook = null;
+        /*Book removeBook = null;
         for (Map.Entry<Book, String> item : books.entrySet()) {
             Book book = item.getKey();
             if (title.equals(book.title)
@@ -23,11 +23,15 @@ public class LibrarySystem {
         }
         if (removeBook != null) {
             books.remove(removeBook);
-        }
+        }*/
+        // Понял как работает hashMap и исправил
+
+        Book book = new Book(title, author, year);
+        books.remove(book);
     }
 
     public void findBook(String title, String author, int year) {
-        boolean found = false;
+        /*boolean found = false;
         for (Map.Entry<Book, String> book : books.entrySet()) {
             if (title.equals(book.getKey().title)
                     && author.equals(book.getKey().author)
@@ -38,7 +42,9 @@ public class LibrarySystem {
         }
         if (!found) {
             System.out.println("not book");
-        }
+        }*/
+        Book book = new Book(title, author, year);
+        books.getOrDefault(book, "not book");
     }
 
     public void printAllBooks() {
