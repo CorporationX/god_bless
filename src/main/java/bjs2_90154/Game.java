@@ -17,11 +17,12 @@ public class Game {
 
         if (isLifeLost) {
             synchronized (livesLock) {
-                lives--;
-                System.out.println("Жизни уменьшены, оставшиеся жизни: " + lives);
                 if (lives <= 0) {
                     gameOver();
+                    return;
                 }
+                lives--;
+                System.out.println("Жизни уменьшены, оставшиеся жизни: " + lives);
             }
         }
     }
