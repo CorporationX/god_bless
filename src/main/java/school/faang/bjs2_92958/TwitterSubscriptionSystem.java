@@ -6,12 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 public class TwitterSubscriptionSystem {
 
     public void followAccount(TwitterAccount account) {
-        addFollower(account);
+        account.getFollowers().incrementAndGet();
         log.info("Добавил подписчика к аккаунту {}. Итого подписчиков - {}",
                 account.getUsername(), account.getFollowers());
-    }
-
-    private synchronized void addFollower(TwitterAccount account) {
-        account.getFollowers().incrementAndGet();
     }
 }

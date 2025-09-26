@@ -16,7 +16,6 @@ import java.util.stream.IntStream;
 public class Main {
     private static final int SIZE_POOL_THREAD = 10;
     private static final int RANDOM_SUBSTRING = 1000;
-    private static List<CompletableFuture<Void>> futures = new ArrayList<>();
     private static TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
 
     public static void main(String[] args) {
@@ -26,20 +25,16 @@ public class Main {
 
         int r = new Random().nextInt(RANDOM_SUBSTRING);
         log.info("Доступная накрутка подписчиков на аккаунт {} - {}", twitterAccount.getUsername(), r);
-
+        List<CompletableFuture<Void>> futures;
         futures = IntStream.rangeClosed(1, r)
-                .mapToObj(i -> {
-                    CompletableFuture<Void> future = CompletableFuture.runAsync(
+                .mapToObj(i ->  CompletableFuture.runAsync(
                             () -> system.followAccount(twitterAccount),
-                            executorService);
-                    return future;
-                })
+                            executorService))
                 .collect(Collectors.toList());
 
         executorService.shutdown();
         CompletableFuture<Void> allFollowFutures = CompletableFuture.allOf(
                 futures.toArray(new CompletableFuture[0]));
-
         allFollowFutures.thenRun(() -> log.info("Результат - {}", twitterAccount));
     }
 }
