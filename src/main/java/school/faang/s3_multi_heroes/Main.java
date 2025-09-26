@@ -2,7 +2,6 @@ package school.faang.s3_multi_heroes;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Army army = new Army();
         Squad archers = new Squad();
         archers.addUnit(new Archer(25));
         archers.addUnit(new Archer(25));
@@ -15,6 +14,7 @@ public class Main {
         mages.addUnit(new Mage(50));
         mages.addUnit(new Mage(50));
 
+        Army army = new Army();
         army.addSquad(archers);
         army.addSquad(swordsmen);
         army.addSquad(mages);
