@@ -1,7 +1,10 @@
 package school.faang.wow;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         Player player1 = new Player("Арья", 1, 0);
@@ -16,11 +19,11 @@ public class Main {
         CompletableFuture<Player> future2 = questSystem.startQuest(player2, quest2);
 
         future1.thenAccept(player ->
-                System.out.println(player.getName() + " завершил квест. Опыт: " + player.getExperience())
+                log.info("{} завершил квест. Опыт: {}", player.getName(), player.getExperience())
         );
 
         future2.thenAccept(player ->
-                System.out.println(player.getName() + " завершил квест. Опыт: " + player.getExperience())
+                log.info("{} завершил квест. Опыт: {}", player.getName(), player.getExperience())
         );
 
         CompletableFuture.allOf(future1, future2).join();

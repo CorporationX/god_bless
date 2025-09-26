@@ -12,7 +12,7 @@ public class QuestSystem {
                 throw new RuntimeException(e);
             }
 
-            player.setExperience(player.getExperience() + quest.getReward());
+            player.addExperience(quest.getReward());
             return player;
 
         });
