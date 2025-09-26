@@ -8,15 +8,16 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CancellationException;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.IntStream;
 
 import static java.util.concurrent.ThreadLocalRandom.current;
 
-@SuppressWarnings("checkstyle:CommentsIndentation")
 @Slf4j
 public class Utils {
 
@@ -116,10 +117,30 @@ public class Utils {
     }
 
     public static void shutdownAndAwaitTermination(ExecutorService executor) {
-        shutdownAndAwaitTermination(executor, 30, TimeUnit.SECONDS);
+        shutdownAndAwaitTermination(executor, 4, TimeUnit.SECONDS);
     }
 
     public static <T> T pickRandom(@NonNull List<T> list) {
         return list.get(current().nextInt(list.size()));
+    }
+
+    public static int random(int number) {
+        return current().nextInt(1, number);
+    }
+
+    public static <T> List<List<T>> chunk(List<T> list, int size) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("size должен быть > 0");
+        }
+        int parts = (list.size() + size - 1) / size;
+        return IntStream.range(0, parts)
+                .mapToObj(i -> list.subList(i * size, Math.min((i + 1) * size, list.size())))
+                .toList();
+    }
+
+    public static <T> List<Optional<T>> waitForAllAsyncTasksAndGet(List<CompletableFuture<T>> futures) {
+        CompletableFuture<?>[] futuresArray = futures.toArray(new CompletableFuture[0]);
+        CompletableFuture.allOf(futuresArray).join();
+        return futures.stream().map(future -> runWithThreadErrorHandling(() -> future.get())).toList();
     }
 }
