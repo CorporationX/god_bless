@@ -31,6 +31,7 @@ public class Inventory {
             log.info("Коментатор - {}: В инвентаре объеденились два предмета и образовали {}, силой {}",
                     Thread.currentThread().getName(), newitem.getName(), newitem.getPower());
             return newitem;
-        }, executor).thenComposeAsync(this::addItem, executor);
+        }, executor)
+                .thenComposeAsync(this::addItem, executor);
     }
 }

@@ -12,28 +12,12 @@ import java.util.concurrent.ExecutorService;
 @Slf4j
 public class InventoryManager {
     private static final Random random = new Random();
-    private static final List<CompletableFuture<Item>> listFuture = new ArrayList<>();
     private int endSeeds;
 
     public void start(ExecutorService executor) {
-        CompletableFuture<Item> futureItemChest = CompletableFuture.supplyAsync(() -> {
-            Chest chest = new Chest();
-            endSeeds = chest.getChest().size();
-            Item getItem = chest.getChestItem(random.nextInt(endSeeds));
-            log.info("Коментатор - {}: Игрок достал предмет из инвентаря - {} - название предмета, {} - сила предмета",
-                    Thread.currentThread().getName(), getItem.getName(), getItem.getPower());
-            return getItem;
-        }, executor);
-        Magazine magazine = new Magazine();
-        CompletableFuture<Item> futureItemMagazine = CompletableFuture.supplyAsync(() -> {
-            Item getItem = magazine.getMagazineItem(random.nextInt(endSeeds));
-            log.info("Коментатор - {}: Игрок купил предмет в магазине - {} - название, {} - сила",
-                    Thread.currentThread().getName(), getItem.getName(), getItem.getPower());
-            return getItem;
-        }, executor);
-        listFuture.add(futureItemMagazine);
-        listFuture.add(futureItemChest);
-        listFuture.stream().forEach(CompletableFuture::join);
+        CompletableFuture<Item> futureItemChest = getFutureItemChest(executor);
+        CompletableFuture<Item> futureItemMagazine = getFutureItemMagazine(executor);
+        CompletableFuture.allOf(futureItemChest, futureItemMagazine);
         Inventory inventory = new Inventory();
         try {
             inventory.combineItems(futureItemChest, futureItemMagazine, executor).get();
@@ -43,4 +27,26 @@ public class InventoryManager {
             log.error("{} - Ошибка в получении результата при комбинировании предметов", e.getCause().getMessage());
         }
     }
+
+    private CompletableFuture<Item> getFutureItemChest(ExecutorService executor) {
+        return CompletableFuture.supplyAsync(() -> {
+            Chest chest = new Chest();
+            endSeeds = chest.getChest().size();
+            Item getItem = chest.getChestItem(random.nextInt(endSeeds));
+            log.info("Коментатор - {}: Игрок достал предмет из инвентаря - {} - название предмета, {} - сила предмета",
+                    Thread.currentThread().getName(), getItem.getName(), getItem.getPower());
+            return getItem;
+        }, executor);
+    }
+
+    private CompletableFuture<Item> getFutureItemMagazine(ExecutorService executor) {
+        Magazine magazine = new Magazine();
+        return CompletableFuture.supplyAsync(() -> {
+            Item getItem = magazine.getMagazineItem(random.nextInt(endSeeds));
+            log.info("Коментатор - {}: Игрок купил предмет в магазине - {} - название, {} - сила",
+                    Thread.currentThread().getName(), getItem.getName(), getItem.getPower());
+            return getItem;
+        }, executor);
+    }
+
 }
