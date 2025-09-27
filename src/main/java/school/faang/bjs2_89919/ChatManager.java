@@ -17,12 +17,25 @@ public class ChatManager {
         this.userList = userList;
     }
 
-    private void createChat(User user, User otherUser) {
-        Chat chat = new Chat(user, otherUser);
-        activeChats.add(chat);
-        user.setChat(chat);
-        otherUser.setChat(chat);
-        log.info("{} начал чат с {}", user.getName(), otherUser.getName());
+    public void addUser(User user) {
+        synchronized (monitor) {
+            userList.addUser(user);
+            monitor.notifyAll();
+        }
+    }
+
+    public void removeUser(User user) {
+        synchronized (monitor) {
+            userList.removeUser(user);
+            monitor.notifyAll();
+        }
+    }
+
+    public void addToSearching(User user) {
+        synchronized (monitor) {
+            userList.addToSearching(user);
+            monitor.notifyAll();
+        }
     }
 
     public void startChat(User user) {
@@ -36,6 +49,7 @@ public class ChatManager {
                     log.warn("Поток {} был прерван во время ожидания.", Thread.currentThread().getName());
                     return;
                 }
+                waitForChat();
             }
             List<User> candidates = userList.getOnlineUsersLookingForChat(user);
             otherUser = candidates.get(random.nextInt(candidates.size()));
@@ -51,10 +65,39 @@ public class ChatManager {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.warn("Поток {} был прерван во время сна.", Thread.currentThread().getName());
+        } finally {
+            user.getChat().ifPresent(this::endChat);
         }
+    }
 
-        user.getChat().ifPresent(this::endChat);
+    public void endChat(Chat chat) {
+        synchronized (monitor) {
+            if (chat == null) {
+                return;
+            }
+            activeChats.remove(chat);
 
+            User user1 = chat.getUser1();
+            User user2 = chat.getUser2();
+
+            user1.resetChat();
+            user2.resetChat();
+
+            userList.addToSearching(user1);
+            userList.addToSearching(user2);
+
+            log.info("{} завершил чат {}", user1.getName(), user2.getName());
+
+            monitor.notifyAll();
+        }
+    }
+
+    private void createChat(User user, User otherUser) {
+        Chat chat = new Chat(user, otherUser);
+        activeChats.add(chat);
+        user.setChat(chat);
+        otherUser.setChat(chat);
+        log.info("{} начал чат с {}", user.getName(), otherUser.getName());
     }
 
     private void waitForChat() {
@@ -67,21 +110,6 @@ public class ChatManager {
                 Thread.currentThread().interrupt();
                 log.warn("Поток {} был прерван во время ожидания.", Thread.currentThread().getName());
             }
-        }
-    }
-
-    public void endChat(Chat chat) {
-        synchronized (monitor) {
-            if (chat == null) {
-                return;
-            }
-            activeChats.remove(chat);
-            User user1 = chat.getUser1();
-            User user2 = chat.getUser2();
-            user1.resetChat();
-            user2.resetChat();
-            log.info("{} завершил чат {}", user1.getName(), user2.getName());
-            monitor.notifyAll();
         }
     }
 }
