@@ -35,6 +35,7 @@ public class Player {
 
     public void previous() {
         synchronized (lock) {
+            isPlaying = true;
             System.out.println("Возвращение к предыдущему треку.");
         }
     }
