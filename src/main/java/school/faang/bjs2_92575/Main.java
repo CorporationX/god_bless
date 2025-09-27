@@ -5,14 +5,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        MasterCardService masterCardService = new MasterCardService();
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+    private static final int THREAD_POOL_SIZE = 2;
 
-        try {
-            masterCardService.doAll(executor);
-        } finally {
-            executor.shutdown();
-        }
+    public static void main(String[] args) {
+        MasterCardService masterCardService = new MasterCardService();
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+
+        masterCardService.doAll(executor);
     }
 }
