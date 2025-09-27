@@ -23,13 +23,13 @@ public class Tournament {
                 AtomicReference<Student> currentStudent = new AtomicReference<>(
                         school.getTeam().get(randomStudent.nextInt(0, school.getTeam().size())));
                 currentStudent.updateAndGet(student -> {
-                        student.setPoints(student.getPoints() + task.getReward());
-                        log.info("Волшебник {} выполнил задачу {} и заработал {} очков для {}",
-                                student.getName(),
-                                task.getName(),
-                                task.getReward(),
-                                school.getName());
-                        return student;
+                    student.setPoints(student.getPoints() + task.getReward());
+                    log.info("Волшебник {} выполнил задачу {} и заработал {} очков для {}",
+                            student.getName(),
+                            task.getName(),
+                            task.getReward(),
+                            school.getName());
+                    return student;
                 });
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
