@@ -3,9 +3,9 @@ package school.faang.bjs2_92561;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-        QuestSystem questSystem = new QuestSystem();
+        QuestSystem questSystem = new QuestSystem(5);
 
         Player player1 = new Player("Thrall", 10, 250);
         Player player2 = new Player("Sylvanas", 12, 450);
@@ -22,5 +22,7 @@ public class Main {
                 + " has completed the quest and now has " + player.getExperience() + " experience points."));
 
         CompletableFuture.allOf(player1Quest, player2Quest).join();
+
+        questSystem.shutdown();
     }
 }
