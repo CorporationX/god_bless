@@ -22,7 +22,7 @@ public class MailSender {
             threads.add(thread);
         }
         threads.forEach(MailSender::threadJoin);
-        log.info("Письма успешно отправлены");
+        log.info("Письма успешно отправлены!");
     }
 
     private static void threadJoin(Thread thread) {
