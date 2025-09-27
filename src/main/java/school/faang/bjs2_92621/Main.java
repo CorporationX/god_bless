@@ -14,17 +14,14 @@ public class Main {
         Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
         Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
 
-        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
-        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
+        CompletableFuture<Void> player1Quest = questSystem.startQuest(player1, quest1).thenAccept(player ->
+                System.out.printf("%s has completed the quest and now has %d experience points.%n",
+                        player.getName(), player.getExperience()));
+        CompletableFuture<Void> player2Quest = questSystem.startQuest(player2, quest2).thenAccept(player ->
+                System.out.printf("%s has completed the quest and now has %d experience points.%n",
+                        player.getName(), player.getExperience()));
 
         player1Quest.join();
         player2Quest.join();
-
-        player1Quest.thenAccept(player ->
-                System.out.printf("%s has completed the quest and now has %d experience points.",
-                        player.getName(), player.getExperience()));
-        player2Quest.thenAccept(player ->
-                System.out.printf("%s has completed the quest and now has %d experience points.",
-                        player.getName(), player.getExperience()));
     }
 }
