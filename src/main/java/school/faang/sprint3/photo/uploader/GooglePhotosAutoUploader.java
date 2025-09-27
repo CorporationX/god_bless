@@ -20,7 +20,8 @@ public class GooglePhotosAutoUploader {
                     photosToUpload.wait();
                     System.out.println("Загрузка продолжается");
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    Thread.currentThread().interrupt();
+                    System.out.println("Ошибка ожидания фото");
                 }
             }
         }
