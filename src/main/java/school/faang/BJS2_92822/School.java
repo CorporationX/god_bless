@@ -15,7 +15,6 @@ import java.util.concurrent.ExecutorService;
 public class School {
     private final String name;
     private final List<Student> team;
-    private final ExecutorService executor;
 
     public synchronized void getTotalPoints() {
         int sumPoints = team.stream()

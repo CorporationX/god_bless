@@ -4,19 +4,17 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class Tournament {
     private static final int DEFAULT_TIME_SLEEP = 1000;
 
     public CompletableFuture<School> startTask(School school, List<Task> tasks) {
-        ExecutorService executor = school.getExecutor();
+        ExecutorService executor = Executors.newFixedThreadPool(school.getTeam().size());
         List<CompletableFuture<Void>> taskFutures = tasks.stream()
                 .map(task ->
                         CompletableFuture.runAsync(new Runnable() {

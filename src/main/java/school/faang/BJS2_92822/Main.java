@@ -13,10 +13,8 @@ public class Main {
                 new Student("Hermione", 5, busy, 0));
         List<Student> beauxbatonsTeam = List.of(new Student("Fleur", 6, busy, 0),
                 new Student("Gabrielle", 6, busy, 0));
-        School hogwarts = new School("Hogwarts", hogwartsTeam,
-                Executors.newFixedThreadPool(hogwartsTeam.size()));
-        School beauxbatons = new School("Beauxbatons", beauxbatonsTeam,
-                Executors.newFixedThreadPool(beauxbatonsTeam.size()));
+        School hogwarts = new School("Hogwarts", hogwartsTeam);
+        School beauxbatons = new School("Beauxbatons", beauxbatonsTeam);
 
         Task task1 = new Task("Triwizard Tournament", 10, 100);
         Task task2 = new Task("Yule Ball Preparations", 5, 50);
