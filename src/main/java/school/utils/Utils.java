@@ -16,7 +16,6 @@ import java.util.concurrent.TimeoutException;
 
 import static java.util.concurrent.ThreadLocalRandom.current;
 
-@SuppressWarnings("checkstyle:CommentsIndentation")
 @Slf4j
 public class Utils {
 
