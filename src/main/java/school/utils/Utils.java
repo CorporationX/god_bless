@@ -122,4 +122,8 @@ public class Utils {
     public static <T> T pickRandom(@NonNull List<T> list) {
         return list.get(current().nextInt(list.size()));
     }
+
+    public static int random(int number) {
+        return current().nextInt(1, number);
+    }
 }
