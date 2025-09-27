@@ -1,5 +1,6 @@
 package school.faang.bjs2_93246;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.DoubleAdder;
 import java.util.concurrent.atomic.LongAdder;
 
@@ -12,16 +13,19 @@ public class SensorData {
         count.increment();
     }
 
-    public double getAverage() {
-        long currentCount = count.sum();
-        return currentCount == 0 ? 0 : sum.sum() / currentCount;
-    }
-
     public double getSum() {
         return sum.sum();
     }
 
     public long getCount() {
         return count.sum();
+    }
+
+    public void startGeneratingData(Sensor sensor) {
+        Runnable task = () -> {
+            double data = Math.random() * 100;
+            sensor.getSubstation().receiveData(sensor.getId(), data);
+        };
+        sensor.getScheduler().scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
     }
 }
