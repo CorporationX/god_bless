@@ -1,17 +1,20 @@
 package school.faang.bjs2_88106;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ListOperations {
-    public static List<int[]> findPairs(Set<Integer> numbers, int sum) {
+    public static Set<List<Integer>> findPairs(Set<Integer> numbers, int sum) {
         return numbers.stream()
-                .flatMap(num1 -> numbers.stream()
-                        .filter(num2 -> num1 < num2 && num1 + num2 == sum)
-                        .map(num2 -> new int[]{num1, num2}))
-                .toList();
+                .filter(num -> numbers.contains(sum - num))
+                .map(num -> Arrays.asList(num, sum - num))
+                .peek(Collections::sort)
+                .collect(Collectors.toSet());
     }
 
     public static List<String> sortCapitals(Map<String, String> capitals) {

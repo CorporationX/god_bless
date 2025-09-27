@@ -11,9 +11,9 @@ public class Main {
     public static void main(String[] args) {
         Set<Integer> nums = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6));
         int target = 6;
-        List<int[]> result1 = ListOperations.findPairs(nums, target);
+        Set<List<Integer>> result1 = ListOperations.findPairs(nums, target);
         System.out.println("Уникальные пары:");
-        result1.forEach(pair -> System.out.println(Arrays.toString(pair)));
+        result1.forEach(System.out::println);
 
         Map<String, String> capitals = new HashMap<>();
         capitals.put("Russia", "Moscow");
