@@ -1,6 +1,7 @@
 package school.faang.bjs2_92225;
 
 public class Main {
+    @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
     public static void main(String[] args) {
         Boss boss = new Boss(3);
 
