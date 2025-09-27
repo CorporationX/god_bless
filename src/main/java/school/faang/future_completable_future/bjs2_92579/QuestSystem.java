@@ -9,10 +9,10 @@ import static school.utils.Utils.shutdownAndAwaitTermination;
 
 public class QuestSystem {
     private static final int NUMBER_OF_THREADS = 10;
-    private static final ExecutorService EXECUTE = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static void stopQuestProcessingAndAwaitTermination() {
-        shutdownAndAwaitTermination(EXECUTE);
+        shutdownAndAwaitTermination(EXECUTOR_SERVICE);
     }
 
     public CompletableFuture<Player> startQuest(Player player, Quest guest) {
@@ -20,7 +20,7 @@ public class QuestSystem {
             playGuest(guest.difficulty());
             player.addExperience(guest.difficulty());
             return player;
-        }, EXECUTE);
+        }, EXECUTOR_SERVICE);
     }
 
     private void playGuest(Long timeDelay) {
