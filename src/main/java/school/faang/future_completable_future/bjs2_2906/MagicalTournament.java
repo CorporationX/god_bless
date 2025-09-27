@@ -20,17 +20,17 @@ public class MagicalTournament {
 
         List<Task> tasks = SampleData.tasks();
         List<School> schools = SampleData.schools();
-        boolean isSchools = true;
+        boolean isSchoolsCompetingForOnePlace = true;
 
-        while (isSchools) {
+        while (isSchoolsCompetingForOnePlace) {
             List<School> competingSchools = startTournament(schools, tasks);
 
             List<School> schoolsCompetingForOnePlace = competingSchools.stream()
                     .filter(school -> school.getTotalPoints() == competingSchools.get(0).getTotalPoints())
                     .toList();
 
-            isSchools = isSchoolsCompetingForOnePlace(schoolsCompetingForOnePlace);
-            if (isSchools) {
+            isSchoolsCompetingForOnePlace = isSchoolsCompetingForOnePlace(schoolsCompetingForOnePlace);
+            if (isSchoolsCompetingForOnePlace) {
                 schools = schoolsCompetingForOnePlace;
                 log.info("На первое место претендуют школы набравшие {} очков:",
                         competingSchools.get(0).getTotalPoints());
