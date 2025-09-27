@@ -6,6 +6,7 @@ public class FoodDeliveryTask implements Runnable {
     private final String character;
     private final int foodAmount;
     private final Random random = new Random();
+    private static final long ONE_SECOND = 1000L;
 
     public FoodDeliveryTask(String character, int foodAmount) {
         this.character = character;
@@ -21,11 +22,11 @@ public class FoodDeliveryTask implements Runnable {
     public void run() {
         FoodType foodType = getFoodType();
         try {
-            System.out.println(character + " получает " + foodAmount + " " + foodType);
-            Thread.sleep((random.nextInt(5) + 1) * 1000L);
-            System.out.println(character + " ест " + foodAmount + " " + foodType);
+            System.out.printf("%s получает %d %s%n", character, foodAmount, foodType);
+            Thread.sleep((random.nextInt(FoodType.values().length) + 1) * ONE_SECOND);
+            System.out.printf("%s ест %d %s%n", character, foodAmount, foodType);
         } catch (InterruptedException e) {
-            System.out.println(character + " не смог получить " + foodType + " из-за прерывания.");
+            System.out.printf("%s не смог получить %s из-за прерывания.%n", character, foodType);
             Thread.currentThread().interrupt();
         }
     }
