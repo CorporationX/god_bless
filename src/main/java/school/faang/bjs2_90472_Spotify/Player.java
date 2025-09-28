@@ -10,8 +10,13 @@ public class Player {
     public void play() {
         lock.lock();
         try {
-            System.out.println("Начал воспроизведение музыки");
-            isPlaying = true;
+            if (!isPlaying) {
+                System.out.println("Начал воспроизведение музыки");
+                isPlaying = true;
+            } else {
+                System.out.println("Музыка уже воспроизводится");
+            }
+
         } finally {
             lock.unlock();
         }
@@ -20,8 +25,13 @@ public class Player {
     public void pause() {
         lock.lock();
         try {
-            System.out.println("Ставлю трек на паузу");
-            isPlaying = false;
+            if (!isPlaying) {
+                System.out.println("Трек уже на паузе");
+            } else {
+                System.out.println("Ставлю трек на паузу");
+                isPlaying = false;
+            }
+
         } finally {
             lock.unlock();
         }
