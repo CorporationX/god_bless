@@ -1,9 +1,6 @@
 package school.faang.m1.thread.google.photo;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
@@ -29,12 +26,10 @@ public class GooglePhotosAutoUploader {
     }
 
     private void uploadPhotos() {
-        synchronized (lock) {
-            for (String photo : new ArrayList<>(photosToUpload)) {
-                System.out.printf("[Uploader] фото загружено: [%s]" + System.lineSeparator(), photo);
-                photosToUpload.remove(photo);
-            }
+        for (String photo : new ArrayList<>(photosToUpload)) {
+            System.out.printf("[Uploader] фото загружено: [%s]" + System.lineSeparator(), photo);
         }
+        photosToUpload.clear();
     }
 
     private void onNewPhotoAdded(String photoPath) {
