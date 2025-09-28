@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Order {
-    private int id;
-    private String status;
+    private final int id;
+    private OrderStatus status;
 }
