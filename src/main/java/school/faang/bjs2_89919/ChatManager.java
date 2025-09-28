@@ -17,27 +17,6 @@ public class ChatManager {
         this.userList = userList;
     }
 
-    public void addUser(User user) {
-        synchronized (monitor) {
-            userList.addUser(user);
-            monitor.notifyAll();
-        }
-    }
-
-    public void removeUser(User user) {
-        synchronized (monitor) {
-            userList.removeUser(user);
-            monitor.notifyAll();
-        }
-    }
-
-    public void addToSearching(User user) {
-        synchronized (monitor) {
-            userList.addToSearching(user);
-            monitor.notifyAll();
-        }
-    }
-
     public void startChat(User user) {
         User otherUser;
         synchronized (monitor) {

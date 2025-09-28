@@ -9,6 +9,7 @@ import java.util.List;
 public class UserList {
     private final List<User> users = new ArrayList<>();
     private final List<User> searchingUsers = new ArrayList<>();
+    private final Object monitor;
 
     void addUser(User user) {
         users.add(user);
