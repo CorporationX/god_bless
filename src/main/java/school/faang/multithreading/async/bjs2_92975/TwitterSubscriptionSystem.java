@@ -17,17 +17,17 @@ public class TwitterSubscriptionSystem {
 
     private static final ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
-    public static synchronized void addFollower(TwitterAccount account, Follower follower) {
+    public static synchronized void addFollower(TwitterAccount account) {
         int newCount = account.followers().incrementAndGet();
         addDelay(DELAY_TIME);
-        log.info("Добавлен новый подписчик: '{}' к '{}', общее количество: {}",
-                follower.username(), account.username(), newCount);
+        log.info("Добавлен новый подписчик к '{}', общее количество: {}",
+                account.username(), newCount);
     }
 
     public static void followAccount(TwitterAccount account, List<Follower> followers) {
         List<CompletableFuture<Void>> futures = followers.stream()
                 .map(follower ->
-                        CompletableFuture.runAsync(() -> addFollower(account, follower), executor))
+                        CompletableFuture.runAsync(() -> addFollower(account), executor))
                 .toList();
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
