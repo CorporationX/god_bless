@@ -9,12 +9,12 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
-@Setter
 @AllArgsConstructor
+@ToString
 public class Account {
     private final int id;
     private double balance;
-    private final Lock lock = new ReentrantLock();
+    private static final Lock lock = new ReentrantLock();
 
     public void deposit(double amount) {
         lock.lock();
@@ -26,13 +26,5 @@ public class Account {
         lock.lock();
         balance -= amount;
         lock.unlock();
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "balance=" + balance +
-                ", id=" + id +
-                '}';
     }
 }
