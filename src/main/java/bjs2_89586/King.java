@@ -18,11 +18,9 @@ public class King {
     public void startTournament() {
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
-        knightTrials.forEach((knight, trials) -> {
-            for (Trial trial : trials) {
-                executorService.submit(trial);
-            }
-        });
+        knightTrials.values().stream()
+                .flatMap(List::stream)
+                .forEach(executorService::submit);
 
         ExecutorUtils.gracefullyShutdown(executorService);
     }
