@@ -48,34 +48,11 @@ public class Main {
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1, executor);
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2, executor);
 
-        CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
+        CompletableFuture<Void> tournamentResult = tournament.runTournament(
+                List.of(hogwartsTask, beauxbatonsTask), executor
+        );
 
-        CompletableFuture<Void> result = allTasks.thenApplyAsync(v -> {
-            School hogwartsResult = hogwartsTask.join();
-            School beauxbatonsResult = beauxbatonsTask.join();
-
-            int hogwartsPoints = hogwartsResult.getTotalPoints();
-            int beauxbatonsPoints = beauxbatonsResult.getTotalPoints();
-
-            log.info("{}: {} очков", hogwartsResult.getName(), hogwartsPoints);
-            log.info("{}: {} очков", beauxbatonsResult.getName(), beauxbatonsPoints);
-
-            if (hogwartsPoints > beauxbatonsPoints) {
-                return hogwartsResult.getName() + " победили в турнире!";
-            } else if (beauxbatonsPoints > hogwartsPoints) {
-                return beauxbatonsResult.getName() + " победили в турнире!";
-            } else {
-                return "Ничья! Обе школы показали одинаковый результат!";
-            }
-        }, executor).thenAcceptAsync(winnerMessage -> {
-            log.info(winnerMessage);
-        }, executor).exceptionally(throwable -> {
-            log.error("Ошибка во время турнира: {}", throwable.getMessage());
-            return null;
-        });
-
-        result.join();
-
+        tournamentResult.join();
         shutdown();
     }
 
