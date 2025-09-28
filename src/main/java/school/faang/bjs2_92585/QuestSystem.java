@@ -12,7 +12,9 @@ public class QuestSystem {
                 Thread.currentThread().interrupt();
             }
 
-            return player.addExperience(quest.getReward());
+            int reward = quest.getReward();
+            player.addExperience(reward);
+            return player;
         }, executor);
     }
 }

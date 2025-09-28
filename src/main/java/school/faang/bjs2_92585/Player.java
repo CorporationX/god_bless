@@ -1,16 +1,22 @@
 package school.faang.bjs2_92585;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Getter
 public class Player {
     private String name;
     private int level;
-    private int experience;
+    private AtomicInteger experience;
 
-    public Player addExperience(int reward) {
-        return new Player(this.name, this.level, this.experience + reward);
+    public Player(String name, int level, int experience) {
+        this.name = name;
+        this.level = level;
+        this.experience = new AtomicInteger(experience);
+    }
+
+    public void addExperience(int reward) {
+        experience.addAndGet(reward);
     }
 }
