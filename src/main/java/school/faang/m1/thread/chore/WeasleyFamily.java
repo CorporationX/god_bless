@@ -1,7 +1,5 @@
 package school.faang.m1.thread.chore;
 
-import ch.qos.logback.classic.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -11,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class WeasleyFamily {
 
     private static final int MAX_WAIT_TIME = 1000000;
+
     private final List<String> choreList = new ArrayList<>();
     private final ExecutorService executorsService = Executors.newCachedThreadPool();
 
@@ -43,5 +42,4 @@ public class WeasleyFamily {
             executor.shutdownNow();
         }
     }
-
 }
