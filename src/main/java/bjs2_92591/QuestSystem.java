@@ -13,7 +13,9 @@ class QuestSystem {
 
                 Thread.sleep(quest.getDifficulty() * MILLIS_IN_SECOND);
 
-                player.addExperience(quest.getReward());
+                synchronized (player) {
+                    player.addExperience(quest.getReward());
+                }
 
                 System.out.printf("%s завершил квест \"%s\" и получил %d опыта%n",
                         player.getName(), quest.getName(), quest.getReward());
