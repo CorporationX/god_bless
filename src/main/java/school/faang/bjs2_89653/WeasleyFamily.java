@@ -21,9 +21,9 @@ public class WeasleyFamily {
         for (Chore task : chores) {
             executor.execute(task);
         }
-        executor.shutdown();
 
         try {
+            executor.shutdown();
             if (!executor.awaitTermination(30, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
