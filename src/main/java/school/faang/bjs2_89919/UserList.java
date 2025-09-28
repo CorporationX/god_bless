@@ -1,11 +1,13 @@
 package school.faang.bjs2_89919;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
+@Getter
 public class UserList {
     private final List<User> users = new ArrayList<>();
     private final List<User> searchingUsers = new ArrayList<>();

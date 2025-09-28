@@ -1,5 +1,7 @@
 package school.faang.bjs2_89919;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -11,16 +13,33 @@ public class ChatManager {
     private final UserList userList;
     private final List<Chat> activeChats = new ArrayList<>();
     private static final Random random = new Random();
-    private final Object monitor = new Object();
+    private final Object monitor;
 
     public ChatManager(UserList userList) {
         this.userList = userList;
+        this.monitor = userList.getMonitor();
+    }
+
+    public void addUser(User user) {
+        synchronized (monitor) {
+            userList.addUser(user);
+            userList.addToSearching(user);
+            monitor.notifyAll();
+        }
+    }
+
+    public void removeUser(User user) {
+        synchronized (monitor) {
+            userList.removeUser(user);
+            monitor.notifyAll();
+        }
     }
 
     public void startChat(User user) {
         User otherUser;
         synchronized (monitor) {
-            while (userList.getOnlineUsersLookingForChat(user).isEmpty() || activeChats.contains(user.getChat())) {
+            while (userList.getOnlineUsersLookingForChat(user).isEmpty()
+                    || user.getChat().map(activeChats::contains).orElse(false)) {
                 try {
                     monitor.wait();
                 } catch (InterruptedException e) {
@@ -28,7 +47,6 @@ public class ChatManager {
                     log.warn("Поток {} был прерван во время ожидания.", Thread.currentThread().getName());
                     return;
                 }
-                waitForChat();
             }
             List<User> candidates = userList.getOnlineUsersLookingForChat(user);
             otherUser = candidates.get(random.nextInt(candidates.size()));
@@ -72,23 +90,12 @@ public class ChatManager {
     }
 
     private void createChat(User user, User otherUser) {
-        Chat chat = new Chat(user, otherUser);
-        activeChats.add(chat);
-        user.setChat(chat);
-        otherUser.setChat(chat);
-        log.info("{} начал чат с {}", user.getName(), otherUser.getName());
-    }
-
-    private void waitForChat() {
         synchronized (monitor) {
-            try {
-                log.info("Поток {} ожидает появления чата...", Thread.currentThread().getName());
-                monitor.wait();
-                log.info("Поток {} пробужден для проверки состояния чатов.", Thread.currentThread().getName());
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                log.warn("Поток {} был прерван во время ожидания.", Thread.currentThread().getName());
-            }
+            Chat chat = new Chat(user, otherUser);
+            activeChats.add(chat);
+            user.setChat(chat);
+            otherUser.setChat(chat);
+            log.info("{} начал чат с {}", user.getName(), otherUser.getName());
         }
     }
 }
