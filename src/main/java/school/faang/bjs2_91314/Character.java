@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Character {
+public abstract class Character {
 
     private final int power;
     private final String name;

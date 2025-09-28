@@ -16,7 +16,7 @@ public class Squad {
         squad.add(character);
     }
 
-    public Integer calculateSquadPower() {
+    public int calculateSquadPower() {
         return squad.stream().mapToInt(Character::getPower).sum();
     }
 }
