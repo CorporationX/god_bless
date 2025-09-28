@@ -47,6 +47,6 @@ public class Main {
     }
 
     private static String generateId(Random random) {
-        return ("" + random.nextInt(123456789));
+        return String.valueOf(random.nextInt(123456789));
     }
 }
