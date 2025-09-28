@@ -1,48 +1,87 @@
 package school.faang.bjs2_93666;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
-
+@Slf4j
 public class Main {
     private static final int THREAD_COUNT = 5;
-    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(THREAD_COUNT);
+    private static final int AWAIT_IN_MINUTES = 1;
+    private static final int UNIQUE_NUMBER = 1;
 
     public static void main(String[] args) {
-
-        Post post1 = new Post(1, "Искусственный интеллект 2024",
-                "Новые достижения в области машинного обучения...",
-                "Технолог Алексей", new ArrayList<>());
-        post1.getComments().add(new Comment("Отличный обзор современных тенденций!", "Мария",
-                LocalDate.of(2024, 1, 15)));
-        post1.getComments().add(new Comment("Жду статью про этику ИИ", "Этик",
-                LocalDate.of(2024, 1, 16)));
-        post1.getComments().add(new Comment("GPT-4 действительно впечатляет", "Разработчик",
-                LocalDate.of(2024, 1, 17)));
-        post1.getComments().add(new Comment("А когда ждать GPT-5?", "Любопытный",
-                LocalDate.of(2024, 1, 18)));
-        post1.getComments().add(new Comment("Спасибо за полезную информацию!", "Студент",
-                LocalDate.of(2024, 1, 19)));
-
-        Post post2 = new Post(2, "Топ-10 мест Японии",
-                "Самые красивые и интересные места для посещения...",
-                "Путешественник Анна", new ArrayList<>());
-        post2.getComments().add(new Comment("Мечтаю посетить Киото!", "Мечтатель",
-                LocalDate.of(2024, 2, 10)));
-        post2.getComments().add(new Comment("Фудзияма просто великолепна", "Фотограф",
-                LocalDate.of(2024, 2, 11)));
-        post2.getComments().add(new Comment("А какие там цены на жилье?", "Экономный",
-                LocalDate.of(2024, 2, 12)));
-        post2.getComments().add(new Comment("Лучшее время для посещения - весна", "Опытный",
-                LocalDate.of(2024, 2, 13)));
-        post2.getComments().add(new Comment("Спасибо за советы по маршруту!", "Турист",
-                LocalDate.of(2024, 2, 14)));
-        PostService postService = new PostService();
-        postService.addPost(post1);
-        postService.removePost(1);
-        postService.addPost(post2);
-        postService.removeComment(2);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
+        start(executor);
+        shutdownExecutor(executor);
     }
+
+    private static void start(ExecutorService executor) {
+        PostService postService = new PostService();
+        log.info("Запускаем {} потоков", THREAD_COUNT);
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            final int threadNumber = i;
+            executor.submit(() -> {
+                String threadName = "Автор- %s".formatted(threadNumber);
+                Thread.currentThread().setName(threadName);
+                log.info("{} начал выполнение", threadName);
+                try {
+                    Post post = createPost(threadNumber, threadName);
+                    post.getComments().add(new Comment("Первый комментарий от %s".formatted(threadName),
+                            threadName, LocalDate.now()));
+                    post.getComments().add(new Comment("Второй комментарий",
+                            "Другой автор", LocalDate.now()));
+                    log.info("{} вызывает addPost", threadName);
+                    postService.addPost(post);
+                    Comment newComment = createComment(threadNumber, threadName);
+                    log.info("{} вызывает addComment", threadName);
+                    postService.addComment(threadNumber + UNIQUE_NUMBER, newComment);
+                    log.info("{} вызывает removePost", threadName);
+                    postService.removePost(threadNumber + UNIQUE_NUMBER);
+                    log.info("{} вызывает removeComment", threadName);
+                    postService.removeComment(threadNumber + UNIQUE_NUMBER);
+                    log.info("{} успешно завершил выполнение", threadName);
+                } catch (Exception e) {
+                    log.error("Ошибка в потоке {}: {}", threadName, e.getMessage(), e);
+                }
+            });
+        }
+    }
+
+    private static void shutdownExecutor(ExecutorService executor) {
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(AWAIT_IN_MINUTES, TimeUnit.MINUTES)) {
+                log.info("Потоки не остановились за {} минуту. Останавливаем потоки", AWAIT_IN_MINUTES);
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            log.info("Ошибка в остановке потоков");
+            executor.shutdownNow();
+        }
+    }
+
+    private static Post createPost(int idPost, String threadName) {
+        return new Post(
+                idPost,
+                "Пост от %s".formatted(threadName),
+                "Содержание поста от %s".formatted(threadName),
+                threadName,
+                new CopyOnWriteArrayList<>()
+        );
+    }
+
+    private static Comment createComment(int threadNumber, String threadName) {
+        return new Comment(
+                "Новый комментарий от %s в пост %d".formatted(threadName, threadNumber + UNIQUE_NUMBER),
+                threadName,
+                LocalDate.now()
+        );
+    }
+
+
 }

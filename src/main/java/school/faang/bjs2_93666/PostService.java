@@ -17,6 +17,11 @@ public class PostService {
         }
         try {
             lock.lock();
+            boolean postExists = posts.stream().anyMatch(posts -> posts.getId() == post.getId());
+            if (postExists) {
+                log.warn("Пост с ID {} уже существует. Пропускаем добавление.", post.getId());
+                return;
+            }
             posts.add(post);
         } finally {
             lock.unlock();
@@ -28,7 +33,9 @@ public class PostService {
         isValidatesComment(comment);
         try {
             lock.lock();
-            getPost(postId).getComments().add(comment);
+            Post post = getPost(postId);
+            log.info("{} - Комментарий был добавлен в пост {}", comment.getText(), post.getTitle());
+            post.getComments().add(comment);
         } finally {
             lock.unlock();
         }
@@ -51,11 +58,13 @@ public class PostService {
         isValidatesId(postId);
         try {
             lock.lock();
-            log.info("Ваш пост {} Пост удален!", getPost(postId).getTitle());
-            posts.stream()
-                    .filter(post -> post.getId() == postId)
-                    .findFirst()
-                    .map(posts::remove);
+            if (isTrustAuthorPost(postId)) {
+                log.info("Ваш пост {} удален!", getPost(postId).getTitle());
+                posts.stream()
+                        .filter(post -> post.getId() == postId)
+                        .findFirst()
+                        .map(posts::remove);
+            }
         } finally {
             lock.unlock();
         }
@@ -64,14 +73,20 @@ public class PostService {
     public void removeComment(int postId) {
         try {
             lock.lock();
-            getComment(postId).clear();
+            getComment(postId).removeIf(comment -> {
+                if (isTrustAuthorComment(comment)) {
+                    log.info("{} - Вы удалили свой комментарий! {}", comment.getAuthor(), comment.getText());
+                    return true;
+                }
+                return false;
+            });
         } finally {
             lock.unlock();
         }
     }
 
     private void isValidatesId(int number) {
-        if (number < 0 || number > posts.size()) {
+        if (number < 0) {
             log.error("Валидация на Id не прошла");
             throw new IllegalArgumentException("Id не может быть меньше 0");
         }
@@ -81,5 +96,17 @@ public class PostService {
         if (comment == null) {
             throw new IllegalArgumentException("Id поста не может быть меньше 0. Комментарий не может быть пустым");
         }
+    }
+
+    private boolean isTrustAuthorPost(int postId) {
+        Post post = this.getPost(postId);
+        if (!post.getAuthor().equals(Thread.currentThread().getName())) {
+            log.info("Вы не автор данного поста! Удаление невозможно");
+        }
+        return true;
+    }
+
+    private boolean isTrustAuthorComment(Comment comment) {
+        return comment.getAuthor().equals(Thread.currentThread().getName());
     }
 }
