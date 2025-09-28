@@ -14,28 +14,34 @@ public class Game {
     private final Object stateLock = new Object();
     private final AtomicBoolean running = new AtomicBoolean(true);
 
-    Game(int initialLives) {
-        this.lives = initialLives;
+    Game(int lives) {
+        this.lives = lives;
     }
 
     public void update(boolean gainedPoint, boolean lostLife) throws InterruptedException {
-        // Block here while game is over (training wait/notify).
+
         synchronized (stateLock) {
             while (!running.get()) {
                 stateLock.wait();
             }
         }
 
-        synchronized (scoreLock) {
-            if (gainedPoint) {
+        if (gainedPoint) {
+            synchronized (scoreLock) {
                 score++;
+                System.out.println("[update] Scores updated, new score: " + score);
             }
+        }
+
+        if (lostLife) {
             synchronized (livesLock) {
-                if (lostLife) {
-                    lives--;
-                    if (lives <= 0) {
-                        gameOver();
-                    }
+                lives--;
+                if (lives <= 0) {
+                    System.out.println("[update] Glory to Odin! You returned to Valhalla!");
+                    gameOver();
+                } else {
+                    System.out.println("[update] Glory to Odin! You returned from Valhalla with "
+                            + lives + " lives left!");
                 }
             }
         }
