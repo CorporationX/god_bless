@@ -19,7 +19,6 @@ public class GooglePhotosAutoUploader {
                         lock.wait();
                     } catch (InterruptedException e) {
                         log.warn("{} был прерван", Thread.currentThread().getName());
-                        return;
                     }
                 }
                 if (!photosToUpload.isEmpty()) {
