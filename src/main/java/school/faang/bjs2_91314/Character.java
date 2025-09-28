@@ -8,4 +8,5 @@ import lombok.Getter;
 public class Character {
 
     private final int power;
+    private final String name;
 }
