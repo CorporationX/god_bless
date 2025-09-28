@@ -11,9 +11,9 @@ import java.util.List;
 public class School {
 
     private final String name;
-    List<Student> team;
+    private List<Student> team;
 
     public int getTotalPoints() {
-        return team.stream().mapToInt(Student::getPoints).sum();
+        return team.stream().mapToInt(student -> student.getPoints().get()).sum();
     }
 }

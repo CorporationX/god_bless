@@ -1,5 +1,6 @@
 package school.faang.bjs2_92915;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,5 +12,5 @@ public class Student {
 
     private final String name;
     private final int year;
-    private int points;
+    private final AtomicInteger points = new AtomicInteger(0);
 }

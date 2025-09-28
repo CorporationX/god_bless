@@ -4,14 +4,14 @@ import java.util.concurrent.CompletableFuture;
 
 public class Tournament {
 
-    public CompletableFuture<School> startTask(School school, Task t) {
+    public CompletableFuture<School> startTask(School school, Task task) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                System.out.printf("School %s started task %s%n", school.getName(), t.getName());
-                Thread.sleep(t.getDifficulty() * 1000L);
-                System.out.printf("School %s completed task %s%n", school.getName(), t.getName());
+                System.out.printf("School %s started task %s%n", school.getName(), task.getName());
+                Thread.sleep(task.getDifficulty() * 1000L);
+                System.out.printf("School %s completed task %s%n", school.getName(), task.getName());
                 for (Student student : school.getTeam()) {
-                    student.setPoints(student.getPoints() + t.getReward());
+                    student.getPoints().addAndGet(task.getReward());
                 }
             } catch (InterruptedException e) {
                 throw new RuntimeException("Task has been interrupted: " + e);
