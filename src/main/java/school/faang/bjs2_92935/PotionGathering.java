@@ -10,17 +10,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class PotionGathering {
     private static final int TIME_SLEEP = 500;
 
-    public static int gatherIngredients(Potion potion) {
+    public int gatherIngredients(Potion potion) {
         try {
-            log.info("Collecting Potion ingredients: {} - {}", potion.name, potion.requiredIngredients);
+            log.info("Collecting Potion ingredients: {} - {}", potion.getName(), potion.getRequiredIngredients());
             Thread.sleep(TIME_SLEEP);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        return potion.requiredIngredients;
+        return potion.getRequiredIngredients();
     }
 
-    public static void gatherAllIngredients(List<Potion> potions) {
+    public void gatherAllIngredients(List<Potion> potions) {
         AtomicInteger totalIngredients = new AtomicInteger(0);
 
         List<CompletableFuture<Void>> futures = potions.stream()
@@ -31,15 +31,5 @@ public class PotionGathering {
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
 
         System.out.println("Total number of ingredients collected: " + totalIngredients.get());
-    }
-
-    public static void main(String[] args) {
-        List<Potion> potions = List.of(
-                new Potion("Healing Potion", 5),
-                new Potion("Mana Potion", 3),
-                new Potion("Stamina Potion", 4)
-        );
-
-        gatherAllIngredients(potions);
     }
 }
