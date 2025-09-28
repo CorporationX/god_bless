@@ -39,6 +39,7 @@ public class Bank {
             }
         }, executorService);
     }
+
     public double getTotalBalance() throws InterruptedException, ExecutionException {
         return CompletableFuture.supplyAsync(() ->
                 accounts.values().stream()
