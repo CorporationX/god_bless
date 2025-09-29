@@ -6,17 +6,19 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
-    Boolean bolean = true;
+    Boolean flag = true;
 
     public void startAutoUpload() {
-        synchronized (lock) {
-            while (bolean) {
-                try {
-                    uploadPhotos();
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+        while (flag) {
+            synchronized (lock) {
+                while (flag && photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
+                uploadPhotos();
             }
         }
     }
@@ -24,16 +26,21 @@ public class GooglePhotosAutoUploader {
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            bolean = true;
+            flag = true;
             System.out.println(Thread.currentThread().getName() + " Добовляем фотки");
             lock.notify();
         }
     }
 
     public void uploadPhotos() {
-        photosToUpload.stream()
-                .forEach(e -> System.out.println(Thread.currentThread().getName() + " Загружаем фотки"));
+        photosToUpload.forEach(e -> System.out.println(Thread.currentThread().getName() + " Загружаем фотки"));
         photosToUpload.clear();
-        bolean = false;
+    }
+
+    public void stopFlag() {
+        synchronized (lock) {
+            flag = false;
+            lock.notify();
+        }
     }
 }

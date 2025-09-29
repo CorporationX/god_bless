@@ -16,18 +16,19 @@ public class GoogleMain {
 
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader();
 
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        ExecutorService executorService1 = Executors.newFixedThreadPool(4);
 
-        executorService.submit(() ->
-                googlePhotosAutoUploader.startAutoUpload());
-        photos.stream()
-                        .forEach(e -> executorService.submit(() -> googlePhotosAutoUploader.onNewPhotoAdded(e)));
+        executorService.submit(() -> googlePhotosAutoUploader.startAutoUpload());
+        photos.forEach(e -> executorService1.submit(() -> googlePhotosAutoUploader.onNewPhotoAdded(e)));
 
         executorService.shutdown();
+        executorService1.shutdown();
         try {
-            if (!executorService.awaitTermination(30, TimeUnit.SECONDS)) {
-                executorService.shutdownNow();
+            if (!executorService1.awaitTermination(15, TimeUnit.SECONDS)) {
+                executorService1.shutdownNow();
             }
+            googlePhotosAutoUploader.stopFlag();
         } catch (InterruptedException e) {
             executorService.shutdownNow();
             Thread.currentThread().interrupt();
