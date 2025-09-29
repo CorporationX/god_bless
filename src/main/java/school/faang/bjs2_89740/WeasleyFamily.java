@@ -6,8 +6,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
+    private static final int AWAIT_TERMINATION = 1;
     private static final List<String> chores = List.of("помыть посуду", "подмести пол", "приготовить ужин");
-    ExecutorService executor = Executors.newCachedThreadPool();
+    private final ExecutorService executor = Executors.newCachedThreadPool();
 
     public void choresJob() {
         for (String task : chores) {
@@ -17,7 +18,7 @@ public class WeasleyFamily {
 
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(AWAIT_TERMINATION, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
