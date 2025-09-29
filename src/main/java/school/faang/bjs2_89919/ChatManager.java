@@ -1,7 +1,5 @@
 package school.faang.bjs2_89919;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -31,7 +29,6 @@ public class ChatManager {
     public void removeUser(User user) {
         synchronized (monitor) {
             userList.removeUser(user);
-            monitor.notifyAll();
         }
     }
 
@@ -51,8 +48,8 @@ public class ChatManager {
             List<User> candidates = userList.getOnlineUsersLookingForChat(user);
             otherUser = candidates.get(random.nextInt(candidates.size()));
 
-            userList.removeUser(user);
-            userList.removeUser(otherUser);
+            removeUser(user);
+            removeUser(otherUser);
         }
 
         createChat(user, otherUser);
@@ -80,8 +77,8 @@ public class ChatManager {
             user1.resetChat();
             user2.resetChat();
 
-            userList.addToSearching(user1);
-            userList.addToSearching(user2);
+            addUser(user1);
+            addUser(user2);
 
             log.info("{} завершил чат {}", user1.getName(), user2.getName());
 
