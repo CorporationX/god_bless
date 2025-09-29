@@ -6,7 +6,7 @@ public class Player {
 
     public void play() {
         synchronized (lock) {
-            if (!isPlaying){
+            if (!isPlaying) {
                 System.out.println("Возпроизвести трек");
                 isPlaying = true;
             } else {
@@ -17,7 +17,7 @@ public class Player {
 
     public void pause() {
         synchronized (lock) {
-            if (isPlaying){
+            if (isPlaying) {
                 System.out.println("Остановить трек");
                 isPlaying = false;
             } else {
