@@ -5,29 +5,35 @@ import java.util.List;
 
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
-    private List<String> photosToUpload = new ArrayList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
+    Boolean bolean = true;
 
-    public void startAutoUpload() throws InterruptedException {
+    public void startAutoUpload() {
         synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                lock.wait();
+            while (bolean) {
+                try {
+                    uploadPhotos();
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
-            uploadPhotos();
         }
     }
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            System.out.println(Thread.currentThread().getName() + "Добовляем фотки");
+            bolean = true;
+            System.out.println(Thread.currentThread().getName() + " Добовляем фотки");
             lock.notify();
         }
     }
 
     public void uploadPhotos() {
-        for (String photo : photosToUpload) {
-            System.out.println(Thread.currentThread().getName() + "Загружаем фотки");
-        }
+        photosToUpload.stream()
+                .forEach(e -> System.out.println(Thread.currentThread().getName() + " Загружаем фотки"));
         photosToUpload.clear();
+        bolean = false;
     }
 }
