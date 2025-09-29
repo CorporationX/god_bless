@@ -1,35 +1,39 @@
 package school.faang.bjs2_91185;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MailSender {
+    private static final int TOTAL_MESSAGES = 1000;
+    private static final int THREAD_COUNT = 5;
+    private static final int BATCH_SIZE = TOTAL_MESSAGES / THREAD_COUNT;
+
     public static void main(String[] args) {
-        final int totalLetters = 1000;
-        final int lettersPerThread = 200;
-        final int totalThreads = (int) Math.ceil((double) totalLetters / lettersPerThread);
+        List<Thread> threads = new ArrayList<>();
 
-        ExecutorService executor = Executors.newFixedThreadPool(totalThreads);
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            int startIndex = i * BATCH_SIZE + 1;
+            int endIndex = Math.min((i + 1) * BATCH_SIZE, TOTAL_MESSAGES);
 
-        for (int i = 0; i < totalThreads; i++) {
-            int startIndex = i * lettersPerThread + 1;
-            int endIndex = Math.min((i + 1) * lettersPerThread, totalLetters);
+            Thread thread = new Thread(
+                    new SenderRunnable(startIndex, endIndex),
+                    "Sender-" + (i + 1)
+            );
 
-            executor.submit(new SenderRunnable(startIndex, endIndex));
+            threads.add(thread);
+            thread.start();
         }
 
-        executor.shutdown();
-
-        try {
-            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
-                System.err.println("Время ожидания вышло, не все письма отправлены!");
-            } else {
-                System.out.println("Все письма отправлены. Количество писем: " + totalLetters);
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.err.println("Поток прерван: " + thread.getName());
             }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.err.println("Ожидание выполнения потоков было прервано");
         }
+
+        System.out.println("Все письма отправлены. Количество писем: " +
+                TOTAL_MESSAGES);
     }
 }
