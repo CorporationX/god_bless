@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,20 +14,41 @@ public class Player {
     private int level;
     private int experience;
 
+    private final ReentrantLock lock = new ReentrantLock();
 
     public void gainExperience(int experience) {
-        this.experience += experience;
+        lock.lock();
+        try {
+            this.experience += experience;
+        } finally {
+            lock.unlock();
+        }
     }
 
-    public void levelUpIfNeeded(int experience) {
-        int levels = experience / 300;
-        if (levels > 0) {
-            this.level = levels;
+    /**
+     * Atomically apply XP and level-ups based on cumulative thresholds of 300 XP each.
+     */
+    public void applyReward(int deltaXp) {
+        lock.lock();
+        try {
+            int before = experience;
+            experience = Math.addExact(experience, deltaXp); // overflow-safe
+            int gainedLevels = (experience / 300) - (before / 300);
+            if (gainedLevels > 0) {
+                level = Math.addExact(level, gainedLevels);
+            }
+        } finally {
+            lock.unlock();
         }
     }
 
     @Override
     public String toString() {
-        return "Player{name='" + name + "', level=" + getLevel() + ", xp=" + getExperience() + "}";
+        lock.lock();
+        try {
+            return "Player{name='" + name + "', level=" + level + ", xp=" + experience + "}";
+        } finally {
+            lock.unlock();
+        }
     }
 }
