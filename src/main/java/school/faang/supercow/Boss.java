@@ -36,14 +36,16 @@ public class Boss {
                 }
             }
             currentPlayers++;
-            System.out.println(player.getName() + " присоединился к сражению с боссом! Текущие игроки: " + currentPlayers);
+            System.out.println(player.getName() + " присоединился к сражению с боссом! Текущие игроки: "
+                    + currentPlayers);
         }
     }
 
     public void leaveBattle(@NonNull Player player) {
         synchronized (lock) {
             currentPlayers--;
-            System.out.println(player.getName() + " завершил сражение с боссом! Текущие игроки: " + currentPlayers);
+            System.out.println(player.getName() + " завершил сражение с боссом! Текущие игроки: "
+                    + currentPlayers);
             lock.notify();
         }
     }
