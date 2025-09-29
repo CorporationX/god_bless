@@ -6,6 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class PostService {
     private final List<Post> posts = new ArrayList<>();
+    private final List<Comment> comments = new ArrayList<>();
     private final ReentrantLock lock = new ReentrantLock();
 
     public void addPost(Post post) {
@@ -20,7 +21,7 @@ public class PostService {
     public void addComment(int postId, Comment comment) {
         lock.lock();
         try {
-            posts.add(postId, comment);
+            comments.add(comment);
         } finally {
             lock.unlock();
         }
