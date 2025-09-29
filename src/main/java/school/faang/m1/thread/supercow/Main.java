@@ -1,17 +1,14 @@
 package school.faang.m1.thread.supercow;
 
+import java.util.stream.IntStream;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Boss boss = new Boss(3);
 
-        Thread[] threads = new Thread[4];
-        for (int i = 0; i < 4; i++) {
-            int finalI = i;
-            threads[i] = new Thread(() -> {
-                Player player = new Player("P" + finalI);
-                player.doBattle(boss);
-            });
-        }
+        Thread[] threads = IntStream.range(0, 4)
+                .mapToObj(i -> new Thread(() -> new Player("P" + i).doBattle(boss)))
+                .toArray(Thread[]::new);
 
         for (Thread thread : threads) {
             thread.start();
