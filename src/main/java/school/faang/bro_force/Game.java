@@ -21,7 +21,9 @@ public class Game {
 
     //Обновление состояния игры
     public void update(boolean isPointsEarned, boolean isLifeLost) {
-        if (isGameOver) return;
+        if (isGameOver) {
+            return;
+        }
 
         if (isPointsEarned) {
             synchronized (scoreLock) {
