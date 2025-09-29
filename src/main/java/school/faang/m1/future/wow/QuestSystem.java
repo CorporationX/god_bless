@@ -29,7 +29,7 @@ public class QuestSystem implements AutoCloseable {
         return CompletableFuture.supplyAsync(() -> {
             simulateQuestWork(quest.getDifficulty() * 100);
             player.gainExperience(quest.getReward());
-            player.levelUpIfNeeded(quest.getReward());
+            player.applyReward(quest.getReward());
             return player;
 
         }, exec);
@@ -44,17 +44,22 @@ public class QuestSystem implements AutoCloseable {
             Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
             Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
 
-            CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
-            CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
+            CompletableFuture<Player> player1Quest1 = questSystem.startQuest(player1, quest1);
+            CompletableFuture<Player> player2Quest1 = questSystem.startQuest(player2, quest2);
+            CompletableFuture<Player> player1Quest2 = questSystem.startQuest(player1, quest2);
 
-            player1Quest.thenAccept(player -> System.out.println(player.getName()
-                    + " has completed the quest and now has " + player.getExperience() + " experience points."));
-            player2Quest.thenAccept(player -> System.out.println(player.getName()
-                    + " has completed the quest and now has " + player.getExperience() + " experience points."));
+            player1Quest1.thenAccept(player -> System.out.println(player.getName()
+                    + " has completed the quest and now has " + player.getExperience()
+                    + " experience points. Lvl: " + player.getLevel()));
+            player2Quest1.thenAccept(player -> System.out.println(player.getName()
+                    + " has completed the quest and now has " + player.getExperience()
+                    + " experience points. Lvl: " + player.getLevel()));
+            player1Quest2.thenAccept(player -> System.out.println(player.getName()
+                    + " has completed the quest and now has " + player.getExperience()
+                    + " experience points. Lvl: " + player.getLevel()));
 
-            // Пример ожидания завершения всех квестов (без sleep в главном потоке)
             CompletableFuture<Void> allDone =
-                    CompletableFuture.allOf(player1Quest, player2Quest);
+                    CompletableFuture.allOf(player1Quest1, player2Quest1, player1Quest2);
             allDone.join();
         }
     }
