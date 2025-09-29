@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -37,8 +36,7 @@ public class Main {
                         executor.submit(() -> service.addComment(postId, comment)))
         );
 
-        executor.shutdown();
-        executor.awaitTermination(10, TimeUnit.SECONDS);
+        ExecutorUtils.gracefullyShutdown(executor);
 
         System.out.println("Посты и комментарии после добавления");
         service.showAllPosts();
