@@ -14,13 +14,13 @@ public class Account {
     private double balance;
     private final Object lock = new Object();
 
-    void deposit(double amount) {
+    public void deposit(double amount) {
         synchronized (lock) {
             balance += amount;
         }
     }
 
-    void withdraw(double amount) {
+    public void withdraw(double amount) {
         synchronized (lock) {
             balance -= amount;
         }

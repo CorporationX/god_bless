@@ -18,7 +18,7 @@ public class Bank {
     private final Map<Integer, Account> accounts = new HashMap<>();
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
-    boolean transfer(int fromAccountId, int toAccountId, double amount) {
+    public boolean transfer(int fromAccountId, int toAccountId, double amount) {
         lock.writeLock().lock();
         try {
             TimeUnit.SECONDS.sleep(SLEEPING_TIME);
@@ -43,7 +43,7 @@ public class Bank {
         }
     }
 
-    double getTotalBalance() {
+    public double getTotalBalance() {
         lock.writeLock().lock();
         try {
             return accounts.values()
