@@ -15,7 +15,7 @@ public class Organization {
     private static final int SLEEPING_TIME = 5;
     private AtomicReference<Double> balance = new AtomicReference<>(0.00);
 
-    void addDonation(@NonNull Donation donation) {
+    public void addDonation(@NonNull Donation donation) {
         try {
             log.info("Начинаем зачислять {} руб по платежу номер {}.", donation.getAmount(), donation.getId());
             balance.accumulateAndGet(donation.getAmount(), Double::sum);
