@@ -1,5 +1,8 @@
 package school.faang.bjs2_90442;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Player {
     private boolean isPlaying;
     private int currentTrack = 1;
@@ -8,42 +11,45 @@ public class Player {
 
     public void play() {
         synchronized (lock) {
-            String name = Thread.currentThread().getName();
             if (isPlaying) {
-                System.out.println("[" + name + "] " + "Уже играет трек № " + currentTrack);
+                log.info("Уже играет трек. Текущий трек: {}", currentTrack);
             } else {
                 isPlaying = true;
-                System.out.println("[" + name + "] " + "Старт воспроизведения. Сейчас играет трек № " + currentTrack);
+                log.info("Старт воспроизведения. Сейчас играет трек: {}", currentTrack);
             }
         }
     }
 
     public void pause() {
         synchronized (lock) {
-            String name = Thread.currentThread().getName();
             if (isPlaying) {
                 isPlaying = false;
-                System.out.println("[" + name + "] " + "Воспроизводился трек № "
-                        + currentTrack + ", но трек поставили на паузу");
+                log.warn("Поставил на паузу. Текущий трек: {}", currentTrack);
             } else {
-                System.out.println("[" + name + "] " + "Музыка уже на паузе");
+                log.info("Музыка уже на паузе. Текущий трек: {}", currentTrack);
             }
         }
     }
 
+    private int nextTrack() {
+        return (currentTrack % totalTracks) + 1;
+    }
+
+    private int previousTrack() {
+        return (currentTrack - 2 + totalTracks) % totalTracks + 1;
+    }
+
     public void skip() {
         synchronized (lock) {
-            String name = Thread.currentThread().getName();
-            currentTrack = (currentTrack % totalTracks) + 1;
-            System.out.println("[" + name + "] " + "Пропуск → теперь выбран трек № " + currentTrack);
+            currentTrack = nextTrack();
+            log.info("Пропуск. Текущий трек: {}", currentTrack);
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            String name = Thread.currentThread().getName();
-            currentTrack = (currentTrack - 2 + totalTracks) % totalTracks + 1;
-            System.out.println("[" + name + "] " + "Назад → теперь выбран трек № " + currentTrack);
+            currentTrack = previousTrack();
+            log.info("Назад. Текущий трек: {}", currentTrack);
         }
     }
 }
