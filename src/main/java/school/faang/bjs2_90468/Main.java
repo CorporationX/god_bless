@@ -33,6 +33,6 @@ public class Main {
         uploaderThread.interrupt();
         uploaderThread.join();
 
-        log.info("Program is complete...");
+        log.info("Program is complete");
     }
 }
