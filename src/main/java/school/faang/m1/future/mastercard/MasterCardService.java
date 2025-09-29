@@ -14,7 +14,7 @@ public class MasterCardService {
 
     private final ExecutorService paymentExecutor = Executors.newSingleThreadExecutor();
 
-    static int collectPayment() {
+    private static int collectPayment() {
         try {
             Thread.sleep(TEN_SECONDS_IN_MS);
             return 5_000;
@@ -24,7 +24,7 @@ public class MasterCardService {
         }
     }
 
-    static int sendAnalytics() {
+    private static int sendAnalytics() {
         try {
             Thread.sleep(ONE_SECOND_IN_MS);
             return 17_000;
@@ -34,9 +34,10 @@ public class MasterCardService {
         }
     }
 
-    void doAll() {
+    public void doAll() {
         Future<Integer> payment = paymentExecutor.submit(MasterCardService::collectPayment);
-        CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+        CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics,
+                paymentExecutor);
         try {
             analytics.join();
             System.out.println("Аналитика отправлена: " + analytics);
