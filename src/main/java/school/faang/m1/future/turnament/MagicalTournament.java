@@ -7,36 +7,44 @@ import java.util.concurrent.CompletableFuture;
 
 public class MagicalTournament {
     public static void main(String[] args) {
-        Tournament tournament = new Tournament();
+        try (Tournament tournament = new Tournament()) {
 
-        // Создание школ
-        List<Student> hogwartsTeam = List.of(new Student("Harry", 5, 0), new Student("Hermione", 5, 0));
-        List<Student> beauxbatonsTeam = List.of(new Student("Fleur", 6, 0), new Student("Gabrielle", 6, 0));
-        School hogwarts = new School("Hogwarts", hogwartsTeam);
-        School beauxbatons = new School("Beauxbatons", beauxbatonsTeam);
+            // Создание школ
+            List<Student> hogwartsTeam = Arrays.asList(
+                    new Student("Harry", 5, 0),
+                    new Student("Hermione", 5, 0)
+            );
+            List<Student> beauxbatonsTeam = Arrays.asList(
+                    new Student("Fleur", 6, 0),
+                    new Student("Gabrielle", 6, 0)
+            );
 
-        // Создание заданий
-        Task task1 = new Task("Triwizard Tournament", 10, 100);
-        Task task2 = new Task("Yule Ball Preparations", 5, 50);
+            School hogwarts = new School("Hogwarts", hogwartsTeam);
+            School beauxbatons = new School("Beauxbatons", beauxbatonsTeam);
 
-        // Запуск заданий для школ
-        CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
-        CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
+            // Создание заданий
+            Task task1 = new Task("Triwizard Tournament", 10, 100);
+            Task task2 = new Task("Yule Ball Preparations", 5, 50);
 
-        // Объединяем и ждём завершения
-        CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
-        allTasks.join();
+            // Запуск заданий для школ
+            CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
+            CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
 
-        List<School> finished = Arrays.asList(hogwartsTask.join(), beauxbatonsTask.join());
+            // Объединяем и ждём завершения
+            CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
+            allTasks.join();
 
-        // Сортируем по очкам по убыванию
-        List<School> standings = finished.stream()
-                .sorted(Comparator.comparingInt(School::getTotalPoints).reversed())
-                .toList();
+            List<School> finished = Arrays.asList(hogwartsTask.join(), beauxbatonsTask.join());
 
-        // Победитель
-        School winner = standings.get(0);
-        System.out.printf("%nWinner: %s with %d points!%n",
-                winner.getName(), winner.getTotalPoints());
+            // Сортируем по очкам по убыванию
+            List<School> standings = finished.stream()
+                    .sorted(Comparator.comparingInt(School::getTotalPoints).reversed())
+                    .toList();
+
+            // Победитель
+            School winner = standings.get(0);
+            System.out.printf("%nWinner: %s with %d points!%n",
+                    winner.getName(), winner.getTotalPoints());
+        }
     }
 }

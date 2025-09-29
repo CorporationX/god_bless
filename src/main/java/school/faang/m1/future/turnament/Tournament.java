@@ -4,7 +4,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Tournament {
+public class Tournament implements AutoCloseable {
 
     private final ExecutorService exec;
 
@@ -27,5 +27,10 @@ public class Tournament {
             }
             return school;
         }, exec);
+    }
+
+    @Override
+    public void close() {
+        exec.shutdown();
     }
 }
