@@ -21,24 +21,29 @@ public class Bank {
     }
 
     public boolean transfer(int fromAccountId, int toAccountId, double amount) {
+        try {
+            Account accountStart = accounts.get(fromAccountId);
+            Account accountFinish = accounts.get(toAccountId);
+            if (accountStart == null || accountFinish == null) {
+                log.warn("Один из счетов не найден: accountStart - {}, accountFinish - {}",
+                        accountStart, accountFinish);
+                return false;
+            }
 
-        Account accountStart = accounts.get(fromAccountId);
-        Account accountFinish = accounts.get(toAccountId);
-        if (accountStart == null || accountFinish == null) {
-            log.warn("Один из счетов не найден: accountStart - {}, accountFinish - {}", accountStart, accountFinish);
-            return false;
-        }
-
-        lock.lock();
-        if (accountStart.getBalance() >= amount) {
-            accountStart.withdraw(amount);
-            accountFinish.deposit(amount);
-            log.info("Был сделан перевод со счета {} на счет {}", accountStart, accountFinish);
-            lock.unlock();
-            return true;
-        } else {
-            log.info("На счетe {} не хватает денег");
-            lock.unlock();
+            lock.lock();
+            if (accountStart.getBalance() >= amount) {
+                accountStart.withdraw(amount);
+                accountFinish.deposit(amount);
+                log.info("Был сделан перевод со счета {} на счет {}", accountStart, accountFinish);
+                lock.unlock();
+                return true;
+            } else {
+                log.info("На счетe {} не хватает денег");
+                lock.unlock();
+                return false;
+            }
+        } catch (Exception e) {
+            log.warn("Произошла неизвестная ошибка!!", e.getMessage());
             return false;
         }
     }
