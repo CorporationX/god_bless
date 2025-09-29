@@ -23,7 +23,7 @@ public class KingdomMessenger {
                 .handle(handleError(sender, receiver));
     }
 
-    Supplier<Void> supplyAsync(Kingdom sender, Kingdom receiver) {
+    private Supplier<Void> supplyAsync(Kingdom sender, Kingdom receiver) {
         return () -> {
             log.info("{} пишет...", sender.getName());
             if (Objects.equals(sender.getName(), "Хазарский Каганат")
@@ -42,7 +42,7 @@ public class KingdomMessenger {
         };
     }
 
-    BiFunction<Void, Throwable, Void> handleError(Kingdom sender, Kingdom receiver) {
+    private BiFunction<Void, Throwable, Void> handleError(Kingdom sender, Kingdom receiver) {
         return (result, e) -> {
             if (e != null) {
                 log.error("{} в черном списке у {}, сообщение не доставлено, ворон был сбит лаптем.",
