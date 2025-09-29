@@ -1,6 +1,8 @@
 package school.faang.bjs294920;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PotionGathering {
     public static void main(String[] args) {
@@ -10,34 +12,34 @@ public class PotionGathering {
             new Potion("Stamina Potion", 4)
         );
 
-        // Асинхронный сбор ингредиентов
         gatherAllIngredients(potions);
     }
 
-    private static int gatherAllIngredients(List<Potion> potions) {
-        potions.stream().forEach(potion -> {
-            new Thread(() -> {
-                System.out.println("Gathering ingredients for " + potion.getName() + ": " + potion.getIngridients());
-                try {
-                    Thread.sleep(1000); // Simulate ingredient gathering time
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("Finished gathering ingredients for " + potion.getName());
-            }).start();
-        });
+    private static void gatherAllIngredients(List<Potion> potions) {
+        List<CompletableFuture<Integer>> futures = potions.stream()
+            .map(potion -> gatherIngredients(potion))
+            .toList();
 
-//        .forEach(potion -> {
-//            new Thread(() -> {
-//                System.out.println("Gathering ingredients for " + potion.getName() + ": " + potion.getIngridients());
-//                try {
-//                    Thread.sleep(1000); // Simulate ingredient gathering time
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                System.out.println("Finished gathering ingredients for " + potion.getName());
-//            }).start();
-//        });
+        AtomicInteger totalIngredients = new AtomicInteger(0);
+
+        futures.forEach(future -> future.thenAccept(totalIngredients::addAndGet));
+
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+
+        System.out.println("Total ingredients gathered: " + totalIngredients.get());
+    }
+
+    private static CompletableFuture<Integer> gatherIngredients(Potion potion) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(2000);
+                System.out.println("Finished gathering ingredients for " + potion.getName());
+                return potion.getIngridients();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
+            }
+        });
     }
 }
 
