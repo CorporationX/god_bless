@@ -8,7 +8,6 @@ package school.faang.heroes_of_might_and_magic;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Army army = new Army();
 
         Squad archers = new Squad("Лучники");
         archers.addUnit(new Archer(25));
@@ -21,6 +20,8 @@ public class Main {
         Squad mages = new Squad("Маги");
         mages.addUnit(new Mage(50));
         mages.addUnit(new Mage(45));
+
+        Army army = new Army();
 
         army.addSquad(archers);
         army.addSquad(swordsmen);
