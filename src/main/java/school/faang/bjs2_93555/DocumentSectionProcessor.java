@@ -9,7 +9,7 @@ public class DocumentSectionProcessor implements Runnable {
     private DocumentSection section;
 
 
-    void process(String data) {
+    public void process(String data) {
         section.write(data.toUpperCase());
     }
 

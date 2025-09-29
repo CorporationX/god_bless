@@ -8,11 +8,11 @@ public class DocumentSection {
     private String id;
     private CollaborativeDocument document;
 
-    String read() {
+    public String read() {
         return document.getData(id);
     }
 
-    void write(@NonNull String data) {
+    public void write(@NonNull String data) {
         document.addData(id, data);
     }
 }

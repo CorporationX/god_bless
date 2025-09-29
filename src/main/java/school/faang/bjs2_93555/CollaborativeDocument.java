@@ -11,11 +11,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CollaborativeDocument {
     private final ConcurrentHashMap<String, String> sections = new ConcurrentHashMap<>();
 
-    void addData(@NonNull String sectionId, @NonNull String data) {
+    public void addData(@NonNull String sectionId, @NonNull String data) {
         sections.put(sectionId, data);
     }
 
-    String getData(@NonNull String sectionId) {
+    public String getData(@NonNull String sectionId) {
         return sections.get(sectionId);
     }
 }
