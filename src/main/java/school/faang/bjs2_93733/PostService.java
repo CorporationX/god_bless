@@ -15,12 +15,12 @@ import java.util.concurrent.TimeUnit;
 @Setter
 public class PostService {
     private static final int SLEEPING_TIME = 3;
-    private final Object lock1 = new Object();
-    private final Object lock2 = new Object();
+    private final Object postLock = new Object();
+    private final Object commentLock = new Object();
     private volatile List<Post> posts = new ArrayList<>();
 
-    void addPost(@NonNull Post post) {
-        synchronized (lock1) {
+    public void addPost(@NonNull Post post) {
+        synchronized (postLock) {
             try {
                 log.info("Добавляем новый пост '{}'.", post.getId());
                 TimeUnit.SECONDS.sleep(SLEEPING_TIME);
@@ -33,8 +33,8 @@ public class PostService {
         }
     }
 
-    void addComment(int postId, @NonNull Comment comment) {
-        synchronized (lock2) {
+    public void addComment(int postId, @NonNull Comment comment) {
+        synchronized (commentLock) {
             try {
                 log.info("Добавляем комментарий  от {}.", comment.getAuthor());
                 TimeUnit.SECONDS.sleep(SLEEPING_TIME);
@@ -54,8 +54,8 @@ public class PostService {
         }
     }
 
-    void deletePost(@NonNull String userDeleterName, @NonNull Post post) {
-        synchronized (lock1) {
+    public void deletePost(@NonNull String userDeleterName, @NonNull Post post) {
+        synchronized (postLock) {
             try {
                 log.info("Начинаем удалять пост '{}'.", post.getId());
                 TimeUnit.SECONDS.sleep(SLEEPING_TIME);
@@ -71,8 +71,8 @@ public class PostService {
         }
     }
 
-    void deleteComment(@NonNull String userDeleterName, @NonNull Post post, @NonNull Comment comment) {
-        synchronized (lock2) {
+    public void deleteComment(@NonNull String userDeleterName, @NonNull Post post, @NonNull Comment comment) {
+        synchronized (commentLock) {
             try {
                 log.info("Начинаем удалять комментарий от автора {}", comment.getAuthor());
                 TimeUnit.SECONDS.sleep(SLEEPING_TIME);
