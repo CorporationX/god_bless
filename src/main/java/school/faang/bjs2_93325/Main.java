@@ -21,17 +21,19 @@ public class Main {
         Bank bank = new Bank();
         ExecutorService executor = Executors.newFixedThreadPool(SIZE_POOL_THREAD);
 
-        List<Integer> accountIds = IntStream.rangeClosed(1, TOTAL_ACCOUNT).mapToObj(i -> {
-            Account account = new Account(GenerateId.getId(), random.nextDouble(MIN_BALANCE, MAX_BALANCE));
-            bank.addAccount(account);
-            return account.getId();
-        }).toList();
+        List<Integer> accountIds = IntStream.rangeClosed(1, TOTAL_ACCOUNT)
+                .mapToObj(i -> {
+                    Account account = new Account(GenerateId.getId(), random.nextDouble(MIN_BALANCE, MAX_BALANCE));
+                    bank.addAccount(account);
+                    return account.getId();
+                }).toList();
 
-        accountIds.stream().reduce((prevId, currentId) -> {
-            executor.submit(() ->
-                    bank.transfer(prevId, currentId, random.nextDouble(MIN_TRANSFER, MAX_TRANSFER)));
-            return currentId;
-        });
+        accountIds.stream()
+                .reduce((prevId, currentId) -> {
+                    executor.submit(() ->
+                            bank.transfer(prevId, currentId, random.nextDouble(MIN_TRANSFER, MAX_TRANSFER)));
+                    return currentId;
+                });
 
         executor.shutdown();
         try {

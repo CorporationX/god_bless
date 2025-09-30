@@ -12,9 +12,9 @@ import java.util.concurrent.locks.ReentrantLock;
 @Getter
 @Slf4j
 public class Bank {
-    private Map<Integer, Account> accounts = new ConcurrentHashMap<>();
+    private final Map<Integer, Account> accounts = new ConcurrentHashMap<>();
     private final AtomicReference<Double> totalBalance = new AtomicReference<>(0.0);
-    private static final Lock lock = new ReentrantLock();
+    private final Lock lock = new ReentrantLock();
 
     public void addAccount(Account account) {
         accounts.put(account.getId(), account);
@@ -30,16 +30,13 @@ public class Bank {
                 return false;
             }
 
-            lock.lock();
             if (accountStart.getBalance() >= amount) {
                 accountStart.withdraw(amount);
                 accountFinish.deposit(amount);
                 log.info("Был сделан перевод со счета {} на счет {}", accountStart, accountFinish);
-                lock.unlock();
                 return true;
             } else {
                 log.info("На счетe {} не хватает денег");
-                lock.unlock();
                 return false;
             }
         } catch (Exception e) {
@@ -50,8 +47,7 @@ public class Bank {
 
 
     public double getTotalBalance() {
-        totalBalance.updateAndGet(d -> sumBalance());
-        double balance = totalBalance.get();
+        double balance = totalBalance.updateAndGet(d -> sumBalance());
         log.info("Получена общий баланс банка {}", balance);
         return balance;
     }
@@ -60,5 +56,6 @@ public class Bank {
         return accounts.values().stream()
                 .mapToDouble(Account::getBalance)
                 .sum();
+
     }
 }
