@@ -16,7 +16,7 @@ public class TwitterSubscriptionSystem {
 
     public CompletableFuture<TwitterAccount> followAccount(TwitterAccount account) {
         return CompletableFuture.supplyAsync(() -> {
-            addFollower(account);
+            account.getFollowers().incrementAndGet();
             log.info("У вас новый подписчик!");
             return account;
         }, executorService);
@@ -35,9 +35,5 @@ public class TwitterSubscriptionSystem {
             log.info(e.getMessage());
             executorService.shutdownNow();
         }
-    }
-
-    private void addFollower(TwitterAccount account) {
-        account.getFollowers().addAndGet(1);
     }
 }
