@@ -53,9 +53,12 @@ public class Bank {
     }
 
     private double sumBalance() {
-        return accounts.values().stream()
+        lock.lock();
+        double sum = accounts.values().stream()
                 .mapToDouble(Account::getBalance)
                 .sum();
+        lock.unlock();
+        return sum;
 
     }
 }
