@@ -12,24 +12,24 @@ public class Player {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Ошибка: Имя персонажа не может быть пустым или null");
         }
-        if (level < 0 || level >= 1000) {
+        if (experience < 0 || experience > 100000) {
+            throw new IllegalArgumentException("Ошибка: опыт персонажа не может быть меньше нуля или больше 100,000");
+        }
+        if (level < 0 || level > 1000) {
             throw new IllegalArgumentException(
                     "Ошибка: Уровень персонажа не может быть меньше нуля, макс уровень - 1000"
             );
-        }
-        if (experience < 0 || experience > 100000) {
-            throw new IllegalArgumentException("Ошибка: опыт персонажа не может быть меньше нуля или больше 100,000");
         }
         this.name = name;
         this.level = level;
         this.experience = experience;
     }
 
-    public void addExperience(int expCount) {
+    public synchronized void addExperience(int expCount) {
         this.experience += expCount;
     }
 
-    public void addLevel(int value) {
+    public synchronized void addLevel(int value) {
         this.level += value;
     }
 }
