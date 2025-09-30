@@ -117,7 +117,7 @@ public class Utils {
     }
 
     public static void shutdownAndAwaitTermination(ExecutorService executor) {
-        shutdownAndAwaitTermination(executor, 30, TimeUnit.SECONDS);
+        shutdownAndAwaitTermination(executor, 4, TimeUnit.SECONDS);
     }
 
     public static <T> T pickRandom(@NonNull List<T> list) {

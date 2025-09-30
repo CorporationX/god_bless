@@ -1,0 +1,172 @@
+package school.faang.future_completable_future.bjs2_2906;
+
+import java.util.List;
+import java.util.stream.IntStream;
+
+import static school.utils.Utils.chunk;
+
+public final class SampleData {
+    private SampleData() {
+    }
+
+    public static List<School> schools() {
+        List<Student> students = List.of(
+                new Student("Александр", 2010, 0),
+                new Student("Мария", 2011, 0),
+                new Student("Дмитрий", 2012, 0),
+                new Student("Анна", 2013, 0),
+                new Student("Максим", 2014, 0),
+                new Student("Екатерина", 2015, 0),
+                new Student("Иван", 2016, 0),
+                new Student("Алина", 2017, 0),
+                new Student("Сергей", 2018, 0),
+                new Student("Ольга", 2019, 0),
+                new Student("Никита", 2020, 0),
+                new Student("Елена", 2021, 0),
+                new Student("Михаил", 2022, 0),
+                new Student("Татьяна", 2023, 0),
+                new Student("Кирилл", 2024, 0),
+                new Student("Юлия", 2025, 0),
+                new Student("Павел", 2010, 0),
+                new Student("Наталья", 2011, 0),
+                new Student("Андрей", 2012, 0),
+                new Student("Светлана", 2013, 0),
+                new Student("Владимир", 2014, 0),
+                new Student("Ирина", 2015, 0),
+                new Student("Роман", 2016, 0),
+                new Student("Виктория", 2017, 0),
+                new Student("Егор", 2018, 0),
+                new Student("Ксения", 2019, 0),
+                new Student("Лев", 2020, 0),
+                new Student("Полина", 2021, 0),
+                new Student("Илья", 2022, 0),
+                new Student("Дарья", 2023, 0),
+                new Student("Тимофей", 2024, 0),
+                new Student("Анастасия", 2025, 0),
+                new Student("Григорий", 2010, 0),
+                new Student("Вера", 2011, 0),
+                new Student("Руслан", 2012, 0),
+                new Student("Алёна", 2013, 0),
+                new Student("Станислав", 2014, 0),
+                new Student("Лариса", 2015, 0),
+                new Student("Арсений", 2016, 0),
+                new Student("Евгения", 2017, 0),
+                new Student("Олег", 2018, 0),
+                new Student("Александра", 2019, 0),
+                new Student("Фёдор", 2020, 0),
+                new Student("Вероника", 2021, 0),
+                new Student("Константин", 2022, 0),
+                new Student("Милана", 2023, 0),
+                new Student("Виктор", 2024, 0),
+                new Student("Людмила", 2025, 0),
+                new Student("Даниил", 2010, 0),
+                new Student("София", 2011, 0),
+                new Student("Игнат", 2012, 0),
+                new Student("Елизавета", 2013, 0),
+                new Student("Тимур", 2014, 0),
+                new Student("Нина", 2015, 0),
+                new Student("Ярослав", 2016, 0),
+                new Student("Жанна", 2017, 0),
+                new Student("Виталий", 2018, 0),
+                new Student("Марина", 2019, 0),
+                new Student("Артур", 2020, 0),
+                new Student("Галина", 2021, 0),
+                new Student("Борис", 2022, 0),
+                new Student("Арина", 2023, 0),
+                new Student("Савелий", 2024, 0),
+                new Student("Валерия", 2025, 0),
+                new Student("Матвей", 2010, 0),
+                new Student("Инна", 2011, 0),
+                new Student("Георгий", 2012, 0),
+                new Student("Диана", 2013, 0),
+                new Student("Леонид", 2014, 0),
+                new Student("Валентина", 2015, 0),
+                new Student("Степан", 2016, 0),
+                new Student("Есения", 2017, 0),
+                new Student("Пётр", 2018, 0),
+                new Student("Снежана", 2019, 0),
+                new Student("Денис", 2020, 0),
+                new Student("Василиса", 2021, 0),
+                new Student("Антон", 2022, 0),
+                new Student("Надежда", 2023, 0),
+                new Student("Марк", 2024, 0),
+                new Student("Олеся", 2025, 0),
+                new Student("Николай", 2010, 0),
+                new Student("Ева", 2011, 0),
+                new Student("Вячеслав", 2012, 0),
+                new Student("Злата", 2013, 0),
+                new Student("Семен", 2014, 0),
+                new Student("Мира", 2015, 0),
+                new Student("Тарас", 2016, 0),
+                new Student("Таисия", 2017, 0),
+                new Student("Эдуард", 2018, 0),
+                new Student("Майя", 2019, 0),
+                new Student("Владислав", 2020, 0),
+                new Student("Аделина", 2021, 0),
+                new Student("Святослав", 2022, 0),
+                new Student("Екатерина-Анна", 2023, 0),
+                new Student("Платон", 2024, 0),
+                new Student("Софья", 2025, 0),
+                new Student("Роберт", 2010, 0),
+                new Student("Лилия", 2011, 0),
+                new Student("Дамир", 2012, 0),
+                new Student("Амина", 2013, 0),
+                new Student("Марат", 2014, 0),
+                new Student("Айгуль", 2015, 0),
+                new Student("Яков", 2016, 0),
+                new Student("Нелли", 2017, 0),
+                new Student("Прохор", 2018, 0),
+                new Student("Камилла", 2019, 0),
+                new Student("Владлен", 2020, 0),
+                new Student("Лейла", 2021, 0),
+                new Student("Сергей-Виктор", 2022, 0),
+                new Student("Агата", 2023, 0),
+                new Student("Самуил", 2024, 0),
+                new Student("Рита", 2025, 0)
+        );
+
+        List<String> schoolName = List.of(
+                "Хогвартс",
+                "Шармбатон",
+                "Дурмстранг",
+                "Ильверморни",
+                "Махотокоро",
+                "Кастелобрушу",
+                "Уагаду",
+                "Северное сияние",
+                "Лунная академия",
+                "Звёздный институт магии"
+        );
+
+        List<List<Student>> studentsChunk = chunk(students, schoolName.size());
+
+        return IntStream.range(0, schoolName.size())
+                .mapToObj(i -> new School(schoolName.get(i), studentsChunk.get(i)))
+                .toList();
+    }
+
+    public static List<Task> tasks() {
+        return List.of(
+                new Task("Защита замка от нападения", 12, 150),
+                new Task("Разведка в тёмном лесу", 8, 80),
+                new Task("Собрать редкие ингредиенты", 6, 60),
+                new Task("Дуэль с магом соперника", 15, 200),
+                new Task("Тренировка армии", 10, 100),
+                new Task("Охота на дракона", 18, 300),
+                new Task("Поиск древнего артефакта", 14, 180),
+                new Task("Оборона деревни", 9, 90),
+                new Task("Доставка секретного послания", 7, 70),
+                new Task("Исследование подземелий", 13, 160),
+                new Task("Схватка с бандитами", 11, 120),
+                new Task("Проверка магической защиты", 5, 50),
+                new Task("Сбор налогов", 4, 40),
+                new Task("Секретное задание от короля", 16, 220),
+                new Task("Переговоры с союзниками", 6, 55),
+                new Task("Набег на вражеский лагерь", 12, 140),
+                new Task("Охрана каравана", 8, 75),
+                new Task("Спасение пленника", 13, 170),
+                new Task("Сбор разведданных", 9, 85),
+                new Task("Подготовка к великой битве", 20, 400)
+        );
+    }
+}
