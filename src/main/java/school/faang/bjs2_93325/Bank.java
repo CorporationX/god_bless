@@ -47,18 +47,16 @@ public class Bank {
 
 
     public double getTotalBalance() {
+        lock.lock();
         double balance = totalBalance.updateAndGet(d -> sumBalance());
         log.info("Получена общий баланс банка {}", balance);
+        lock.unlock();
         return balance;
     }
 
     private double sumBalance() {
-        lock.lock();
-        double sum = accounts.values().stream()
+        return accounts.values().stream()
                 .mapToDouble(Account::getBalance)
                 .sum();
-        lock.unlock();
-        return sum;
-
     }
 }
