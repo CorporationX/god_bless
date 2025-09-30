@@ -6,34 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
-    private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
 
     @SneakyThrows
-    public void startAutoUpload() {
-        synchronized (lock) {
-            while (true) {
-                if (photosToUpload.isEmpty()) {
-                    lock.wait();
-                }
-                uploadPhotos();
+    public synchronized void startAutoUpload() {
+        while (true) {
+            while (photosToUpload.isEmpty()) {
+                wait();
             }
+            uploadPhotos();
         }
     }
 
-    public void onNewPhotoAdded(String photoPath) {
-        synchronized (lock) {
-            photosToUpload.add(photoPath);
-            lock.notify();
-        }
+    public synchronized void onNewPhotoAdded(String photoPath) {
+        photosToUpload.add(photoPath);
+        notify();
     }
 
-    private void uploadPhotos() {
-        synchronized (lock) {
-            for (String photo : photosToUpload) {
-                System.out.printf("Фото %s загружено на сервер.%n", photo);
-            }
-            photosToUpload.clear();
+    private synchronized void uploadPhotos() {
+        for (String photo : photosToUpload) {
+            System.out.printf("Фото %s загружено на сервер.%n", photo);
         }
+        photosToUpload.clear();
     }
 }
