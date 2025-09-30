@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class MonitoringSystem {
-    private ConcurrentHashMap<Integer, Double> substationData = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Integer, Double> substationData = new ConcurrentHashMap<>();
 
     public void updateData(int substationId, double averageData) {
         substationData.put(substationId, averageData);
