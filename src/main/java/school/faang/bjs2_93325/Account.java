@@ -13,17 +13,12 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Account {
     private final int id;
     private double balance;
-    private final Lock lock = new ReentrantLock();
 
     public void deposit(double amount) {
-        lock.lock();
         balance += amount;
-        lock.unlock();
     }
 
     public void withdraw(double amount) {
-        lock.lock();
         balance -= amount;
-        lock.unlock();
     }
 }

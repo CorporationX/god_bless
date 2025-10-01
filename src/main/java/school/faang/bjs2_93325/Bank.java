@@ -31,8 +31,13 @@ public class Bank {
             }
 
             if (accountStart.getBalance() >= amount) {
-                accountStart.withdraw(amount);
-                accountFinish.deposit(amount);
+                try {
+                    lock.lock();
+                    accountStart.withdraw(amount);
+                    accountFinish.deposit(amount);
+                } finally {
+                    lock.unlock();
+                }
                 log.info("Был сделан перевод со счета {} на счет {}", accountStart, accountFinish);
                 return true;
             } else {
@@ -47,11 +52,14 @@ public class Bank {
 
 
     public double getTotalBalance() {
-        lock.lock();
-        double balance = totalBalance.updateAndGet(d -> sumBalance());
-        log.info("Получена общий баланс банка {}", balance);
-        lock.unlock();
-        return balance;
+        try {
+            lock.lock();
+            double balance = totalBalance.updateAndGet(d -> sumBalance());
+            log.info("Получена общий баланс банка {}", balance);
+            return balance;
+        } finally {
+            lock.unlock();
+        }
     }
 
     private double sumBalance() {
