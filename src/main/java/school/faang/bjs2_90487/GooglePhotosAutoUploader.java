@@ -6,23 +6,18 @@ import java.util.List;
 
 public class GooglePhotosAutoUploader {
     private static final int THREAD_SLEEP = 1000;
-    private final Object lock = new Object();
     private final List<String> photosToUpload = Collections.synchronizedList(new ArrayList<>());
 
-    public void startAutoUpload() throws InterruptedException {
-        synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
-                lock.wait();
-            }
-            uploadPhotos();
+    public synchronized void startAutoUpload() throws InterruptedException {
+        while (photosToUpload.isEmpty()) {
+            wait();
         }
+        uploadPhotos();
     }
 
-    public void onNewPhotoAdded(String photoPath) {
-        synchronized (lock) {
-            photosToUpload.add(photoPath);
-            lock.notify();
-        }
+    public synchronized void onNewPhotoAdded(String photoPath) {
+        photosToUpload.add(photoPath);
+        notify();
     }
 
     public void uploadPhotos() throws InterruptedException {
