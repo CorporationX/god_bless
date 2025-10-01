@@ -14,7 +14,7 @@ class Battle {
             int firstRobotPower = firstRobot.getTotalPower();
             int secondRobotPower = secondRobot.getTotalPower();
 
-            System.out.printf("Битва: %s VS %s%n", firstRobot.getName(), secondRobot.getName());
+            System.out.printf("Битва между: %s VS %s%n", firstRobot.getName(), secondRobot.getName());
 
             if (firstRobotPower > secondRobotPower) {
                 return firstRobot;
