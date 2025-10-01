@@ -1,0 +1,36 @@
+package school.faang.bjs294515;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class Battle {
+    public static void main(String[] args) {
+
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+
+        QuestSystem questSystem = new QuestSystem(executorService);
+
+        Player player1 = new Player("Thrall", 10, new AtomicInteger(250));
+        Player player2 = new Player("Sylvanas", 12, new AtomicInteger(450));
+
+        Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
+        Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
+
+        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
+        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
+
+        player1Quest.thenAccept(player -> System.out.println(
+                String.format("%s has completed the quest and now has %d experience points.",
+                    player.getName(), player.getExperience())));
+        player2Quest.thenAccept(player -> System.out.println(
+                String.format("%s has completed the quest and now has %d experience points.",
+                    player.getName(), player.getExperience())));
+
+        CompletableFuture.allOf(player1Quest, player2Quest).join();
+
+        executorService.shutdown();
+    }
+}
+
