@@ -6,10 +6,18 @@ import lombok.Getter;
 public class Game {
     private int score = 0;
     private int lives = 100;
+
+    private volatile boolean isGameOver = false;
+
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
 
+
     public void update(boolean hasScored, boolean lostLife) {
+        if (isGameOver) {
+            return;
+        }
+
         synchronized (scoreLock) {
             if (hasScored) {
                 score++;
@@ -29,6 +37,7 @@ public class Game {
     }
 
     private void gameOver() {
+        isGameOver = true;
         System.out.printf("Игра окончена. Игрок набрал %d очков.", score);
     }
 }
