@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 @AllArgsConstructor
-@ToString(exclude = "lock")
+@ToString
 public class Account {
     private final int id;
     private double balance;
