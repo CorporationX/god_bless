@@ -9,26 +9,31 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class OrderProcessor {
 
+    private static final int PROCESSING_DELAY_MILLIS = 3000;
+
     AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
-    public void processOrder(Order order) throws InterruptedException {
-        System.out.println("Processing order with ID: " + order.getId());
-        Thread.sleep(3000);
-        totalProcessedOrders.incrementAndGet();
-        order.setStatus("Processed");
+    public CompletableFuture<Void> processOrder(Order order) {
+        return CompletableFuture.runAsync(() -> {
+            try {
+                System.out.println("Processing order with ID: " + order.getId());
+                Thread.sleep(PROCESSING_DELAY_MILLIS);
+                totalProcessedOrders.incrementAndGet();
+                order.setStatus("Processed");
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                log.error("Error processing order", e);
+            }
+        });
     }
 
     public void processAllOrders(List<Order> orders) {
-        CompletableFuture.allOf(orders.stream()
-            .map(order -> CompletableFuture.runAsync(() -> {
-                try {
-                    processOrder(order);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    log.error("Error processing order", e);
-                }
-            })).toArray(CompletableFuture[]::new))
-            .join();
+        List<CompletableFuture<Void>> futures = orders.stream()
+            .map(this::processOrder)
+            .toList();
+
+        CompletableFuture<Void> allOf = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+        allOf.join();
 
         System.out.println("Total processed orders: " + totalProcessedOrders.get());
     }
