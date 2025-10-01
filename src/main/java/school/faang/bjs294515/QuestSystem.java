@@ -4,12 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestSystem {
+    private static final int MILLISECONDS_IN_SECOND = 1000;
+
     private Player player;
     private Quest quest;
+    private ExecutorService executorService;
+
+    public QuestSystem(ExecutorService executorService) {
+        this.executorService = executorService;
+    }
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         if (player == null || quest == null) {
@@ -18,15 +26,15 @@ public class QuestSystem {
 
         return CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(1000 * quest.getDifficulty());
-                player.setExperience(player.getExperience() + quest.getReward());
-                System.out.println("" + player.getName() + " is completing the quest: " + quest.getName()
-                        + " with difficulty: " + quest.getDifficulty() + " and reward: " + quest.getReward() + ". ");
+                Thread.sleep(MILLISECONDS_IN_SECOND * quest.getDifficulty());
+                player.addExperience(quest.getReward());
+                System.out.println(String.format("%s is completing the quest: %s with difficulty: %d and reward: %d.",
+                    player.getName(), quest.getName(), quest.getDifficulty(), quest.getReward()));
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.err.println("Thread interrupted: " + e.getMessage());
             }
             return player;
-        });
+        }, executorService);
     }
 }
