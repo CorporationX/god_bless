@@ -6,14 +6,14 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Player {
-    public static final int THREAD_SLEAP = 100;
+    public static final int THREAD_SLEEP = 100;
     private String name;
 
     public void doBattle(Boss boss) {
         boss.joinBattle(this);
         try {
             System.out.println(name + " сражается с боссом...");
-            Thread.sleep(THREAD_SLEAP);
+            Thread.sleep(THREAD_SLEEP);
         } catch (InterruptedException e) {
             System.out.println(name + " был прерван во время сражения.");
             Thread.currentThread().interrupt();

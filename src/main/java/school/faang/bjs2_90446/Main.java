@@ -1,6 +1,12 @@
 package school.faang.bjs2_90446;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 public class Main {
+    private static final int AWAIT_TERMINATION = 1;
+
     public static void main(String[] args) {
         Boss boss = new Boss(3);
 
@@ -11,15 +17,21 @@ public class Main {
                 new Player("Player 4")
         };
 
-        Thread[] threads = new Thread[] {
-                new Thread(() -> players[0].doBattle(boss)),
-                new Thread(() -> players[1].doBattle(boss)),
-                new Thread(() -> players[2].doBattle(boss)),
-                new Thread(() -> players[3].doBattle(boss)),
-        };
+        ExecutorService threads = Executors.newFixedThreadPool(3);
 
-        for (Thread thread : threads) {
-            thread.start();
+        for (int i = 0; i < players.length; i++) {
+            int finalI = i;
+            threads.submit(() -> players[finalI].doBattle(boss));
+        }
+
+        threads.shutdown();
+
+        try {
+            if (!threads.awaitTermination(AWAIT_TERMINATION, TimeUnit.MINUTES)) {
+                threads.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            threads.shutdownNow();
         }
     }
 }
