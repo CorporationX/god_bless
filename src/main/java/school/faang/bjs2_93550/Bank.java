@@ -25,11 +25,11 @@ public class Bank {
     public void transfer(long fromAccountId, long toAccountId, double amount) {
         CompletableFuture.runAsync(() -> {
             if (fromAccountId == toAccountId) {
-                log.info("Переводы между одинаковыми счетами недоступны");
+                log.warn("Переводы между одинаковыми счетами недоступны");
             } else if (!accounts.containsKey(fromAccountId)) {
-                log.info("Аккаунт с ID = {} не существует", fromAccountId);
+                log.error("Аккаунт с ID = {} не существует", fromAccountId);
             } else if (!accounts.containsKey(toAccountId)) {
-                log.info("Аккаунт с ID = {} не существует", toAccountId);
+                log.error("Аккаунт с ID = {} не существует", toAccountId);
             } else {
                 Account fromAccount = accounts.get(fromAccountId);
                 Account toAccount = accounts.get(toAccountId);

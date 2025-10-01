@@ -18,8 +18,8 @@ public class Main {
                 bank.addAccount(new Account(2322.01))
         );
         CompletableFuture.allOf(allAccounts.toArray(new CompletableFuture[0]))
-                .thenRun(() -> log.info("Все аккаунты созданы"))
                 .thenRun(() -> {
+                    log.info("Все аккаунты созданы");
                     try {
                         log.info("Итоговый баланс в банке: {}", bank.getTotalBalance());
                     } catch (InterruptedException | ExecutionException e) {
