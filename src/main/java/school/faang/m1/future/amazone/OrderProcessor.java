@@ -1,11 +1,9 @@
 package school.faang.m1.future.amazone;
 
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderProcessor implements AutoCloseable {
@@ -40,7 +38,7 @@ public class OrderProcessor implements AutoCloseable {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         exec.shutdown();
     }
 }
