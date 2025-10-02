@@ -29,21 +29,23 @@ public class Bank {
                         accountStart, accountFinish);
                 return false;
             }
-
-            if (accountStart.getBalance() >= amount) {
-                try {
-                    lock.lock();
+            try {
+                accountStart.getLock().lock();
+                accountFinish.getLock().lock();
+                if (accountStart.getBalance() >= amount) {
                     accountStart.withdraw(amount);
                     accountFinish.deposit(amount);
-                } finally {
-                    lock.unlock();
+                } else {
+                    log.info("На счетe {} не хватает денег");
+                    return false;
                 }
-                log.info("Был сделан перевод со счета {} на счет {}", accountStart, accountFinish);
-                return true;
-            } else {
-                log.info("На счетe {} не хватает денег");
-                return false;
+            } finally {
+                accountStart.getLock().unlock();
+                accountFinish.getLock().unlock();
             }
+            log.info("Был сделан перевод со счета {} на счет {}", accountStart, accountFinish);
+            return true;
+
         } catch (Exception e) {
             log.warn("Произошла неизвестная ошибка!!", e.getMessage());
             return false;

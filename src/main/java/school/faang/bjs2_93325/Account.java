@@ -9,10 +9,11 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 @AllArgsConstructor
-@ToString
+@ToString(exclude = "lock")
 public class Account {
     private final int id;
     private double balance;
+    private final Lock lock = new ReentrantLock();
 
     public void deposit(double amount) {
         balance += amount;
