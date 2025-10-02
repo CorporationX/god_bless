@@ -22,9 +22,7 @@ public class Tournament implements AutoCloseable {
 
     CompletableFuture<School> startTask(School school, Task task) {
         return CompletableFuture.supplyAsync(() -> {
-            for (Student student : school.getTeam()) {
-                student.addPoints(task.getReward());
-            }
+            school.getTeam().forEach(student -> student.addPoints(task.getReward()));
             return school;
         }, exec);
     }
