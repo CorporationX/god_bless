@@ -10,23 +10,25 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class Main {
+    private static final int COUNT_THREADS = 5;
+    private static final int COUNT_DONATIONS_IN_THREAD = 3;
+    private static final int TIME_FOR_WAITING = 100;
+
     public static void main(String[] args) throws InterruptedException {
         Organization organization = new Organization();
-        int threadsCount = 5;
-        int donationsPerThread = 3;
         AtomicInteger id = new AtomicInteger(0);
 
         List<Thread> threads = new ArrayList<>();
-        for (int i = 0; i < threadsCount; i++) {
+        for (int i = 0; i < COUNT_THREADS; i++) {
             Thread thread = new Thread(() -> {
-                for (int j = 0; j < donationsPerThread; j++) {
+                for (int j = 0; j < COUNT_DONATIONS_IN_THREAD; j++) {
                     BigDecimal amount = BigDecimal.valueOf(Math.random() * 100 + 1)
                             .setScale(2, RoundingMode.HALF_UP);
                     Donation donation = new Donation(id.incrementAndGet(), amount);
                     organization.addDonation(donation);
 
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(TIME_FOR_WAITING);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         break;
