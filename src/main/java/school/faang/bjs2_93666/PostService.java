@@ -29,8 +29,8 @@ public class PostService {
     }
 
     public void addComment(int postId, Comment comment) {
-        isValidatesId(postId);
-        isValidatesComment(comment);
+        validateId(postId);
+        validateComment(comment);
         try {
             lock.lock();
             Post post = getPost(postId);
@@ -42,7 +42,7 @@ public class PostService {
     }
 
     public Post getPost(int postId) {
-        isValidatesId(postId);
+        validateId(postId);
         return posts.stream()
                 .filter(post -> post.getId() == postId)
                 .findFirst()
@@ -50,20 +50,17 @@ public class PostService {
     }
 
     public List<Comment> getComment(int postId) {
-        isValidatesId(postId);
+        validateId(postId);
         return getPost(postId).getComments();
     }
 
     public void removePost(int postId) {
-        isValidatesId(postId);
+        validateId(postId);
         try {
             lock.lock();
-            if (isTrustAuthorPost(postId)) {
+            if (isCurrentUserPostAuthor(postId)) {
                 log.info("Ваш пост {} удален!", getPost(postId).getTitle());
-                posts.stream()
-                        .filter(post -> post.getId() == postId)
-                        .findFirst()
-                        .map(posts::remove);
+                posts.removeIf(post -> post.getId() == postId);
             }
         } finally {
             lock.unlock();
@@ -85,23 +82,24 @@ public class PostService {
         }
     }
 
-    private void isValidatesId(int number) {
-        if (number < 0) {
+    private void validateId(int id) {
+        if (id < 0) {
             log.error("Валидация на Id не прошла");
             throw new IllegalArgumentException("Id не может быть меньше 0");
         }
     }
 
-    private void isValidatesComment(Comment comment) {
+    private void validateComment(Comment comment) {
         if (comment == null) {
             throw new IllegalArgumentException("Id поста не может быть меньше 0. Комментарий не может быть пустым");
         }
     }
 
-    private boolean isTrustAuthorPost(int postId) {
+    private boolean isCurrentUserPostAuthor(int postId) {
         Post post = this.getPost(postId);
         if (!post.getAuthor().equals(Thread.currentThread().getName())) {
             log.info("Вы не автор данного поста! Удаление невозможно");
+            return false;
         }
         return true;
     }
