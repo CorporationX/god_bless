@@ -31,11 +31,11 @@ public class MasterCardService {
     }
 
     public void doAll() throws ExecutionException, InterruptedException {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+        ExecutorService executor = Executors.newFixedThreadPool(2);
         Future<Integer> futurePaymentResult = executor.submit(MasterCardService::collectPayment);
 
         CompletableFuture<Integer> futureAnalyticsResult =
-                CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+                CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
 
         System.out.printf("Аналитика отправлена: %d%n", futureAnalyticsResult.join());
         System.out.printf("Платеж выполнен: %d%n", futurePaymentResult.get());
