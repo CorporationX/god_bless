@@ -8,11 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Order {
-    int id;
-    Status status;
-
-    public enum Status {
-        NEW,
-        PROCESSED
-    }
+    private final int id;
+    private Status status;
 }

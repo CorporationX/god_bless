@@ -6,9 +6,9 @@ public class AmazonOrderProcessing {
     public static void main(String[] args) {
         try (OrderProcessor processor = new OrderProcessor()) {
             List<Order> orders = List.of(
-                    new Order(1, Order.Status.NEW),
-                    new Order(2, Order.Status.NEW),
-                    new Order(3, Order.Status.NEW)
+                    new Order(1, Status.NEW),
+                    new Order(2, Status.NEW),
+                    new Order(3, Status.NEW)
             );
             processor.processAllOrders(orders); // ожидает завершение всех задач
         } catch (Exception e) {

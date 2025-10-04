@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderProcessor implements AutoCloseable {
@@ -14,17 +15,17 @@ public class OrderProcessor implements AutoCloseable {
 
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
-    public CompletableFuture<Order> processOrder(Order order) {
+    public CompletableFuture<Void> processOrder(Order order) {
 
-        return CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.runAsync(() -> {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
+                return;
             }
-            order.setStatus(Order.Status.PROCESSED);
+            order.setStatus(Status.PROCESSED);
             totalProcessedOrders.getAndAdd(1);
-            return order;
         }, exec);
     }
 
@@ -40,6 +41,14 @@ public class OrderProcessor implements AutoCloseable {
     @Override
     public void close() {
         exec.shutdown();
+        try {
+            if (!exec.awaitTermination(5, TimeUnit.SECONDS)) {
+                exec.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            exec.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
 }
 
