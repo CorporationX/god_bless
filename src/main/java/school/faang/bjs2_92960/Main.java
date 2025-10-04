@@ -11,9 +11,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class Main {
-
-
     public static void main(String[] args) {
+
         final ExecutorService ex = Executors.newFixedThreadPool(3);
         final List<Potion> potions = List.of(new Potion("Healing salve", 2),
                 new Potion("Bismuth flask", 5),
@@ -33,7 +32,7 @@ public class Main {
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
 
-        AtomicInteger allIngredients = new AtomicInteger();
+        AtomicInteger allIngredients = new AtomicInteger(0);
         futures.forEach(future -> {
             try {
                 allIngredients.addAndGet(future.get());
@@ -45,7 +44,6 @@ public class Main {
         });
 
         log.info("Total ingredients gathering: {}", allIngredients);
-
         ex.shutdown();
         try {
             if (!ex.awaitTermination(15, TimeUnit.SECONDS)) {
