@@ -14,12 +14,9 @@ public class School {
     private final String name;
     private final List<Student> team;
 
-    private final ExecutorService ex = Executors.newFixedThreadPool(5);
-
-    public CompletableFuture<Integer> getTotalPoints() {
-        return CompletableFuture.supplyAsync(() -> {
-            team.stream().int
-
-        }, ex);
+    public int getTotalPoints() {
+        return team.stream()
+                .mapToInt(Student::getPoints)
+                .sum();
     }
 }
