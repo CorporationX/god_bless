@@ -17,6 +17,7 @@ public class Tournament {
                 Thread.sleep(1_000L * task.getDifficulty());
             } catch (InterruptedException e) {
                 log.error("Task {} delayed interrupted: {}", task.getName(), e.getMessage());
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
             school.getTeam().forEach(student -> {
