@@ -9,17 +9,12 @@ public class TwitterSubscriptionSystem implements AutoCloseable {
     private final ExecutorService exec =
             Executors.newFixedThreadPool(Math.min(4, Math.max(1, Runtime.getRuntime().availableProcessors())));
 
-    public void addFollower(TwitterAccount account) {
-        synchronized (account) {
-            account.setFollowers(account.getFollowers() + 1);
-        }
+    public synchronized void addFollower(TwitterAccount account) {
+        account.setFollowers(account.getFollowers() + 1);
     }
 
-    public CompletableFuture<TwitterAccount> followAccount(TwitterAccount account) {
-        return CompletableFuture.supplyAsync(() -> {
-            addFollower(account);
-            return account;
-        }, exec);
+    public CompletableFuture<Void> followAccount(TwitterAccount account) {
+        return CompletableFuture.runAsync(() -> addFollower(account), exec);
     }
 
     @Override
