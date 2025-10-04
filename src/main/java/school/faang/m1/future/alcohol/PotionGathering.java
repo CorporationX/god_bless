@@ -26,7 +26,7 @@ public class PotionGathering {
         try {
             AtomicInteger total = new AtomicInteger();
             var futures = potions.stream()
-                    .map(p -> CompletableFuture.supplyAsync(() -> gatherIngredients(p), exec)
+                    .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion), exec)
                             .thenAccept(total::addAndGet)).toArray(CompletableFuture[]::new);
 
             CompletableFuture.allOf(futures).join();
@@ -41,7 +41,8 @@ public class PotionGathering {
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Ошибка при сборе ингредиентов для: " + potion.getName(), e);
         }
         return potion.getRequiredIngredients();
     }
