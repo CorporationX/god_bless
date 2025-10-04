@@ -1,4 +1,4 @@
-package school.faang.m1.future.turnament;
+package school.faang.m1.future.tournament;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -31,20 +31,17 @@ public class MagicalTournament {
             CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
 
             // Объединяем и ждём завершения
-            CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
-            allTasks.join();
+            CompletableFuture<List<School>> finished =
+                    CompletableFuture.allOf(hogwartsTask, beauxbatonsTask)
+                            .thenApply(v -> List.of(hogwartsTask.join(), beauxbatonsTask.join()));
 
-            List<School> finished = Arrays.asList(hogwartsTask.join(), beauxbatonsTask.join());
-
-            // Сортируем по очкам по убыванию
-            List<School> standings = finished.stream()
+            List<School> standings = finished.join().stream()
                     .sorted(Comparator.comparingInt(School::getTotalPoints).reversed())
                     .toList();
 
             // Победитель
             School winner = standings.get(0);
-            System.out.printf("%nWinner: %s with %d points!%n",
-                    winner.getName(), winner.getTotalPoints());
+            System.out.printf("%nWinner: %s with %d points!%n", winner.getName(), winner.getTotalPoints());
         }
     }
 }

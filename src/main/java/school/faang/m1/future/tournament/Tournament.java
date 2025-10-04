@@ -1,8 +1,9 @@
-package school.faang.m1.future.turnament;
+package school.faang.m1.future.tournament;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Tournament implements AutoCloseable {
 
@@ -22,7 +23,7 @@ public class Tournament implements AutoCloseable {
 
     CompletableFuture<School> startTask(School school, Task task) {
         return CompletableFuture.supplyAsync(() -> {
-            school.getTeam().forEach(student -> student.addPoints(task.getReward()));
+            school.getTeam().forEach(student -> student.addPoints(task.reward()));
             return school;
         }, exec);
     }
@@ -30,5 +31,13 @@ public class Tournament implements AutoCloseable {
     @Override
     public void close() {
         exec.shutdown();
+        try {
+            if (!exec.awaitTermination(5, TimeUnit.SECONDS)) {
+                exec.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            exec.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
 }

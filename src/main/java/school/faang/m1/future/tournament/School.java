@@ -1,4 +1,4 @@
-package school.faang.m1.future.turnament;
+package school.faang.m1.future.tournament;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
