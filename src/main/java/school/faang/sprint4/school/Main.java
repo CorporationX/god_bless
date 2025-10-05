@@ -31,6 +31,8 @@ public class Main {
         allTasks
                 .thenRun(tournament::printResults)
                 .thenRun(() -> System.out.printf("Winner is %s\n", tournament.getWinner().getName()))
-                .thenRun(tournament::end);
+                .join();
+
+        tournament.end();
     }
 }

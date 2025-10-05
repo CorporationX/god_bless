@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 public class Tournament {
-    private static final Integer TIME_AWAIT_MINUTE = 5;
+    private static final Integer TIME_AWAIT_SECONDS = 5;
     private final ExecutorService executorService = Executors.newFixedThreadPool(8);
     private final List<School> schools;
 
@@ -36,7 +36,7 @@ public class Tournament {
     public void end() {
         executorService.shutdown();
         try {
-            if (executorService.awaitTermination(TIME_AWAIT_MINUTE, TimeUnit.MINUTES)) {
+            if (executorService.awaitTermination(TIME_AWAIT_SECONDS, TimeUnit.SECONDS)) {
                 System.out.println("Потоки завершили работу");
             } else {
                 System.out.println("Ошибка ожидания окончания работы потоков");
