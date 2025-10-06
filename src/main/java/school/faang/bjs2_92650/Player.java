@@ -10,7 +10,7 @@ public class Player {
     private int level;
     private int experience;
 
-    public void addExperience(int reward) {
+    public synchronized void addExperience(int reward) {
         experience += reward;
     }
 }
