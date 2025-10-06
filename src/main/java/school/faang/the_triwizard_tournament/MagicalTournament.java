@@ -2,6 +2,7 @@ package school.faang.the_triwizard_tournament;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
@@ -41,7 +42,7 @@ public class MagicalTournament {
 
         allTasks.thenRun(() -> {
             School winner = Stream.of(hogwarts, beauxbatons)
-                    .max((s1, s2) -> Integer.compare(s1.getTotalPoints(), s2.getTotalPoints()))
+                    .max(Comparator.comparingInt(School::getTotalPoints))
                     .orElseThrow();
 
             log.info("🏆 Победитель турнира: {} с {} очками!", winner.getName(), winner.getTotalPoints());
