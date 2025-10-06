@@ -31,7 +31,7 @@ public class SubscriptionSystem {
     }
 
 
-    public CompletableFuture<Void> followAccount(TwitterAccount followerAccount, TwitterAccount targetAccount) {
+    private CompletableFuture<Void> followAccount(TwitterAccount followerAccount, TwitterAccount targetAccount) {
         return CompletableFuture.runAsync(() -> addFollower(followerAccount, targetAccount), ex);
     }
 
