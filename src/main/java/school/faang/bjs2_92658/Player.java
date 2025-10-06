@@ -10,13 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 public class Player {
 
     private static final int FIRST_LEVEL_UP_EXP = 50;
-    private static final double EXP_MULTIPLIER_FOR_LEVEL_UP = 1.8;
+    private static final double EXP_MULTIPLIER_FOR_LEVEL_UP = 1.5;
 
     private final String name;
     private int level;
     private int experience;
 
-    public void addExp(int reward) {
+    public synchronized void addExp(int reward) {
         if (reward < 0) {
             throw new IllegalArgumentException("The experience gained cannot be negative");
         }

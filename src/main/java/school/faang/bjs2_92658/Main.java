@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 public class Main {
     public static void main(String[] args) {
         QuestSystem system = new QuestSystem();
-        Quest sin = new Quest("Defeat THE Sin", 3, 100_000_000);
+        Quest sin = new Quest("Defeat THE Sin", 2, 100_000_000);
         Quest kitava = new Quest("The GOD Kitava", 2, 2_500);
         Quest dragonSlayer = new Quest("Slay the Ancient Dragon", 3, 150_000);
         Quest lostTemple = new Quest("Explore the Lost Temple", 3, 10_000);
@@ -25,8 +25,10 @@ public class Main {
         CompletableFuture<Player> pathOfMystic = system.startQuest(sorcerer, darkRitual);
         CompletableFuture<Player> pathOfValor = system.startQuest(knight, dragonSlayer);
         CompletableFuture<Player> pathOfAdventure = system.startQuest(rogue, lostTemple);
+        CompletableFuture<Player> pathOfAdventure2 = system.startQuest(amazon, sin);
 
-        CompletableFuture.allOf(pathOfNewbie, pathOfMadMan, pathOfAdventure,  pathOfMystic, pathOfValor).join();
+        CompletableFuture.allOf(pathOfNewbie, pathOfMadMan, pathOfAdventure,  pathOfMystic, pathOfValor,
+                pathOfAdventure2).join();
 
         system.executorsShutdown();
     }

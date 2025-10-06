@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class QuestSystem {
+    private static final long BASIC_QUEST_TIME_MS = 3_000;
+    private static final int AWAIT_TIME_SECONDS = 10;
 
     private final ExecutorService ex = Executors.newFixedThreadPool(4);
 
@@ -16,7 +18,7 @@ public class QuestSystem {
                 player.getName(), quest.getName(), quest.getDifficulty(), quest.getReward());
         return CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(3_000L * quest.getDifficulty());
+                Thread.sleep(BASIC_QUEST_TIME_MS * quest.getDifficulty());
             } catch (InterruptedException e) {
                 log.error("Quest {} delayed interrupted: {}", quest.getName(), e.getMessage());
                 Thread.currentThread().interrupt();
@@ -33,7 +35,7 @@ public class QuestSystem {
         ex.shutdown();
 
         try {
-            if (!ex.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (!ex.awaitTermination(AWAIT_TIME_SECONDS, TimeUnit.SECONDS)) {
                 log.error("Executor didn't terminate in time, shutting down");
                 ex.shutdownNow();
             }
