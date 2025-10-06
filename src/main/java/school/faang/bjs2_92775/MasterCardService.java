@@ -37,7 +37,7 @@ public class MasterCardService {
     public static void executeOperation() throws InterruptedException, ExecutionException {
         Future<Integer> paymentResult = OPERATION_EXECUTOR.submit(MasterCardService::collectPayment);
 
-        CompletableFuture.supplyAsync(MasterCardService::sendAnalytics)
+        CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, OPERATION_EXECUTOR)
                 .thenAccept((result) -> log.info("Данные аналитики: {}", result))
                 .join();
 
