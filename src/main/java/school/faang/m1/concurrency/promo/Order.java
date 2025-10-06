@@ -9,13 +9,14 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @AllArgsConstructor
 @Getter
 @Setter
 public class Order {
     private final List<Product> products = new ArrayList<>();
-    private final java.util.concurrent.atomic.AtomicReference<BigDecimal> appliedDiscountPercent
+    private final AtomicReference<BigDecimal> appliedDiscountPercent
             = new java.util.concurrent.atomic.AtomicReference<>(new BigDecimal("0.00"));
 
     public Order(Collection<Product> items) {
@@ -29,11 +30,10 @@ public class Order {
     }
 
     public BigDecimal getTotalPrice() {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Product p : products) {
-            sum = sum.add(p.price());
-        }
-        return sum.setScale(2, RoundingMode.HALF_UP);
+        return products.stream()
+                .map(Product::price)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .setScale(2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getPayableAmount() {
