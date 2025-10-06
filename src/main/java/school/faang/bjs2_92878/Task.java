@@ -5,12 +5,12 @@ import lombok.Getter;
 @Getter
 public class Task {
     private final String name;
-    private final Difficult difficult;
+    private final Difficulty difficulty;
     private final int reward;
 
-    public Task(String name, Difficult difficult) {
+    public Task(String name, Difficulty difficulty) {
         this.name = name;
-        this.difficult = difficult;
-        this.reward = difficult.getDifficultLevelPoints() * 2;
+        this.difficulty = difficulty;
+        this.reward = difficulty.getDifficultLevelPoints() * 2;
     }
 }

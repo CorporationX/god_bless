@@ -15,8 +15,8 @@ public class Tournament {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 log.info("ученики школы {} выполняют задание \"{}\" со сложностью {}...", school.getName(),
-                        task.getName(), task.getDifficult());
-                TimeUnit.SECONDS.sleep(task.getDifficult().getDifficultLevelPoints());
+                        task.getName(), task.getDifficulty());
+                TimeUnit.SECONDS.sleep(task.getDifficulty().getDifficultLevelPoints());
                 school.increaseSchoolPoints(task.getReward());
                 log.info("ученики школы {} успешно справились с заданием!", school.getName());
                 return school;
