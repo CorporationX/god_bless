@@ -4,22 +4,25 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 @Slf4j
 public class Main {
+    private static final int NUMBER_OF_ACCOUNTS_FOR_TEST = 1_000;
+
     public static void main(String[] args)  {
-        TwitterAccount account = new TwitterAccount("exampleUser", 12_131);
+        TwitterAccount account = new TwitterAccount("exampleUser", new AtomicInteger());
         SubscriptionSystem system = new SubscriptionSystem();
 
-        List<TwitterAccount> accounts = Stream.generate(() -> account)
-                .limit(100_000)
+        List<TwitterAccount> accounts = IntStream.range(0, NUMBER_OF_ACCOUNTS_FOR_TEST)
+                .mapToObj(i -> new TwitterAccount("Test account " + i, new AtomicInteger()))
                 .toList();
 
+
         try {
-            CompletableFuture<Void> allTasks = system.followMultipleTimes(accounts);
-            allTasks.get(100, TimeUnit.SECONDS);
+            CompletableFuture<Void> allTasks = system.followMultipleTimes(accounts, account);
+            allTasks.join();
             log.info("Final number of followers: {}", account.getFollowers());
         } catch (Exception e) {
             log.error(e.getMessage());
