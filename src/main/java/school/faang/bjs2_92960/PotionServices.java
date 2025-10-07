@@ -2,7 +2,6 @@ package school.faang.bjs2_92960;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -11,7 +10,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class PotionServices {
     private static final long BASIC_DURATION = 2_000;
     private final AtomicInteger atomInt = new AtomicInteger();
-
 
     public CompletableFuture<Void> gatherIngredient(Potion potion) {
         return CompletableFuture

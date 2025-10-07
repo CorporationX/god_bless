@@ -1,7 +1,6 @@
 package school.faang.bjs2_92960;
 
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -10,16 +9,14 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-
     public static void main(String[] args) {
         final ExecutorService ex = Executors.newFixedThreadPool(3);
-
-        PotionServices service = new PotionServices();
 
         final List<Potion> potions = List.of(new Potion("Healing salve", 2),
                 new Potion("Bismuth flask", 5),
                 new Potion("Quicksilver flask", 3));
 
+        PotionServices service = new PotionServices();
 
         List<CompletableFuture<Void>> futures = potions.stream()
                 .map(service::gatherIngredient)
