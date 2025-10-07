@@ -2,7 +2,6 @@ package school.faang.bjs2_92923;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
@@ -19,4 +18,4 @@ public class Student {
     public int getPoints() {
         return points.get();
     }
- }
+}
