@@ -9,13 +9,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Student {
     private final String name;
     private final int year;
-    private final AtomicInteger points = new AtomicInteger();
+    private final AtomicInteger pointss = new AtomicInteger();
 
     public void addPoints(int addedPoints) {
-        points.addAndGet(addedPoints);
+        pointss.addAndGet(addedPoints);
     }
 
     public int getPoints() {
-        return points.get();
+        return pointss.get();
     }
 }
