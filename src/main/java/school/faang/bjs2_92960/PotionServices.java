@@ -2,6 +2,7 @@ package school.faang.bjs2_92960;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
