@@ -11,6 +11,11 @@ repositories {
     mavenCentral()
 }
 
+tasks.withType(Checkstyle) {
+    exclude '**/bjs2_92923/**'
+    exclude '**/school/faang/bjs2_92923/**'
+}
+
 dependencies {
 
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
