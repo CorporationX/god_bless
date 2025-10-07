@@ -6,16 +6,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 @AllArgsConstructor
+@SuppressWarnings("checkstyle:Indentation")
 public class Student {
     private final String name;
     private final int year;
-    private final AtomicInteger pointss = new AtomicInteger();
+    private final AtomicInteger points = new AtomicInteger();
 
     public void addPoints(int addedPoints) {
-        pointss.addAndGet(addedPoints);
+        points.addAndGet(addedPoints);
     }
 
     public int getPoints() {
-        return pointss.get();
+        return points.get();
     }
 }
