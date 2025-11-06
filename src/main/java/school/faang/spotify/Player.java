@@ -26,5 +26,4 @@ public class Player {
     public synchronized void previous() {
         System.out.println("Вернулись к предыдущему треку.");
     }
-
 }
